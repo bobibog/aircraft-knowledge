@@ -26,4 +26,4 @@ modal.propTypes = {
     modalClosed: PropTypes.func
 };
 
-export default modal;
+export default React.memo(modal);
