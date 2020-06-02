@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
+//import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import axios from '../../axios-airlines';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Airline from '../../components/Airline/Airline';
+//import Airline from '../../components/Airline/Airline';
+import Table from '../../components/UI/Table/Table';
 
 const Airlines = props => {
     const airlinesInit = [
@@ -10,6 +12,25 @@ const Airlines = props => {
         {AirlineId: 2, AirlineName: 'ACE Belgium Freifhters', IATA: 'X7', ICAO: 'FRH', Fleet: 1},
         {AirlineId: 3, AirlineName: 'Advanced Air', IATA: 'AN', ICAO: 'WSN', Fleet: 3},
         {AirlineId: 4, AirlineName: 'Aegean Airlines', IATA: 'A3', ICAO: 'AEE', Fleet: 53}
+    ];
+
+    const airlinesHeader = [
+        {
+          name: "Name",
+          prop: "AirlineName"
+        },
+        {
+          name: "IATA",
+          prop: "IATA"
+        },
+        {
+          name: "ICAO",
+          prop: "ICAO"
+        },
+        {
+          name: "Fleet",
+          prop: "Fleet"
+        }
     ];
     
     const [airlines, setAirlines] = useState(null);
@@ -42,28 +63,31 @@ const Airlines = props => {
 
 
 
-    let airlinesDataRows = null;
+    //let airlinesDataRows = null;
     let airlinesTable = <Spinner />;
     if (airlines) {
-        airlinesDataRows = airlines.map(airline => (
-            <Airline key={airline.AirlineId} airline={airline} />
-        ));
-        airlinesTable = (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Fleet</th>
-                        <th>IATA</th>
-                        <th>ICAO</th>                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {airlinesDataRows}
-                </tbody>                
-            </table>
-        );
+        airlinesTable = <Table 
+            data={airlines}
+            header={airlinesHeader} />;
+        // airlinesDataRows = airlines.map(airline => (
+        //     <Airline key={airline.AirlineId} airline={airline} />
+        // ));
+        // airlinesTable = (
+        //     <table>
+        //         <thead>
+        //             <tr>
+        //                 <th>Id</th>
+        //                 <th>Name</th>
+        //                 <th>Fleet</th>
+        //                 <th>IATA</th>
+        //                 <th>ICAO</th>                        
+        //             </tr>
+        //         </thead>
+        //         <tbody>
+        //             {airlinesDataRows}
+        //         </tbody>                
+        //     </table>
+        // );
     };
     
     return (
