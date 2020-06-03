@@ -6,7 +6,9 @@
 }
 
 .NavigationItem a {
-    color: #8F5C2C;
+    /* color: #8F5C2C; */
+    /* color: salmon; */
+    color: red;
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
@@ -16,10 +18,12 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: #40A4C8;
+    /* color: #40A4C8; */
+    color: rgb(0, 112, 192);
+    border-right: 12px solid rgb(252, 242, 34);
 }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
     .NavigationItem {
         margin: 0;
         display: flex;
@@ -30,6 +34,7 @@
     
     .NavigationItem a {
         color: white;
+        /* color: rgb(252, 242, 34); */
         height: 100%;
         padding: 16px 10px;
         border-bottom: 4px solid transparent;
@@ -38,8 +43,12 @@
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        background-color: #8F5C2C;
-        border-bottom: 4px solid #40A4C8;
-        color: white;
+        /* background-color: #8F5C2C; */
+        background-color: salmon;
+        /* border-bottom: 4px solid #40A4C8; */
+        border-bottom: 4px solid rgb(0, 112, 192);
+        border-right: none;
+        /* color: white; */
+        color: rgb(252, 242, 34);
     }
 }
