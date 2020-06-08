@@ -12,7 +12,11 @@ const Airlines = props => {
         {AirlineId: 1, AirlineName: 'ABX Air', IATA: 'GB', ICAO: 'ABX', Fleet: 15},
         {AirlineId: 2, AirlineName: 'ACE Belgium Freighters', IATA: 'X7', ICAO: 'FRH', Fleet: 1},
         {AirlineId: 3, AirlineName: 'Advanced Air', IATA: 'AN', ICAO: 'WSN', Fleet: 3},
-        {AirlineId: 4, AirlineName: 'Aegean Airlines', IATA: 'A3', ICAO: 'AEE', Fleet: 53}
+        {AirlineId: 4, AirlineName: 'Aegean Airlines', IATA: 'A3', ICAO: 'AEE', Fleet: 53},
+        {AirlineId: 5, AirlineName: 'Aer Lingus', IATA: 'EI', ICAO: 'EIN', Fleet: 68},
+        {AirlineId: 6, AirlineName: 'AerCaribe', IATA: 'JK', ICAO: 'ACL', Fleet: 3},
+        {AirlineId: 7, AirlineName: 'Aero Contractors', IATA: '', ICAO: 'NIG', Fleet: 3},
+        {AirlineId: 8, AirlineName: 'Aero Mongolia', IATA: 'M0', ICAO: 'MNG', Fleet: 5}
     ];
 
     const airlinesHeader = [
@@ -69,26 +73,7 @@ const Airlines = props => {
     if (airlines) {
         airlinesTable = <Table 
             data={airlines}
-            header={airlinesHeader} />;
-        // airlinesDataRows = airlines.map(airline => (
-        //     <Airline key={airline.AirlineId} airline={airline} />
-        // ));
-        // airlinesTable = (
-        //     <table>
-        //         <thead>
-        //             <tr>
-        //                 <th>Id</th>
-        //                 <th>Name</th>
-        //                 <th>Fleet</th>
-        //                 <th>IATA</th>
-        //                 <th>ICAO</th>                        
-        //             </tr>
-        //         </thead>
-        //         <tbody>
-        //             {airlinesDataRows}
-        //         </tbody>                
-        //     </table>
-        // );
+            header={airlinesHeader} />;        
     };    
 
     const hideCell = (index) => {
@@ -109,13 +94,11 @@ const Airlines = props => {
     
     return (
         <div>
-            <h1 hidden>Airlines</h1>
+            <h2>Airlines</h2>
+            {airlinesTable}
             <Hidden {...hideCell(6)}>
                 <button onClick={airlinesInitHandler}>Airlines Init</button>
-            </Hidden>            
-            <br />
-            <br />
-            {airlinesTable}
+            </Hidden> 
         </div>        
     );
 };
