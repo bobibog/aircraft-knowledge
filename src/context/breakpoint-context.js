@@ -7,9 +7,8 @@ import React, {
   
   export const BreakpointContext = createContext(defaultValue);
   
-  const BreakpointContextProvider = props => {
+  const BreakpointContextProvider = ({children, queries}) => {
     const [queryMatch, setQueryMatch] = useState({});
-    const {queries} = props;
   
     useEffect(() => {
       const mediaQueryLists = {};
@@ -52,13 +51,14 @@ import React, {
           });
         }
       }
-    });
+    }, [queries]);
   
     return (
       <BreakpointContext.Provider value={queryMatch}>
-        {props.children}
+        {children}
       </BreakpointContext.Provider>
-    );  
-  };
+    )
+  
+  }
 
   export default BreakpointContextProvider;

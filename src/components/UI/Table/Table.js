@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,7 +20,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 //import useMediaQuery from '@material-ui/core/useMediaQuery';
 //import withWidth from '@material-ui/core/withWidth';
-import useBreakpoint from '../../../context/breakpoint-context';
+import useBreakpoint from '../../../hooks/useBreakpoint';
+//import useBreakpoints from '../../../hooks/useBreakpoints';
+import throttle from 'lodash/throttle';
 
 const TableCustom = (props) => { 
     const breakpoints = useBreakpoint();
@@ -28,6 +30,9 @@ const TableCustom = (props) => {
     const matchingList = Object.keys(breakpoints).map(media => (
         <li key={media}>{media} ---- {breakpoints[media] ? 'Yes' : 'No'}</li>
     ))  
+
+    //const point = useBreakpoints();    
+
 
     const useStyles = makeStyles({
         table: {
@@ -165,8 +170,20 @@ const TableCustom = (props) => {
     //     }        
     // }
 
-    const Row = (x, i, header) => {
+    const Row = (x, i, header, breakpoints) => {
         const [open, setOpen] = useState(false);
+
+        let xy = breakpoints.sm;
+
+        useEffect(() => {
+            if (!xy) {
+                setOpen(false);
+            }
+        }, [xy])
+
+        // throttle(()=> {if (!xy) {
+        //     setOpen(false);
+        // }}, 200);
 
         // if (mediaQuery) {
         //     setOpen(false)
@@ -247,7 +264,7 @@ const TableCustom = (props) => {
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
-                                {props.data.map((x, i) => Row(x, i, props.header))}
+                                {props.data.map((x, i) => Row(x, i, props.header, breakpoints))}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -258,6 +275,10 @@ const TableCustom = (props) => {
             <ol>
             {matchingList}
             </ol>
+
+            {/* <div>
+                <h2> Current Device Type {point} </h2>
+            </div> */}
         </React.Fragment>
     );
 };
