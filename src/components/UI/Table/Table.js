@@ -22,14 +22,20 @@ import CardContent from '@material-ui/core/CardContent';
 //import withWidth from '@material-ui/core/withWidth';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 //import useBreakpoints from '../../../hooks/useBreakpoints';
-import throttle from 'lodash/throttle';
+//import throttle from 'lodash/throttle';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import LastPageIcon from '@material-ui/icons/LastPage';
 
 const TableCustom = (props) => { 
     const breakpoints = useBreakpoint();
   
-    const matchingList = Object.keys(breakpoints).map(media => (
-        <li key={media}>{media} ---- {breakpoints[media] ? 'Yes' : 'No'}</li>
-    ))  
+    // const matchingList = Object.keys(breakpoints).map(media => (
+    //     <li key={media}>{media} ---- {breakpoints[media] ? 'Yes' : 'No'}</li>
+    // ))  
 
     //const point = useBreakpoints();    
 
@@ -45,15 +51,33 @@ const TableCustom = (props) => {
         //     maxHeight: 540,
         // },
         tableRow: {
-            '& > *': {
+            '& *': {
               borderBottom: 'unset',
             },
         },
         rootCard: {
             minWidth: 300,
+            height: 40,
+            display: 'flex',
+            flexGrow: 1,
+            borderBottom: 'none',
+            boxShadow: 'none',
+        },
+        rootCardContent: {
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
         },
         titleCard: {
             fontSize: 14,
+        },
+        rootBox: {
+            display: 'flex',
+            flexWrap: 'wrap',
+        },
+        rootTypography: {
+            display: 'ínline-block',
+            margin: 2,
         },
         // posCard: {
         //     marginBottom: 12,
@@ -94,7 +118,7 @@ const TableCustom = (props) => {
             //     //color: theme.palette.common.white,
             //     color: 'rgb(0, 112, 192)',
             // },            
-            '&:hover *': {
+            '&:not(:first-of-type):hover *': {
                 color: 'rgb(0, 112, 192)',
             }
         },
@@ -147,6 +171,20 @@ const TableCustom = (props) => {
         return result;
     };
 
+    let columnIndexVisible = 0;
+
+    if (breakpoints.lg && !breakpoints.md) {
+        columnIndexVisible = 5;
+    } else if (breakpoints.md && !breakpoints.sm) {
+        columnIndexVisible = 3;
+    } else if (breakpoints.sm && !breakpoints.xs) {
+        columnIndexVisible = 1;
+    } else if (breakpoints.xs) {
+        columnIndexVisible = 0;
+    } else {
+        columnIndexVisible = 7;
+    }
+
     // let arrowTableCell = null;
     const columnsTotal = props.header.length;
     // if (columnsTotal )
@@ -192,48 +230,73 @@ const TableCustom = (props) => {
         return (
             <React.Fragment key={`frag-${i}`}>
                 <StyledTableRow key={`tr-${i}`} className={classes.tableRow}>
-                    <Hidden {...hideCell(columnsTotal - 1, 'arrow')}>
-                        <StyledTableCell>
+                    {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
+                    {(columnsTotal - 1) > columnIndexVisible
+                        ? <StyledTableCell>
                             <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
                                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                             </IconButton>
                         </StyledTableCell>
-                    </Hidden>
-                    {header.map((y, k) =>
-                        <Hidden {...hideCell(k)} key={`trc-${k}`}>
-                            <StyledTableCell>
-                                {x[y.prop]}
+                        : null
+                    }
+                    {/* </Hidden> */}
+                    {header
+                        .filter((headerColumn, ind) => ind <= columnIndexVisible)
+                        .map((headerColumnVisible, index) =>
+                        // <Hidden {...hideCell(index)} key={`trc-${index}`}>
+                            <StyledTableCell key={`trc-${index}`}>
+                                {x[headerColumnVisible.prop]}
                             </StyledTableCell>
-                        </Hidden>
-                    )}                    
+                        // </Hidden>
+                        )
+                    }                    
                 </StyledTableRow>
                 
                 {/* <StyledTableRow onMouseEnter={onMouseOverHandler}>                     */}
                 <StyledTableRow>
-                    <Hidden {...hideCell(columnsTotal - 1, 'arrow')}>
-                        <StyledTableCell style={{ paddingBottom: 0, paddingTop: 0, paddingLeft: 0, paddingRight: 0 }} colSpan={3}>
-                            <Collapse in={open} timeout="auto" unmountOnExit >
-                                    <Box margin={0}>
-                                        <Card className={classes.rootCard}>
-                                            <CardContent>
-                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                    Fleet
-                                                </Typography>
-                                                {/* <Typography variant="h5" component="h2">
-                                                be{bull}nev{bull}o{bull}lent
-                                                </Typography>
-                                                <Typography className={classes.pos} color="textSecondary">
-                                                adjective
-                                                </Typography> */}
-                                                <Typography variant="body2" component="p">
-                                                    38
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>                        
-                                    </Box>
-                            </Collapse>    
-                        </StyledTableCell>
-                    </Hidden>                                                  
+                    {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
+                    
+                                <StyledTableCell style={{ 
+                                    paddingBottom: 0, 
+                                    paddingTop: 0, 
+                                    paddingLeft: 0, 
+                                    paddingRight: 0 }} 
+                                    colSpan={
+                                        (columnsTotal - 1) > columnIndexVisible
+                                        ? columnIndexVisible + 2
+                                        : columnIndexVisible + 1
+                                    }
+                                >
+                                    <Collapse in={open} timeout="auto" unmountOnExit >
+                                            <Box margin={0} className={classes.rootBox}>
+                                                {(columnsTotal - 1) > columnIndexVisible
+                                                    ? header
+                                                        .filter((headerColumn, ind) => ind > columnIndexVisible)
+                                                        .map((headerColumnHidden, index) =>
+                                                            <Card className={classes.rootCard} key={`trch-${index}`}>
+                                                                <CardContent className={classes.rootCardContent}>
+                                                                    <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
+                                                                        {headerColumnHidden.name} :
+                                                                    </Typography>
+                                                                    {/* <Typography variant="h5" component="h2">
+                                                                    be{bull}nev{bull}o{bull}lent
+                                                                    </Typography>
+                                                                    <Typography className={classes.pos} color="textSecondary">
+                                                                    adjective
+                                                                    </Typography> */}
+                                                                    <Typography variant="body2" component="p" className={classes.rootTypography}>
+                                                                        {x[headerColumnHidden.prop]}
+                                                                    </Typography>
+                                                                </CardContent>
+                                                            </Card>
+                                                        )
+                                                    : null 
+                                                }                       
+                                            </Box>
+                                    </Collapse>    
+                                </StyledTableCell>
+                            
+                    {/* </Hidden>                                                   */}
                 </StyledTableRow>                  
             </React.Fragment>
         );
@@ -272,9 +335,9 @@ const TableCustom = (props) => {
                 </Grid>
             </Grid>
 
-            <ol>
+            {/* <ol>
             {matchingList}
-            </ol>
+            </ol> */}
 
             {/* <div>
                 <h2> Current Device Type {point} </h2>
