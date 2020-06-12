@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,19 +10,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 //import Hidden from '@material-ui/core/Hidden';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
+//import Box from '@material-ui/core/Box';
+//import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Card from '@material-ui/core/Card';
+// import Typography from '@material-ui/core/Typography';
+// import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+// import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+// import Card from '@material-ui/core/Card';
 //import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+//import CardContent from '@material-ui/core/CardContent';
 //import useMediaQuery from '@material-ui/core/useMediaQuery';
 //import withWidth from '@material-ui/core/withWidth';
-import useBreakpoint from '../../../hooks/useBreakpoint';
-//import useBreakpoints from '../../../hooks/useBreakpoints';
 //import throttle from 'lodash/throttle';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -30,6 +28,11 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+
+import useBreakpoint from '../../../hooks/useBreakpoint';
+//import useBreakpoints from '../../../hooks/useBreakpoints';
+import CustomHeaderTableRow from './CustomHeaderTableRow/CustomHeaderTableRow';
+import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
 
 const TableCustom = (props) => { 
     const breakpoints = useBreakpoint();
@@ -98,42 +101,42 @@ const TableCustom = (props) => {
         },
       }));
 
-    const StyledTableCell = withStyles((theme) => ({
-        head: {
-        //   backgroundColor: theme.palette.common.black,
-            backgroundColor: 'rgb(0, 112, 192)',
-            color: theme.palette.common.white,        
-        },
-        body: {
-        fontSize: 14,
-        },
-    }))(TableCell);
+    // const StyledTableCell = withStyles((theme) => ({
+    //     head: {
+    //     //   backgroundColor: theme.palette.common.black,
+    //         backgroundColor: 'rgb(0, 112, 192)',
+    //         color: theme.palette.common.white,        
+    //     },
+    //     body: {
+    //     fontSize: 14,
+    //     },
+    // }))(TableCell);
     
-    const StyledTableRow = withStyles((theme) => ({
-        root: {
-            // '&:nth-of-type(4n+1)': {
-            //     backgroundColor: theme.palette.action.hover,
-            // },
-            '&:nth-of-type(odd):hover': {
-                backgroundColor: 'rgb(252, 242, 34)',
-                //color: theme.palette.common.white,
-                color: 'rgb(0, 112, 192)',
-            },
-            // '&:nth-of-type(odd):hover + tr *': {
-            //     backgroundColor: 'rgb(252, 242, 34)',
-            //     //color: theme.palette.common.white,
-            //     color: 'rgb(0, 112, 192)',
-            // },
-            // '&:nth-of-type(even):hover': {
-            //     backgroundColor: 'rgb(252, 242, 34)',
-            //     //color: theme.palette.common.white,
-            //     color: 'rgb(0, 112, 192)',
-            // },            
-            '&:not(:first-of-type):hover *': {
-                color: 'rgb(0, 112, 192)',
-            }
-        },
-    }))(TableRow);
+    // const StyledTableRow = withStyles((theme) => ({
+    //     root: {
+    //         // '&:nth-of-type(4n+1)': {
+    //         //     backgroundColor: theme.palette.action.hover,
+    //         // },
+    //         '&:nth-of-type(odd):hover': {
+    //             backgroundColor: 'rgb(252, 242, 34)',
+    //             //color: theme.palette.common.white,
+    //             color: 'rgb(0, 112, 192)',
+    //         },
+    //         // '&:nth-of-type(odd):hover + tr *': {
+    //         //     backgroundColor: 'rgb(252, 242, 34)',
+    //         //     //color: theme.palette.common.white,
+    //         //     color: 'rgb(0, 112, 192)',
+    //         // },
+    //         // '&:nth-of-type(even):hover': {
+    //         //     backgroundColor: 'rgb(252, 242, 34)',
+    //         //     //color: theme.palette.common.white,
+    //         //     color: 'rgb(0, 112, 192)',
+    //         // },            
+    //         '&:not(:first-of-type):hover *': {
+    //             color: 'rgb(0, 112, 192)',
+    //         }
+    //     },
+    // }))(TableRow);
 
     // const breakpointXl = 11;
     // const breakpointLg = 5;
@@ -290,107 +293,107 @@ const TableCustom = (props) => {
     // }
 
     // const Row = (x, i, header, breakpoints) => {
-    const Row = (props) => {
-        const [open, setOpen] = useState(false);
+    // const Row = (props) => {
+    //     const [open, setOpen] = useState(false);
 
-        //let xy = breakpoints.sm;
+    //     //let xy = breakpoints.sm;
 
-        useEffect((prevProps, prevState) => {
-            if ((props.colTot - 1) <= props.colIndVisible) {
-                setOpen(false);
-            }
-        }, [props.colTot, props.colIndVisible])
+    //     useEffect((prevProps, prevState) => {
+    //         if ((props.colTot - 1) <= props.colIndVisible) {
+    //             setOpen(false);
+    //         }
+    //     }, [props.colTot, props.colIndVisible])
 
-        // throttle(()=> {if (!xy) {
-        //     setOpen(false);
-        // }}, 200);
+    //     // throttle(()=> {if (!xy) {
+    //     //     setOpen(false);
+    //     // }}, 200);
 
-        // if (mediaQuery) {
-        //     setOpen(false)
-        // }        
+    //     // if (mediaQuery) {
+    //     //     setOpen(false)
+    //     // }        
 
-        return (
-            <React.Fragment key={`frag-${props.rowIndex}`}>
-                <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
-                    {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
-                    {(props.colTot - 1) > props.colIndVisible
-                        ? <StyledTableCell>
-                            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </StyledTableCell>
-                        : null
-                    }
-                    {/* </Hidden> */}
-                    {props.header
-                        .filter((headerColumn, ind) => ind <= props.colIndVisible)
-                        .map((headerColumnVisible, index) =>
-                        // <Hidden {...hideCell(index)} key={`trc-${index}`}>
-                            <StyledTableCell key={`trc-${index}`}>
-                                {props.rowData[headerColumnVisible.prop]}
-                            </StyledTableCell>
-                        // </Hidden>
-                        )
-                    }                    
-                </StyledTableRow>
+    //     return (
+    //         <React.Fragment key={`frag-${props.rowIndex}`}>
+    //             <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
+    //                 {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
+    //                 {(props.colTot - 1) > props.colIndVisible
+    //                     ? <StyledTableCell>
+    //                         <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+    //                             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+    //                         </IconButton>
+    //                     </StyledTableCell>
+    //                     : null
+    //                 }
+    //                 {/* </Hidden> */}
+    //                 {props.header
+    //                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
+    //                     .map((headerColumnVisible, index) =>
+    //                     // <Hidden {...hideCell(index)} key={`trc-${index}`}>
+    //                         <StyledTableCell key={`trc-${index}`}>
+    //                             {props.rowData[headerColumnVisible.prop]}
+    //                         </StyledTableCell>
+    //                     // </Hidden>
+    //                     )
+    //                 }                    
+    //             </StyledTableRow>
                 
-                {/* <StyledTableRow onMouseEnter={onMouseOverHandler}>                     */}
-                <StyledTableRow>
-                    {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
+    //             {/* <StyledTableRow onMouseEnter={onMouseOverHandler}>                     */}
+    //             <StyledTableRow>
+    //                 {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
                     
-                                <StyledTableCell style={{ 
-                                    paddingBottom: 0, 
-                                    paddingTop: 0, 
-                                    paddingLeft: 0, 
-                                    paddingRight: 0 }} 
-                                    colSpan={
-                                        (props.colTot - 1) > props.colIndVisible
-                                        ? props.colIndVisible + 2
-                                        : props.colIndVisible + 1
-                                    }
-                                >
-                                    <Collapse in={open} timeout="auto" unmountOnExit >
-                                            <Box margin={0} className={classes.rootBox}>
-                                                {(props.colTot - 1) > props.colIndVisible
-                                                    ? props.header
-                                                        .filter((headerColumn, ind) => ind > props.colIndVisible)
-                                                        .map((headerColumnHidden, index) =>
-                                                            <Card className={classes.rootCard} key={`trch-${index}`}>
-                                                                <CardContent className={classes.rootCardContent}>
-                                                                    <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
-                                                                        {headerColumnHidden.name} :
-                                                                    </Typography>
-                                                                    {/* <Typography variant="h5" component="h2">
-                                                                    be{bull}nev{bull}o{bull}lent
-                                                                    </Typography>
-                                                                    <Typography className={classes.pos} color="textSecondary">
-                                                                    adjective
-                                                                    </Typography> */}
-                                                                    <Typography variant="body2" component="p" className={classes.rootTypography}>
-                                                                        {props.rowData[headerColumnHidden.prop]}
-                                                                    </Typography>
-                                                                </CardContent>
-                                                            </Card>
-                                                        )
-                                                    : null 
-                                                }                       
-                                            </Box>
-                                    </Collapse>    
-                                </StyledTableCell>
+    //                             <StyledTableCell style={{ 
+    //                                 paddingBottom: 0, 
+    //                                 paddingTop: 0, 
+    //                                 paddingLeft: 0, 
+    //                                 paddingRight: 0 }} 
+    //                                 colSpan={
+    //                                     (props.colTot - 1) > props.colIndVisible
+    //                                     ? props.colIndVisible + 2
+    //                                     : props.colIndVisible + 1
+    //                                 }
+    //                             >
+    //                                 <Collapse in={open} timeout="auto" unmountOnExit >
+    //                                         <Box margin={0} className={classes.rootBox}>
+    //                                             {(props.colTot - 1) > props.colIndVisible
+    //                                                 ? props.header
+    //                                                     .filter((headerColumn, ind) => ind > props.colIndVisible)
+    //                                                     .map((headerColumnHidden, index) =>
+    //                                                         <Card className={classes.rootCard} key={`trch-${index}`}>
+    //                                                             <CardContent className={classes.rootCardContent}>
+    //                                                                 <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
+    //                                                                     {headerColumnHidden.name} :
+    //                                                                 </Typography>
+    //                                                                 {/* <Typography variant="h5" component="h2">
+    //                                                                 be{bull}nev{bull}o{bull}lent
+    //                                                                 </Typography>
+    //                                                                 <Typography className={classes.pos} color="textSecondary">
+    //                                                                 adjective
+    //                                                                 </Typography> */}
+    //                                                                 <Typography variant="body2" component="p" className={classes.rootTypography}>
+    //                                                                     {props.rowData[headerColumnHidden.prop]}
+    //                                                                 </Typography>
+    //                                                             </CardContent>
+    //                                                         </Card>
+    //                                                     )
+    //                                                 : null 
+    //                                             }                       
+    //                                         </Box>
+    //                                 </Collapse>    
+    //                             </StyledTableCell>
                             
-                    {/* </Hidden>                                                   */}
-                </StyledTableRow>                  
-            </React.Fragment>
-        );
-    };
+    //                 {/* </Hidden>                                                   */}
+    //             </StyledTableRow>                  
+    //         </React.Fragment>
+    //     );
+    // };
 
-    Row.propTypes = {
-        rowData: PropTypes.object.isRequired,
-        rowIndex: PropTypes.number.isRequired,
-        header: PropTypes.array.isRequired,
-        colTot: PropTypes.number.isRequired,
-        colIndVisible: PropTypes.number.isRequired,
-    };
+    // Row.propTypes = {
+    //     rowData: PropTypes.object.isRequired,
+    //     rowIndex: PropTypes.number.isRequired,
+    //     header: PropTypes.array.isRequired,
+    //     colTot: PropTypes.number.isRequired,
+    //     colIndVisible: PropTypes.number.isRequired,
+    // };
     // aria-label="simple table"
 
     let emptyRowHeight = (columnsTotal - 1) > columnIndexVisible ? 62 : 52;
@@ -404,7 +407,12 @@ const TableCustom = (props) => {
                     <TableContainer component={Paper} className={classes.container}>
                         <Table className={classes.table} stickyHeader>
                             <TableHead>
-                                <StyledTableRow>
+                                <CustomHeaderTableRow
+                                    header={props.header}
+                                    colTot={columnsTotal}
+                                    colIndVisible={columnIndexVisible} 
+                                />
+                                {/* <StyledTableRow>
                                     {(columnsTotal - 1) > columnIndexVisible
                                         // <Hidden {...hideCell(columnsTotal - 1, 'arrow')}>
                                             ? <StyledTableCell>
@@ -413,19 +421,18 @@ const TableCustom = (props) => {
                                             : null
                                         // </Hidden>
                                     }
-                                    {/* {(columnsTotal - 1) > columnIndexVisible ? */
-                                        props.header
-                                            .filter((headerColumn, ind) => ind <= columnIndexVisible)
-                                            .map((headerColumnVisible, index) =>
-                                                // <Hidden {...hideCell(index)} key={`thc-${index}`}>
-                                                    <StyledTableCell key={`thc-${index}`}>                                            
-                                                        {headerColumnVisible.name}
-                                                    </StyledTableCell>                                        
-                                                // </Hidden>
-                                            )
-                                        /* : null */
+                                    
+                                    {props.header
+                                        .filter((headerColumn, ind) => ind <= columnIndexVisible)
+                                        .map((headerColumnVisible, index) =>
+                                            // <Hidden {...hideCell(index)} key={`thc-${index}`}>
+                                                <StyledTableCell key={`thc-${index}`}>                                            
+                                                    {headerColumnVisible.name}
+                                                </StyledTableCell>                                        
+                                            // </Hidden>
+                                        )                                        
                                     }
-                                </StyledTableRow>
+                                </StyledTableRow> */}
                             </TableHead>
                             <TableBody>
                                 {(rowsPerPage > 0
@@ -433,7 +440,7 @@ const TableCustom = (props) => {
                                     : props.data
                                 ).map((x, i) => 
                                     // Row(x, i, props.header, breakpoints))}
-                                    <Row
+                                    <CustomDataTableRow
                                         key={`dr-${i}`} 
                                         rowData={x}
                                         rowIndex={i}
