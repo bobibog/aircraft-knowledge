@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
+//import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -79,6 +80,9 @@ const TableCustom = (props) => {
             display: 'ínline-block',
             margin: 2,
         },
+        // rootTablePagination: {            
+        //     width: '100%',                        
+        // },
         // posCard: {
         //     marginBottom: 12,
         // },
@@ -86,6 +90,13 @@ const TableCustom = (props) => {
         //     overflowX: 'auto'
         // }
     });
+
+    const useStyles1 = makeStyles((theme) => ({
+        root: {
+          flexShrink: 0,
+          marginLeft: theme.spacing(2.5),
+        },
+      }));
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
@@ -124,52 +135,52 @@ const TableCustom = (props) => {
         },
     }))(TableRow);
 
-    const breakpointXl = 11;
-    const breakpointLg = 5;
-    const breakpointMd = 3;
-    const breakpointSm = 1;
-    let breakpointArrow = '';
+    // const breakpointXl = 11;
+    // const breakpointLg = 5;
+    // const breakpointMd = 3;
+    // const breakpointSm = 1;
+    // let breakpointArrow = '';
 
-    const hideCell = (index, type=null) => {
-        let result = {};
-        if (index > breakpointXl) {
-            if (type !== 'arrow') {
-                result = {xlDown: true};
-            } else {
-                result = {};
-                breakpointArrow = '';
-            }        
-        } else if (index > breakpointLg && index <= breakpointXl) {        
-            if (type !== 'arrow') {
-                result = {lgDown: true};
-            } else {
-                result = {xlUp: true};
-                breakpointArrow = 'xl';
-            }   
-        } else if (index > breakpointMd && index <= breakpointLg) {        
-            if (type !== 'arrow') {
-                result = {mdDown: true};
-            } else {
-                result = {lgUp: true};
-                breakpointArrow = 'lg';
-            } 
-        } else if (index > breakpointSm && index <= breakpointMd) {        
-            if (type !== 'arrow') {
-                result = {smDown: true};
-            } else {
-                result = {mdUp: true};
-                breakpointArrow = 'md';
-            } 
-        } else if (index === breakpointSm) {        
-            if (type !== 'arrow') {
-                result = {xsDown: true};
-            } else {
-                result = {smUp: true};
-                breakpointArrow = 'sm';
-            } 
-        }
-        return result;
-    };
+    // const hideCell = (index, type=null) => {
+    //     let result = {};
+    //     if (index > breakpointXl) {
+    //         if (type !== 'arrow') {
+    //             result = {xlDown: true};
+    //         } else {
+    //             result = {};
+    //             breakpointArrow = '';
+    //         }        
+    //     } else if (index > breakpointLg && index <= breakpointXl) {        
+    //         if (type !== 'arrow') {
+    //             result = {lgDown: true};
+    //         } else {
+    //             result = {xlUp: true};
+    //             breakpointArrow = 'xl';
+    //         }   
+    //     } else if (index > breakpointMd && index <= breakpointLg) {        
+    //         if (type !== 'arrow') {
+    //             result = {mdDown: true};
+    //         } else {
+    //             result = {lgUp: true};
+    //             breakpointArrow = 'lg';
+    //         } 
+    //     } else if (index > breakpointSm && index <= breakpointMd) {        
+    //         if (type !== 'arrow') {
+    //             result = {smDown: true};
+    //         } else {
+    //             result = {mdUp: true};
+    //             breakpointArrow = 'md';
+    //         } 
+    //     } else if (index === breakpointSm) {        
+    //         if (type !== 'arrow') {
+    //             result = {xsDown: true};
+    //         } else {
+    //             result = {smUp: true};
+    //             breakpointArrow = 'sm';
+    //         } 
+    //     }
+    //     return result;
+    // };
 
     let columnIndexVisible = 0;
 
@@ -185,11 +196,81 @@ const TableCustom = (props) => {
         columnIndexVisible = 7;
     }
 
-    // let arrowTableCell = null;
-    const columnsTotal = props.header.length;
-    // if (columnsTotal )
-    // arrowTableCell
+    
+    function TablePaginationActions(props) {
+        const classes = useStyles1();
+        const theme = useTheme();
+        const { count, page, rowsPerPage, onChangePage } = props;
+      
+        const handleFirstPageButtonClick = (event) => {
+          onChangePage(event, 0);
+        };
+      
+        const handleBackButtonClick = (event) => {
+          onChangePage(event, page - 1);
+        };
+      
+        const handleNextButtonClick = (event) => {
+          onChangePage(event, page + 1);
+        };
+      
+        const handleLastPageButtonClick = (event) => {
+          onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+        };
+      
+        return (
+          <div className={classes.root}>
+            <IconButton
+              onClick={handleFirstPageButtonClick}
+              disabled={page === 0}
+              aria-label="first page"
+            >
+              {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+            </IconButton>
+            <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+            </IconButton>
+            <IconButton
+              onClick={handleNextButtonClick}
+              disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+              aria-label="next page"
+            >
+              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </IconButton>
+            <IconButton
+              onClick={handleLastPageButtonClick}
+              disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+              aria-label="last page"
+            >
+              {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+            </IconButton>
+          </div>
+        );
+    }
 
+    TablePaginationActions.propTypes = {
+        count: PropTypes.number.isRequired,
+        onChangePage: PropTypes.func.isRequired,
+        page: PropTypes.number.isRequired,
+        rowsPerPage: PropTypes.number.isRequired,
+    };
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    
+    const columnsTotal = props.header.length;
     const classes = useStyles();
 
     // const theme = useTheme();
@@ -208,16 +289,17 @@ const TableCustom = (props) => {
     //     }        
     // }
 
-    const Row = (x, i, header, breakpoints) => {
+    // const Row = (x, i, header, breakpoints) => {
+    const Row = (props) => {
         const [open, setOpen] = useState(false);
 
-        let xy = breakpoints.sm;
+        //let xy = breakpoints.sm;
 
-        useEffect(() => {
-            if (!xy) {
+        useEffect((prevProps, prevState) => {
+            if ((props.colTot - 1) <= props.colIndVisible) {
                 setOpen(false);
             }
-        }, [xy])
+        }, [props.colTot, props.colIndVisible])
 
         // throttle(()=> {if (!xy) {
         //     setOpen(false);
@@ -228,10 +310,10 @@ const TableCustom = (props) => {
         // }        
 
         return (
-            <React.Fragment key={`frag-${i}`}>
-                <StyledTableRow key={`tr-${i}`} className={classes.tableRow}>
+            <React.Fragment key={`frag-${props.rowIndex}`}>
+                <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
                     {/* <Hidden {...hideCell(columnsTotal - 1, 'arrow')}> */}
-                    {(columnsTotal - 1) > columnIndexVisible
+                    {(props.colTot - 1) > props.colIndVisible
                         ? <StyledTableCell>
                             <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
                                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -240,12 +322,12 @@ const TableCustom = (props) => {
                         : null
                     }
                     {/* </Hidden> */}
-                    {header
-                        .filter((headerColumn, ind) => ind <= columnIndexVisible)
+                    {props.header
+                        .filter((headerColumn, ind) => ind <= props.colIndVisible)
                         .map((headerColumnVisible, index) =>
                         // <Hidden {...hideCell(index)} key={`trc-${index}`}>
                             <StyledTableCell key={`trc-${index}`}>
-                                {x[headerColumnVisible.prop]}
+                                {props.rowData[headerColumnVisible.prop]}
                             </StyledTableCell>
                         // </Hidden>
                         )
@@ -262,16 +344,16 @@ const TableCustom = (props) => {
                                     paddingLeft: 0, 
                                     paddingRight: 0 }} 
                                     colSpan={
-                                        (columnsTotal - 1) > columnIndexVisible
-                                        ? columnIndexVisible + 2
-                                        : columnIndexVisible + 1
+                                        (props.colTot - 1) > props.colIndVisible
+                                        ? props.colIndVisible + 2
+                                        : props.colIndVisible + 1
                                     }
                                 >
                                     <Collapse in={open} timeout="auto" unmountOnExit >
                                             <Box margin={0} className={classes.rootBox}>
-                                                {(columnsTotal - 1) > columnIndexVisible
-                                                    ? header
-                                                        .filter((headerColumn, ind) => ind > columnIndexVisible)
+                                                {(props.colTot - 1) > props.colIndVisible
+                                                    ? props.header
+                                                        .filter((headerColumn, ind) => ind > props.colIndVisible)
                                                         .map((headerColumnHidden, index) =>
                                                             <Card className={classes.rootCard} key={`trch-${index}`}>
                                                                 <CardContent className={classes.rootCardContent}>
@@ -285,7 +367,7 @@ const TableCustom = (props) => {
                                                                     adjective
                                                                     </Typography> */}
                                                                     <Typography variant="body2" component="p" className={classes.rootTypography}>
-                                                                        {x[headerColumnHidden.prop]}
+                                                                        {props.rowData[headerColumnHidden.prop]}
                                                                     </Typography>
                                                                 </CardContent>
                                                             </Card>
@@ -301,7 +383,18 @@ const TableCustom = (props) => {
             </React.Fragment>
         );
     };
+
+    Row.propTypes = {
+        rowData: PropTypes.object.isRequired,
+        rowIndex: PropTypes.number.isRequired,
+        header: PropTypes.array.isRequired,
+        colTot: PropTypes.number.isRequired,
+        colIndVisible: PropTypes.number.isRequired,
+    };
     // aria-label="simple table"
+
+    let emptyRowHeight = (columnsTotal - 1) > columnIndexVisible ? 62 : 52;
+    let colSpanPagination = (columnsTotal - 1) > columnIndexVisible ? columnsTotal : (columnIndexVisible + 1);
 
     return (
         <React.Fragment>
@@ -312,23 +405,76 @@ const TableCustom = (props) => {
                         <Table className={classes.table} stickyHeader>
                             <TableHead>
                                 <StyledTableRow>
-                                    <Hidden {...hideCell(columnsTotal - 1, 'arrow')}>
-                                        <StyledTableCell>
-                                            
-                                        </StyledTableCell>
-                                    </Hidden>
-                                    {props.header.map((x, i) =>
-                                        <Hidden {...hideCell(i)} key={`thc-${i}`}>
-                                            <StyledTableCell>                                            
-                                                {x.name}
-                                            </StyledTableCell>                                        
-                                        </Hidden>
-                                    )}
+                                    {(columnsTotal - 1) > columnIndexVisible
+                                        // <Hidden {...hideCell(columnsTotal - 1, 'arrow')}>
+                                            ? <StyledTableCell>
+                                                
+                                            </StyledTableCell>
+                                            : null
+                                        // </Hidden>
+                                    }
+                                    {/* {(columnsTotal - 1) > columnIndexVisible ? */
+                                        props.header
+                                            .filter((headerColumn, ind) => ind <= columnIndexVisible)
+                                            .map((headerColumnVisible, index) =>
+                                                // <Hidden {...hideCell(index)} key={`thc-${index}`}>
+                                                    <StyledTableCell key={`thc-${index}`}>                                            
+                                                        {headerColumnVisible.name}
+                                                    </StyledTableCell>                                        
+                                                // </Hidden>
+                                            )
+                                        /* : null */
+                                    }
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
-                                {props.data.map((x, i) => Row(x, i, props.header, breakpoints))}
+                                {(rowsPerPage > 0
+                                    ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    : props.data
+                                ).map((x, i) => 
+                                    // Row(x, i, props.header, breakpoints))}
+                                    <Row
+                                        key={`dr-${i}`} 
+                                        rowData={x}
+                                        rowIndex={i}
+                                        header={props.header}
+                                        colTot={columnsTotal}
+                                        colIndVisible={columnIndexVisible} 
+                                    />
+                                )}
+
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: emptyRowHeight * emptyRows }}>
+                                        <TableCell 
+                                            colSpan={
+                                                (columnsTotal - 1) > columnIndexVisible
+                                                ? columnIndexVisible + 2
+                                                : columnIndexVisible + 1
+                                            } 
+                                        />
+                                    </TableRow>
+                                )}
                             </TableBody>
+                            <TableFooter>
+                                <TableRow>
+                                    <TablePagination
+                                        // className={classes.rootTablePagination}
+                                        labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
+                                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                        colSpan={colSpanPagination}
+                                        count={props.data.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        SelectProps={{
+                                            inputProps: { 'aria-label': 'rows per page' },
+                                            native: true,
+                                        }}
+                                        onChangePage={handleChangePage}
+                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        ActionsComponent={TablePaginationActions}
+                                    />
+                                </TableRow>
+                            </TableFooter>
                         </Table>
                     </TableContainer>
                     </Paper>
