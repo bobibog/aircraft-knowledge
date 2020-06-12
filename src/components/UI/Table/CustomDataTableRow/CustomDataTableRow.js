@@ -26,9 +26,9 @@ const CustomDataTableRow = (props) => {
     const [open, setOpen] = useState(false);
 
     const useStyles = makeStyles({
-        table: {
-            minWidth: 300,
-        },
+        // table: {
+        //     minWidth: 300,
+        // },
         root: {
             width: '100%',
         },
@@ -64,15 +64,6 @@ const CustomDataTableRow = (props) => {
             display: 'ínline-block',
             margin: 2,
         },
-        // rootTablePagination: {            
-        //     width: '100%',                        
-        // },
-        // posCard: {
-        //     marginBottom: 12,
-        // },
-        // tableContainer: {
-        //     overflowX: 'auto'
-        // }
     });
 
     const classes = useStyles();
@@ -83,15 +74,7 @@ const CustomDataTableRow = (props) => {
         if ((props.colTot - 1) <= props.colIndVisible) {
             setOpen(false);
         }
-    }, [props.colTot, props.colIndVisible])
-
-    // throttle(()=> {if (!xy) {
-    //     setOpen(false);
-    // }}, 200);
-
-    // if (mediaQuery) {
-    //     setOpen(false)
-    // }        
+    }, [props.colTot, props.colIndVisible]);
 
     return (
         <React.Fragment key={`frag-${props.rowIndex}`}>
