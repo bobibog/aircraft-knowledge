@@ -121,11 +121,17 @@ const TableCustom = (props) => {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowClose, setRowClose] = useState(false);
+
+    const rowCloseResetHandler = () => {
+        setRowClose(false);
+    }
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
+        setRowClose(true);
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -166,7 +172,9 @@ const TableCustom = (props) => {
                                     rowIndex={i}
                                     header={props.header}
                                     colTot={columnsTotal}
-                                    colIndVisible={columnIndexVisible} 
+                                    colIndVisible={columnIndexVisible}
+                                    rowArrowClose={rowClose}
+                                    rowArrowCloseReset={rowCloseResetHandler} 
                                 />
                             )}
 

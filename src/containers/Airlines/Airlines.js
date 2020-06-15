@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-//import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Hidden from '@material-ui/core/Hidden';
 
 import axios from '../../axios-airlines';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 //import Airline from '../../components/Airline/Airline';
 import Table from '../../components/UI/Table/Table';
@@ -42,38 +42,59 @@ const Airlines = props => {
     ];
     
     const [airlines, setAirlines] = useState(null);
-    //const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const airlinesInitHandler = () => {
         //setAirlines(airlinesInit);
         for (let airline of airlinesInit) {
             axios.post('/airlines.json', airline)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+                .then(response => console.log('Odgovor je: ' + response))
+                .catch(error => console.log('Greska je: ' + error));
         }
         
     };
+    
 
     useEffect(() => {
-        axios.get('/airlines.json')
+        setLoading(true);
+        axios.get('/airlines.json'
+            // , {
+            // validateStatus: function (status) {
+            //   return status >= 200 && status < 300; // Resolve only if the status code is less than 500
+            // }
+            )
             .then(response => {
-                //console.log(response);
+                //console.log('Odgovor je: ' + response);
                 const fetchedAirlines = [];
-                for (let key in response.data) {
-                    fetchedAirlines.push(
-                        response.data[key]
-                    );
-                };   
-                setAirlines(fetchedAirlines); 
-            })
-            .catch(error => console.log(error));;
+                if(response) {
+                    for (let key in response.data) {
+                        fetchedAirlines.push(
+                            response.data[key]
+                        );
+                    };  
+                }                 
+                setAirlines(fetchedAirlines);
+                setLoading(false); 
+            }
+            // , error => {
+            //     if (error.response.status === 401) {
+            //      //place your reentry code
+            //     }
+            //     return error;
+            //   }
+            )
+            .catch(error => {
+                setLoading(false);
+                //console.log('Greska je: ' + error);                
+            });
     }, []);
-
-
 
     //let airlinesDataRows = null;
     let airlinesTable = <Spinner />;
-    if (airlines) {
+    if (!airlines && !loading) {
+        airlinesTable = null;
+    }
+    if (airlines && !loading) {
         airlinesTable = <Table 
             data={airlines}
             header={airlinesHeader} />;        
@@ -99,11 +120,11 @@ const Airlines = props => {
         <div>
             <h2>Airlines</h2>
             {airlinesTable}
-            <Hidden {...hideCell(6)}>
+            {/* <Hidden {...hideCell(6)}> */}
                 <button onClick={airlinesInitHandler}>Airlines Init</button>
-            </Hidden> 
+            {/* </Hidden>  */}
         </div>        
     );
 };
 
-export default Airlines;
+export default withErrorHandler(Airlines, axios);

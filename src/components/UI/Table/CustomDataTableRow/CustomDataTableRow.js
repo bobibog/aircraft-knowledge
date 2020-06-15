@@ -53,11 +53,13 @@ const CustomDataTableRow = (props) => {
 
     const classes = useStyles();
 
-    useEffect((prevProps, prevState) => {
-        if ((props.colTot - 1) <= props.colIndVisible) {
+    const {rowArrowCloseReset} = props; //we had to destructure rowArrowCloseReset from props to avoid that useEffect depends on all props!
+    useEffect(() => {
+        if ((props.colTot - 1) <= props.colIndVisible || props.rowArrowClose) {
             setOpen(false);
+            rowArrowCloseReset();
         }
-    }, [props.colTot, props.colIndVisible]);
+    }, [props.colTot, props.colIndVisible, props.rowArrowClose, rowArrowCloseReset]);
 
     return (
         <React.Fragment key={`frag-${props.rowIndex}`}>
@@ -134,6 +136,8 @@ CustomDataTableRow.propTypes = {
     header: PropTypes.array.isRequired,
     colTot: PropTypes.number.isRequired,
     colIndVisible: PropTypes.number.isRequired,
+    rowArrowClose: PropTypes.bool.isRequired,
+    rowArrowCloseReset: PropTypes.func.isRequired
 };
 
 export default CustomDataTableRow;

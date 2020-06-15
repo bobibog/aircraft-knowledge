@@ -5,7 +5,6 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 import Airlines from './containers/Airlines/Airlines';
 
-
 function App() {
   return (    
     <div className="App">    
