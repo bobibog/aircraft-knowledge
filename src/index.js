@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import BreakpointContextProvider from './context/breakpoint-context';
+import {BrowserRouter} from 'react-router-dom';
 
 const queries = {
   xs: '(max-width: 600px)',
@@ -16,7 +17,9 @@ const queries = {
 ReactDOM.render(
   <React.StrictMode>
     <BreakpointContextProvider queries={queries}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </BreakpointContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -120,9 +120,9 @@ const Airlines = props => {
         <div>
             <h2>Airlines</h2>
             {airlinesTable}
-            {/* <Hidden {...hideCell(6)}> */}
+            <Hidden {...hideCell(6)}>
                 <button onClick={airlinesInitHandler}>Airlines Init</button>
-            {/* </Hidden>  */}
+            </Hidden> 
         </div>        
     );
 };
