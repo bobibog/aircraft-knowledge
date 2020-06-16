@@ -151,7 +151,7 @@ const Flights = props => {
         <div>
             <h2>Flights</h2>
             {flightsTable}
-            <Hidden {...hideCell(6)}>
+            <Hidden {...hideCell(12)}>
                 <button onClick={flightsInitHandler}>Flights Init</button>
             </Hidden> 
         </div>        

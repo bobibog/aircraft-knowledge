@@ -24,7 +24,7 @@ const Aircrafts = props => {
 
     const aircraftsHeader = [
         {
-            name: "Name",
+            name: "Airline",
             prop: "AirlineName"
         },
         {
@@ -131,7 +131,7 @@ const Aircrafts = props => {
         <div>
             <h2>Aircrafts</h2>
             {aircraftsTable}
-            <Hidden {...hideCell(6)}>
+            <Hidden {...hideCell(12)}>
                 <button onClick={aircraftsInitHandler}>Aircrafts Init</button>
             </Hidden> 
         </div>        

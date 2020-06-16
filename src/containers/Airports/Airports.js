@@ -121,7 +121,7 @@ const Airports = props => {
         <div>
             <h2>Airports</h2>
             {airportsTable}
-            <Hidden {...hideCell(6)}>
+            <Hidden {...hideCell(12)}>
                 <button onClick={airportsInitHandler}>Airports Init</button>
             </Hidden> 
         </div>        

@@ -32,6 +32,36 @@ const TableCustom = (props) => {
         root: {
             width: '100%',
         },
+        tablePagination: {
+            minWidth: 300,
+        },
+        spacer: {
+            maxWidth: 20,
+        },
+        toolbar: {
+            paddingLeft: 6,
+        },
+        // container: {
+        //     maxHeight: 540,
+        // },
+    });   
+
+    const useStylesTablePagination = makeStyles({
+        // root: {
+        //     width: '100%',
+        // },
+        // tablePagination: {
+        //     minWidth: 300,
+        // },
+        // spacer: {
+        //     width: 20,
+        // },
+        toolbar: {
+            paddingLeft: 6,
+        },        
+        selectRoot: {
+            marginRight: 20,
+        },
         // container: {
         //     maxHeight: 540,
         // },
@@ -55,8 +85,13 @@ const TableCustom = (props) => {
 
     const useStyles1 = makeStyles((theme) => ({
         root: {
-          flexShrink: 0,
-          marginLeft: theme.spacing(2.5),
+            flexShrink: 0,
+            //   marginLeft: theme.spacing(2.5),
+            marginLeft: theme.spacing(1.5),
+            '& button': {
+                paddingLeft: 8,
+                paddingRight: 8,
+            },
         },
     }));
     
@@ -147,6 +182,7 @@ const TableCustom = (props) => {
 
 
     const classes = useStyles();
+    const classesTablePagination = useStylesTablePagination();
 
     return (
         <Grid container spacing={0}>
@@ -193,6 +229,10 @@ const TableCustom = (props) => {
                         <TableFooter>
                             <TableRow>
                                 <TablePagination
+                                    classes={{
+                                        toolbar: classesTablePagination.toolbar,
+                                        selectRoot: classesTablePagination.selectRoot,
+                                    }}
                                     labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
                                     rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                     colSpan={colSpanPagination}
