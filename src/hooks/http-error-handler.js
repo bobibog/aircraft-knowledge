@@ -9,6 +9,7 @@ export default httpClient => {
     } );
     const resInterceptor = httpClient.interceptors.response.use( res => res, err => {
         setError(err);
+        //console.log(JSON.stringify(err));
         return Promise.reject(err);
     } );
         

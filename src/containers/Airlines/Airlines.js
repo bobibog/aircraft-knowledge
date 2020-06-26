@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
 
 import axios from '../../axios-airlines';
+import axiosGlobal from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 //import Airline from '../../components/Airline/Airline';
@@ -25,19 +26,19 @@ const Airlines = props => {
     const airlinesHeader = [
         {
           name: "Name",
-          prop: "AirlineName"
+          prop: "airlineName"
         },
         {
           name: "IATA",
-          prop: "IATA"
+          prop: "iata"
         },
         {
           name: "ICAO",
-          prop: "ICAO"
+          prop: "icao"
         },
         {
           name: "Fleet",
-          prop: "Fleet"
+          prop: "fleet"
         }
     ];
     
@@ -57,7 +58,38 @@ const Airlines = props => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('/airlines.json'
+        // axios.get('/airlines.json'
+        //     // , {
+        //     // validateStatus: function (status) {
+        //     //   return status >= 200 && status < 300; // Resolve only if the status code is less than 500
+        //     // }
+        //     )
+        //     .then(response => {
+        //         //console.log('Odgovor je: ' + response);
+        //         const fetchedAirlines = [];
+        //         if(response) {
+        //             for (let key in response.data) {
+        //                 fetchedAirlines.push(
+        //                     response.data[key]
+        //                 );
+        //             };  
+        //         }                 
+        //         setAirlines(fetchedAirlines);
+        //         setLoading(false); 
+        //     }
+        //     // , error => {
+        //     //     if (error.response.status === 401) {
+        //     //      //place your reentry code
+        //     //     }
+        //     //     return error;
+        //     //   }
+        //     )
+        //     .catch(error => {
+        //         setLoading(false);
+        //         //console.log('Greska je: ' + error);                
+        //     });
+        
+            axiosGlobal.get('https://localhost:44350/api/v1/airline'
             // , {
             // validateStatus: function (status) {
             //   return status >= 200 && status < 300; // Resolve only if the status code is less than 500
@@ -65,15 +97,19 @@ const Airlines = props => {
             )
             .then(response => {
                 //console.log('Odgovor je: ' + response);
-                const fetchedAirlines = [];
-                if(response) {
-                    for (let key in response.data) {
-                        fetchedAirlines.push(
-                            response.data[key]
-                        );
-                    };  
-                }                 
-                setAirlines(fetchedAirlines);
+                
+                // const fetchedAirlines = [];                
+                // if(response) {
+                //     for (let key in response.data) {
+                //         fetchedAirlines.push(
+                //             response.data[key]
+                //         );
+                //     };  
+                // }  
+
+                setAirlines(response.data);
+                // setAirlines(fetchedAirlines);
+
                 setLoading(false); 
             }
             // , error => {

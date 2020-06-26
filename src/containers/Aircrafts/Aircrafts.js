@@ -129,7 +129,7 @@ const Aircrafts = props => {
     
     return (
         <div>
-            <h2>Aircrafts</h2>
+            <h2>Aircraft</h2>
             {aircraftsTable}
             <Hidden {...hideCell(12)}>
                 <button onClick={aircraftsInitHandler}>Aircrafts Init</button>

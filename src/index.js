@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import BreakpointContextProvider from './context/breakpoint-context';
 import {BrowserRouter} from 'react-router-dom';
+import AuthContextProvider from './context/auth-context';
 
 const queries = {
   xs: '(max-width: 600px)',
@@ -16,11 +17,13 @@ const queries = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <BreakpointContextProvider queries={queries}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </BreakpointContextProvider>
+    <AuthContextProvider>
+      <BreakpointContextProvider queries={queries}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </BreakpointContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
