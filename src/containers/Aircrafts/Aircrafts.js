@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
+import {useParams} from 'react-router-dom';
 
-import axios from '../../axios-airlines';
+// import axios from '../../axios-airlines';
+import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
 
 const Aircrafts = props => {
+    console.log(props);
     const aircraftsInit = [
         {AircraftId: 1, AirlineName: 'ABX Air', TypeCode: 'B762', AircraftType: 'Boeing 767-223(BDSF)', Registration: 'N312AA', SerialNumber: '22315', ModeS: 'A34E40', Age: 35},
         {AircraftId: 2, AirlineName: 'ABX Air', TypeCode: 'B762', AircraftType: 'Boeing 767-223(BDSF)', Registration: 'N740AX', SerialNumber: '22213', ModeS: 'A9F2A0', Age: 37},
@@ -25,31 +28,31 @@ const Aircrafts = props => {
     const aircraftsHeader = [
         {
             name: "Airline",
-            prop: "AirlineName"
+            prop: "airlineName"
         },
         {
             name: "Type Code",
-            prop: "TypeCode"
+            prop: "typeCode"
         },
         {
             name: "Aircraft Type",
-            prop: "AircraftType"
+            prop: "aircraftType"
         },
         {
             name: "Registration",
-            prop: "Registration"
+            prop: "registration"
         },
         {
             name: "Serial Number",
-            prop: "SerialNumber"
+            prop: "serialNumber"
         },
         {
             name: "Mode S",
-            prop: "ModeS"
+            prop: "modeS"
         },
         {
             name: "Age",
-            prop: "Age"
+            prop: "age"
         }
     ];
     
@@ -65,43 +68,56 @@ const Aircrafts = props => {
         
     };
     
-
+    let {id} = useParams();
+    console.log(id);
     useEffect(() => {
         setLoading(true);
-        axios.get('/aircrafts.json'
-            // , {
-            // validateStatus: function (status) {
-            //   return status >= 200 && status < 300; // Resolve only if the status code is less than 500
-            // }
-            )
-            .then(response => {
-                //console.log('Odgovor je: ' + response);
-                const fetchedAircrafts = [];
-                if(response) {
-                    for (let key in response.data) {
-                        fetchedAircrafts.push(
-                            response.data[key]
-                        );
-                    };  
-                }                 
-                setAircrafts(fetchedAircrafts);
-                setLoading(false); 
-            }
-            // , error => {
-            //     if (error.response.status === 401) {
-            //      //place your reentry code
-            //     }
-            //     return error;
-            //   }
-            )
-            .catch(error => {
-                setLoading(false);
-                //console.log('Greska je: ' + error);                
-            });
+        // axios.get('/aircrafts.json')
+        //     .then(response => {
+        //         //console.log('Odgovor je: ' + response);
+        //         const fetchedAircrafts = [];
+        //         if(response) {
+        //             for (let key in response.data) {
+        //                 fetchedAircrafts.push(
+        //                     response.data[key]
+        //                 );
+        //             };  
+        //         }                 
+        //         setAircrafts(fetchedAircrafts);
+        //         setLoading(false); 
+        //     })
+        //     .catch(error => {
+        //         setLoading(false);
+        //         //console.log('Greska je: ' + error);                
+        //     });
+        if ( props.match.params.id ) {
+            axios.get('https://localhost:44350/api/v1/aircraft/getaircraftinairline/' + props.match.params.id)
+                .then(response => {
+                    //console.log('Odgovor je: ' + response);
+                    const fetchedAircrafts = [];
+                    if(response) {
+                        for (let key in response.data) {
+                            fetchedAircrafts.push(
+                                response.data[key]
+                            );
+                        };  
+                    }                 
+                    setAircrafts(fetchedAircrafts);
+                    setLoading(false); 
+                })
+                .catch(error => {
+                    setLoading(false);
+                    //console.log('Greska je: ' + error);                
+                });
+        }
     }, []);
 
+    let aircraftsTable = <p style={{ textAlign: 'center' }}>Please select an Airline!</p>;
     //let airlinesDataRows = null;
-    let aircraftsTable = <Spinner />;
+    if (props.match.params.id) {
+        aircraftsTable = <Spinner />;
+    }
+    
     if (!aircrafts && !loading) {
         aircraftsTable = null;
     }

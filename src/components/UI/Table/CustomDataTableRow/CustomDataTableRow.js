@@ -9,11 +9,14 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
 
 const CustomDataTableRow = (props) => {
+    console.log(props);
     const [open, setOpen] = useState(false);
 
     const useStyles = makeStyles({
@@ -61,6 +64,18 @@ const CustomDataTableRow = (props) => {
         }
     }, [props.colTot, props.colIndVisible, props.rowArrowClose, rowArrowCloseReset]);
 
+    const setParameterRoute = (rowData, paramsRoute) => {
+        let route = paramsRoute.baseRoute + "/";
+        const params = [];
+        for (const param of paramsRoute.params) {
+            if (rowData[param]) {
+                params.push(rowData[param]);
+            }
+        }
+        route += params.join(paramsRoute.delimiter);
+        return route
+    };
+
     return (
         <React.Fragment key={`frag-${props.rowIndex}`}>
             <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
@@ -75,11 +90,21 @@ const CustomDataTableRow = (props) => {
 
                 {props.header
                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
-                    .map((headerColumnVisible, index) =>
+                    .map((headerColumnVisible, index) => {
+                        let dataTableCell = props.rowData[headerColumnVisible.prop]
+                        if (props.parametersRoute && index === 0) {
+                            dataTableCell = (
+                                <Link to={setParameterRoute(props.rowData, props.parametersRoute)}>
+                                    {props.rowData[headerColumnVisible.prop]}
+                                </Link>
+                            );
+                        }
+                        return (
                         <StyledTableCell key={`trc-${index}`}>
-                            {props.rowData[headerColumnVisible.prop]}
+                            {dataTableCell}
                         </StyledTableCell>
-                    )
+                        )
+                    })
                 }                    
             </StyledTableRow>
             
@@ -140,4 +165,4 @@ CustomDataTableRow.propTypes = {
     rowArrowCloseReset: PropTypes.func.isRequired
 };
 
-export default CustomDataTableRow;
+export default withRouter(CustomDataTableRow);

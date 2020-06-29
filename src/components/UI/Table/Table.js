@@ -16,12 +16,14 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import {withRouter} from 'react-router-dom';
 
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import CustomHeaderTableRow from './CustomHeaderTableRow/CustomHeaderTableRow';
 import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
 
-const TableCustom = (props) => { 
+const TableCustom = (props) => {
+    console.log(props); 
     const breakpoints = useBreakpoint();
 
 
@@ -210,7 +212,8 @@ const TableCustom = (props) => {
                                     colTot={columnsTotal}
                                     colIndVisible={columnIndexVisible}
                                     rowArrowClose={rowClose}
-                                    rowArrowCloseReset={rowCloseResetHandler} 
+                                    rowArrowCloseReset={rowCloseResetHandler}
+                                    parametersRoute={props.paramsRoute} 
                                 />
                             )}
 
@@ -257,4 +260,4 @@ const TableCustom = (props) => {
     );
 };
 
-export default TableCustom;
+export default withRouter(TableCustom);

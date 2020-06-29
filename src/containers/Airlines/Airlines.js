@@ -55,8 +55,8 @@ const Airlines = props => {
         
     };
     
-
-    useEffect(() => {
+    console.log(props);
+    useEffect(() => {        
         setLoading(true);
         // axios.get('/airlines.json'
         //     // , {
@@ -133,7 +133,12 @@ const Airlines = props => {
     if (airlines && !loading) {
         airlinesTable = <Table 
             data={airlines}
-            header={airlinesHeader} />;        
+            header={airlinesHeader}
+            paramsRoute={{
+                baseRoute: "/aircraft",
+                params: ["airlineId"],
+                delimiter: "-"
+            }} />;        
     };    
 
     const hideCell = (index) => {
