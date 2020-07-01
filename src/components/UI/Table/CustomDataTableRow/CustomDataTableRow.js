@@ -30,7 +30,7 @@ const CustomDataTableRow = (props) => {
             },
         },
         rootCard: {
-            width: 300,
+            width: 350,
             height: 40,
             display: 'flex',
             // flexGrow: 1,

@@ -60,7 +60,7 @@ const CardsInBox = (props) => {
         headerBox = 
             <Box className={classes.rootBox} style={{paddingBottom: 10}}>
                 {props.headerText
-                    ? <Typography style={{marginLeft: 5, paddingTop: 5}} variant="h5" component="h2">
+                    ? <Typography style={{marginLeft: 5, paddingTop: 5, fontWeight: 'bold'}} variant="h5" component="h2">
                         {props.headerText} 
                     </Typography>
                     : null
