@@ -7,6 +7,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 //import Airline from '../../components/Airline/Airline';
 import Table from '../../components/UI/Table/Table';
+import {airlineHeader} from '../../shared/staticData';
 
 const Airlines = props => {
     const airlinesInit = [
@@ -23,24 +24,24 @@ const Airlines = props => {
         {AirlineId: 11, AirlineName: 'Aero Union', IATA: '6R', ICAO: 'TNO', Fleet: 8}
     ];
 
-    const airlinesHeader = [
-        {
-          name: "Name",
-          prop: "airlineName"
-        },
-        {
-          name: "IATA",
-          prop: "iata"
-        },
-        {
-          name: "ICAO",
-          prop: "icao"
-        },
-        {
-          name: "Fleet",
-          prop: "fleet"
-        }
-    ];
+    // const airlinesHeader = [
+    //     {
+    //       name: "Name",
+    //       prop: "airlineName"
+    //     },
+    //     {
+    //       name: "IATA",
+    //       prop: "iata"
+    //     },
+    //     {
+    //       name: "ICAO",
+    //       prop: "icao"
+    //     },
+    //     {
+    //       name: "Fleet",
+    //       prop: "fleet"
+    //     }
+    // ];
     
     const [airlines, setAirlines] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const Airlines = props => {
         
     };
     
-    console.log(props);
+    //console.log(props);
     useEffect(() => {        
         setLoading(true);
         // axios.get('/airlines.json'
@@ -133,7 +134,7 @@ const Airlines = props => {
     if (airlines && !loading) {
         airlinesTable = <Table 
             data={airlines}
-            header={airlinesHeader}
+            header={airlineHeader}
             paramsRoute={{
                 baseRoute: "/aircraft",
                 params: ["airlineId"],

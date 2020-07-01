@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
-import {useParams} from 'react-router-dom';
+//import {useParams} from 'react-router-dom';
 
 // import axios from '../../axios-airlines';
 import axios from 'axios';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
+import Airline from '../Airlines/Airline/Airline';
+//import { airlineHeader } from '../../shared/staticData';
 
 const Aircrafts = props => {
-    console.log(props);
+    //console.log(props);
     const aircraftsInit = [
         {AircraftId: 1, AirlineName: 'ABX Air', TypeCode: 'B762', AircraftType: 'Boeing 767-223(BDSF)', Registration: 'N312AA', SerialNumber: '22315', ModeS: 'A34E40', Age: 35},
         {AircraftId: 2, AirlineName: 'ABX Air', TypeCode: 'B762', AircraftType: 'Boeing 767-223(BDSF)', Registration: 'N740AX', SerialNumber: '22213', ModeS: 'A9F2A0', Age: 37},
@@ -27,9 +29,13 @@ const Aircrafts = props => {
 
     const aircraftsHeader = [
         {
-            name: "Airline",
-            prop: "airlineName"
+            name: "Registration",
+            prop: "registration"
         },
+        // {
+        //     name: "Airline",
+        //     prop: "airline.airlineName"
+        // },
         {
             name: "Type Code",
             prop: "typeCode"
@@ -37,11 +43,7 @@ const Aircrafts = props => {
         {
             name: "Aircraft Type",
             prop: "aircraftType"
-        },
-        {
-            name: "Registration",
-            prop: "registration"
-        },
+        },        
         {
             name: "Serial Number",
             prop: "serialNumber"
@@ -55,6 +57,8 @@ const Aircrafts = props => {
             prop: "age"
         }
     ];
+
+    const {match} = props;
     
     const [aircrafts, setAircrafts] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -68,8 +72,8 @@ const Aircrafts = props => {
         
     };
     
-    let {id} = useParams();
-    console.log(id);
+    // let {id} = useParams();
+    // console.log(id);
     useEffect(() => {
         setLoading(true);
         // axios.get('/aircrafts.json')
@@ -90,8 +94,8 @@ const Aircrafts = props => {
         //         setLoading(false);
         //         //console.log('Greska je: ' + error);                
         //     });
-        if ( props.match.params.id ) {
-            axios.get('https://localhost:44350/api/v1/aircraft/getaircraftinairline/' + props.match.params.id)
+        if ( match.params.id ) {
+            axios.get('https://localhost:44350/api/v1/aircraft/getaircraftinairline/' + match.params.id)
                 .then(response => {
                     //console.log('Odgovor je: ' + response);
                     const fetchedAircrafts = [];
@@ -110,11 +114,11 @@ const Aircrafts = props => {
                     //console.log('Greska je: ' + error);                
                 });
         }
-    }, []);
+    }, [match.params.id]);
 
     let aircraftsTable = <p style={{ textAlign: 'center' }}>Please select an Airline!</p>;
     //let airlinesDataRows = null;
-    if (props.match.params.id) {
+    if (match.params.id) {
         aircraftsTable = <Spinner />;
     }
     
@@ -125,7 +129,12 @@ const Aircrafts = props => {
         aircraftsTable = <Table 
             data={aircrafts}
             header={aircraftsHeader} />;        
-    };    
+    };
+    
+    let airlineBox = null;
+    if (match.params.id) {
+        airlineBox = <Airline airlineId={match.params.id} />;
+    }
 
     const hideCell = (index) => {
         let result = {};
@@ -144,13 +153,13 @@ const Aircrafts = props => {
     };
     
     return (
-        <div>
-            <h2>Aircraft</h2>
+        <React.Fragment>
+            {airlineBox}
             {aircraftsTable}
             <Hidden {...hideCell(12)}>
                 <button onClick={aircraftsInitHandler}>Aircrafts Init</button>
             </Hidden> 
-        </div>        
+        </React.Fragment>        
     );
 };
 

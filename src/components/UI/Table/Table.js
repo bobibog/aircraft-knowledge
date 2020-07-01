@@ -23,7 +23,7 @@ import CustomHeaderTableRow from './CustomHeaderTableRow/CustomHeaderTableRow';
 import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
 
 const TableCustom = (props) => {
-    console.log(props); 
+    //console.log(props); 
     const breakpoints = useBreakpoint();
 
 

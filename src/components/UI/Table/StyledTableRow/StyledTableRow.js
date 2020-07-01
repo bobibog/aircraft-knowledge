@@ -10,7 +10,7 @@ const StyledTableRow = withStyles((theme) => ({
         '&:nth-of-type(odd):hover': {
             backgroundColor: 'rgb(252, 242, 34)',
             //color: theme.palette.common.white,
-            color: 'rgb(0, 112, 192)',
+            //color: 'rgb(0, 112, 192)',
         },
         // '&:nth-of-type(odd):hover + tr *': {
         //     backgroundColor: 'rgb(252, 242, 34)',
@@ -23,7 +23,7 @@ const StyledTableRow = withStyles((theme) => ({
         //     color: 'rgb(0, 112, 192)',
         // },            
         '&:not(:first-of-type):hover *': {
-            color: 'rgb(0, 112, 192)',
+            //color: 'rgb(0, 112, 192)',
         }
     },
 }))(TableRow);

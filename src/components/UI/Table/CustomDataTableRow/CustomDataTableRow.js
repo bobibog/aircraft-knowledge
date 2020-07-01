@@ -14,9 +14,10 @@ import {withRouter} from 'react-router-dom';
 
 import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
+import classesCss from './CustomDataTableRow.module.css';
 
 const CustomDataTableRow = (props) => {
-    console.log(props);
+    //console.log(props);
     const [open, setOpen] = useState(false);
 
     const useStyles = makeStyles({
@@ -29,10 +30,10 @@ const CustomDataTableRow = (props) => {
             },
         },
         rootCard: {
-            minWidth: 300,
+            width: 300,
             height: 40,
             display: 'flex',
-            flexGrow: 1,
+            // flexGrow: 1,
             borderBottom: 'none',
             boxShadow: 'none',
         },
@@ -51,6 +52,7 @@ const CustomDataTableRow = (props) => {
         rootTypography: {
             display: 'ínline-block',
             margin: 2,
+            fontSize: 16,
         },
     });
 
@@ -76,6 +78,15 @@ const CustomDataTableRow = (props) => {
         return route
     };
 
+    const getApiModelPropValue = (rowData, apiModelProp) => {
+        const propList = apiModelProp.trim().split('.');
+        let apiModelPropValue = rowData;
+        for (const modelProp of propList) {
+            apiModelPropValue = apiModelPropValue[modelProp];
+        }
+        return apiModelPropValue;
+    };
+
     return (
         <React.Fragment key={`frag-${props.rowIndex}`}>
             <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
@@ -91,10 +102,11 @@ const CustomDataTableRow = (props) => {
                 {props.header
                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
                     .map((headerColumnVisible, index) => {
-                        let dataTableCell = props.rowData[headerColumnVisible.prop]
+                        // let dataTableCell = props.rowData[headerColumnVisible.prop]; 
+                        let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible.prop);
                         if (props.parametersRoute && index === 0) {
                             dataTableCell = (
-                                <Link to={setParameterRoute(props.rowData, props.parametersRoute)}>
+                                <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
                                     {props.rowData[headerColumnVisible.prop]}
                                 </Link>
                             );
