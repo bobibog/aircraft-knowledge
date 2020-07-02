@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import axios from 'axios';
+import axios from '../axios-local';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 
 const initialUser = {
@@ -63,9 +63,9 @@ const AuthContextProvider = props => {
             username: username,
             password: password
         };
-        let url = 'https://localhost:44350/api/v1/user/register';
+        let url = '/user/register';
         if (!isRegistration) {
-            url = 'https://localhost:44350/api/v1/user/authenticate';
+            url = '/user/authenticate';
         }
         axios.post(url, authData)
             .then(response => {

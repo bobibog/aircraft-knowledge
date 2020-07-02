@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
 
-import axiosFirebase from '../../axios-airlines';
+import axiosFirebase from '../../axios-firebase';
 import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -26,8 +26,7 @@ const Airlines = props => {
     
     //console.log(props);
     useEffect(() => {        
-        setLoading(true);
-        
+        setLoading(true);        
         axios.get('/airline')
         .then(response => {
             setAirlines(response.data);
@@ -41,7 +40,7 @@ const Airlines = props => {
         });
     }, []);
 
-    const airlinesHeader =
+    const airlinesPageHeader =
         <CardsInBox headerText="Airlines" />;
 
 
@@ -80,7 +79,7 @@ const Airlines = props => {
     return (
         <div>
             {/* <h2>Airlines</h2> */}
-            {airlinesHeader}
+            {airlinesPageHeader}
             {airlinesTable}
             <Hidden {...hideCell(12)}>
                 <button onClick={airlinesInitHandler}>Airlines Init</button>

@@ -157,7 +157,7 @@ const TableCustom = (props) => {
 
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rowClose, setRowClose] = useState(false);
 
     const rowCloseResetHandler = () => {

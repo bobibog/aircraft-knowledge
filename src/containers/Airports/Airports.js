@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
 
-import axios from '../../axios-airlines';
+import axiosFirebase from '../../axios-firebase';
+import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
-import {airportsHeader} from '../../shared/staticData';
+import {airportHeader} from '../../shared/staticData';
 import {airportsInit} from '../../shared/staticData';
+import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Airports = props => {
     const [airports, setAirports] = useState(null);
@@ -14,7 +16,7 @@ const Airports = props => {
 
     const airportsInitHandler = () => {
         for (let airport of airportsInit) {
-            axios.post('/airports.json', airport)
+            axiosFirebase.post('/airports.json', airport)
                 .then(response => console.log('Odgovor je: ' + response))
                 .catch(error => console.log('Greska je: ' + error));
         }        
@@ -22,18 +24,18 @@ const Airports = props => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('/airports.json')
+        axios.get('/airport')
             .then(response => {
                 //console.log('Odgovor je: ' + response);
-                const fetchedAirports = [];
-                if(response) {
-                    for (let key in response.data) {
-                        fetchedAirports.push(
-                            response.data[key]
-                        );
-                    };  
-                }                 
-                setAirports(fetchedAirports);
+                // const fetchedAirports = [];
+                // if(response) {
+                //     for (let key in response.data) {
+                //         fetchedAirports.push(
+                //             response.data[key]
+                //         );
+                //     };  
+                // }                 
+                setAirports(response.data);
                 setLoading(false); 
             })
             .catch(error => {
@@ -41,6 +43,10 @@ const Airports = props => {
                 //console.log('Greska je: ' + error);                
             });
     }, []);
+
+    const airportsPageHeader =
+        <CardsInBox headerText="Airports" />;
+
     
     let airportsTable = <Spinner />;
     if (!airports && !loading) {
@@ -49,7 +55,7 @@ const Airports = props => {
     if (airports && !loading) {
         airportsTable = <Table 
             data={airports}
-            header={airportsHeader} />;        
+            header={airportHeader} />;        
     };    
 
     const hideCell = (index) => {
@@ -70,7 +76,8 @@ const Airports = props => {
     
     return (
         <div>
-            <h2>Airports</h2>
+            {/* <h2>Airports</h2> */}
+            {airportsPageHeader}
             {airportsTable}
             <Hidden {...hideCell(12)}>
                 <button onClick={airportsInitHandler}>Airports Init</button>

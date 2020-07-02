@@ -56,7 +56,7 @@ const CardsInBox = (props) => {
     const classes = useStyles();
 
     let headerBox = null;
-    if (props.headerColumnName || props.headerText) {
+    if (props.data && (props.headerColumnName || props.headerText)) {
         headerBox = 
             <Box className={classes.rootBox} style={{paddingBottom: 10}}>
                 {props.headerText
@@ -106,7 +106,7 @@ const CardsInBox = (props) => {
                     )                    
                 }
             </Box>
-    }
+    } 
     
     return (
         <React.Fragment>

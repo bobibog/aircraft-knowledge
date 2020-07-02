@@ -49,29 +49,6 @@ const Auth = props => {
     const authContext = useContext(AuthContext);
     let isAuthenticated = authContext.user.token !== null;
 
-    //isRegistration: true
-//}
-
-// const {buildingBurger, authRedirectPath, onSetAuthRedirectPath} = props;    
-
-// useEffect(() => {
-//     if ( !buildingBurger && authRedirectPath !== '/' ) {
-//         onSetAuthRedirectPath();
-//     }
-// }, [buildingBurger, authRedirectPath, onSetAuthRedirectPath]);
-
-// useEffect(() => {
-//     if ( !props.buildingBurger && props.authRedirectPath !== '/' ) {
-//         props.onSetAuthRedirectPath();
-//     }
-// }, []);
-
-    // componentDidMount () {
-    //     if ( !this.props.buildingBurger && this.props.authRedirectPath !== '/' ) {
-    //         this.props.onSetAuthRedirectPath();
-    //     }
-    // }
-
     const inputChangedHandler = ( event, controlName ) => {
         const updatedControls = updateObject( authForm, {
             [controlName]: updateObject( authForm[controlName], {
@@ -91,12 +68,8 @@ const Auth = props => {
 
     const switchAuthModeHandler = () => {
         setIsRegistration(!isRegistration);
-        // this.setState( prevState => {
-        //     return { isRegistration: !prevState.isRegistration };
-        // } );
     }
 
-    //render () {
     const formElementsArray = [];
     for ( let key in authForm ) {
         formElementsArray.push( {
@@ -158,25 +131,6 @@ const Auth = props => {
                 btnType="Danger">SWITCH TO {isRegistration ? 'SIGN IN' : 'REGISTER'}</Button>
         </div>
     );
-    //}
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         loading: state.auth.loading,
-//         error: state.auth.error,
-//         isAuthenticated: state.auth.token !== null,
-//         buildingBurger: state.burgerBuilder.building,
-//         authRedirectPath: state.auth.authRedirectPath
-//     };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onAuth: ( email, password, isRegistration ) => dispatch( actions.auth( email, password, isRegistration ) ),
-//         onSetAuthRedirectPath: () => dispatch( actions.setAuthRedirectPath( '/' ) )
-//     };
-// };
-
 export default Auth;
-// export default connect( mapStateToProps, mapDispatchToProps )( Auth );

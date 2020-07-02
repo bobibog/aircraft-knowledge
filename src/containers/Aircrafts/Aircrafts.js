@@ -2,14 +2,15 @@ import React, {useState, useEffect} from 'react';
 import Hidden from '@material-ui/core/Hidden';
 //import {useParams} from 'react-router-dom';
 
-// import axios from '../../axios-airlines';
+import axiosFirebase from '../../axios-firebase';
 import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
 import Airline from '../Airlines/Airline/Airline';
-import { aircraftsHeader } from '../../shared/staticData';
+import { aircraftHeader, airlineHeader } from '../../shared/staticData';
 import {aircraftsInit} from '../../shared/staticData';
+import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Aircrafts = props => {
     const {match} = props;
@@ -19,7 +20,7 @@ const Aircrafts = props => {
 
     const aircraftsInitHandler = () => {
         for (let aircraft of aircraftsInit) {
-            axios.post('/aircrafts.json', aircraft)
+            axiosFirebase.post('/aircrafts.json', aircraft)
                 .then(response => console.log('Odgovor je: ' + response))
                 .catch(error => console.log('Greska je: ' + error));
         }        
@@ -51,15 +52,16 @@ const Aircrafts = props => {
             axios.get('/aircraft/getaircraftinairline/' + match.params.id)
                 .then(response => {
                     //console.log('Odgovor je: ' + response);
-                    const fetchedAircrafts = [];
-                    if(response) {
-                        for (let key in response.data) {
-                            fetchedAircrafts.push(
-                                response.data[key]
-                            );
-                        };  
-                    }                 
-                    setAircrafts(fetchedAircrafts);
+                    // const fetchedAircrafts = [];
+                    // if(response) {
+                    //     for (let key in response.data) {
+                    //         fetchedAircrafts.push(
+                    //             response.data[key]
+                    //         );
+                    //     };  
+                    // }                 
+                    // setAircrafts(fetchedAircrafts);
+                    setAircrafts(response.data);
                     setLoading(false); 
                 })
                 .catch(error => {
@@ -69,25 +71,39 @@ const Aircrafts = props => {
         }
     }, [match.params.id]);
 
-    let aircraftsTable = <p style={{ textAlign: 'center' }}>Please select an Airline!</p>;
-    //let airlinesDataRows = null;
+    let airlineBox = null;
+    // if (match.params.id) {
+    //     airlineBox = <Airline airlineId={match.params.id} />;
+    // }
+    
+    let aircraftsTable = <p style={{ textAlign: 'center' }}>Please select an Airline!</p>;    
     if (match.params.id) {
         aircraftsTable = <Spinner />;
+    } 
+    if (!aircrafts && !loading) {        
+        aircraftsTable = <p style={{ textAlign: 'center' }}>Could not read aircraft from the server!</p>;
+    }   
+    if (aircrafts && aircrafts.length === 0 && !loading) {
+        match.params.id
+            ? aircraftsTable = <p style={{ textAlign: 'center' }}>There is no aircraft for the selected Airline!</p>
+            : aircraftsTable = <p style={{ textAlign: 'center' }}>There is no aircraft!</p>;
     }
-    
-    if (!aircrafts && !loading) {
-        aircraftsTable = null;
-    }
-    if (aircrafts && !loading) {
+    if (aircrafts && aircrafts.length > 0 && !loading) {
+        console.log(aircrafts);
+        console.log(!!aircrafts);
+        airlineBox = <CardsInBox 
+            data={aircrafts[0].airline}
+            header={airlineHeader}
+            headerColumnName="airlineName"
+            // headerText="Airline"
+            // headerTextDelimiter=":"
+        />;        
         aircraftsTable = <Table 
             data={aircrafts}
-            header={aircraftsHeader} />;        
+            header={aircraftHeader} />;        
     };
     
-    let airlineBox = null;
-    if (match.params.id) {
-        airlineBox = <Airline airlineId={match.params.id} />;
-    }
+    
 
     const hideCell = (index) => {
         let result = {};
