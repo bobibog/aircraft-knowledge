@@ -118,7 +118,8 @@ const Flights = props => {
             data={flightsAirline}
             header={airlineHeader}
             headerColumnName="airlineName"
-            backColor="lightsalmon"
+            // backColor="lightsalmon"
+            backColor="ffebee"
             // headerText="Airline"
             // headerTextDelimiter=":"
         />; 
@@ -126,7 +127,8 @@ const Flights = props => {
             data={flightsAircraft}
             header={aircraftHeader}
             headerColumnName="registration"
-            backColor="powderblue"
+            // backColor="powderblue"
+            backColor="#e3f2fd"
             // headerText="Airline"
             // headerTextDelimiter=":"
         />; 

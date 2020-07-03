@@ -86,7 +86,7 @@ export const flightHeader = [
         prop: "toAirportId"
     },
     {
-        name: "Duration (minutes)",
+        name: "Duration",
         prop: "flightTime"
     },
     {

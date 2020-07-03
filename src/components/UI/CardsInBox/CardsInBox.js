@@ -20,9 +20,9 @@ const CardsInBox = (props) => {
         //     },
         // },
         rootCard: {
-            width: 350,
-            height: 40,
-            display: 'flex',
+            width: 150,
+            //height: 40,
+            //display: 'flex',
             // flexGrow: 1,
             borderBottom: 'none',
             boxShadow: 'none',
@@ -30,9 +30,11 @@ const CardsInBox = (props) => {
             //color: 'white',
         },
         rootCardContent: {
+            padding: 2,
             display: 'flex',
+            flexWrap: 'wrap',
             justifyContent: 'flex-start',
-            alignItems: 'center',
+            // alignItems: 'center',
             //color: 'white',
         },
         titleCard: {
@@ -43,10 +45,14 @@ const CardsInBox = (props) => {
             display: 'flex',
             flexWrap: 'wrap',
             backgroundColor: props.backColor,
+            // border: '1px solid #ccc',
+            // boxShadow: '1px 1px 1px black',
             //color: 'white',
         },
         rootTypography: {
-            display: 'ínline-block',
+            display: 'block',
+            textAlign: 'left',
+            width: '100%',
             margin: 2,
             fontSize: 16,
             // fontWeight: 'bold',
@@ -88,9 +94,9 @@ const CardsInBox = (props) => {
                     .filter((headerColumn) => headerColumn.prop !== props.headerColumnName)
                     .map((headerColumnFiltered, index) =>
                         <Card className={classes.rootCard} key={`trch-${index}`}>
-                            <CardContent className={classes.rootCardContent}>
+                            <CardContent style={{padding: 2}} className={classes.rootCardContent}>
                                 <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
-                                    {headerColumnFiltered.name} :
+                                    {headerColumnFiltered.name}
                                 </Typography>
                                 {/* <Typography variant="h5" component="h2">
                                             be{bull}nev{bull}o{bull}lent
@@ -110,8 +116,10 @@ const CardsInBox = (props) => {
     
     return (
         <React.Fragment>
-            {headerBox}
-            {dataBox}
+            <Box margin={0} style={{border: '1px solid #ccc', boxShadow: '1px 1px 1px black'}}>
+                {headerBox}
+                {dataBox}
+            </Box>
         </React.Fragment>
     );
 };

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,9 +16,17 @@ import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
 import classesCss from './CustomDataTableRow.module.css';
 
+const styles = {
+    cardContent: {
+        padding: 8,
+    },
+};
+
 const CustomDataTableRow = (props) => {
     //console.log(props);
+    const {classes} = props
     const [open, setOpen] = useState(false);
+    
 
     const useStyles = makeStyles({
         root: {
@@ -30,17 +38,18 @@ const CustomDataTableRow = (props) => {
             },
         },
         rootCard: {
-            maxWidth: 300,
-            height: 40,
-            display: 'flex',
+            width: 150,
+            //height: 60,
+            //display: 'flex',
             // flexGrow: 1,
             borderBottom: 'none',
             boxShadow: 'none',
         },
         rootCardContent: {
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
+            padding: 2,
+            // display: 'flex',
+            // justifyContent: 'flex-start',
+            // alignItems: 'center',
         },
         titleCard: {
             fontSize: 14,
@@ -50,13 +59,13 @@ const CustomDataTableRow = (props) => {
             flexWrap: 'wrap',
         },
         rootTypography: {
-            display: 'ínline-block',
+            //display: 'ínline-block',
             margin: 2,
             fontSize: 16,
         },
     });
 
-    const classes = useStyles();
+    const classesMake = useStyles();
 
     const {rowArrowCloseReset} = props; //we had to destructure rowArrowCloseReset from props to avoid that useEffect depends on all props!
     useEffect(() => {
@@ -105,7 +114,7 @@ const CustomDataTableRow = (props) => {
 
     return (
         <React.Fragment key={`frag-${props.rowIndex}`}>
-            <StyledTableRow key={`tr-${props.rowIndex}`} className={classes.tableRow}>
+            <StyledTableRow key={`tr-${props.rowIndex}`} className={classesMake.tableRow}>
                 {(props.colTot - 1) > props.colIndVisible
                     ? <StyledTableCell>
                         <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -151,25 +160,25 @@ const CustomDataTableRow = (props) => {
                     }
                 >
                     <Collapse in={open} timeout="auto" unmountOnExit >
-                            <Box margin={0} className={classes.rootBox}>
+                            <Box margin={0} className={classesMake.rootBox}>
                                 {(props.colTot - 1) > props.colIndVisible
                                     ? props.header
                                         .filter((headerColumn, ind) => ind > props.colIndVisible)
                                         .map((headerColumnHidden, index) => {
                                             let dataCollapsCard = getApiModelPropValue(props.rowData, headerColumnHidden);
                                             return (
-                                                <Card className={classes.rootCard} key={`trch-${index}`}>
-                                                    <CardContent className={classes.rootCardContent}>
-                                                        <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
+                                                <Card className={classesMake.rootCard} key={`trch-${index}`}>
+                                                    <CardContent style={{padding: 2}} className={classes.cardContent}>
+                                                        <Typography className={[classesMake.titleCard, classesMake.rootTypography].join(' ')} color="textSecondary" gutterBottom>
                                                             {headerColumnHidden.name} :
                                                         </Typography>
                                                         {/* <Typography variant="h5" component="h2">
                                                         be{bull}nev{bull}o{bull}lent
                                                         </Typography>
-                                                        <Typography className={classes.pos} color="textSecondary">
+                                                        <Typography className={classesMake.pos} color="textSecondary">
                                                         adjective
                                                         </Typography> */}
-                                                        <Typography variant="body2" component="p" className={classes.rootTypography}>
+                                                        <Typography variant="body2" component="p" className={classesMake.rootTypography}>
                                                             {dataCollapsCard}
                                                         </Typography>
                                                     </CardContent>
@@ -196,4 +205,4 @@ CustomDataTableRow.propTypes = {
     rowArrowCloseReset: PropTypes.func.isRequired
 };
 
-export default withRouter(CustomDataTableRow);
+export default withRouter(withStyles(styles)(CustomDataTableRow));

@@ -95,7 +95,8 @@ const Aircrafts = props => {
             data={aircrafts[0].airline}
             header={airlineHeader}
             headerColumnName="airlineName"
-            backColor="lightsalmon"
+            // backColor="lightsalmon"
+            backColor="#ffebee"
             // headerText="Airline"
             // headerTextDelimiter=":"
         />;        
