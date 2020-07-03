@@ -6,10 +6,11 @@ import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
-import { flightHeader } from '../../shared/staticData';
+import { flightHeader, aircraftHeader, airlineHeader } from '../../shared/staticData';
 import {flightsInit} from '../../shared/staticData';
 import Airline from '../Airlines/Airline/Airline';
 import Aircraft from '../Aircrafts/Aircraft/Aircraft';
+import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Flights = props => {
     const {match} = props;
@@ -17,8 +18,8 @@ const Flights = props => {
     const [flights, setFlights] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [airline, setAirline] = useState(null);
-    const [loadingAirline, setLoadingAirline] = useState(false);
+    // const [airline, setAirline] = useState(null);
+    // const [loadingAirline, setLoadingAirline] = useState(false);
 
     const flightsInitHandler = () => {
         for (let flight of flightsInit) {
@@ -31,9 +32,29 @@ const Flights = props => {
     
 
     useEffect(() => {
-        setLoadingAirline(true);
+        setLoading(true);
+        //setLoadingAirline(true);
         if (match.params.id) {
-            axios.get(`/airline/getairlineforaircraft/${match.params.id}`)
+            // axios.get(`/airline/getairlineforaircraft/${match.params.id}`)
+            //     .then(response => {
+            //         //console.log('Odgovor je: ' + response);
+            //         // const fetchedFlights = [];
+            //         // if(response) {
+            //         //     for (let key in response.data) {
+            //         //         fetchedFlights.push(
+            //         //             response.data[key]
+            //         //         );
+            //         //     };  
+            //         // }                 
+            //         // setFlights(fetchedFlights);
+            //         setAirline(response.data);
+            //         setLoadingAirline(false); 
+            //     })
+            //     .catch(error => {
+            //         setLoadingAirline(false);
+            //         //console.log('Greska je: ' + error);                
+            //     });  
+            axios.get(`/flight/getflightsforaircraft/${match.params.id}`)
                 .then(response => {
                     //console.log('Odgovor je: ' + response);
                     // const fetchedFlights = [];
@@ -44,26 +65,7 @@ const Flights = props => {
                     //         );
                     //     };  
                     // }                 
-                    // setFlights(fetchedFlights);
-                    setAirline(response.data);
-                    setLoadingAirline(false); 
-                })
-                .catch(error => {
-                    setLoadingAirline(false);
-                    //console.log('Greska je: ' + error);                
-                });  
-            axios.get(`/flight/getflightsforaircraft/${match.params.id}`)
-                .then(response => {
-                    //console.log('Odgovor je: ' + response);
-                    const fetchedFlights = [];
-                    if(response) {
-                        for (let key in response.data) {
-                            fetchedFlights.push(
-                                response.data[key]
-                            );
-                        };  
-                    }                 
-                    setFlights(fetchedFlights);
+                    setFlights(response.data);
                     setLoading(false); 
                 })
                 .catch(error => {
@@ -75,26 +77,59 @@ const Flights = props => {
     }, [match.params.id]);
 
     let airlineBox = null;
-    if (match.params.id) {
-        airlineBox = <Spinner />;
-    }
-    if (airline) {
-        airlineBox = <Airline airlineId={airline.airlineId} />;
-    }
-
     let aircraftBox = null;
-    if (match.params.id) {
-        aircraftBox = <Aircraft airlineId={match.params.id} />;
-    }
+    // if (match.params.id) {
+    //     airlineBox = <Spinner />;
+    // }
+    // if (airline) {
+    //     airlineBox = <Airline airlineId={airline.airlineId} />;
+    // }
+
+    // let aircraftBox = null;
+    // if (match.params.id) {
+    //     aircraftBox = <Aircraft airlineId={match.params.id} />;
+    // }
+
+    let flightsAirline = null;
+    let flightsAircraft = null;
+    
 
     let flightsTable = <p style={{ textAlign: 'center' }}>Please select an Airline!</p>;
     if (match.params.id) {
         flightsTable = <Spinner />;
     }    
     if (!flights && !loading) {
-        flightsTable = null;
+        flightsTable = <p style={{ textAlign: 'center' }}>Could not read flights from the server!</p>;
+    }
+    if (flights && flights.length === 0 && !loading) {
+        match.params.id
+            ? flightsTable = <p style={{ textAlign: 'center' }}>There is no flights for the selected Airline!</p>
+            : flightsTable = <p style={{ textAlign: 'center' }}>There is no flights!</p>;
     }
     if (flights && !loading) {
+        for (const flight of flights) {
+            if (flight && flight.aircraft && flight.aircraft.airline) {
+                flightsAircraft = flight.aircraft;
+                flightsAirline = flight.aircraft.airline;
+                break;
+            }
+        }
+        airlineBox = <CardsInBox 
+            data={flightsAirline}
+            header={airlineHeader}
+            headerColumnName="airlineName"
+            backColor="lightsalmon"
+            // headerText="Airline"
+            // headerTextDelimiter=":"
+        />; 
+        aircraftBox = <CardsInBox 
+            data={flightsAircraft}
+            header={aircraftHeader}
+            headerColumnName="registration"
+            backColor="powderblue"
+            // headerText="Airline"
+            // headerTextDelimiter=":"
+        />; 
         flightsTable = <Table 
             data={flights}
             header={flightHeader} />;        
@@ -117,7 +152,7 @@ const Flights = props => {
     };
     
     return (
-        <div>
+        <React.Fragment>
             {/* <h2>Flights</h2> */}
             {airlineBox}
             {aircraftBox}
@@ -125,7 +160,7 @@ const Flights = props => {
             <Hidden {...hideCell(12)}>
                 <button onClick={flightsInitHandler}>Flights Init</button>
             </Hidden> 
-        </div>        
+        </React.Fragment>        
     );
 };
 

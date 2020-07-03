@@ -26,6 +26,7 @@ function App() {
       <Route path="/aircraft/:id" component={Aircrafts} />
       {/* <Route path="/aircraft" component={Aircrafts} /> */}
       <Route path="/airports" component={Airports} />
+      <Route path="/flights/:id" component={Flights} />
       {/* <Route path="/flights" component={Flights} /> */}
       <Route path="/airlines" component={Airlines} />
       <Route path="/logout" component={Logout} />
@@ -41,7 +42,8 @@ function App() {
         <Route path="/aircraft/:id" component={Aircrafts} />
         {/* <Route path="/aircraft" component={Aircrafts} /> */}
         <Route path="/airports" component={Airports} />
-        <Route path="/flights" component={Flights} />
+        <Route path="/flights/:id" component={Flights} />
+        {/* <Route path="/flights" component={Flights} /> */}
         {/* <Route path="/airlines/:iataIcao" component={Aircrafts} /> */}
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />

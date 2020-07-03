@@ -73,15 +73,15 @@ const TableCustom = (props) => {
     let columnIndexVisible = 0;
 
     if (breakpoints.lg && !breakpoints.md) {
-        columnIndexVisible = 5;
+        columnIndexVisible = 6;
     } else if (breakpoints.md && !breakpoints.sm) {
-        columnIndexVisible = 3;
+        columnIndexVisible = 4;
     } else if (breakpoints.sm && !breakpoints.xs) {
-        columnIndexVisible = 1;
+        columnIndexVisible = 2;
     } else if (breakpoints.xs) {
         columnIndexVisible = 0;
     } else {
-        columnIndexVisible = 7;
+        columnIndexVisible = 8;
     }
 
 

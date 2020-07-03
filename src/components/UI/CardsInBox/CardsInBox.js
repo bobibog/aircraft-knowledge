@@ -20,13 +20,13 @@ const CardsInBox = (props) => {
         //     },
         // },
         rootCard: {
-            width: 300,
+            width: 350,
             height: 40,
             display: 'flex',
             // flexGrow: 1,
             borderBottom: 'none',
             boxShadow: 'none',
-            backgroundColor: 'powderblue',
+            backgroundColor: props.backColor,
             //color: 'white',
         },
         rootCardContent: {
@@ -42,7 +42,7 @@ const CardsInBox = (props) => {
         rootBox: {
             display: 'flex',
             flexWrap: 'wrap',
-            backgroundColor: 'powderblue',
+            backgroundColor: props.backColor,
             //color: 'white',
         },
         rootTypography: {

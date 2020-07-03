@@ -11,7 +11,7 @@ const queries = {
   xs: '(max-width: 600px)',
   sm: '(max-width: 960px)',
   md: '(max-width: 1280px)',
-  lg: '(max-width: 1920px)',
+  lg: '(max-width: 1919px)',
   or: '(orientation: portrait)', // we can check orientation also
 }
 

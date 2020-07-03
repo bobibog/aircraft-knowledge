@@ -77,14 +77,14 @@ const Airlines = props => {
     };
     
     return (
-        <div>
+        <React.Fragment>
             {/* <h2>Airlines</h2> */}
             {airlinesPageHeader}
             {airlinesTable}
             <Hidden {...hideCell(12)}>
                 <button onClick={airlinesInitHandler}>Airlines Init</button>
             </Hidden> 
-        </div>        
+        </React.Fragment>        
     );
 };
 

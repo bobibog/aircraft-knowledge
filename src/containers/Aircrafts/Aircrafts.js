@@ -89,18 +89,24 @@ const Aircrafts = props => {
             : aircraftsTable = <p style={{ textAlign: 'center' }}>There is no aircraft!</p>;
     }
     if (aircrafts && aircrafts.length > 0 && !loading) {
-        console.log(aircrafts);
-        console.log(!!aircrafts);
+        // console.log(aircrafts);
+        // console.log(!!aircrafts);
         airlineBox = <CardsInBox 
             data={aircrafts[0].airline}
             header={airlineHeader}
             headerColumnName="airlineName"
+            backColor="lightsalmon"
             // headerText="Airline"
             // headerTextDelimiter=":"
         />;        
         aircraftsTable = <Table 
             data={aircrafts}
-            header={aircraftHeader} />;        
+            header={aircraftHeader}
+            paramsRoute={{
+                baseRoute: "/flights",
+                params: ["aircraftId"],
+                delimiter: "-"
+            }} />;        
     };
     
     

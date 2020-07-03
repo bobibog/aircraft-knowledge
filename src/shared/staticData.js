@@ -70,51 +70,56 @@ export const airportHeader = [
 export const flightHeader = [
     {
         name: "Code",
-        prop: "FlightCode"
+        prop: "flightCode"
     },
     {
         name: "Date",
-        prop: "FlightDate"
+        prop: "flightDate",
+        type: "datetime"
     },
     {
         name: "From",
-        prop: "FromAirportName"
+        prop: "fromAirportId"
     },
     {
         name: "To",
-        prop: "ToAirportName"
+        prop: "toAirportId"
     },
     {
         name: "Duration (minutes)",
-        prop: "FlightTime"
+        prop: "flightTime"
     },
     {
         name: "Std",
-        prop: "FlightStd"
+        prop: "flightStd",
+        type: "timespan"
     },
     {
         name: "Atd",
-        prop: "FlightAtd"
+        prop: "flightAtd",
+        type: "timespan"
     },
     {
         name: "Sta",
-        prop: "FlightSta"
+        prop: "flightSta",
+        type: "timespan"
     },
     {
         name: "Status",
-        prop: "FlightStatus"
+        prop: "flightStatus"
     },
     {
         name: "Landed",
-        prop: "FlightLanded"
+        prop: "flightLanded",
+        type: "timespan"
     },
     {
         name: "Diverted",
-        prop: "DivertedToAirport"
+        prop: "divertedToAirportId"
     },
     {
         name: "Aircraft",
-        prop: "AircraftRegistration"
+        prop: "aircraftId"
     }
 ];
 

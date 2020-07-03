@@ -30,7 +30,7 @@ const CustomDataTableRow = (props) => {
             },
         },
         rootCard: {
-            width: 350,
+            maxWidth: 300,
             height: 40,
             display: 'flex',
             // flexGrow: 1,
@@ -78,12 +78,28 @@ const CustomDataTableRow = (props) => {
         return route
     };
 
-    const getApiModelPropValue = (rowData, apiModelProp) => {
-        const propList = apiModelProp.trim().split('.');
+    const getApiModelPropValue = (rowData, apiModelHeaderColumn) => {
+        const propList = apiModelHeaderColumn.prop.trim().split('.');
         let apiModelPropValue = rowData;
         for (const modelProp of propList) {
             apiModelPropValue = apiModelPropValue[modelProp];
         }
+        if (apiModelPropValue) {
+            if (apiModelHeaderColumn.type === "datetime") {
+                let d = new Date(apiModelPropValue);
+                const monthNames = ["jan", "feb", "mar", "apr", "may", "jun",
+                    "jul", "aug", "sep", "oct", "nov", "dec"
+                ];
+                apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
+            } else if (apiModelHeaderColumn.type === "timespan") {
+                let minutes = apiModelPropValue.value.minutes !== 0 ? apiModelPropValue.value.minutes : "00";
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;
+            }            
+        }
+
         return apiModelPropValue;
     };
 
@@ -102,8 +118,11 @@ const CustomDataTableRow = (props) => {
                 {props.header
                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
                     .map((headerColumnVisible, index) => {
+                        if (headerColumnVisible.type) {
+                            
+                        }
                         // let dataTableCell = props.rowData[headerColumnVisible.prop]; 
-                        let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible.prop);
+                        let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
                         if (props.parametersRoute && index === 0) {
                             dataTableCell = (
                                 <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
