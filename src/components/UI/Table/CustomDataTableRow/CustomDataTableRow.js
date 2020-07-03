@@ -118,9 +118,6 @@ const CustomDataTableRow = (props) => {
                 {props.header
                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
                     .map((headerColumnVisible, index) => {
-                        if (headerColumnVisible.type) {
-                            
-                        }
                         // let dataTableCell = props.rowData[headerColumnVisible.prop]; 
                         let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
                         if (props.parametersRoute && index === 0) {
@@ -158,24 +155,27 @@ const CustomDataTableRow = (props) => {
                                 {(props.colTot - 1) > props.colIndVisible
                                     ? props.header
                                         .filter((headerColumn, ind) => ind > props.colIndVisible)
-                                        .map((headerColumnHidden, index) =>
-                                            <Card className={classes.rootCard} key={`trch-${index}`}>
-                                                <CardContent className={classes.rootCardContent}>
-                                                    <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
-                                                        {headerColumnHidden.name} :
-                                                    </Typography>
-                                                    {/* <Typography variant="h5" component="h2">
-                                                    be{bull}nev{bull}o{bull}lent
-                                                    </Typography>
-                                                    <Typography className={classes.pos} color="textSecondary">
-                                                    adjective
-                                                    </Typography> */}
-                                                    <Typography variant="body2" component="p" className={classes.rootTypography}>
-                                                        {props.rowData[headerColumnHidden.prop]}
-                                                    </Typography>
-                                                </CardContent>
-                                            </Card>
-                                        )
+                                        .map((headerColumnHidden, index) => {
+                                            let dataCollapsCard = getApiModelPropValue(props.rowData, headerColumnHidden);
+                                            return (
+                                                <Card className={classes.rootCard} key={`trch-${index}`}>
+                                                    <CardContent className={classes.rootCardContent}>
+                                                        <Typography className={[classes.titleCard, classes.rootTypography].join(' ')} color="textSecondary" gutterBottom>
+                                                            {headerColumnHidden.name} :
+                                                        </Typography>
+                                                        {/* <Typography variant="h5" component="h2">
+                                                        be{bull}nev{bull}o{bull}lent
+                                                        </Typography>
+                                                        <Typography className={classes.pos} color="textSecondary">
+                                                        adjective
+                                                        </Typography> */}
+                                                        <Typography variant="body2" component="p" className={classes.rootTypography}>
+                                                            {dataCollapsCard}
+                                                        </Typography>
+                                                    </CardContent>
+                                                </Card>
+                                            );
+                                        })
                                     : null 
                                 }                       
                             </Box>
