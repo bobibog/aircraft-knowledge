@@ -79,7 +79,12 @@ export const flightHeader = [
     },
     {
         name: "From",
-        prop: "fromAirportId"
+        prop: "fromAirportId",
+        type: "airportHeader",
+        link: "airportId",
+        dataCellCreator: [
+            "city", " (", "airportIata", ")"
+        ],
     },
     {
         name: "To",

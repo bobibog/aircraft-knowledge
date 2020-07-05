@@ -107,6 +107,8 @@ const CustomDataTableRow = (props) => {
                 }
                 apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;
             }            
+        } else {
+            apiModelPropValue = "-"
         }
 
         return apiModelPropValue;
@@ -130,11 +132,14 @@ const CustomDataTableRow = (props) => {
                         // let dataTableCell = props.rowData[headerColumnVisible.prop]; 
                         let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
                         if (props.parametersRoute && index === 0) {
-                            dataTableCell = (
-                                <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
-                                    {props.rowData[headerColumnVisible.prop]}
-                                </Link>
-                            );
+                            if (props.rowData[headerColumnVisible.prop]) {
+                                dataTableCell = 
+                                    <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
+                                        {props.rowData[headerColumnVisible.prop]}
+                                    </Link>
+                            } else {
+                                dataTableCell = "-"; 
+                            }
                         }
                         return (
                         <StyledTableCell key={`trc-${index}`}>
