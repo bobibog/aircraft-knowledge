@@ -105,7 +105,7 @@ const CardsInBox = (props) => {
                                             adjective
                                             </Typography> */}
                                 <Typography variant="body2" component="p" className={classes.rootTypography}>
-                                    {props.data[headerColumnFiltered.prop]}
+                                    {props.data[headerColumnFiltered.prop] ? props.data[headerColumnFiltered.prop] : "-"}
                                 </Typography>
                             </CardContent>
                         </Card>
