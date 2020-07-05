@@ -20,7 +20,8 @@
 .NavigationItem a.active {
     /* color: #40A4C8; */
     color: rgb(0, 112, 192);
-    border-right: 12px solid rgb(252, 242, 34);
+    /* border-right: 12px solid rgb(252, 242, 34); */
+    border-right: 12px solid rgb(0, 112, 192);
 }
 
 @media (min-width: 600px) {
@@ -49,6 +50,7 @@
         border-bottom: 4px solid rgb(0, 112, 192);
         border-right: none;
         /* color: white; */
-        color: rgb(252, 242, 34);
+        /* color: rgb(252, 242, 34); */
+        color: #e3f2fd;
     }
 }

@@ -8,7 +8,8 @@ const StyledTableRow = withStyles((theme) => ({
         //     backgroundColor: theme.palette.action.hover,
         // },
         '&:nth-of-type(odd):hover': {
-            backgroundColor: 'rgb(252, 242, 34)',
+            // backgroundColor: 'rgb(252, 242, 34)',
+            backgroundColor: '#e3f2fd',
             //color: theme.palette.common.white,
             //color: 'rgb(0, 112, 192)',
         },
