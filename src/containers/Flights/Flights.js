@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import Hidden from '@material-ui/core/Hidden';
+//import Hidden from '@material-ui/core/Hidden';
 
-import axiosFirebase from '../../axios-firebase';
-import axios from '../../axios-local';
+//import axiosFirebase from '../../axios-firebase';
+//import axios from '../../axios-local';
+import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
 import { flightHeader, aircraftHeader, airlineHeader } from '../../shared/staticData';
-import {flightsInit} from '../../shared/staticData';
-import Airline from '../Airlines/Airline/Airline';
-import Aircraft from '../Aircrafts/Aircraft/Aircraft';
+//import {flightsInit} from '../../shared/staticData';
+//import Airline from '../Airlines/Airline/Airline';
+//import Aircraft from '../Aircrafts/Aircraft/Aircraft';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Flights = props => {
@@ -21,14 +22,14 @@ const Flights = props => {
     // const [airline, setAirline] = useState(null);
     // const [loadingAirline, setLoadingAirline] = useState(false);
 
-    const flightsInitHandler = () => {
-        for (let flight of flightsInit) {
-            axiosFirebase.post('/flights.json', flight)
-                .then(response => console.log('Odgovor je: ' + response))
-                .catch(error => console.log('Greska je: ' + error));
-        }
+    // const flightsInitHandler = () => {
+    //     for (let flight of flightsInit) {
+    //         axiosFirebase.post('/flights.json', flight)
+    //             .then(response => console.log('Odgovor je: ' + response))
+    //             .catch(error => console.log('Greska je: ' + error));
+    //     }
         
-    };
+    // };
     
 
     useEffect(() => {
@@ -143,21 +144,21 @@ const Flights = props => {
             header={flightHeader} />;        
     };    
 
-    const hideCell = (index) => {
-        let result = {};
-        if (index > 11) {
-            result = {xlDown: true};
-        } else if (index > 5 && index <= 11) {
-            result = {lgDown: true};
-        } else if (index > 3 && index <= 5) {
-            result = {mdDown: true};
-        } else if (index === 3) {
-            result = {smDown: true};
-        } else if (index > 0 && index <= 2) {
-            result = {xsDown: true};
-        }
-        return result;
-    };
+    // const hideCell = (index) => {
+    //     let result = {};
+    //     if (index > 11) {
+    //         result = {xlDown: true};
+    //     } else if (index > 5 && index <= 11) {
+    //         result = {lgDown: true};
+    //     } else if (index > 3 && index <= 5) {
+    //         result = {mdDown: true};
+    //     } else if (index === 3) {
+    //         result = {smDown: true};
+    //     } else if (index > 0 && index <= 2) {
+    //         result = {xsDown: true};
+    //     }
+    //     return result;
+    // };
     
     return (
         <React.Fragment>
@@ -165,9 +166,9 @@ const Flights = props => {
             {airlineBox}
             {aircraftBox}
             {flightsTable}
-            <Hidden {...hideCell(12)}>
+            {/* <Hidden {...hideCell(12)}>
                 <button onClick={flightsInitHandler}>Flights Init</button>
-            </Hidden> 
+            </Hidden>  */}
         </React.Fragment>        
     );
 };

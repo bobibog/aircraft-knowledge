@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import Hidden from '@material-ui/core/Hidden';
+//import Hidden from '@material-ui/core/Hidden';
 
-import axiosFirebase from '../../axios-firebase';
-import axios from '../../axios-local';
+//import axiosFirebase from '../../axios-firebase';
+// import axios from '../../axios-local';
+import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
 import {airportHeader} from '../../shared/staticData';
-import {airportsInit} from '../../shared/staticData';
+//import {airportsInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Airports = props => {

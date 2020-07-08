@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import CardsInBox from '../../../components/UI/CardsInBox/CardsInBox';
-import axios from '../../../axios-local';
+// import axios from '../../../axios-local';
+import axios from '../../../axios-azure';
 import {aircraftHeader} from '../../../shared/staticData';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 

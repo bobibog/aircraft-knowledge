@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import Hidden from '@material-ui/core/Hidden';
+//import Hidden from '@material-ui/core/Hidden';
 //import {useParams} from 'react-router-dom';
 
-import axiosFirebase from '../../axios-firebase';
-import axios from '../../axios-local';
+//import axiosFirebase from '../../axios-firebase';
+//import axios from '../../axios-local';
+import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
-import Airline from '../Airlines/Airline/Airline';
+//import Airline from '../Airlines/Airline/Airline';
 import { aircraftHeader, airlineHeader } from '../../shared/staticData';
-import {aircraftsInit} from '../../shared/staticData';
+//import {aircraftsInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Aircrafts = props => {
@@ -18,13 +19,13 @@ const Aircrafts = props => {
     const [aircrafts, setAircrafts] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const aircraftsInitHandler = () => {
-        for (let aircraft of aircraftsInit) {
-            axiosFirebase.post('/aircrafts.json', aircraft)
-                .then(response => console.log('Odgovor je: ' + response))
-                .catch(error => console.log('Greska je: ' + error));
-        }        
-    };
+    // const aircraftsInitHandler = () => {
+    //     for (let aircraft of aircraftsInit) {
+    //         axiosFirebase.post('/aircrafts.json', aircraft)
+    //             .then(response => console.log('Odgovor je: ' + response))
+    //             .catch(error => console.log('Greska je: ' + error));
+    //     }        
+    // };
     
     // let {id} = useParams();
     // console.log(id);
@@ -114,29 +115,29 @@ const Aircrafts = props => {
     
     
 
-    const hideCell = (index) => {
-        let result = {};
-        if (index > 11) {
-            result = {xlDown: true};
-        } else if (index > 5 && index <= 11) {
-            result = {lgDown: true};
-        } else if (index > 3 && index <= 5) {
-            result = {mdDown: true};
-        } else if (index === 3) {
-            result = {smDown: true};
-        } else if (index > 0 && index <= 2) {
-            result = {xsDown: true};
-        }
-        return result;
-    };
+    // const hideCell = (index) => {
+    //     let result = {};
+    //     if (index > 11) {
+    //         result = {xlDown: true};
+    //     } else if (index > 5 && index <= 11) {
+    //         result = {lgDown: true};
+    //     } else if (index > 3 && index <= 5) {
+    //         result = {mdDown: true};
+    //     } else if (index === 3) {
+    //         result = {smDown: true};
+    //     } else if (index > 0 && index <= 2) {
+    //         result = {xsDown: true};
+    //     }
+    //     return result;
+    // };
     
     return (
         <React.Fragment>
             {airlineBox}
             {aircraftsTable}
-            <Hidden {...hideCell(12)}>
+            {/* <Hidden {...hideCell(12)}>
                 <button onClick={aircraftsInitHandler}>Aircrafts Init</button>
-            </Hidden> 
+            </Hidden>  */}
         </React.Fragment>        
     );
 };
