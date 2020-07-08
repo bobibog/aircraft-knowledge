@@ -114,24 +114,30 @@ const Flights = props => {
                 break;
             }
         }
-        airlineBox = <CardsInBox 
-            data={flightsAirline}
-            header={airlineHeader}
-            headerColumnName="airlineName"
-            // backColor="lightsalmon"
-            backColor="ffebee"
-            // headerText="Airline"
-            // headerTextDelimiter=":"
-        />; 
-        aircraftBox = <CardsInBox 
-            data={flightsAircraft}
-            header={aircraftHeader}
-            headerColumnName="registration"
-            // backColor="powderblue"
-            backColor="#e3f2fd"
-            // headerText="Airline"
-            // headerTextDelimiter=":"
-        />; 
+        airlineBox = flightsAirline
+            ? <CardsInBox 
+                data={flightsAirline}
+                header={airlineHeader}
+                headerColumnName="airlineName"
+                // backColor="lightsalmon"
+                backColor="#ffebee"
+                // headerText="Airline"
+                // headerTextDelimiter=":"
+            />
+            : null;
+        
+        aircraftBox = flightsAircraft
+            ? <CardsInBox 
+                data={flightsAircraft}
+                header={aircraftHeader}
+                headerColumnName="registration"
+                // backColor="powderblue"
+                backColor="#e3f2fd"
+                // headerText="Airline"
+                // headerTextDelimiter=":"
+            />
+            : null;
+             
         flightsTable = <Table 
             data={flights}
             header={flightHeader} />;        

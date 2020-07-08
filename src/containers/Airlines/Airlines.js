@@ -15,14 +15,14 @@ const Airlines = props => {
     const [airlines, setAirlines] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const airlinesInitHandler = () => {
-        //setAirlines(airlinesInit);
-        for (let airline of airlinesInit) {
-            axiosFirebase.post('/airlines.json', airline)
-                .then(response => console.log('Odgovor je: ' + response))
-                .catch(error => console.log('Greska je: ' + error));
-        }        
-    };
+    // const airlinesInitHandler = () => {
+    //     //setAirlines(airlinesInit);
+    //     for (let airline of airlinesInit) {
+    //         axiosFirebase.post('/airlines.json', airline)
+    //             .then(response => console.log('Odgovor je: ' + response))
+    //             .catch(error => console.log('Greska je: ' + error));
+    //     }        
+    // };
     
     //console.log(props);
     useEffect(() => {        
@@ -41,7 +41,9 @@ const Airlines = props => {
     }, []);
 
     const airlinesPageHeader =
-        <CardsInBox headerText="Airlines" />;
+        <CardsInBox
+            headerText="Airlines"
+            backColor="#ffebee" />;
 
 
     //let airlinesDataRows = null;
@@ -60,30 +62,30 @@ const Airlines = props => {
             }} />;        
     };    
 
-    const hideCell = (index) => {
-        let result = {};
-        if (index > 11) {
-            result = {xlDown: true};
-        } else if (index > 5 && index <= 11) {
-            result = {lgDown: true};
-        } else if (index > 3 && index <= 5) {
-            result = {mdDown: true};
-        } else if (index === 3) {
-            result = {smDown: true};
-        } else if (index > 0 && index <= 2) {
-            result = {xsDown: true};
-        }
-        return result;
-    };
+    // const hideCell = (index) => {
+    //     let result = {};
+    //     if (index > 11) {
+    //         result = {xlDown: true};
+    //     } else if (index > 5 && index <= 11) {
+    //         result = {lgDown: true};
+    //     } else if (index > 3 && index <= 5) {
+    //         result = {mdDown: true};
+    //     } else if (index === 3) {
+    //         result = {smDown: true};
+    //     } else if (index > 0 && index <= 2) {
+    //         result = {xsDown: true};
+    //     }
+    //     return result;
+    // };
     
     return (
         <React.Fragment>
             {/* <h2>Airlines</h2> */}
             {airlinesPageHeader}
             {airlinesTable}
-            <Hidden {...hideCell(12)}>
+            {/* <Hidden {...hideCell(12)}>
                 <button onClick={airlinesInitHandler}>Airlines Init</button>
-            </Hidden> 
+            </Hidden>  */}
         </React.Fragment>        
     );
 };

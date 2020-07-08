@@ -1,7 +1,13 @@
 export const airlineHeader = [
     {
-      name: "Name",
-      prop: "airlineName"
+        name: "Name",
+        prop: "airlineName",
+        linkRoute: [
+            "/aircraft", "airlineId"
+        ],
+        // dataCellCreator: [
+        //     "city", " (", "airportIata", ")"
+        // ],
     },
     {
       name: "IATA",
@@ -20,7 +26,10 @@ export const airlineHeader = [
 export const aircraftHeader = [
     {
         name: "Registration",
-        prop: "registration"
+        prop: "registration",
+        linkRoute: [
+            "/flights", "aircraftId"
+        ],
     },
     // {
     //     name: "Airline",
@@ -79,16 +88,25 @@ export const flightHeader = [
     },
     {
         name: "From",
-        prop: "fromAirportId",
+        prop: "fromAirport",
         type: "airportHeader",
-        link: "airportId",
+        linkRoute: [
+            "/airports", "airportId"
+        ],
         dataCellCreator: [
             "city", " (", "airportIata", ")"
         ],
     },
     {
         name: "To",
-        prop: "toAirportId"
+        prop: "toAirport",
+        type: "airportHeader",
+        linkRoute: [
+            "/airports", "airportId"
+        ],
+        dataCellCreator: [
+            "city", " (", "airportIata", ")"
+        ],
     },
     {
         name: "Duration",
@@ -120,12 +138,19 @@ export const flightHeader = [
     },
     {
         name: "Diverted",
-        prop: "divertedToAirportId"
+        prop: "divertedToAirport",
+        type: "airportHeader",
+        linkRoute: [
+            "/airports", "airportId"
+        ],
+        dataCellCreator: [
+            "city", " (", "airportIata", ")"
+        ],
     },
-    {
-        name: "Aircraft",
-        prop: "aircraftId"
-    }
+    // {
+    //     name: "Aircraft",
+    //     prop: "aircraftId"
+    // }
 ];
 
 export const airlinesInit = [

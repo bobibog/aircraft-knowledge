@@ -75,43 +75,102 @@ const CustomDataTableRow = (props) => {
         }
     }, [props.colTot, props.colIndVisible, props.rowArrowClose, rowArrowCloseReset]);
 
-    const setParameterRoute = (rowData, paramsRoute) => {
-        let route = paramsRoute.baseRoute + "/";
-        const params = [];
-        for (const param of paramsRoute.params) {
-            if (rowData[param]) {
-                params.push(rowData[param]);
-            }
-        }
-        route += params.join(paramsRoute.delimiter);
-        return route
-    };
+    // const setParameterRoute = (rowData, paramsRoute) => {
+    //     let route = paramsRoute.baseRoute + "/";
+    //     const params = [];
+    //     for (const param of paramsRoute.params) {
+    //         if (rowData[param]) {
+    //             params.push(rowData[param]);
+    //         }
+    //     }
+    //     route += params.join(paramsRoute.delimiter);
+    //     return route
+    // };
 
     const getApiModelPropValue = (rowData, apiModelHeaderColumn) => {
-        const propList = apiModelHeaderColumn.prop.trim().split('.');
-        let apiModelPropValue = rowData;
-        for (const modelProp of propList) {
-            apiModelPropValue = apiModelPropValue[modelProp];
-        }
-        if (apiModelPropValue) {
-            if (apiModelHeaderColumn.type === "datetime") {
-                let d = new Date(apiModelPropValue);
-                const monthNames = ["jan", "feb", "mar", "apr", "may", "jun",
-                    "jul", "aug", "sep", "oct", "nov", "dec"
-                ];
-                apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
-            } else if (apiModelHeaderColumn.type === "timespan") {
-                let minutes = apiModelPropValue.value.minutes !== 0 ? apiModelPropValue.value.minutes : "00";
-                if (minutes < 10) {
-                    minutes = "0" + minutes;
+        //const propList = apiModelHeaderColumn.prop.trim().split('.');
+        // let apiModelPropValue = rowData;
+        // for (const modelProp of propList) {
+        //     apiModelPropValue = apiModelPropValue[modelProp];
+        // }
+        let dataCellContent = "-";
+        let toLinkRoute = null;
+        let toLinkRouteBase = null;
+        let toLinkRouteParam = null;
+
+        if (rowData[apiModelHeaderColumn.prop]) {
+            if (apiModelHeaderColumn.linkRoute) {
+                toLinkRouteBase = apiModelHeaderColumn.linkRoute[0];
+                toLinkRouteParam = rowData[apiModelHeaderColumn.linkRoute[1]];
+                toLinkRoute = toLinkRouteBase + "/" + toLinkRouteParam;
+            }          
+            
+            if (apiModelHeaderColumn.type) {
+                if (apiModelHeaderColumn.type.indexOf("Header") !== -1) {
+                    //const nameOfType = apiModelHeaderColumn.type.trim().split("Header")[0];            
+                    let dataCellContentFirstPart = null;
+                    let dataCellContentSecondPart = null;
+                    if (apiModelHeaderColumn.dataCellCreator) {
+                        if (apiModelHeaderColumn.dataCellCreator[0]) {
+                            dataCellContentFirstPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[0]];
+                        }
+                        if (apiModelHeaderColumn.dataCellCreator[2]) {
+                            dataCellContentSecondPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[2]];
+                        }
+                        if (!dataCellContentSecondPart) {
+                            dataCellContent = dataCellContentFirstPart;
+                        } else {
+                            dataCellContent = dataCellContentFirstPart + apiModelHeaderColumn.dataCellCreator[1]
+                                + dataCellContentSecondPart + apiModelHeaderColumn.dataCellCreator[3];
+                        }                
+                    }
+                    if(apiModelHeaderColumn.linkRoute) {
+                        toLinkRouteBase = apiModelHeaderColumn.linkRoute[0];
+                        toLinkRouteParam = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.linkRoute[1]];
+                        toLinkRoute = toLinkRouteBase + "/" + toLinkRouteParam;           
+                    }
+                } else {
+                    let apiModelPropValue = rowData[apiModelHeaderColumn.prop];
+                    if (apiModelPropValue) {
+                        if (apiModelHeaderColumn.type === "datetime") {
+                            let d = new Date(apiModelPropValue);
+                            const monthNames = ["jan", "feb", "mar", "apr", "may", "jun",
+                                "jul", "aug", "sep", "oct", "nov", "dec"
+                            ];
+                            apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
+                        } else if (apiModelHeaderColumn.type === "timespan") {
+                            if (apiModelPropValue.value) {
+                                let minutes = apiModelPropValue.value.minutes;
+                                if (minutes < 10) {
+                                    if (minutes !== 0) {
+                                        minutes = "0" + minutes;
+                                    } else {
+                                        minutes = "00";
+                                    }                                    
+                                }
+                                apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;                                
+                            } else {
+                                apiModelPropValue = "-"    
+                            }
+                        }            
+                    } else {
+                        apiModelPropValue = "-"
+                    }
+                    dataCellContent = apiModelPropValue;
                 }
-                apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;
-            }            
-        } else {
-            apiModelPropValue = "-"
+            } else {
+                dataCellContent = rowData[apiModelHeaderColumn.prop];
+            }
+            
+            if(apiModelHeaderColumn.linkRoute) {
+                dataCellContent = 
+                    <Link to={toLinkRoute} className={classesCss.a}>
+                        {dataCellContent}
+                    </Link>            
+            }
         }
 
-        return apiModelPropValue;
+        return dataCellContent;
     };
 
     return (
@@ -130,17 +189,22 @@ const CustomDataTableRow = (props) => {
                     .filter((headerColumn, ind) => ind <= props.colIndVisible)
                     .map((headerColumnVisible, index) => {
                         // let dataTableCell = props.rowData[headerColumnVisible.prop]; 
-                        let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
-                        if (props.parametersRoute && index === 0) {
-                            if (props.rowData[headerColumnVisible.prop]) {
-                                dataTableCell = 
-                                    <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
-                                        {props.rowData[headerColumnVisible.prop]}
-                                    </Link>
-                            } else {
-                                dataTableCell = "-"; 
-                            }
-                        }
+                        // let dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
+                        // if (props.parametersRoute && index === 0) {
+                        //     if (props.rowData[headerColumnVisible.prop]) {
+                        //         dataTableCell = 
+                        //             <Link to={setParameterRoute(props.rowData, props.parametersRoute)} className={classesCss.a}>
+                        //                 {props.rowData[headerColumnVisible.prop]}
+                        //             </Link>
+                        //     } else {
+                        //         dataTableCell = "-"; 
+                        //     }                        
+                        // }
+                        // let dataTableCell = "-";
+                        // if (props.rowData[headerColumnVisible.prop]) {
+                            const dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
+                        // }
+
                         return (
                         <StyledTableCell key={`trc-${index}`}>
                             {dataTableCell}

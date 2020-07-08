@@ -186,77 +186,89 @@ const TableCustom = (props) => {
     const classes = useStyles();
     const classesTablePagination = useStylesTablePagination();
 
+    // let tableOrInfo = null;
+    // if (props.data && props.data.length !== 0) {
+        
+    // }
+
     return (
+        
         <Grid container spacing={0}>
             <Grid item xs={12}>
                 <Paper>
-                <TableContainer component={Paper} className={classes.container}>
-                    <Table className={classes.table} stickyHeader>
-                        <TableHead>
-                            <CustomHeaderTableRow
-                                header={props.header}
-                                colTot={columnsTotal}
-                                colIndVisible={columnIndexVisible} 
-                            />
-                        </TableHead>
-                        <TableBody>
-                            {(rowsPerPage > 0
-                                ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                : props.data
-                            ).map((x, i) =>
-                                <CustomDataTableRow
-                                    key={`dr-${i}`} 
-                                    rowData={x}
-                                    rowIndex={i}
-                                    header={props.header}
-                                    colTot={columnsTotal}
-                                    colIndVisible={columnIndexVisible}
-                                    rowArrowClose={rowClose}
-                                    rowArrowCloseReset={rowCloseResetHandler}
-                                    parametersRoute={props.paramsRoute} 
-                                />
-                            )}
-
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: emptyRowHeight * emptyRows }}>
-                                    <TableCell 
-                                        colSpan={
-                                            (columnsTotal - 1) > columnIndexVisible
-                                            ? columnIndexVisible + 2
-                                            : columnIndexVisible + 1
-                                        } 
+                    <TableContainer component={Paper} className={classes.container}>
+                        {(props.data && props.data.length !== 0)
+                            ? <Table className={classes.table} stickyHeader>
+                                <TableHead>
+                                    <CustomHeaderTableRow
+                                        header={props.header}
+                                        colTot={columnsTotal}
+                                        colIndVisible={columnIndexVisible} 
                                     />
-                                </TableRow>
-                            )}
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TablePagination
-                                    classes={{
-                                        toolbar: classesTablePagination.toolbar,
-                                        selectRoot: classesTablePagination.selectRoot,
-                                    }}
-                                    labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
-                                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                    colSpan={colSpanPagination}
-                                    count={props.data.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    SelectProps={{
-                                        inputProps: { 'aria-label': 'rows per page' },
-                                        native: true,
-                                    }}
-                                    onChangePage={handleChangePage}
-                                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                                    ActionsComponent={TablePaginationActions}
-                                />
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
-                </TableContainer>
+                                </TableHead>
+                                
+                                <TableBody>
+                                    {(rowsPerPage > 0
+                                        ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        : props.data
+                                    ).map((x, i) =>
+                                        <CustomDataTableRow
+                                            key={`dr-${i}`} 
+                                            rowData={x}
+                                            rowIndex={i}
+                                            header={props.header}
+                                            colTot={columnsTotal}
+                                            colIndVisible={columnIndexVisible}
+                                            rowArrowClose={rowClose}
+                                            rowArrowCloseReset={rowCloseResetHandler}
+                                            parametersRoute={props.paramsRoute} 
+                                        />
+                                    )}
+
+                                    {emptyRows > 0 && (
+                                        <TableRow style={{ height: emptyRowHeight * emptyRows }}>
+                                            <TableCell 
+                                                colSpan={
+                                                    (columnsTotal - 1) > columnIndexVisible
+                                                    ? columnIndexVisible + 2
+                                                    : columnIndexVisible + 1
+                                                } 
+                                            />
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                                <TableFooter>
+                                    <TableRow>
+                                        <TablePagination
+                                            classes={{
+                                                toolbar: classesTablePagination.toolbar,
+                                                selectRoot: classesTablePagination.selectRoot,
+                                            }}
+                                            labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
+                                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                            colSpan={colSpanPagination}
+                                            count={props.data.length}
+                                            rowsPerPage={rowsPerPage}
+                                            page={page}
+                                            SelectProps={{
+                                                inputProps: { 'aria-label': 'rows per page' },
+                                                native: true,
+                                            }}
+                                            onChangePage={handleChangePage}
+                                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                                            ActionsComponent={TablePaginationActions}
+                                        />
+                                    </TableRow>
+                                </TableFooter>                       
+                                
+                            </Table>
+                            : <p style={{justifyContent: 'flex-center'}}>There is no flights for this aircraft.</p>
+                        }
+                    </TableContainer>
                 </Paper>
             </Grid>
         </Grid>
+        
     );
 };
 

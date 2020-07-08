@@ -91,15 +91,17 @@ const Aircrafts = props => {
     if (aircrafts && aircrafts.length > 0 && !loading) {
         // console.log(aircrafts);
         // console.log(!!aircrafts);
-        airlineBox = <CardsInBox 
-            data={aircrafts[0].airline}
-            header={airlineHeader}
-            headerColumnName="airlineName"
-            // backColor="lightsalmon"
-            backColor="#ffebee"
-            // headerText="Airline"
-            // headerTextDelimiter=":"
-        />;        
+        airlineBox = aircrafts[0].airline
+            ? <CardsInBox 
+                data={aircrafts[0].airline}
+                header={airlineHeader}
+                headerColumnName="airlineName"
+                // backColor="lightsalmon"
+                backColor="#ffebee"
+                // headerText="Airline"
+                // headerTextDelimiter=":"
+            />
+            : null;        
         aircraftsTable = <Table 
             data={aircrafts}
             header={aircraftHeader}

@@ -62,7 +62,7 @@ const CardsInBox = (props) => {
     const classes = useStyles();
 
     let headerBox = null;
-    if (props.data && (props.headerColumnName || props.headerText)) {
+    if (props.headerColumnName || props.headerText) {
         headerBox = 
             <Box className={classes.rootBox} style={{paddingBottom: 10}}>
                 {props.headerText
@@ -77,7 +77,7 @@ const CardsInBox = (props) => {
                     </Typography>
                     : null
                 }
-                {props.headerColumnName
+                {(props.headerColumnName && props.data)
                     ? <Typography style={{marginLeft: 7, paddingTop: 5, fontWeight: 'bold'}} variant="h5" component="h2">
                         {props.data[props.headerColumnName]}
                     </Typography>

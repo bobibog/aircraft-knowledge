@@ -25,6 +25,7 @@ function App() {
     <Switch>
       <Route path="/aircraft/:id" component={Aircrafts} />
       {/* <Route path="/aircraft" component={Aircrafts} /> */}
+      <Route path="/airports/:id" component={Airports} />
       <Route path="/airports" component={Airports} />
       <Route path="/flights/:id" component={Flights} />
       {/* <Route path="/flights" component={Flights} /> */}
@@ -41,6 +42,7 @@ function App() {
       <Switch>
         <Route path="/aircraft/:id" component={Aircrafts} />
         {/* <Route path="/aircraft" component={Aircrafts} /> */}
+        <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />
         {/* <Route path="/flights" component={Flights} /> */}
