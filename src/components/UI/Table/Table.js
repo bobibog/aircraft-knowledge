@@ -262,7 +262,7 @@ const TableCustom = (props) => {
                                 </TableFooter>                       
                                 
                             </Table>
-                            : <p style={{justifyContent: 'flex-center'}}>There is no flights for this aircraft.</p>
+                            : <p style={{textAlign: 'center'}}>There is no flights for this aircraft.</p>
                         }
                     </TableContainer>
                 </Paper>
