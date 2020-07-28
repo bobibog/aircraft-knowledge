@@ -157,7 +157,8 @@ const TableCustom = (props) => {
 
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    // const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
     const [rowClose, setRowClose] = useState(false);
 
     const rowCloseResetHandler = () => {
@@ -169,11 +170,14 @@ const TableCustom = (props) => {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
         setRowClose(true);
+        let newOffset = newPage * rowsPerPage;
+        props.changeOffsetOrLimit(newOffset, rowsPerPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+        props.changeOffsetOrLimit(0, rowsPerPage);
     };
 
     
@@ -191,8 +195,7 @@ const TableCustom = (props) => {
         
     // }
 
-    return (
-        
+    return (        
         <Grid container spacing={0}>
             <Grid item xs={12}>
                 <Paper>
@@ -208,10 +211,13 @@ const TableCustom = (props) => {
                                 </TableHead>
                                 
                                 <TableBody>
-                                    {(rowsPerPage > 0
-                                        ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        : props.data
-                                    ).map((x, i) =>
+                                    {
+                                    // (rowsPerPage > 0
+                                    //     ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    //     : props.data
+                                    // )
+                                    props.data
+                                    .map((x, i) =>
                                         <CustomDataTableRow
                                             key={`dr-${i}`} 
                                             rowData={x}
@@ -247,7 +253,8 @@ const TableCustom = (props) => {
                                             labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
                                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                             colSpan={colSpanPagination}
-                                            count={props.data.length}
+                                            // count={props.data.length}
+                                            count={props.totalDataCount}
                                             rowsPerPage={rowsPerPage}
                                             page={page}
                                             SelectProps={{

@@ -1,3 +1,5 @@
+export const rowsPerPageDefault = 10;
+
 export const airlineHeader = [
     {
         name: "Name",

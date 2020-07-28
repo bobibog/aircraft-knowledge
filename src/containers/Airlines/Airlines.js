@@ -2,19 +2,25 @@ import React, {useState, useEffect} from 'react';
 //import Hidden from '@material-ui/core/Hidden';
 
 //import axiosFirebase from '../../axios-firebase';
-// import axios from '../../axios-local';
-import axios from '../../axios-azure';
+import axios from '../../axios-local';
+//import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 //import Airline from '../../components/Airline/Airline';
 import Table from '../../components/UI/Table/Table';
 import {airlineHeader} from '../../shared/staticData';
+import {rowsPerPageDefault} from '../../shared/staticData';
 //import {airlinesInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 
 const Airlines = props => {
     const [airlines, setAirlines] = useState(null);
+    const [airlinesCount, setAirlinesCount] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [dataWindow, setDataWindow] = useState({
+        offset: 0,
+        limit: rowsPerPageDefault
+    });
 
     // const airlinesInitHandler = () => {
     //     //setAirlines(airlinesInit);
@@ -24,22 +30,33 @@ const Airlines = props => {
     //             .catch(error => console.log('Greska je: ' + error));
     //     }        
     // };
+
+    const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {
+        setDataWindow({
+            offset: tableOffset,
+            limit: tableLimit
+        });
+    }
     
     //console.log(props);
     useEffect(() => {        
-        setLoading(true);        
-        axios.get('/airline')
-        .then(response => {
-            setAirlines(response.data);
-            // setAirlines(fetchedAirlines);
+        setLoading(true);
+        axios.get('/airline' + '?' + 'offset=' + dataWindow.offset + '&' + 'limit=' + dataWindow.limit)
+            .then(response => {
+                // let airlinesList = response.data['airlines'];
+                // let airlinesCount = response.data['airlinesCount'];
+                setAirlines(response.data['airlines']);
+                setAirlinesCount(response.data['airlinesCount']);
+                // setAirlines(fetchedAirlines);
 
-            setLoading(false); 
-        })
-        .catch(error => {
-            setLoading(false);
-            //console.log('Greska je: ' + error);                
-        });
-    }, []);
+                setLoading(false); 
+            })
+            .catch(error => {
+                setLoading(false);
+                //console.log('Greska je: ' + error);                
+            }
+        );
+    }, [dataWindow.offset, dataWindow.limit]);
 
     const airlinesPageHeader =
         <CardsInBox
@@ -60,7 +77,10 @@ const Airlines = props => {
                 baseRoute: "/aircraft",
                 params: ["airlineId"],
                 delimiter: "-"
-            }} />;        
+            }}
+            rowsPerPageDef={rowsPerPageDefault}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            totalDataCount={airlinesCount} />;        
     };    
 
     // const hideCell = (index) => {
