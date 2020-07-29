@@ -179,9 +179,18 @@ const TableCustom = (props) => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+        let changedRowsPerPage = parseInt(event.target.value, 10)
+        setRowsPerPage(changedRowsPerPage);
+        props.setAirlinesPage(0);
         setPage(0);
-        props.changeOffsetOrLimit(0, rowsPerPage);
+        // props.changeOffsetOrLimit(0, rowsPerPage);
+        // if (changedRowsPerPage !== -1) {
+        //     props.changeOffsetOrLimit(0, event.target.value);
+        // } else {
+        //     props.changeOffsetOrLimit(0, 0);
+        // }
+        props.changeOffsetOrLimit(0, event.target.value);
+        
     };
 
     
@@ -255,7 +264,8 @@ const TableCustom = (props) => {
                                                 selectRoot: classesTablePagination.selectRoot,
                                             }}
                                             labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
-                                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                            // rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: props.totalDataCount }]}
                                             colSpan={colSpanPagination}
                                             // count={props.data.length}
                                             count={props.totalDataCount}

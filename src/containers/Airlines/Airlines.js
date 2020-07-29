@@ -107,7 +107,7 @@ const Airlines = props => {
                 params: ["airlineId"],
                 delimiter: "-"
             }}
-            rowsPerPageDef={rowsPerPageDefault}
+            rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={airlinesCount}
             setAirlinesPage={setAirlinesPageHandler}
