@@ -6,6 +6,23 @@ import * as serviceWorker from './serviceWorker';
 import BreakpointContextProvider from './context/breakpoint-context';
 import {BrowserRouter} from 'react-router-dom';
 import AuthContextProvider from './context/auth-context';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+
+//import reducer from './store/reducers/airline';
+import airlineReducer from './store/reducers/airline'
+
+
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+
+const rootReducer = combineReducers({
+  airline: airlineReducer
+});
+
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunk)
+));
 
 const queries = {
   xs: '(max-width: 600px)',
@@ -17,13 +34,15 @@ const queries = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <BreakpointContextProvider queries={queries}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </BreakpointContextProvider>
-    </AuthContextProvider>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <BreakpointContextProvider queries={queries}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </BreakpointContextProvider>
+      </AuthContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
