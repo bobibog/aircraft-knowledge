@@ -41,11 +41,11 @@ export const fetchAirlines = (offset, limit) => {
     return dispatch => {
         dispatch(fetchAirlinesStart());
         // eslint-disable-next-line no-useless-concat
-        let queryString = '?' + 'offset=' + offset + '&' + 'limit=' + limit;
-        // let queryString = limit !== 0 
-        //     // eslint-disable-next-line no-useless-concat
-        //     ? ('?' + 'offset=' + offset + '&' + 'limit=' + limit)
-        //     : '';
+        //let queryString = '?' + 'offset=' + offset + '&' + 'limit=' + limit;
+        let queryString = limit !== "-1" 
+            // eslint-disable-next-line no-useless-concat
+            ? ('?' + 'offset=' + offset + '&' + 'limit=' + limit)
+            : '';
         axios.get('/airline' + queryString)
             .then(response => {
                 // let airlinesList = response.data['airlines'];

@@ -264,8 +264,8 @@ const TableCustom = (props) => {
                                                 selectRoot: classesTablePagination.selectRoot,
                                             }}
                                             labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
-                                            // rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: props.totalDataCount }]}
+                                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                            //rowsPerPageOptions={[5, 10, 25, { label: 'All', value: props.totalDataCount }]}
                                             colSpan={colSpanPagination}
                                             // count={props.data.length}
                                             count={props.totalDataCount}
