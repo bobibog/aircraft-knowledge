@@ -96,7 +96,7 @@ const Airlines = props => {
     //let airlinesDataRows = null;
     let airlinesTable = <Spinner />;
     if (!airlines && !loading) {
-        airlinesTable = null;
+        airlinesTable = <p style={{ textAlign: 'center' }}>Could not read airlines from the server!</p>;
     }
     if (airlines && !loading) {
         airlinesTable = <Table 

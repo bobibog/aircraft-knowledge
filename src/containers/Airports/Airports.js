@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 //import Hidden from '@material-ui/core/Hidden';
+import {useSelector, useDispatch} from 'react-redux';
 
 //import axiosFirebase from '../../axios-firebase';
 // import axios from '../../axios-local';
@@ -10,68 +11,57 @@ import Table from '../../components/UI/Table/Table';
 import {airportHeader} from '../../shared/staticData';
 //import {airportsInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
+import * as actions from '../../store/actions/index';
 
 const Airports = props => {
     const {match} = props;
 
-    const [airports, setAirports] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const airports = useSelector(state => {
+        return state.airport.airports;
+    });
+    const airportsCount = useSelector(state => {
+        return state.airport.airportsCount;
+    });
+    const loading = useSelector(state => {
+        return state.airport.airportsLoading;
+    });
+    const offset = useSelector(state => {
+        return state.airport.airportsOffset;
+    });
+    const limit = useSelector(state => {
+        return state.airport.airportsLimit;
+    });
+    const page = useSelector(state => {
+        return state.airport.airportsPage;
+    });
 
-    // const airportsInitHandler = () => {
-    //     for (let airport of airportsInit) {
-    //         axiosFirebase.post('/airports.json', airport)
-    //             .then(response => console.log('Odgovor je: ' + response))
-    //             .catch(error => console.log('Greska je: ' + error));
-    //     }        
-    // };    
+    const dispatch = useDispatch();
+
+    const onFetchAirports = useCallback((airportId) => dispatch(actions.fetchAirports(offset, limit, airportId)), [dispatch, offset, limit]);
+    const onSetAirportsOffsetLimit = (offset, limit) => dispatch(actions.setAirportsOffsetLimit(offset, limit));
+    const onSetAirportsPage = (page) => dispatch(actions.setAirportsPage(page)); 
+    const onUnmountAirports = () => dispatch(actions.unmountAirports());   
+
+    // const [airports, setAirports] = useState(null);
+    // const [loading, setLoading] = useState(false);
+
+    const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
+        onSetAirportsOffsetLimit(tableOffset, tableLimit);     
+    }
+
+    const setAirportsPageHandler = page => {
+        onSetAirportsPage(page);
+    }
 
     useEffect(() => {
-        setLoading(true);
-        if (!match.params.id) {
-            axios.get('/airport')
-            .then(response => {
-                //console.log('Odgovor je: ' + response);
-                // const fetchedAirports = [];
-                // if(response) {
-                //     for (let key in response.data) {
-                //         fetchedAirports.push(
-                //             response.data[key]
-                //         );
-                //     };  
-                // }                 
-                setAirports(response.data);
-                setLoading(false); 
-            })
-            .catch(error => {
-                setLoading(false);
-                //console.log('Greska je: ' + error);                
-            });            
-        } else {
-            axios.get(`/airport/${match.params.id}`)
-            .then(response => {
-                //console.log('Odgovor je: ' + response);
-                // const fetchedAirports = [];
-                // if(response) {
-                //     for (let key in response.data) {
-                //         fetchedAirports.push(
-                //             response.data[key]
-                //         );
-                //     };  
-                // }
-                const airportsArray = [];
-                if (response.data) {
-                    airportsArray.push(response.data);
-                }                 
-                setAirports(airportsArray);
-                setLoading(false); 
-            })
-            .catch(error => {
-                setLoading(false);
-                //console.log('Greska je: ' + error);                
-            });                      
-        }
+        onFetchAirports(match.params.id);
+    }, [match.params.id, onFetchAirports]);
 
-    }, [match.params.id]);
+    useEffect(() => {
+        return () => {
+            onUnmountAirports();
+        };
+    }, []);
 
     const airportsPageHeader =
         <CardsInBox 
@@ -81,12 +71,17 @@ const Airports = props => {
     
     let airportsTable = <Spinner />;
     if (!airports && !loading) {
-        airportsTable = null;
+        airportsTable = <p style={{ textAlign: 'center' }}>Could not read airports from the server!</p>;
     }
     if (airports && !loading) {
         airportsTable = <Table 
             data={airports}
-            header={airportHeader} />;        
+            header={airportHeader}
+            rowsPerPageDef={limit}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            totalDataCount={airportsCount}
+            setAirlinesPage={setAirportsPageHandler}
+            currPage={page} />;        
     };    
 
     // const hideCell = (index) => {

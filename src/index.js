@@ -13,13 +13,15 @@ import thunk from 'redux-thunk';
 //import reducer from './store/reducers/airline';
 import airlineReducer from './store/reducers/airline';
 import aircraftReducer from './store/reducers/aircraft';
+import airportReducer from './store/reducers/airport';
 
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   airline: airlineReducer,
-  aircraft: aircraftReducer
+  aircraft: aircraftReducer,
+  airport: airportReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

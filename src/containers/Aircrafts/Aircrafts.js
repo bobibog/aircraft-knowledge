@@ -66,47 +66,7 @@ const Aircrafts = props => {
     }
 
     useEffect(() => {
-        onFetchAircraft(match.params.id);
-        //setLoading(true);
-        // axios.get('/aircrafts.json')
-        //     .then(response => {
-        //         //console.log('Odgovor je: ' + response);
-        //         const fetchedAircrafts = [];
-        //         if(response) {
-        //             for (let key in response.data) {
-        //                 fetchedAircrafts.push(
-        //                     response.data[key]
-        //                 );
-        //             };  
-        //         }                 
-        //         setAircrafts(fetchedAircrafts);
-        //         setLoading(false); 
-        //     })
-        //     .catch(error => {
-        //         setLoading(false);
-        //         //console.log('Greska je: ' + error);                
-        //     });
-        // if ( match.params.id ) {
-        //     axios.get('/aircraft/getaircraftinairline/' + match.params.id)
-        //         .then(response => {
-        //             //console.log('Odgovor je: ' + response);
-        //             // const fetchedAircrafts = [];
-        //             // if(response) {
-        //             //     for (let key in response.data) {
-        //             //         fetchedAircrafts.push(
-        //             //             response.data[key]
-        //             //         );
-        //             //     };  
-        //             // }                 
-        //             // setAircrafts(fetchedAircrafts);
-        //             setAircrafts(response.data);
-        //             setLoading(false); 
-        //         })
-        //         .catch(error => {
-        //             setLoading(false);
-        //             //console.log('Greska je: ' + error);                
-        //         });
-        // }
+        onFetchAircraft(match.params.id);        
     }, [onFetchAircraft, match.params.id]);
 
     let airlineBox = null;
