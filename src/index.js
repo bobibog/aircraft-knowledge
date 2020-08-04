@@ -14,6 +14,7 @@ import thunk from 'redux-thunk';
 import airlineReducer from './store/reducers/airline';
 import aircraftReducer from './store/reducers/aircraft';
 import airportReducer from './store/reducers/airport';
+import flightReducer from './store/reducers/flight';
 
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -21,7 +22,8 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 const rootReducer = combineReducers({
   airline: airlineReducer,
   aircraft: aircraftReducer,
-  airport: airportReducer
+  airport: airportReducer,
+  flight: flightReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

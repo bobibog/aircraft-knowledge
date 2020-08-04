@@ -110,7 +110,7 @@ const Airlines = props => {
             rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={airlinesCount}
-            setAirlinesPage={setAirlinesPageHandler}
+            setPageStore={setAirlinesPageHandler}
             currPage={page} />;        
     };    
 

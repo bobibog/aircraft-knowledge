@@ -80,7 +80,7 @@ const Airports = props => {
             rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={airportsCount}
-            setAirlinesPage={setAirportsPageHandler}
+            setPageStore={setAirportsPageHandler}
             currPage={page} />;        
     };    
 

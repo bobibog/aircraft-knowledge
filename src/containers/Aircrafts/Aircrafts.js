@@ -61,7 +61,7 @@ const Aircrafts = props => {
         onSetAircraftOffsetLimit(tableOffset, tableLimit);     
     }
 
-    const setAirlinesPageHandler = page => {
+    const setAircraftPageHandler = page => {
         onSetAircraftPage(page);
     }
 
@@ -111,7 +111,7 @@ const Aircrafts = props => {
             rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={aircraftCount}
-            setAirlinesPage={setAirlinesPageHandler}
+            setPageStore={setAircraftPageHandler}
             currPage={page} />;        
     };
     

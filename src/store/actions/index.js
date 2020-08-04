@@ -16,3 +16,10 @@ export {
     setAirportsPage,
     unmountAirports
 } from './airport';
+
+export {
+    fetchFlights,
+    setFlightsOffsetLimit,
+    setFlightsPage,
+    unmountFlights
+} from './flight';

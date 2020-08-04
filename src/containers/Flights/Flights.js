@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 //import Hidden from '@material-ui/core/Hidden';
+import {useSelector, useDispatch} from 'react-redux';
 
 //import axiosFirebase from '../../axios-firebase';
 //import axios from '../../axios-local';
@@ -12,12 +13,39 @@ import { flightHeader, aircraftHeader, airlineHeader } from '../../shared/static
 //import Airline from '../Airlines/Airline/Airline';
 //import Aircraft from '../Aircrafts/Aircraft/Aircraft';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
+import * as actions from '../../store/actions/index';
 
 const Flights = props => {
     const {match} = props;
 
-    const [flights, setFlights] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const flights = useSelector(state => {
+        return state.flight.flights;
+    });
+    const flightsCount = useSelector(state => {
+        return state.flight.flightsCount;
+    });
+    const loading = useSelector(state => {
+        return state.flight.flightsLoading;
+    });
+    const offset = useSelector(state => {
+        return state.flight.flightsOffset;
+    });
+    const limit = useSelector(state => {
+        return state.flight.flightsLimit;
+    });
+    const page = useSelector(state => {
+        return state.flight.flightsPage;
+    });
+
+    const dispatch = useDispatch();
+
+    const onFetchFlights = useCallback((aircraftId) => dispatch(actions.fetchFlights(offset, limit, aircraftId)), [dispatch, offset, limit]);
+    const onSetFlightsOffsetLimit = (offset, limit) => dispatch(actions.setFlightsOffsetLimit(offset, limit));
+    const onSetFlightsPage = (page) => dispatch(actions.setFlightsPage(page));
+    const onUnmountFlights = () => dispatch(actions.unmountFlights());
+
+    // const [flights, setFlights] = useState(null);
+    // const [loading, setLoading] = useState(false);
 
     // const [airline, setAirline] = useState(null);
     // const [loadingAirline, setLoadingAirline] = useState(false);
@@ -30,52 +58,25 @@ const Flights = props => {
     //     }
         
     // };
+
+    const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
+        onSetFlightsOffsetLimit(tableOffset, tableLimit);     
+    }
+
+    const setAirlinesPageHandler = page => {
+        onSetFlightsPage(page);
+    }
     
 
     useEffect(() => {
-        setLoading(true);
-        //setLoadingAirline(true);
-        if (match.params.id) {
-            // axios.get(`/airline/getairlineforaircraft/${match.params.id}`)
-            //     .then(response => {
-            //         //console.log('Odgovor je: ' + response);
-            //         // const fetchedFlights = [];
-            //         // if(response) {
-            //         //     for (let key in response.data) {
-            //         //         fetchedFlights.push(
-            //         //             response.data[key]
-            //         //         );
-            //         //     };  
-            //         // }                 
-            //         // setFlights(fetchedFlights);
-            //         setAirline(response.data);
-            //         setLoadingAirline(false); 
-            //     })
-            //     .catch(error => {
-            //         setLoadingAirline(false);
-            //         //console.log('Greska je: ' + error);                
-            //     });  
-            axios.get(`/flight/getflightsforaircraft/${match.params.id}`)
-                .then(response => {
-                    //console.log('Odgovor je: ' + response);
-                    // const fetchedFlights = [];
-                    // if(response) {
-                    //     for (let key in response.data) {
-                    //         fetchedFlights.push(
-                    //             response.data[key]
-                    //         );
-                    //     };  
-                    // }                 
-                    setFlights(response.data);
-                    setLoading(false); 
-                })
-                .catch(error => {
-                    setLoading(false);
-                    //console.log('Greska je: ' + error);                
-                });            
-        }
+        onFetchFlights(match.params.id);
+    }, [onFetchFlights, match.params.id]);
 
-    }, [match.params.id]);
+    useEffect(() => {
+        return () => {
+            onUnmountFlights();
+        };
+    }, []);
 
     let airlineBox = null;
     let aircraftBox = null;
@@ -141,7 +142,12 @@ const Flights = props => {
              
         flightsTable = <Table 
             data={flights}
-            header={flightHeader} />;        
+            header={flightHeader}
+            rowsPerPageDef={limit}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            totalDataCount={flightsCount}
+            setPageStore={setAirlinesPageHandler}
+            currPage={page} />;        
     };    
 
     // const hideCell = (index) => {

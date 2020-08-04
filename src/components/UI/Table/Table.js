@@ -171,7 +171,7 @@ const TableCustom = (props) => {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.totalDataCount - page * rowsPerPage);
 
     const handleChangePage = (event, newPage) => {
-        props.setAirlinesPage(newPage);
+        props.setPageStore(newPage);
         setPage(newPage);
         setRowClose(true);
         let newOffset = newPage * rowsPerPage;
@@ -181,7 +181,7 @@ const TableCustom = (props) => {
     const handleChangeRowsPerPage = (event) => {
         let changedRowsPerPage = parseInt(event.target.value, 10)
         setRowsPerPage(changedRowsPerPage);
-        props.setAirlinesPage(0);
+        props.setPageStore(0);
         setPage(0);
         // props.changeOffsetOrLimit(0, rowsPerPage);
         // if (changedRowsPerPage !== -1) {
