@@ -59,3 +59,9 @@ export const fetchAircraft = (offset, limit, airlineId) => {
 
     }
 };
+
+export const unmountAircraft = () => {
+    return {
+        type: actionTypes.UNMOUNT_AIRCRAFT
+    }
+};

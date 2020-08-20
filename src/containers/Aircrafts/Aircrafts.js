@@ -42,6 +42,7 @@ const Aircrafts = props => {
     const onFetchAircraft = useCallback((airlineId) => dispatch(actions.fetchAircraft(offset, limit, airlineId)), [dispatch, offset, limit]);
     const onSetAircraftOffsetLimit = (offset, limit) => dispatch(actions.setAircraftOffsetLimit(offset, limit));
     const onSetAircraftPage = (page) => dispatch(actions.setAircraftPage(page));
+    const onUnmountAircraft = () => dispatch(actions.unmountAircraft());
     
     // const [aircrafts, setAircrafts] = useState(null);
     // const [loading, setLoading] = useState(false);
@@ -68,6 +69,15 @@ const Aircrafts = props => {
     useEffect(() => {
         onFetchAircraft(match.params.id);        
     }, [onFetchAircraft, match.params.id]);
+
+    // We must reset offset and page to 0 when we leave Aircraft page(component). If we don't
+    //do it, then when we click on the other Airline, the app would try to go to the same page
+    //number on which we were, when we were on Aircraft page of the previous Airline!
+    useEffect(() => {
+        return () => {
+            onUnmountAircraft();
+        };
+    }, []);
 
     let airlineBox = null;
     // if (match.params.id) {

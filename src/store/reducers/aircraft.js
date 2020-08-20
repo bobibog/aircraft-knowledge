@@ -40,6 +40,13 @@ const fetchAircraftFail = (state, action) => {
     });
 };
 
+const unmountAircraft = (state, action) => {
+    return updateObject(state, {
+        aircraftOffset: 0,
+        aircraftPage: 0
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AIRCRAFT_OFFSET_LIMIT: return setAircraftOffsetLimit(state, action);
@@ -47,6 +54,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_AIRCRAFT_START: return fetchAircraftStart(state, action);            
         case actionTypes.FETCH_AIRCRAFT_SUCCESS: return fetchAircraftSuccess(state, action);            
         case actionTypes.FETCH_AIRCRAFT_FAIL: return fetchAircraftFail(state, action);
+        case actionTypes.UNMOUNT_AIRCRAFT: return unmountAircraft(state, action);
         default: return state;
     }
 };
