@@ -56,7 +56,18 @@ export const aircraftHeader = [
     {
         name: "Age",
         prop: "age"
-    }
+    },
+    {
+        name: "Operator",
+        prop: "operator",
+        type: "airlineHeader",
+        linkRoute: [
+            "/airliness", "airlineId"
+        ],
+        dataCellCreator: [
+            "airlineName", " (", "iata", "/", "icao", ")"
+        ],
+    },
 ];
 
 export const airportHeader = [
