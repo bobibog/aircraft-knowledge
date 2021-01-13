@@ -62,7 +62,7 @@ export const aircraftHeader = [
         prop: "operator",
         type: "airlineHeader",
         linkRoute: [
-            "/airliness", "airlineId"
+            "/aircraft", "airlineId"
         ],
         dataCellCreator: [
             "airlineName", " (", "iata", "/", "icao", ")"

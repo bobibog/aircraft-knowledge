@@ -110,6 +110,7 @@ const CustomDataTableRow = (props) => {
                     //const nameOfType = apiModelHeaderColumn.type.trim().split("Header")[0];            
                     let dataCellContentFirstPart = null;
                     let dataCellContentSecondPart = null;
+                    let dataCellContentThirdPart = null;
                     if (apiModelHeaderColumn.dataCellCreator) {
                         if (apiModelHeaderColumn.dataCellCreator[0]) {
                             dataCellContentFirstPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[0]];
@@ -117,11 +118,15 @@ const CustomDataTableRow = (props) => {
                         if (apiModelHeaderColumn.dataCellCreator[2]) {
                             dataCellContentSecondPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[2]];
                         }
+                        if (apiModelHeaderColumn.dataCellCreator[4]) {
+                            dataCellContentThirdPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[4]];
+                        }
                         if (!dataCellContentSecondPart) {
                             dataCellContent = dataCellContentFirstPart;
                         } else {
                             dataCellContent = dataCellContentFirstPart + apiModelHeaderColumn.dataCellCreator[1]
-                                + dataCellContentSecondPart + apiModelHeaderColumn.dataCellCreator[3];
+                                + dataCellContentSecondPart + apiModelHeaderColumn.dataCellCreator[3]
+                                + dataCellContentThirdPart + apiModelHeaderColumn.dataCellCreator[5];
                         }                
                     }
                     if(apiModelHeaderColumn.linkRoute) {
