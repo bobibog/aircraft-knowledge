@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 //import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import {getApiModelPropValue} from '../../../shared/utility'
 
 const CardsInBox = (props) => {
     const useStyles = makeStyles({
@@ -105,7 +106,8 @@ const CardsInBox = (props) => {
                                             adjective
                                             </Typography> */}
                                 <Typography variant="body2" component="p" className={classes.rootTypography}>
-                                    {props.data[headerColumnFiltered.prop] ? props.data[headerColumnFiltered.prop] : "-"}
+                                    {/* {props.data[headerColumnFiltered.prop] ? props.data[headerColumnFiltered.prop] : "-"} */}
+                                    {getApiModelPropValue(props.data, headerColumnFiltered)}
                                 </Typography>
                             </CardContent>
                         </Card>

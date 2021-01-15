@@ -108,26 +108,41 @@ const CustomDataTableRow = (props) => {
             if (apiModelHeaderColumn.type) {
                 if (apiModelHeaderColumn.type.indexOf("Header") !== -1) {
                     //const nameOfType = apiModelHeaderColumn.type.trim().split("Header")[0];            
-                    let dataCellContentFirstPart = null;
-                    let dataCellContentSecondPart = null;
-                    let dataCellContentThirdPart = null;
+                    let dataCellContentFirstPart = '';
+                    let dataCellContentSecondPart = '';
+                    let dataCellContentThirdPart = '';
+                    let dataCellContentFourthPart = '';
+                    let dataCellContentFifthPart = '';
+                    let dataCellContentSixthPart = '';
                     if (apiModelHeaderColumn.dataCellCreator) {
                         if (apiModelHeaderColumn.dataCellCreator[0]) {
-                            dataCellContentFirstPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[0]];
+                            dataCellContentFirstPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[0]]
+                            ? rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[0]]
+                            : '—';
+                        }
+                        if (apiModelHeaderColumn.dataCellCreator[1]) {
+                            dataCellContentSecondPart = apiModelHeaderColumn.dataCellCreator[1];
                         }
                         if (apiModelHeaderColumn.dataCellCreator[2]) {
-                            dataCellContentSecondPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[2]];
+                            dataCellContentThirdPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[2]]
+                            ? rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[2]]
+                            : '—';
+                        }
+                        if (apiModelHeaderColumn.dataCellCreator[3]) {
+                            dataCellContentFourthPart = apiModelHeaderColumn.dataCellCreator[3];
                         }
                         if (apiModelHeaderColumn.dataCellCreator[4]) {
-                            dataCellContentThirdPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[4]];
+                            dataCellContentFifthPart = rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[4]]
+                            ? rowData[apiModelHeaderColumn.prop][apiModelHeaderColumn.dataCellCreator[4]]
+                            : '—';
                         }
-                        if (!dataCellContentSecondPart) {
-                            dataCellContent = dataCellContentFirstPart;
-                        } else {
-                            dataCellContent = dataCellContentFirstPart + apiModelHeaderColumn.dataCellCreator[1]
-                                + dataCellContentSecondPart + apiModelHeaderColumn.dataCellCreator[3]
-                                + dataCellContentThirdPart + apiModelHeaderColumn.dataCellCreator[5];
-                        }                
+                        if (apiModelHeaderColumn.dataCellCreator[5]) {
+                            dataCellContentSixthPart = apiModelHeaderColumn.dataCellCreator[5];
+                        }
+                        
+                        dataCellContent = dataCellContentFirstPart + dataCellContentSecondPart
+                            + dataCellContentThirdPart + dataCellContentFourthPart
+                            + dataCellContentFifthPart + dataCellContentSixthPart;                                        
                     }
                     if(apiModelHeaderColumn.linkRoute) {
                         toLinkRouteBase = apiModelHeaderColumn.linkRoute[0];
