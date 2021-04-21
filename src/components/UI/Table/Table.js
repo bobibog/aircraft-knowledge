@@ -156,7 +156,7 @@ const TableCustom = (props) => {
     };
 
 
-    // const [page, setPage] = useState(0);
+    //const [page, setPage] = useState(0);
     const [page, setPage] = useState(props.currPage);
     // const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
@@ -169,6 +169,7 @@ const TableCustom = (props) => {
 
     // const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.totalDataCount - page * rowsPerPage);
+    
 
     const handleChangePage = (event, newPage) => {
         props.setPageStore(newPage);

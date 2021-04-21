@@ -2,6 +2,8 @@ export {
     fetchAirlines,
     setAirlinesOffsetLimit,
     setAirlinesPage
+    // searchAirlinesBN,
+    // searchAirlinesByName
 } from './airline';
 
 export {
