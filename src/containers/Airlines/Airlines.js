@@ -1,7 +1,6 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 //import Hidden from '@material-ui/core/Hidden';
 import {useSelector, useDispatch} from 'react-redux';
-
 //import axiosFirebase from '../../axios-firebase';
 import axios from '../../axios-local';
 //import axios from '../../axios-azure';
@@ -10,10 +9,11 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 //import Airline from '../../components/Airline/Airline';
 import Table from '../../components/UI/Table/Table';
 import {airlineHeader} from '../../shared/staticData';
-import {rowsPerPageDefault} from '../../shared/staticData';
 //import {airlinesInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
+import SearchAirlineElement from '../../components/SearchElement/SearchAirlineElement/SearchAirlineElement';
+
 
 const Airlines = props => {
     const airlines = useSelector(state => {
@@ -33,69 +33,57 @@ const Airlines = props => {
     });
     const page = useSelector(state => {
         return state.airline.airlinesPage;
-    });
-
+    });   
+           
+    const[airlineName, setAirlineName] = useState('');
+    const[iata, setIATA] = useState('');
+    const[icao, setICAO] = useState('');
+    const[fleet, setFleet] = useState('');
+           
     const dispatch = useDispatch();
-
-    const onFetchAirlines = useCallback(() => dispatch(actions.fetchAirlines(offset, limit)), [dispatch, offset, limit]);
-    const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));
-    const onSetAirlinesPage = (page) => dispatch(actions.setAirlinesPage(page));
-
-    //const [airlines, setAirlines] = useState(null);
-    //const [airlinesCount, setAirlinesCount] = useState(null);
-    //const [loading, setLoading] = useState(false);
-    // const [dataWindow, setDataWindow] = useState({
-    //     offset: 0,
-    //     limit: rowsPerPageDefault
-    // });
-
-    // const airlinesInitHandler = () => {
-    //     //setAirlines(airlinesInit);
-    //     for (let airline of airlinesInit) {
-    //         axiosFirebase.post('/airlines.json', airline)
-    //             .then(response => console.log('Odgovor je: ' + response))
-    //             .catch(error => console.log('Greska je: ' + error));
-    //     }        
-    // };
+    
+    const onFetchAirlines = useCallback(
+        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleet))
+        , [dispatch, offset, limit, airlineName, iata, icao, fleet]
+    );
+    const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));    
+    const onSetAirlinesPage = (page) => dispatch(actions.setAirlinesPage(page));    
+     
 
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
-        onSetAirlinesOffsetLimit(tableOffset, tableLimit);     
-    }
-
-    const setAirlinesPageHandler = page => {
+        onSetAirlinesOffsetLimit(tableOffset, tableLimit);   
+    };
+    const setAirlinesPageHandler = page => {                
         onSetAirlinesPage(page);
-    }
-    
-    //console.log(props);
+    };
+
+    const submitSearchHandler = (airlineName, iata, icao, fleet) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setAirlineName(airlineName);
+        setIATA(iata);
+        setICAO(icao);
+        setFleet(fleet);          
+    };    
+
+    const resetSearchHandler = () => {
+        setAirlineName("");
+        setIATA("");
+        setICAO("");
+        setFleet("");               
+    };      
+       
     useEffect(() => { 
-        onFetchAirlines();       
-        // setLoading(true);
-        // axios.get('/airline' + '?' + 'offset=' + dataWindow.offset + '&' + 'limit=' + dataWindow.limit)
-        //     .then(response => {
-        //         // let airlinesList = response.data['airlines'];
-        //         // let airlinesCount = response.data['airlinesCount'];
-        //         setAirlines(response.data['airlines']);
-        //         setAirlinesCount(response.data['airlinesCount']);
-        //         // setAirlines(fetchedAirlines);
-
-        //         setLoading(false); 
-        //     })
-        //     .catch(error => {
-        //         setLoading(false);
-        //         //console.log('Greska je: ' + error);                
-        //     }
-        // );
-    }, [onFetchAirlines]);
-
+        onFetchAirlines();
+    }, [onFetchAirlines]);    
+        
     const airlinesPageHeader =
         <CardsInBox
             headerText="Airlines"
-            backColor="#ffebee" />;
-
-
-    //let airlinesDataRows = null;
+            backColor="#ffebee" />;   
+    
     let airlinesTable = <Spinner />;
-    if (!airlines && !loading) {
+    if (!airlines && !loading  ) {
         airlinesTable = <p style={{ textAlign: 'center' }}>Could not read airlines from the server!</p>;
     }
     if (airlines && !loading) {
@@ -111,33 +99,19 @@ const Airlines = props => {
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={airlinesCount}
             setPageStore={setAirlinesPageHandler}
-            currPage={page} />;        
-    };    
-
-    // const hideCell = (index) => {
-    //     let result = {};
-    //     if (index > 11) {
-    //         result = {xlDown: true};
-    //     } else if (index > 5 && index <= 11) {
-    //         result = {lgDown: true};
-    //     } else if (index > 3 && index <= 5) {
-    //         result = {mdDown: true};
-    //     } else if (index === 3) {
-    //         result = {smDown: true};
-    //     } else if (index > 0 && index <= 2) {
-    //         result = {xsDown: true};
-    //     }
-    //     return result;
-    // };
+            currPage={page}  
+                       
+            />;        
+    }      
     
     return (
-        <React.Fragment>
-            {/* <h2>Airlines</h2> */}
-            {airlinesPageHeader}
-            {airlinesTable}
-            {/* <Hidden {...hideCell(12)}>
-                <button onClick={airlinesInitHandler}>Airlines Init</button>
-            </Hidden>  */}
+        <React.Fragment>           
+            {airlinesPageHeader}             
+            <SearchAirlineElement
+                clickedSearch={submitSearchHandler} 
+                clickedReset={resetSearchHandler}                       
+            />                                     
+            {airlinesTable}            
         </React.Fragment>        
     );
 };

@@ -9,7 +9,12 @@ const initialState = {
     airlinesOffset: 0,
     airlinesLimit: rowsPerPageDefault,
     airlinesPage: 0
+    /* airlineName: "",
+    iata: "",
+    icao: "",
+    fleet: 0 */  
 };
+
 
 const setAirlinesOffsetLimit = (state, action) => {
     return updateObject(state, {
@@ -40,6 +45,7 @@ const fetchAirlinesFail = (state, action) => {
     });
 };
 
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AIRLINES_OFFSET_LIMIT: return setAirlinesOffsetLimit(state, action);
@@ -47,6 +53,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_AIRLINES_START: return fetchAirlinesStart(state, action);            
         case actionTypes.FETCH_AIRLINES_SUCCESS: return fetchAirlinesSuccess(state, action);            
         case actionTypes.FETCH_AIRLINES_FAIL: return fetchAirlinesFail(state, action);
+        
         default: return state;
     }
 };
