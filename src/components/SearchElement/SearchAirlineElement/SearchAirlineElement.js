@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useSelector} from 'react';
 import Search from '../Search/Search';
 //import classes from '../SearchElement/Search/Search.module.css';
 import SearchInstructions from '../../Text/SearchInstructions';
 import Button from '../../UI/Button/Button';
+import { PinDropSharp } from '@material-ui/icons';
+import Airlines from '../../../containers/Airlines/Airlines';
 
 
 const  SearchAirlineElement = (props) => {
@@ -16,8 +18,11 @@ const  SearchAirlineElement = (props) => {
         setAirlineName("");
         setIATA("");
         setICAO("");
-        setFleet("");       
+        setFleet("");
+        props.clickedReset();       
     }; 
+
+    
 
     return (
         <div >     
@@ -26,15 +31,15 @@ const  SearchAirlineElement = (props) => {
                     <div className="card" style={{paddingLeft:"5px", width:"500px", marginLeft:"9px", opacity:"0.75" }}>
                         <SearchInstructions />
                         <Search
+                            value={airlineName}
+                            changed={(e)=>setAirlineName(e.target.value)}                                                                                 
                             type={"text"}
-                            value={airlineName} 
-                            changed={(e) => setAirlineName(e.target.value)} 
-                            placeholder={'Enter airline name'}
+                            placeholder={'Enter airline name'}                            
                         />                         
                         <Search
-                            type={"text"}                                                            
-                            value={iata} 
-                            changed={(e) => setIATA(e.target.value)} 
+                            value={iata}
+                            changed={(e)=>setIATA(e.target.value)}
+                            type={"text"}                            
                             placeholder={'Enter IATA - code'}
                         />
                     </div>
@@ -42,20 +47,20 @@ const  SearchAirlineElement = (props) => {
                 <div className="col-md">                
                     <div className="card" style={{paddingLeft:"5px", opacity:"0.75", paddingTop:"5px", marginLeft:"9px", width:"500px" }}> 
                         <Search 
-                            type={"text"}                                                             
-                            value={icao} 
-                            changed={(e) => setICAO(e.target.value)} 
+                            value={icao}
+                            changed={(e)=>setICAO(e.target.value)}          
+                            type={"text"}                    
                             placeholder={'Enter ICAO - code'}                            
                         />                         
                         <Search
-                            type={"number"}                                                             
-                            value={fleet} 
-                            changed={(e) => setFleet(e.target.value)} 
+                            value={fleet}
+                            changed={(e)=>setFleet(e.target.value)}
+                            type={"number"}
                             placeholder={'Enter minimum number of aircrafts in a fleet'}                          
                         />                           
                     </div>
                     <Button 
-                        clicked={props.clickedSearch(airlineName, iata, icao, fleet)}
+                        clicked={() => (props.clickedSearch(airlineName, iata, icao, fleet))}
                         btnType="Success"                            
                     >SEARCH</Button>
                     <Button

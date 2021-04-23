@@ -38,20 +38,32 @@ const Airlines = props => {
     const page = useSelector(state => {
         return state.airline.airlinesPage;
     });   
-    
+    /* const airlineName= useSelector(state => {
+        return state.airline.airlineName;
+    });
+    const iata = useSelector(state => {
+        return state.airline.iata;
+     });
+    const icao = useSelector(state=>{
+        return state.airline.icao;
+    });
+    const fleet = useSelector(state=>{
+        return state.airline.fleet;
+    }); */
+       
     const[airlineName, setAirlineName] = useState('');
     const[iata, setIATA] = useState('');
     const[icao, setICAO] = useState('');
-    const[fleet, setFleet] = useState('');    
+    const[fleet, setFleet] = useState('');
+
            
     const dispatch = useDispatch();
 
-    /* const inputName = useRef(); 
-    const inputIata = useRef();
-    const inputIcao = useRef();
-    const inputFleet = useRef(); */
-
-    const onFetchAirlines = useCallback(() => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleet)), [dispatch, offset, limit]);
+    
+    const onFetchAirlines = useCallback(
+        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleet))
+        , [dispatch, offset, limit, airlineName, iata, icao, fleet]
+    );
     const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));    
     const onSetAirlinesPage = (page) => dispatch(actions.setAirlinesPage(page));    
      
@@ -63,23 +75,24 @@ const Airlines = props => {
         onSetAirlinesPage(page);
     };
 
-    const submitSearchHandler = (airlineName, iata, icao, fleet) => {
+    const submitSearchHandler = (airlineName, iata, icao, fleet) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
         setAirlineName(airlineName);
         setIATA(iata);
         setICAO(icao);
-        setFleet(fleet);
-        onFetchAirlines();                   
+        setFleet(fleet);          
     };    
 
-    /* const resetSearchHandler = () => {
+    const resetSearchHandler = () => {
         setAirlineName("");
         setIATA("");
         setICAO("");
         setFleet("");        
-        onFetchAirlines();        
+        /*  onFetchAirlines();        
         onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);       
-    };  */
+        onSetAirlinesPage(0); */        
+    };
       
     /* useEffect(()=>{        
         const timer = setTimeout(()=>{
@@ -110,17 +123,17 @@ const Airlines = props => {
             backColor="#ffebee" />;    
 
     
-    /* const airlinesNameSearch = <Search  
+   /* const airlinesNameSearch = <SearchAirlineElement  
                                 type={"text"}                                                            
-                                //inputRef={inputName} 
+                                 
                                 value={airlineName} 
                                 changed={(e) => setAirlineName(e.target.value)} 
                                 placeholder={'Enter airline name'}
                                 />;
-    
+     
     const iataSearch = <Search  
                             type={"text"}                                                            
-                            //inputRef={inputIata} 
+                             
                             value={iata} 
                             changed={(e) => setIATA(e.target.value)} 
                             placeholder={'Enter IATA - code'}
@@ -179,28 +192,11 @@ const Airlines = props => {
     
     return (
         <React.Fragment>           
-            {airlinesPageHeader}  
-            {/* <div className={classes.container}>     
-            <div className="row"> 
-                <div className="col-md">          
-                    <div className="card" style={{paddingLeft:"5px", width:"500px", marginLeft:"9px", opacity:"0.75" }}>
-                        <SearchInstructions />
-                        {airlinesNameSearch}                         
-                        {iataSearch}
-                    </div>
-                </div>    
-                <div className="col-md">                
-                    <div className="card" style={{paddingLeft:"5px", opacity:"0.75", paddingTop:"5px", marginLeft:"9px", width:"500px" }}> 
-                        {icaoSearch}                             
-                        {fleetSearch} 
-                                 
-                    </div>{submitSearch} 
-                        {resetSearch} 
-                </div>
-            </div>                           
-            
-        </div> */}  
-        <SearchAirlineElement clickedSearch={submitSearchHandler} />                                     
+            {airlinesPageHeader}             
+            <SearchAirlineElement
+                clickedSearch={submitSearchHandler} 
+                clickedReset={resetSearchHandler}                       
+            />                                     
             {airlinesTable}            
         </React.Fragment>        
     );

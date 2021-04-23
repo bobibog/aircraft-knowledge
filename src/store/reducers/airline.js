@@ -8,11 +8,11 @@ const initialState = {
     airlinesLoading: false,
     airlinesOffset: 0,
     airlinesLimit: rowsPerPageDefault,
-    airlinesPage: 0,
-    airlineName: "",
+    airlinesPage: 0
+    /* airlineName: "",
     iata: "",
     icao: "",
-    fleet: 0  
+    fleet: 0 */  
 };
 
 
