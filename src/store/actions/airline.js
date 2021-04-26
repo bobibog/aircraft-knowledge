@@ -44,32 +44,25 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleet) => 
     return dispatch => {
         dispatch(fetchAirlinesStart());        
           
-        /* let query = new URLSearchParams();
-        query.append('?');
+        const query = new URLSearchParams();                        
         query.append('airlineName', airlineName);
         query.append('iata', iata);
         query.append('icao', icao);
-        query.append('fleet', fleet);
+        query.append('fleet', fleet); 
         query.append('offset', offset);
-        query.append('limit', limit); */        
+        query.append('limit', limit);              
 
-        let queryString = limit !== "-1"             
-            ? ('?'+ 'airlineName='+airlineName + '&' + 'iata=' +iata  + '&' + 'icao=' +icao + '&' + 'fleet=' +fleet+ '&' + 'offset=' + offset + '&' + 'limit=' + limit)
-             : '';
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
             
-            axios.get('/airline' + queryString)
-            .then(response => {
-                
-                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))
-                 
+        axios.get(`/airline?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
             .catch(error => {
-                dispatch(fetchAirlinesFail(error));
-                                
-            }
-        );
-        
-
-        
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
     }
 };

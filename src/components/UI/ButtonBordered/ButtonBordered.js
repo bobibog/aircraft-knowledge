@@ -5,7 +5,7 @@ import classes from './ButtonBordered.module.css';
 const button = (props) => (
     <button
         disabled={props.disabled}
-        className={[classes.ButtonBodered, classes[props.btnType]].join(' ')}
+        className={[classes.ButtonBordered, classes[props.btnType]].join(' ')}
         onClick={props.clicked}>{props.children}</button>
 );
 

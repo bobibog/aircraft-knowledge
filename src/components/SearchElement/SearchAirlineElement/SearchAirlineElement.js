@@ -1,7 +1,8 @@
 import React, {useState, useSelector} from 'react';
-import Search from '../Search/Search';
-import SearchInstructions from '../../Text/SearchInstructions';
+import Input from '../../UI/Input/Input';
+import LabelCustom from '../../UI/Text/LabelCustom';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
+import classes from './SearchAirlineElement.module.css';
 
 const  SearchAirlineElement = (props) => {
 
@@ -9,6 +10,23 @@ const  SearchAirlineElement = (props) => {
     const[iata, setIATA] = useState('');
     const[icao, setICAO] = useState('');
     const[fleet, setFleet] = useState('');
+
+    const airlineNameInputConfig = {
+        type:'text',
+        placeholder:'Enter airline name.'
+    }
+    const iataInputConfig = {
+        type:'text',
+        placeholder:'Enter IATA -code.'
+    }
+    const icaoInputConfig = {
+        type:'text',
+        placeholder:'Enter ICAO -code.'
+    }
+    const fleetInputConfig = {
+        type:'number',
+        placeholder:'Enter min. number of airplanes in a fleet .'
+    }
 
     const resetSearchHandler = () => {
         setAirlineName("");
@@ -19,38 +37,41 @@ const  SearchAirlineElement = (props) => {
     };     
 
     return (
-        <div >     
+        <div className={classes.container}>     
             <div className="row"> 
                 <div className="col-md">          
-                    <div className="card" style={{paddingLeft:"5px", width:"500px", marginLeft:"9px", opacity:"0.75" }}>
-                        <SearchInstructions><b>Filter: </b>You can search Airlines by their name, IATA-code, ICAO-code and a number of aircrafts in their fleet.</SearchInstructions>
-                        <Search
+                    <div className={classes.card} >
+                        <LabelCustom>
+                            <b>Filter: </b>
+                            You can search Airlines by their name, IATA-code, ICAO-code and a number of aircrafts in their fleet.
+                        </LabelCustom>
+                        <Input
                             value={airlineName}
-                            changed={(e)=>setAirlineName(e.target.value)}                                                                                 
-                            type={"text"}
-                            placeholder={'Enter airline name'}                            
+                            changed={(e)=>setAirlineName(e.target.value)}                                                                             
+                            elementType='input' 
+                            elementConfig= {airlineNameInputConfig}                       
                         />                         
-                        <Search
+                        <Input
                             value={iata}
                             changed={(e)=>setIATA(e.target.value)}
-                            type={"text"}                            
-                            placeholder={'Enter IATA - code'}
+                            elementType='input'
+                            elementConfig={iataInputConfig}
                         />
                     </div>
                 </div>    
                 <div className="col-md">                
-                    <div className="card" style={{paddingLeft:"5px", opacity:"0.75", paddingTop:"5px", marginLeft:"9px", width:"500px" }}> 
-                        <Search 
+                    <div className={classes.card}> 
+                        <Input 
                             value={icao}
                             changed={(e)=>setICAO(e.target.value)}          
-                            type={"text"}                    
-                            placeholder={'Enter ICAO - code'}                            
+                            elementType='input' 
+                            elementConfig= {icaoInputConfig}                     
                         />                         
-                        <Search
+                        <Input
                             value={fleet}
                             changed={(e)=>setFleet(e.target.value)}
-                            type={"number"}
-                            placeholder={'Enter minimum number of aircrafts in a fleet'}                          
+                            elementType='input' 
+                            elementConfig= {fleetInputConfig}                                               
                         />                           
                     </div>
                     <ButtonBordered 

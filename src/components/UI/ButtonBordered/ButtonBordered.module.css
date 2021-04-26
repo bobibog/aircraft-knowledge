@@ -1,4 +1,4 @@
-.ButtonBodered {
+.ButtonBordered {
     background-color: transparent;
     border: 2px solid white;
     border-radius: 5px;
@@ -17,7 +17,7 @@
     overflow: hidden;
 }
 
-.ButtonBodered:after {
+.ButtonBordered:after {
     content: "";
     background: #115ae2;
     display: block;
@@ -30,19 +30,19 @@
     transition: all 0.8s
 }
 
-.ButtonBodered:active:after {
+.ButtonBordered:active:after {
     padding: 0;
     margin: 0;
     opacity: 1;
     transition: 0s
 }
 
-.ButtonBodered:first-of-type {
+.ButtonBordered:first-of-type {
     margin-left: 0;
     padding-left: 5px;
 }
 
-.ButtonBodered:disabled {
+.ButtonBordered:disabled {
     color: #ccc;
     cursor: not-allowed;
 }
