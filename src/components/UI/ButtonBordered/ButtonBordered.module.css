@@ -1,6 +1,6 @@
 .ButtonBordered {
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid rgb(167, 229, 231);
     border-radius: 5px;
     color: white;
     outline: invert;
@@ -58,6 +58,6 @@
 }
 
 .Secondary {
-    color: rgb(11, 162, 189);
-    -webkit-text-stroke: 1px white;
+    color: rgb(132, 197, 211);
+    /* -webkit-text-stroke: 1px white; */
 }

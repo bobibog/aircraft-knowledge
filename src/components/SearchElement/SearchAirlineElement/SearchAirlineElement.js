@@ -23,9 +23,13 @@ const  SearchAirlineElement = (props) => {
         type:'text',
         placeholder:'Enter ICAO -code.'
     }
-    const fleetInputConfig = {
+    const fleetMinInputConfig = {
         type:'number',
-        placeholder:'Enter min. number of airplanes in a fleet .'
+        placeholder:'Enter min. number of aircraft in a fleet .'
+    }
+    const fleetMaxInputConfig = {
+        type:'number',
+        placeholder:'Enter max. number of aircraft in a fleet .'
     }
 
     const resetSearchHandler = () => {
@@ -43,7 +47,7 @@ const  SearchAirlineElement = (props) => {
                     <div className={classes.card} >
                         <LabelCustom>
                             <b>Filter: </b>
-                            You can search Airlines by their name, IATA-code, ICAO-code and a number of aircrafts in their fleet.
+                            You can search Airlines by their name, IATA-code, ICAO-code and a number of aircraft in their fleet.
                         </LabelCustom>
                         <Input
                             value={airlineName}
@@ -57,23 +61,30 @@ const  SearchAirlineElement = (props) => {
                             elementType='input'
                             elementConfig={iataInputConfig}
                         />
-                    </div>
-                </div>    
-                <div className="col-md">                
-                    <div className={classes.card}> 
                         <Input 
                             value={icao}
                             changed={(e)=>setICAO(e.target.value)}          
                             elementType='input' 
                             elementConfig= {icaoInputConfig}                     
-                        />                         
+                        />
+                    </div>
+                </div>    
+                <div className="col-md">                
+                    <div className={classes.card}>                                                  
                         <Input
                             value={fleet}
                             changed={(e)=>setFleet(e.target.value)}
                             elementType='input' 
-                            elementConfig= {fleetInputConfig}                                               
-                        />                           
+                            elementConfig= {fleetMinInputConfig}                                               
+                        />
+                        <Input
+                            value={fleet}
+                            changed={(e)=>setFleet(e.target.value)}
+                            elementType='input' 
+                            elementConfig= {fleetMaxInputConfig}                                               
+                        />
                     </div>
+                    <div className={classes.buttonBox}>
                     <ButtonBordered 
                         clicked={() => (props.clickedSearch(airlineName, iata, icao, fleet))}
                         btnType="Success"                            
@@ -81,7 +92,8 @@ const  SearchAirlineElement = (props) => {
                     <ButtonBordered
                         clicked={resetSearchHandler}
                         btnType="Secondary"    
-                    >CLEAR/RESET</ButtonBordered> 
+                    >RESET</ButtonBordered>
+                    </div>
                 </div>
             </div>           
         
