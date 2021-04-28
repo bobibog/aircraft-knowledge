@@ -9,7 +9,8 @@ const  SearchAirlineElement = (props) => {
     const[airlineName, setAirlineName] = useState('');
     const[iata, setIATA] = useState('');
     const[icao, setICAO] = useState('');
-    const[fleet, setFleet] = useState('');
+    const[fleetMin, setFleetMin] = useState('');
+    const[fleetMax, setFleetMax] = useState('');
 
     const airlineNameInputConfig = {
         type:'text',
@@ -36,7 +37,8 @@ const  SearchAirlineElement = (props) => {
         setAirlineName("");
         setIATA("");
         setICAO("");
-        setFleet("");
+        setFleetMin("");
+        setFleetMax("");
         props.clickedReset();       
     };     
 
@@ -72,21 +74,21 @@ const  SearchAirlineElement = (props) => {
                 <div className="col-md">                
                     <div className={classes.card}>                                                  
                         <Input
-                            value={fleet}
-                            changed={(e)=>setFleet(e.target.value)}
+                            value={fleetMin}
+                            changed={(e)=>setFleetMin(e.target.value)}
                             elementType='input' 
                             elementConfig= {fleetMinInputConfig}                                               
                         />
                         <Input
-                            value={fleet}
-                            changed={(e)=>setFleet(e.target.value)}
+                            value={fleetMax}
+                            changed={(e)=>setFleetMax(e.target.value)}
                             elementType='input' 
                             elementConfig= {fleetMaxInputConfig}                                               
                         />
                     </div>
                     <div className={classes.buttonBox}>
                     <ButtonBordered 
-                        clicked={() => (props.clickedSearch(airlineName, iata, icao, fleet))}
+                        clicked={() => (props.clickedSearch(airlineName, iata, icao, fleetMin, fleetMax))}
                         btnType="Success"                            
                     >SEARCH</ButtonBordered>
                     <ButtonBordered

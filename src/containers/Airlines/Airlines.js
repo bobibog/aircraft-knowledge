@@ -38,13 +38,14 @@ const Airlines = props => {
     const[airlineName, setAirlineName] = useState('');
     const[iata, setIATA] = useState('');
     const[icao, setICAO] = useState('');
-    const[fleet, setFleet] = useState('');
+    const[fleetMin, setFleetMin] = useState('');
+    const[fleetMax, setFleetMax] = useState('');
            
     const dispatch = useDispatch();
     
     const onFetchAirlines = useCallback(
-        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleet))
-        , [dispatch, offset, limit, airlineName, iata, icao, fleet]
+        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax))
+        , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax]
     );
     const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));    
     const onSetAirlinesPage = (page) => dispatch(actions.setAirlinesPage(page));    
@@ -57,20 +58,22 @@ const Airlines = props => {
         onSetAirlinesPage(page);
     };
 
-    const submitSearchHandler = (airlineName, iata, icao, fleet) => {  
+    const submitSearchHandler = (airlineName, iata, icao, fleetMin, fleetMax) => {  
         onSetAirlinesOffsetLimit(0, limit);
         onSetAirlinesPage(0);
         setAirlineName(airlineName);
         setIATA(iata);
         setICAO(icao);
-        setFleet(fleet);          
+        setFleetMin(fleetMin);  
+        setFleetMax(fleetMax);        
     };    
 
     const resetSearchHandler = () => {
         setAirlineName("");
         setIATA("");
         setICAO("");
-        setFleet("");               
+        setFleetMin("");
+        setFleetMax("");               
     };      
        
     useEffect(() => { 

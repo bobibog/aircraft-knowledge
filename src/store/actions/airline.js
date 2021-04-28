@@ -40,7 +40,7 @@ export const fetchAirlinesStart = () => {
 };
 
 
-export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleet) => {
+export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, fleetMax) => {
     return dispatch => {
         dispatch(fetchAirlinesStart());        
           
@@ -48,7 +48,8 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleet) => 
         query.append('airlineName', airlineName);
         query.append('iata', iata);
         query.append('icao', icao);
-        query.append('fleet', fleet); 
+        query.append('fleetMin', fleetMin);
+        query.append('fleetMax', fleetMax); 
         query.append('offset', offset);
         query.append('limit', limit);              
 
