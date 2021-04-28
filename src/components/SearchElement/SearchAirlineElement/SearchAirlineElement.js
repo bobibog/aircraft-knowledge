@@ -1,8 +1,10 @@
 import React, {useState, useSelector} from 'react';
 import Input from '../../UI/Input/Input';
-import LabelCustom from '../../UI/Text/LabelCustom';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchAirlineElement.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faGalacticRepublic } from '@fortawesome/free-brands-svg-icons';
 
 const  SearchAirlineElement = (props) => {
 
@@ -43,48 +45,83 @@ const  SearchAirlineElement = (props) => {
     };     
 
     return (
-        <div className={classes.container}>     
-            <div className="row"> 
-                <div className="col-md">          
+        <div className={classes.container}> 
+        
+            <div className="row">           
+                <div className="col-md">                        
                     <div className={classes.card} >
-                        <LabelCustom>
-                            <b>Filter: </b>
-                            You can search Airlines by their name, IATA-code, ICAO-code and a number of aircraft in their fleet.
-                        </LabelCustom>
-                        <Input
-                            value={airlineName}
-                            changed={(e)=>setAirlineName(e.target.value)}                                                                             
-                            elementType='input' 
-                            elementConfig= {airlineNameInputConfig}                       
-                        />                         
-                        <Input
+                        <div className="input-group mb-3 input-group-sm" itemID="wraper"  >
+                            <div className="input-group-prepend" style={{height:"38px", marginTop:"8px"}} >
+                                <span className="input-group-text" style={{position:"absolute", display:"inline-block", height:"38px"}} >
+                                    <FontAwesomeIcon icon={faFilter} style={{position:"relative"}} />                                                                        
+                                </span>                                
+                            </div>                   
+                            <Input
+                                value={airlineName}
+                                changed={(e)=>setAirlineName(e.target.value)}                                                                             
+                                elementType='input' 
+                                elementConfig= {airlineNameInputConfig}                                                                                                                      
+                            />
+                        </div>
+                        <div className="input-group mb-3 input-group-sm" itemID="wraper" >
+                            <div className="input-group-prepend" style={{height:"38px", marginTop:"8px"}}>
+                                <span className="input-group-text" style={{position:"absolute", display:"inline-block", height:"38px"}}>
+                                    <FontAwesomeIcon icon={faFilter} style={{position:"relative"}} />                                                                        
+                                </span>                                                                
+                            </div>                   
+                            <Input
                             value={iata}
                             changed={(e)=>setIATA(e.target.value)}
                             elementType='input'
                             elementConfig={iataInputConfig}
                         />
-                        <Input 
+                        </div>                     
+                        <div className="input-group mb-3 input-group-sm" itemID="wraper">
+                            <div className="input-group-prepend" style={{height:"38px", marginTop:"8px"}}>
+                                <span className="input-group-text" style={{position:"absolute", display:"inline-block", height:"38px"}}>
+                                    <FontAwesomeIcon icon={faFilter} style={{position:"relative"}} />                                                                        
+                                </span>                                
+                            </div>                   
+                            <Input 
                             value={icao}
                             changed={(e)=>setICAO(e.target.value)}          
                             elementType='input' 
                             elementConfig= {icaoInputConfig}                     
                         />
+                        </div>
+                                                
                     </div>
                 </div>    
                 <div className="col-md">                
-                    <div className={classes.card}>                                                  
-                        <Input
+                    <div className={classes.card}>
+                    <div className="input-group mb-3 input-group-sm" itemID="wraper">
+                            <div className="input-group-prepend" style={{height:"38px", marginTop:"8px"}}>
+                                <span className="input-group-text" style={{position:"absolute", display:"inline-block", height:"38px"}}>
+                                    <FontAwesomeIcon icon={faFilter} style={{position:"relative"}}/>                                                                        
+                                </span>                                
+                            </div>                   
+                            <Input
                             value={fleetMin}
                             changed={(e)=>setFleetMin(e.target.value)}
                             elementType='input' 
                             elementConfig= {fleetMinInputConfig}                                               
                         />
-                        <Input
+                        </div>                                                  
+                        <div className="input-group mb-3 input-group-sm" itemID="wraper">
+                            <div className="input-group-prepend" style={{height:"38px", marginTop:"8px"}}>
+                                <span className="input-group-text" itemID="span" style={{position:"absolute", display:"inline-block", height:"38px"}}>
+                                    <FontAwesomeIcon icon={faFilter} style={{position:"relative"}}/>                                                                        
+                                </span> 
+
+                            </div>                   
+                            <Input
                             value={fleetMax}
                             changed={(e)=>setFleetMax(e.target.value)}
                             elementType='input' 
                             elementConfig= {fleetMaxInputConfig}                                               
                         />
+                        </div>
+                        
                     </div>
                     <div className={classes.buttonBox}>
                     <ButtonBordered 
