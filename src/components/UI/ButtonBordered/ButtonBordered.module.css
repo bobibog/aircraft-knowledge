@@ -1,0 +1,63 @@
+.ButtonBordered {
+    background-color: transparent;
+    border: 2px solid rgb(167, 229, 231);
+    border-radius: 5px;
+    color: white;
+    outline: invert;
+    cursor: pointer;
+    font: inherit;
+    padding: 5px 5px;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.ButtonBordered:after {
+    content: "";
+    background: #115ae2;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.ButtonBordered:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+.ButtonBordered:first-of-type {
+    margin-left: 0;
+    padding-left: 5px;
+}
+
+.ButtonBordered:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.Success {
+    /* color: #5C9210; */
+    color: rgb(0, 112, 192);
+}
+
+.Danger {
+    /* color: #944317; */
+    color: red;
+}
+
+.Secondary {
+    color: rgb(132, 197, 211);
+    /* -webkit-text-stroke: 1px white; */
+}

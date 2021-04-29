@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-local';
+import {generatePath} from 'react-router';
+
 
 export const setAirlinesOffsetLimit = (offset, limit) => {
     return {
@@ -37,32 +39,31 @@ export const fetchAirlinesStart = () => {
     }
 };
 
-export const fetchAirlines = (offset, limit) => {
+
+export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, fleetMax) => {
     return dispatch => {
-        dispatch(fetchAirlinesStart());
-        // eslint-disable-next-line no-useless-concat
-        //let queryString = '?' + 'offset=' + offset + '&' + 'limit=' + limit;
-        let queryString = limit !== "-1" 
-            // eslint-disable-next-line no-useless-concat
-            ? ('?' + 'offset=' + offset + '&' + 'limit=' + limit)
-            : '';
-        axios.get('/airline' + queryString)
-            .then(response => {
-                // let airlinesList = response.data['airlines'];
-                // let airlinesCount = response.data['airlinesCount'];
-                // setAirlines(response.data['airlines']);
-                // setAirlinesCount(response.data['airlinesCount']);
-                // setAirlines(fetchedAirlines);
-                // const fetchedAirlines = [];
-                // const fetchedAirlinesCount = null;
-                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))
-                //setLoading(false); 
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();                        
+        query.append('airlineName', airlineName);
+        query.append('iata', iata);
+        query.append('icao', icao);
+        query.append('fleetMin', fleetMin);
+        query.append('fleetMax', fleetMax); 
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+        axios.get(`/airline?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
             .catch(error => {
-                dispatch(fetchAirlinesFail(error));
-                //setLoading(false);
-                //console.log('Greska je: ' + error);                
-            }
-        );
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
     }
 };
