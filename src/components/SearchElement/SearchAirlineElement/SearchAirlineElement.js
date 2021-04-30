@@ -3,7 +3,7 @@ import Input from '../../UI/Input/Input';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchAirlineElement.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const  SearchAirlineElement = (props) => {
@@ -53,7 +53,7 @@ const  SearchAirlineElement = (props) => {
                         <InputGroup className="mb-3 input-group-sm">
                             <InputGroup.Prepend className={classes.inputPrepend}>
                                 <InputGroup.Text className={classes.span}>
-                                    <FontAwesomeIcon icon={faFilter} className={classes.icon} />                                                                        
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                 </InputGroup.Text>                                
                             </InputGroup.Prepend>                   
                             <Input
@@ -66,7 +66,7 @@ const  SearchAirlineElement = (props) => {
                         <InputGroup className="mb-3 input-group-sm">
                             <InputGroup.Prepend className={classes.inputPrepend}>
                                 <InputGroup.Text className={classes.span}>
-                                    <FontAwesomeIcon icon={faFilter} className={classes.icon} />                                                                        
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                 </InputGroup.Text>                                
                             </InputGroup.Prepend>                   
                             <Input
@@ -79,7 +79,7 @@ const  SearchAirlineElement = (props) => {
                         <InputGroup className="mb-3 input-group-sm">
                             <InputGroup.Prepend className={classes.inputPrepend}>
                                 <InputGroup.Text className={classes.span}>
-                                    <FontAwesomeIcon icon={faFilter} className={classes.icon} />                                                                        
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                 </InputGroup.Text>                                
                             </InputGroup.Prepend>                   
                             <Input 
@@ -96,7 +96,7 @@ const  SearchAirlineElement = (props) => {
                         <InputGroup className="mb-3 input-group-sm">
                             <InputGroup.Prepend className={classes.inputPrepend}>
                                 <InputGroup.Text className={classes.span}>
-                                    <FontAwesomeIcon icon={faFilter} className={classes.icon} />                                                                        
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                 </InputGroup.Text>                                
                             </InputGroup.Prepend>                   
                             <Input
@@ -109,7 +109,7 @@ const  SearchAirlineElement = (props) => {
                         <InputGroup className="mb-3 input-group-sm">
                             <InputGroup.Prepend className={classes.inputPrepend}>
                                 <InputGroup.Text className={classes.span}>
-                                    <FontAwesomeIcon icon={faFilter} className={classes.icon} />                                                                        
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                 </InputGroup.Text>                                
                             </InputGroup.Prepend>                   
                             <Input
