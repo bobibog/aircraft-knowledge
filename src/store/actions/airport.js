@@ -37,18 +37,24 @@ export const fetchAirportsStart = () => {
     }
 };
 
-export const fetchAirports = (offset, limit, airportId) => {
+export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country) => {
     return dispatch => {
         dispatch(fetchAirportsStart());
-        // eslint-disable-next-line no-useless-concat
-        //let queryString = '?' + 'offset=' + offset + '&' + 'limit=' + limit;
-        let queryString = limit !== "-1" 
-            // eslint-disable-next-line no-useless-concat
-            ? ('?' + 'offset=' + offset + '&' + 'limit=' + limit)
+        
+        const query = new URLSearchParams();                        
+        query.append('airportName', airportName);
+        query.append('iata', iata);
+        query.append('city', city);
+        query.append('country', country);
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
             : '';
         
         if (!airportId) {
-            axios.get('/airport' + queryString)
+            axios.get('/airport?' + queryString)
                 .then(response => {
                     dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
                 })
