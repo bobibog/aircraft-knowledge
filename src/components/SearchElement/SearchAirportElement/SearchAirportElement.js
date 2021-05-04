@@ -15,19 +15,19 @@ const  SearchAirportElement = (props) => {
 
     const airportNameInputConfig = {
         type:'text',
-        placeholder:'Enter airport name.'
+        placeholder:'Enter airport name'
     }
     const iataInputConfig = {
         type:'text',
-        placeholder:'Enter IATA -code.'
+        placeholder:'Enter IATA -code'
     }
     const cityInputConfig = {
         type:'text',
-        placeholder:'Enter city.'
+        placeholder:'Enter city'
     }
     const countryInputConfig = {
         type:'text',
-        placeholder:'Enter country.'
+        placeholder:'Enter country'
     }    
 
     const resetSearchHandler = () => {

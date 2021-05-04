@@ -74,7 +74,9 @@ const Airports = props => {
         setAirportName("");
         setIATA("");
         setCity("");
-        setCountry("");                       
+        setCountry("");
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);                       
     };
 
     useEffect(() => {

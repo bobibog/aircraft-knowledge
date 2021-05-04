@@ -73,7 +73,9 @@ const Airlines = props => {
         setIATA("");
         setICAO("");
         setFleetMin("");
-        setFleetMax("");               
+        setFleetMax("");
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);               
     };      
        
     useEffect(() => { 

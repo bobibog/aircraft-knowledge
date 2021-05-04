@@ -16,23 +16,23 @@ const  SearchAirlineElement = (props) => {
 
     const airlineNameInputConfig = {
         type:'text',
-        placeholder:'Enter airline name.'
+        placeholder:'Enter airline name'
     }
     const iataInputConfig = {
         type:'text',
-        placeholder:'Enter IATA -code.'
+        placeholder:'Enter IATA -code'
     }
     const icaoInputConfig = {
         type:'text',
-        placeholder:'Enter ICAO -code.'
+        placeholder:'Enter ICAO -code'
     }
     const fleetMinInputConfig = {
         type:'number',
-        placeholder:'Enter min. number of aircraft in a fleet .'
+        placeholder:'Enter min. number of aircraft in a fleet'
     }
     const fleetMaxInputConfig = {
         type:'number',
-        placeholder:'Enter max. number of aircraft in a fleet .'
+        placeholder:'Enter max. number of aircraft in a fleet'
     }
 
     const resetSearchHandler = () => {
