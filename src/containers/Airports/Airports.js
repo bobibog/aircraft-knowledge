@@ -12,6 +12,7 @@ import {airportHeader} from '../../shared/staticData';
 //import {airportsInit} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
+import SearchAirportElement from '../../components/SearchElement/SearchAirportElement/SearchAirportElement';
 
 const Airports = props => {
     const {match} = props;
@@ -35,9 +36,16 @@ const Airports = props => {
         return state.airport.airportsPage;
     });
 
+    const[airportName, setAirportName] = useState('');
+    const[iata, setIATA] = useState('');
+    const[city, setCity] = useState('');
+    const[country, setCountry] = useState('');
+
     const dispatch = useDispatch();
 
-    const onFetchAirports = useCallback((airportId) => dispatch(actions.fetchAirports(offset, limit, airportId)), [dispatch, offset, limit]);
+    const onFetchAirports = useCallback(
+        (airportId) => dispatch(actions.fetchAirports(offset, limit, airportId, airportName, iata, city, country))
+        , [dispatch, offset, limit, airportName, iata, city, country]);
     const onSetAirportsOffsetLimit = (offset, limit) => dispatch(actions.setAirportsOffsetLimit(offset, limit));
     const onSetAirportsPage = (page) => dispatch(actions.setAirportsPage(page)); 
     const onUnmountAirports = () => dispatch(actions.unmountAirports());   
@@ -52,6 +60,24 @@ const Airports = props => {
     const setAirportsPageHandler = page => {
         onSetAirportsPage(page);
     }
+
+    const submitSearchHandler = (airportName, iata, city, country) => {  
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);
+        setAirportName(airportName);
+        setIATA(iata);
+        setCity(city);
+        setCountry(country);     
+    };    
+
+    const resetSearchHandler = () => {
+        setAirportName("");
+        setIATA("");
+        setCity("");
+        setCountry("");
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);                       
+    };
 
     useEffect(() => {
         onFetchAirports(match.params.id);
@@ -104,6 +130,10 @@ const Airports = props => {
         <div>
             {/* <h2>Airports</h2> */}
             {airportsPageHeader}
+            <SearchAirportElement
+                clickedSearch={submitSearchHandler} 
+                clickedReset={resetSearchHandler}
+            />
             {airportsTable}
             {/* <Hidden {...hideCell(12)}>
                 <button onClick={airportsInitHandler}>Airports Init</button>
