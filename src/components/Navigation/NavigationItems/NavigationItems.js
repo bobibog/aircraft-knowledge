@@ -8,6 +8,7 @@ const navigationItems = ( props ) => (
         <NavigationItem link="/airlines">Airlines</NavigationItem>
         {/* <NavigationItem link="/aircrafts">Aircraft</NavigationItem> */}
         <NavigationItem link="/airports">Airports</NavigationItem>
+        <NavigationItem link="/aircraft">Aircraft</NavigationItem>
         {/* {props.isAuthenticated ? <NavigationItem link="/flights">Flights</NavigationItem> : null} */}
         {!props.isAuthenticated
             ? <NavigationItem link="/auth">Log in</NavigationItem>

@@ -6,6 +6,7 @@ import './App.css';
 import Layout from './hoc/Layout/Layout';
 import Airlines from './containers/Airlines/Airlines';
 import Aircrafts from './containers/Aircrafts/Aircrafts';
+import AircraftsSearch from './containers/Aircrafts/AircraftsSearch';
 import Airports from './containers/Airports/Airports';
 import Flights from './containers/Flights/Flights';
 import Auth from './containers/Auth/Auth';
@@ -24,7 +25,7 @@ function App() {
   let routes = (
     <Switch>
       <Route path="/aircraft/:id" component={Aircrafts} />
-      {/* <Route path="/aircraft" component={Aircrafts} /> */}
+      <Route path="/aircraft" component={AircraftsSearch} />
       <Route path="/airports/:id" component={Airports} />
       <Route path="/airports" component={Airports} />
       <Route path="/flights/:id" component={Flights} />
