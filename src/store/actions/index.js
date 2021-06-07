@@ -6,6 +6,7 @@ export {
 
 export {
     fetchAircraft,
+    fetchAircrafts,
     setAircraftOffsetLimit,
     setAircraftPage,
     unmountAircraft

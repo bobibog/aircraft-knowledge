@@ -25,6 +25,66 @@ export const airlineHeader = [
     }
 ];
 
+// export const airline = {
+//     airlineId:"",
+//     airlineName:"",
+//     iata:"",
+//     icao:"",
+//     fleet:""
+// }
+
+export const aircraftSearchHeader = [
+    
+    {
+        
+        name: "Airline",
+        prop: 'airline',
+        type:"airlineHeader",
+        linkRoute: [
+            "/aircraft", "airlineId"
+        ],
+        dataCellCreator: [
+            "airlineName"
+        ],
+    },
+    {
+        name: "Operator",
+        prop: "operator",
+        type: "airlineHeader",
+        linkRoute: [
+            "/aircraft", "airlineId"
+        ],
+        dataCellCreator: [
+            "airlineName"
+        ],
+    },
+    {
+        name: "Type Code",
+        prop: "typeCode"
+    },
+    {
+        name: "Full Type",
+        prop: "aircraftType"
+    },
+    {
+        name: "Registration",
+        prop: "registration"
+    },
+    {
+        name: "Serial No.",
+        prop: "serialNumber"
+    },
+    {
+        name: "Mode S",
+        prop: "modeS"
+    },
+    {
+        name: "Produced",
+        prop: "manufactureDate"
+    }
+    
+];
+
 export const aircraftHeader = [
     {
         name: "Registration",

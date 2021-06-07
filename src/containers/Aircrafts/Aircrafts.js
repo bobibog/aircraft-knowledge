@@ -15,6 +15,7 @@ import { aircraftHeader, airlineHeader } from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 
+
 const Aircrafts = props => {
     const {match} = props;
 
@@ -37,8 +38,9 @@ const Aircrafts = props => {
         return state.aircraft.aircraftPage;
     });
 
+    
     const dispatch = useDispatch();
-
+    
     const onFetchAircraft = useCallback((airlineId) => dispatch(actions.fetchAircraft(offset, limit, airlineId)), [dispatch, offset, limit]);
     const onSetAircraftOffsetLimit = (offset, limit) => dispatch(actions.setAircraftOffsetLimit(offset, limit));
     const onSetAircraftPage = (page) => dispatch(actions.setAircraftPage(page));
@@ -57,6 +59,9 @@ const Aircrafts = props => {
     
     // let {id} = useParams();
     // console.log(id);
+    
+
+    
 
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
         onSetAircraftOffsetLimit(tableOffset, tableLimit);     
@@ -144,7 +149,7 @@ const Aircrafts = props => {
     // };
     
     return (
-        <React.Fragment>
+        <React.Fragment>            
             {airlineBox}
             {aircraftsTable}
             {/* <Hidden {...hideCell(12)}>
