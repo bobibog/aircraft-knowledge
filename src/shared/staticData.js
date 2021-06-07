@@ -36,7 +36,33 @@ export const airlineHeader = [
 export const aircraftSearchHeader = [
     
     {
-        
+        name: "Registration",
+        prop: "registration",
+        linkRoute: [
+            "/flights", "aircraftId"
+        ],
+    },    
+    {
+        name: "Type Code",
+        prop: "typeCode"
+    },
+    {
+        name: "Full Type",
+        prop: "aircraftType"
+    },    
+    {
+        name: "Serial No.",
+        prop: "serialNumber"
+    },
+    {
+        name: "Mode S",
+        prop: "modeS"
+    },
+    {
+        name: "Produced",
+        prop: "manufactureDate"
+    },
+    {        
         name: "Airline",
         prop: 'airline',
         type:"airlineHeader",
@@ -57,30 +83,6 @@ export const aircraftSearchHeader = [
         dataCellCreator: [
             "airlineName"
         ],
-    },
-    {
-        name: "Type Code",
-        prop: "typeCode"
-    },
-    {
-        name: "Full Type",
-        prop: "aircraftType"
-    },
-    {
-        name: "Registration",
-        prop: "registration"
-    },
-    {
-        name: "Serial No.",
-        prop: "serialNumber"
-    },
-    {
-        name: "Mode S",
-        prop: "modeS"
-    },
-    {
-        name: "Produced",
-        prop: "manufactureDate"
     }
     
 ];
