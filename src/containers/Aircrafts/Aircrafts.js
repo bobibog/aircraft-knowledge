@@ -79,9 +79,10 @@ const Aircrafts = props => {
     //do it, then when we click on the other Airline, the app would try to go to the same page
     //number on which we were, when we were on Aircraft page of the previous Airline!
     useEffect(() => {
-        return () => {
+        /* return () => {
             onUnmountAircraft();
-        };
+        }; */
+        onUnmountAircraft();
     }, []);
 
     let airlineBox = null;
