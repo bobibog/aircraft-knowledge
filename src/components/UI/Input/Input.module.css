@@ -4,6 +4,17 @@
     padding-left: 32px;
 }
 
+input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: gray;
+    margin-right: 0.7em;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
+}
+
 .Label {
     font-weight: bold;
     display: block;

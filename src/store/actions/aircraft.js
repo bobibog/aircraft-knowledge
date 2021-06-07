@@ -60,6 +60,38 @@ export const fetchAircraft = (offset, limit, airlineId) => {
     }
 };
 
+export const fetchAircrafts = (offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate) => {
+    return dispatch => {
+        dispatch(fetchAircraftStart());        
+          
+        const query = new URLSearchParams();                        
+        query.append('airline', airline);
+        query.append('operators', operators);
+        query.append('typeCode', typeCode);
+        query.append('fullType', fullType);
+        query.append('registration', registration); 
+        query.append('serialNumber', serialNumber);
+        query.append('modeS', modeS);         
+        query.append('minManufactureDate', minManufactureDate);
+        query.append('maxManufactureDate', maxManufactureDate); 
+        query.append('offset', offset);
+        query.append('limit', limit);           
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+        axios.get(`/aircraft?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAircraftSuccess(response.data['aircraft'], response.data['aircraftCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAircraftFail(error));                                
+            }    
+        );        
+    }
+};
+
 export const unmountAircraft = () => {
     return {
         type: actionTypes.UNMOUNT_AIRCRAFT
