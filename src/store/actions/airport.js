@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-local';
+import axios2 from '../../axios-local2';
 
 export const setAirportsOffsetLimit = (offset, limit) => {
     return {
@@ -78,6 +79,184 @@ export const fetchAirports = (offset, limit, airportId, airportName, iata, city,
         }
     }
 };
+
+
+export const orderAirportsByNameDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/airportNameDesc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByNameAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/airportNameAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByIataDesc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/iataDesc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByIataAesc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/iataAesc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByCityDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/cityDsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByCityAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/cityAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByCountryDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/countryDsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
+export const orderAirportsByCountryAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();       
+        query.append('offset', offset);
+        query.append('limit', limit); 
+
+        let queryString = limit !== "-1"           
+            ? query
+            : '';
+        
+            axios2.get(`/countryAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                                
+            });        
+    }
+};
+
 
 export const unmountAirports = () => {
     return {

@@ -1,0 +1,13 @@
+.inputPrepend {
+    height: 38px;
+    margin-top: 8px;
+    background-color: aquamarine;
+}
+
+.span {
+    position: absolute;
+    display: inline-block;
+    height: 38px;
+    background-color: rgb(167, 229, 231);
+    margin-left: 22px;
+}

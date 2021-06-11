@@ -44,11 +44,22 @@
     display: inline-block;
     height: 38px;
     background-color: rgb(167, 229, 231);
+    margin-left: 22px;
 }
 
 .icon {
     position: relative;
     color: rgb(69, 158, 161);
+}
+
+.grid_container {
+    display: grid;
+    grid-row-gap: 5px;
+    grid-template-columns: 520px 170px 350px auto;
+    padding: 10px;
+    margin-bottom: -58px;
+    position: relative;
+    z-index: 3;
 }
 
 @media only screen and (max-width: 1390px) {
@@ -65,5 +76,101 @@
     .buttonBox {
         width: auto;
         border-radius: 0px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width: 1670px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 420px 170px 450px 450px;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1650px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 320px 250px 420px 450px;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1520px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 260px 290px 330px 490px;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1460px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 240px 350px 200px 590px;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1350px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 420px 130px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 350px 90px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 350px 90px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 280px 90px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
     }
 }

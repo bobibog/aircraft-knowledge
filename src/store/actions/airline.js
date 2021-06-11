@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-local';
+import axios2 from '../../axios-local2';
 import {generatePath} from 'react-router';
 
 
@@ -58,6 +59,189 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, 
             : '';            
             
         axios.get(`/airline?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByNameDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/airlineNameDesc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByNameAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/airlineNameAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByIataDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/iataDsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByIataAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/iataAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByIcaoDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/icaoDsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByIcaoAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/icaoAsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const orderAirlinesByFleetDsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/fleetDsc?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            });        
+    }
+};
+
+export const orderAirlinesByFleetAsc = (offset, limit) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();        
+        query.append('offset', offset);
+        query.append('limit', limit);              
+
+        let queryString = limit !== "-1"            
+            ? query
+            : '';            
+            
+            axios2.get(`/fleetAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })

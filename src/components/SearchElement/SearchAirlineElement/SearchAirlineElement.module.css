@@ -44,11 +44,26 @@
     display: inline-block;
     height: 38px;
     background-color: rgb(167, 229, 231);
+    margin-left: 22px;
 }
 
 .icon {
     position: relative;
     color: rgb(69, 158, 161);
+}
+
+.grid_container {
+    display: grid;
+    grid-row-gap: 5px;
+    grid-template-columns: 820px 170px 350px auto;
+    padding: 10px;
+    margin-bottom: -58px;
+    position: relative;
+    z-index: 3;
+}
+
+.dropBtn {
+    color: red;
 }
 
 @media only screen and (max-width: 1390px) {
@@ -65,5 +80,77 @@
     .buttonBox {
         width: auto;
         border-radius: 0px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width: 1670px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 820px 170px 350px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1650px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 720px 250px 350px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1520px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 680px 260px 310px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1460px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 580px 350px 180px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1350px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 490px 420px 130px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 390px 560px 20px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
     }
 }

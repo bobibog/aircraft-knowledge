@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
-//import Hidden from '@material-ui/core/Hidden';
 import {useSelector, useDispatch} from 'react-redux';
 //import axiosFirebase from '../../axios-firebase';
 import axios from '../../axios-local';
@@ -47,6 +46,42 @@ const Airlines = props => {
         () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax))
         , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax]
     );
+    
+    // Ordering Dsc/Asc
+    const onOrderAirlinesByNameDesc = useCallback(
+        () => dispatch(actions.orderAirlinesByNameDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByNameAsc = useCallback(
+        () => dispatch(actions.orderAirlinesByNameAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByIataDsc = useCallback(
+        () => dispatch(actions.orderAirlinesByIataDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByIataAsc = useCallback(
+        () => dispatch(actions.orderAirlinesByIataAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByIcaoDsc = useCallback(
+        () => dispatch(actions.orderAirlinesByIcaoDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByIcaoAsc = useCallback(
+        () => dispatch(actions.orderAirlinesByIcaoAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByFleetDsc = useCallback(
+        () => dispatch(actions.orderAirlinesByFleetDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirlinesByFleetAsc = useCallback(
+        () => dispatch(actions.orderAirlinesByFleetAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+
+
     const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));    
     const onSetAirlinesPage = (page) => dispatch(actions.setAirlinesPage(page));    
      
@@ -58,15 +93,49 @@ const Airlines = props => {
         onSetAirlinesPage(page);
     };
 
-    const submitSearchHandler = (airlineName, iata, icao, fleetMin, fleetMax) => {  
+       
+    const submitSearchHandler1 = (airlineName) => {  
         onSetAirlinesOffsetLimit(0, limit);
         onSetAirlinesPage(0);
         setAirlineName(airlineName);
+        // setIATA(iata);
+        // setICAO(icao);
+        // setFleetMin(fleetMin);  
+        // setFleetMax(fleetMax);        
+    };
+    
+    const submitSearchHandler2 = (iata) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        // setAirlineName(airlineName);
         setIATA(iata);
+        // setICAO(icao);
+        // setFleetMin(fleetMin);  
+        // setFleetMax(fleetMax);        
+    };
+
+    const submitSearchHandler3 = (icao) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        // setAirlineName(airlineName);
+        // setIATA(iata);
         setICAO(icao);
+        // setFleetMin(fleetMin);  
+        // setFleetMax(fleetMax);        
+    };
+
+    const submitSearchHandler4 = (fleetMin) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);        
         setFleetMin(fleetMin);  
+        // setFleetMax(fleetMax);        
+    };
+    const submitSearchHandler5 = (fleetMax) => {  
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);        
+        //setFleetMin(fleetMin);  
         setFleetMax(fleetMax);        
-    };    
+    };
 
     const resetSearchHandler = () => {
         setAirlineName("");
@@ -75,17 +144,24 @@ const Airlines = props => {
         setFleetMin("");
         setFleetMax("");
         onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);               
+        onSetAirlinesPage(0); 
+        onOrderAirlinesByNameAsc();  
+                    
     };      
        
     useEffect(() => { 
         onFetchAirlines();
-    }, [onFetchAirlines]);    
+        
+    }, [onFetchAirlines]);  
+    
+    
         
     const airlinesPageHeader =
         <CardsInBox
             headerText="Airlines"
-            backColor="#ffebee" />;   
+            backColor="#F0F8FF" 
+            
+        />;   
     
     let airlinesTable = <Spinner />;
     if (!airlines && !loading  ) {
@@ -113,7 +189,19 @@ const Airlines = props => {
         <React.Fragment>           
             {airlinesPageHeader}             
             <SearchAirlineElement
-                clickedSearch={submitSearchHandler} 
+                clickedSearch1={submitSearchHandler1} 
+                clickedSearch2={submitSearchHandler2}
+                clickedSearch3={submitSearchHandler3}
+                clickedSearch4={submitSearchHandler4}
+                clickedSearch5={submitSearchHandler5}
+                orderAirlinesByNameDesc={onOrderAirlinesByNameDesc}
+                orderAirlinesByNameAsc={onOrderAirlinesByNameAsc}
+                orderAirlinesByIataDesc={onOrderAirlinesByIataDsc}
+                orderAirlinesByIataAsc={onOrderAirlinesByIataAsc}
+                orderAirlinesByIcaoDesc={onOrderAirlinesByIcaoDsc}
+                orderAirlinesByIcaoAsc={onOrderAirlinesByIcaoAsc}
+                orderAirlinesByFleetDsc={onOrderAirlinesByFleetDsc}
+                orderAirlinesByFleetAsc={onOrderAirlinesByFleetAsc}
                 clickedReset={resetSearchHandler}                       
             />                                     
             {airlinesTable}            

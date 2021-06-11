@@ -46,13 +46,46 @@ const Airports = props => {
     const onFetchAirports = useCallback(
         (airportId) => dispatch(actions.fetchAirports(offset, limit, airportId, airportName, iata, city, country))
         , [dispatch, offset, limit, airportName, iata, city, country]);
+    
+    // Ordering Dsc/Asc
+    const onOrderAirportsByNameDesc = useCallback(
+        () => dispatch(actions.orderAirportsByNameDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByNameAsc = useCallback(
+        () => dispatch(actions.orderAirportsByNameAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByIataDsc = useCallback(
+        () => dispatch(actions.orderAirportsByIataDesc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByIataAsc = useCallback(
+        () => dispatch(actions.orderAirportsByIataAesc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByCityDsc = useCallback(
+        () => dispatch(actions.orderAirportsByCityDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByCityAsc = useCallback(
+        () => dispatch(actions.orderAirportsByCityAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByCountryDsc = useCallback(
+        () => dispatch(actions.orderAirportsByCountryDsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    const onOrderAirportsByCountryAsc = useCallback(
+        () => dispatch(actions.orderAirportsByCountryAsc(offset, limit))
+        , [dispatch, offset, limit]
+    );
+    
     const onSetAirportsOffsetLimit = (offset, limit) => dispatch(actions.setAirportsOffsetLimit(offset, limit));
     const onSetAirportsPage = (page) => dispatch(actions.setAirportsPage(page)); 
     const onUnmountAirports = () => dispatch(actions.unmountAirports());   
 
-    // const [airports, setAirports] = useState(null);
-    // const [loading, setLoading] = useState(false);
-
+    
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
         onSetAirportsOffsetLimit(tableOffset, tableLimit);     
     }
@@ -61,14 +94,39 @@ const Airports = props => {
         onSetAirportsPage(page);
     }
 
-    const submitSearchHandler = (airportName, iata, city, country) => {  
+    const submitSearchHandler1 = (airportName) => {  
         onSetAirportsOffsetLimit(0, limit);
         onSetAirportsPage(0);
         setAirportName(airportName);
+        // setIATA(iata);
+        // setCity(city);
+        // setCountry(country);     
+    };  
+    const submitSearchHandler2 = (iata) => {  
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);
+        // setAirportName(airportName);
         setIATA(iata);
+        // setCity(city);
+        // setCountry(country);     
+    }; 
+    const submitSearchHandler3 = (city) => {  
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);
+        // setAirportName(airportName);
+        // setIATA(iata);
         setCity(city);
+        // setCountry(country);     
+    }; 
+    const submitSearchHandler4 = (country) => {  
+        onSetAirportsOffsetLimit(0, limit);
+        onSetAirportsPage(0);
+        // setAirportName(airportName);
+        // setIATA(iata);
+        // setCity(city);
         setCountry(country);     
-    };    
+    }; 
+    
 
     const resetSearchHandler = () => {
         setAirportName("");
@@ -76,7 +134,8 @@ const Airports = props => {
         setCity("");
         setCountry("");
         onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);                       
+        onSetAirportsPage(0);    
+        onOrderAirportsByNameAsc();                   
     };
 
     useEffect(() => {
@@ -92,7 +151,7 @@ const Airports = props => {
     const airportsPageHeader =
         <CardsInBox 
             headerText="Airports"
-            backColor="#ffebee" />;
+            backColor="#F0F8FF" />;
 
     
     let airportsTable = <Spinner />;
@@ -110,28 +169,24 @@ const Airports = props => {
             currPage={page} />;        
     };    
 
-    // const hideCell = (index) => {
-    //     let result = {};
-    //     if (index > 11) {
-    //         result = {xlDown: true};
-    //     } else if (index > 5 && index <= 11) {
-    //         result = {lgDown: true};
-    //     } else if (index > 3 && index <= 5) {
-    //         result = {mdDown: true};
-    //     } else if (index === 3) {
-    //         result = {smDown: true};
-    //     } else if (index > 0 && index <= 2) {
-    //         result = {xsDown: true};
-    //     }
-    //     return result;
-    // };
-    
+        
     return (
         <div>
             {/* <h2>Airports</h2> */}
             {airportsPageHeader}
             <SearchAirportElement
-                clickedSearch={submitSearchHandler} 
+                clickedSearch1={submitSearchHandler1} 
+                clickedSearch2={submitSearchHandler2}
+                clickedSearch3={submitSearchHandler3}
+                clickedSearch4={submitSearchHandler4}
+                orderAirportsByNameDesc={onOrderAirportsByNameDesc}
+                orderAirportsByNameAsc={onOrderAirportsByNameAsc}
+                orderAirportsByIataDesc={onOrderAirportsByIataDsc}
+                orderAirportsByIataAsc={onOrderAirportsByIataAsc}
+                orderAirportsByCityDesc={onOrderAirportsByCityDsc}
+                orderAirportsByCityAsc={onOrderAirportsByCityAsc}
+                orderAirportsByCountryDsc={onOrderAirportsByCountryDsc}
+                orderAirportsByCountryAsc={onOrderAirportsByCountryAsc} 
                 clickedReset={resetSearchHandler}
             />
             {airportsTable}

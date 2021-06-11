@@ -96,7 +96,7 @@ const AircraftsSearch = props => {
     const aircraftsPageHeader =
         <CardsInBox
             headerText="Aircraft"
-            backColor="#ffebee" />;   
+            backColor="#F0F8FF" />;   
     
     let aircraftsTable = <Spinner />;
     if (!aircraft && !loading  ) {

@@ -13,7 +13,7 @@ export const airlineHeader = [
     },
     {
       name: "IATA",
-      prop: "iata"
+      prop: "iata"     
     },
     {
       name: "ICAO",
