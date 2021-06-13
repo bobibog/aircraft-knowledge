@@ -155,7 +155,7 @@ const  SearchAirportElement = (props) => {
     return(
         <div className={classes.grid_container}>
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" >                            
+                    <DropdownButton id="dropdown-item-button" title="Name">                            
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
@@ -189,7 +189,7 @@ const  SearchAirportElement = (props) => {
                 </div>
                 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" >                            
+                    <DropdownButton id="dropdown-item-button" title="IATA">                            
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
@@ -223,7 +223,7 @@ const  SearchAirportElement = (props) => {
                 </div>
 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" >                            
+                    <DropdownButton id="dropdown-item-button" title="City">                            
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
@@ -257,7 +257,7 @@ const  SearchAirportElement = (props) => {
                 </div>
 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} >                            
+                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} title="Country">                            
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryAsc())}><FcNumericalSorting12/> <small>Sort A to Z</small></Dropdown.Item>
                         <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryDsc())}><FcNumericalSorting21/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>

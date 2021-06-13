@@ -41,7 +41,7 @@ export const fetchAirlinesStart = () => {
 };
 
 
-export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, fleetMax) => {
+export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, fleetMax, airlineNameDesc, airlineNameAsc, iataDesc, iataAsc, icaoDesc, icaoAsc, fleetDesc, fleetAsc) => {
     return dispatch => {
         dispatch(fetchAirlinesStart());        
           
@@ -52,7 +52,15 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, 
         query.append('fleetMin', fleetMin);
         query.append('fleetMax', fleetMax); 
         query.append('offset', offset);
-        query.append('limit', limit);              
+        query.append('limit', limit); 
+        query.append('airlineNameDesc', airlineNameDesc);  
+        query.append('airlineNameAsc', airlineNameAsc);
+        query.append('iataDesc', iataDesc); 
+        query.append('iataAsc', iataAsc);
+        query.append('icaoDesc', icaoDesc);
+        query.append('icaoAsc', icaoAsc);
+        query.append('fleetDesc', fleetDesc);
+        query.append('fleetAsc', fleetAsc);          
 
         let queryString = limit !== "-1"            
             ? query

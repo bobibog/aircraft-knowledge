@@ -39,47 +39,55 @@ const Airlines = props => {
     const[icao, setICAO] = useState('');
     const[fleetMin, setFleetMin] = useState('');
     const[fleetMax, setFleetMax] = useState('');
-           
+    const[airlineNameDesc, setAirlineNameDesc] = useState('');
+    const[airlineNameAsc, setAirlineNameAsc] = useState('');
+    const[iataDesc, setIataDesc] = useState('');
+    const[iataAsc, setIataAsc] = useState('');
+    const[icaoDesc, setIcaoDesc] = useState('');
+    const[icaoAsc, setIcaoAsc] = useState('');
+    const[fleetDesc, setFleetDesc] = useState('');
+    const[fleetAsc, setFleetAsc] = useState('');
+
     const dispatch = useDispatch();
     
     const onFetchAirlines = useCallback(
-        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax))
-        , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax]
+        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax, airlineNameDesc, airlineNameAsc, iataDesc, iataAsc, icaoDesc, icaoAsc, fleetDesc, fleetAsc))
+        , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax, airlineNameDesc, airlineNameAsc, iataDesc, iataAsc, icaoDesc, icaoAsc, fleetDesc, fleetAsc]
     );
     
     // Ordering Dsc/Asc
-    const onOrderAirlinesByNameDesc = useCallback(
-        () => dispatch(actions.orderAirlinesByNameDsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByNameAsc = useCallback(
-        () => dispatch(actions.orderAirlinesByNameAsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByIataDsc = useCallback(
-        () => dispatch(actions.orderAirlinesByIataDsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByIataAsc = useCallback(
-        () => dispatch(actions.orderAirlinesByIataAsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByIcaoDsc = useCallback(
-        () => dispatch(actions.orderAirlinesByIcaoDsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByIcaoAsc = useCallback(
-        () => dispatch(actions.orderAirlinesByIcaoAsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByFleetDsc = useCallback(
-        () => dispatch(actions.orderAirlinesByFleetDsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
-    const onOrderAirlinesByFleetAsc = useCallback(
-        () => dispatch(actions.orderAirlinesByFleetAsc(offset, limit))
-        , [dispatch, offset, limit]
-    );
+    // const onOrderAirlinesByNameDesc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByNameDsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByNameAsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByNameAsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByIataDsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByIataDsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByIataAsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByIataAsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByIcaoDsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByIcaoDsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByIcaoAsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByIcaoAsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByFleetDsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByFleetDsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
+    // const onOrderAirlinesByFleetAsc = useCallback(
+    //     () => dispatch(actions.orderAirlinesByFleetAsc(offset, limit))
+    //     , [dispatch, offset, limit]
+    // );
 
 
     const onSetAirlinesOffsetLimit = (offset, limit) => dispatch(actions.setAirlinesOffsetLimit(offset, limit));    
@@ -93,7 +101,49 @@ const Airlines = props => {
         onSetAirlinesPage(page);
     };
 
+    // SORTING
+    const orderAirlineNameDsc = (airlineNameDesc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setAirlineNameDesc(airlineNameDesc);
+    }
+    const orderAirlineNameAsc = (airlineNameAsc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setAirlineNameAsc(airlineNameAsc);
+    }
+    const orderIataDsc = (iataDesc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setIataDesc(iataDesc);
+    }
+    const orderIataAsc = (iataAsc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setIataAsc(iataAsc);
+    }
+    const orderIcaoDsc = (icaoDesc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setIcaoDesc(icaoDesc);
+    }
+    const orderIcaoAsc = (icaoAsc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setIcaoAsc(icaoAsc);
+    }
+    const orderFleetDsc = (fleetDesc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setFleetDesc(fleetDesc);
+    }
+    const orderFleetAsc = (fleetAsc)=>{
+        onSetAirlinesOffsetLimit(0, limit);
+        onSetAirlinesPage(0);
+        setFleetAsc(fleetAsc);
+    }
        
+    // FILTERING/SEARCHING
     const submitSearchHandler1 = (airlineName) => {  
         onSetAirlinesOffsetLimit(0, limit);
         onSetAirlinesPage(0);
@@ -145,8 +195,14 @@ const Airlines = props => {
         setFleetMax("");
         onSetAirlinesOffsetLimit(0, limit);
         onSetAirlinesPage(0); 
-        onOrderAirlinesByNameAsc();  
-                    
+        setAirlineNameDesc("");  
+        setAirlineNameAsc("");
+        setIataDesc("");
+        setIataAsc("");
+        setIcaoAsc("");
+        setIcaoDesc("");
+        setFleetAsc("");
+        setFleetDesc("");         
     };      
        
     useEffect(() => { 
@@ -194,14 +250,15 @@ const Airlines = props => {
                 clickedSearch3={submitSearchHandler3}
                 clickedSearch4={submitSearchHandler4}
                 clickedSearch5={submitSearchHandler5}
-                orderAirlinesByNameDesc={onOrderAirlinesByNameDesc}
-                orderAirlinesByNameAsc={onOrderAirlinesByNameAsc}
-                orderAirlinesByIataDesc={onOrderAirlinesByIataDsc}
-                orderAirlinesByIataAsc={onOrderAirlinesByIataAsc}
-                orderAirlinesByIcaoDesc={onOrderAirlinesByIcaoDsc}
-                orderAirlinesByIcaoAsc={onOrderAirlinesByIcaoAsc}
-                orderAirlinesByFleetDsc={onOrderAirlinesByFleetDsc}
-                orderAirlinesByFleetAsc={onOrderAirlinesByFleetAsc}
+
+                orderAirlinesByNameDesc={orderAirlineNameDsc}
+                orderAirlinesByNameAsc={orderAirlineNameAsc}
+                orderAirlinesByIataDesc={orderIataDsc}
+                orderAirlinesByIataAsc={orderIataAsc}
+                orderAirlinesByIcaoDesc={orderIcaoDsc}
+                orderAirlinesByIcaoAsc={orderIcaoAsc}
+                orderAirlinesByFleetDsc={orderFleetDsc}
+                orderAirlinesByFleetAsc={orderFleetAsc}
                 clickedReset={resetSearchHandler}                       
             />                                     
             {airlinesTable}            

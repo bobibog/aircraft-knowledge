@@ -55,7 +55,7 @@
 .grid_container {
     display: grid;
     grid-row-gap: 5px;
-    grid-template-columns: 820px 170px 350px auto;
+    grid-template-columns: 650px 170px 322px auto;
     padding: 10px;
     margin-bottom: -58px;
     position: relative;
@@ -83,7 +83,8 @@
     }
 }
 
-@media only screen and (max-width: 1670px) {
+
+/* @media only screen and (max-width: 1670px) {
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
@@ -153,4 +154,4 @@
         position: relative;
         z-index: 3;
     }
-}
+} */

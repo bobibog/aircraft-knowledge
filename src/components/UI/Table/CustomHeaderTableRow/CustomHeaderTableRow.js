@@ -43,7 +43,7 @@ const CustomHeaderTableRow = props => {
                 .map((headerColumnVisible, index) =>
                 
                     <StyledTableCell key={`thc-${index}`} >                                            
-                        {headerColumnVisible.name}
+                        {/* {headerColumnVisible.name} */}
                         {/* <DropdownButton id="dropdown-item-button" >
                             
                             <Dropdown.Item as="button"><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>

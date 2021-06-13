@@ -185,9 +185,9 @@ const  SearchAirlineElement = (props) => {
                
             <div className={classes.grid_container}>
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button"  >                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByNameAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByNameDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button" title="Name" >                            
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByNameAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByNameDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -219,9 +219,9 @@ const  SearchAirlineElement = (props) => {
                 </div>
                 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropBtn} >                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button" className={classes.dropBtn} title="IATA" >                            
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -253,9 +253,9 @@ const  SearchAirlineElement = (props) => {
                 </div>
 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" >                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button" title="ICAO">                            
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -287,9 +287,9 @@ const  SearchAirlineElement = (props) => {
                 </div>
 
                 <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} >                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetAsc())}><FcNumericalSorting12/> <small>Sort Min to Max</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetDsc())}><FcNumericalSorting21/> <small>Sort Max to Min</small></Dropdown.Item>
+                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} title="Fleet">                            
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetAsc("asc"))}><FcNumericalSorting12/> <small>Sort Min to Max</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetDsc("dsc"))}><FcNumericalSorting21/> <small>Sort Max to Min</small></Dropdown.Item>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -330,7 +330,8 @@ const  SearchAirlineElement = (props) => {
                                 btnType="Secondary"    
                                 >RESET
                             </ButtonBordered> 
-                        </div>                                
+                        </div>   
+                                                     
                     </DropdownButton>
                 </div>
 
