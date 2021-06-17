@@ -60,7 +60,7 @@ export const fetchAircraft = (offset, limit, airlineId) => {
     }
 };
 
-export const fetchAircrafts = (offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate) => {
+export const fetchAircrafts = (offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate, airlineDesc, airlineAsc, operatorsDesc, operatorsAsc, typeCodeDesc, typeCodeAsc, fullTypeDesc, fullTypeAsc, registrationDesc, registrationAsc, serialNumberDesc, serialNumberAsc, modeSDesc, modeSAsc, manufactureDateDesc, manufactureDateAsc) => {
     return dispatch => {
         dispatch(fetchAircraftStart());        
           
@@ -75,7 +75,23 @@ export const fetchAircrafts = (offset, limit, airline, operators, typeCode, full
         query.append('minManufactureDate', minManufactureDate);
         query.append('maxManufactureDate', maxManufactureDate); 
         query.append('offset', offset);
-        query.append('limit', limit);           
+        query.append('limit', limit); 
+        query.append('airlineDesc', airlineDesc);
+        query.append('airlineAsc',airlineAsc);
+        query.append('operatorsDesc', operatorsDesc);
+        query.append('operatorsAsc', operatorsAsc);
+        query.append('typeCodeDesc', typeCodeDesc);
+        query.append('typeCodeAsc', typeCodeAsc);
+        query.append('fullTypeDesc', fullTypeDesc);
+        query.append('fullTypeAsc', fullTypeAsc);
+        query.append('registrationDesc', registrationDesc);
+        query.append('registrationAsc', registrationAsc);
+        query.append('serialNumberDesc', serialNumberDesc);
+        query.append('serialNumberAsc', serialNumberAsc);
+        query.append('modeSDesc', modeSDesc);
+        query.append('modeSAsc', modeSAsc);
+        query.append('manufactureDateDesc', manufactureDateDesc);
+        query.append('manufactureDateAsc', manufactureDateAsc);    
 
         let queryString = limit !== "-1"            
             ? query

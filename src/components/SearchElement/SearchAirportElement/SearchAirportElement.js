@@ -156,8 +156,9 @@ const  SearchAirportElement = (props) => {
         <div className={classes.grid_container}>
                 <div className={classes.grid_item}>
                     <DropdownButton id="dropdown-item-button" title="Name">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <div className={classes.label}><small><label>Contains:</label></small></div>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -174,14 +175,17 @@ const  SearchAirportElement = (props) => {
                                 />
                                 
                             </InputGroup>
-                            {/* <ButtonBordered 
+                            <ButtonBordered 
                                 clicked={() => (props.clickedSearch1(airportName))}
                                 btnType="Success"                            
                                 >SEARCH
-                            </ButtonBordered> */}
+                            </ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"
+                                toggle="tooltip"
+                                placement="right"
+                                title="Reset all columns"    
                                 >RESET
                             </ButtonBordered> 
                         </div>                                
@@ -190,8 +194,9 @@ const  SearchAirportElement = (props) => {
                 
                 <div className={classes.grid_item}>
                     <DropdownButton id="dropdown-item-button" title="IATA">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <div className={classes.label}><small><label>Contains:</label></small></div>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -208,14 +213,17 @@ const  SearchAirportElement = (props) => {
                                 />
                                 
                             </InputGroup>
-                            {/* <ButtonBordered 
+                            <ButtonBordered 
                                 clicked={() => (props.clickedSearch2(iata))}
                                 btnType="Success"                            
                                 >SEARCH
-                            </ButtonBordered> */}
+                            </ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"
+                                toggle="tooltip"
+                                placement="right"
+                                title="Reset all columns"    
                                 >RESET
                             </ButtonBordered> 
                         </div>                                
@@ -224,8 +232,9 @@ const  SearchAirportElement = (props) => {
 
                 <div className={classes.grid_item}>
                     <DropdownButton id="dropdown-item-button" title="City">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityAsc())}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityDesc())}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
+                        <div className={classes.label}><small><label>Contains:</label></small></div>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -242,14 +251,17 @@ const  SearchAirportElement = (props) => {
                                 />
                                 
                             </InputGroup>
-                            {/* <ButtonBordered 
+                            <ButtonBordered 
                                 clicked={() => (props.clickedSearch3(city))}
                                 btnType="Success"                            
                                 >SEARCH
-                            </ButtonBordered> */}
+                            </ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"
+                                toggle="tooltip"
+                                placement="right"
+                                title="Reset all columns"    
                                 >RESET
                             </ButtonBordered> 
                         </div>                                
@@ -258,8 +270,9 @@ const  SearchAirportElement = (props) => {
 
                 <div className={classes.grid_item}>
                     <DropdownButton id="dropdown-item-button" className={classes.dropButton} title="Country">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryAsc())}><FcNumericalSorting12/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryDsc())}><FcNumericalSorting21/> <small>Sort Z to A</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryAsc("asc"))}><FcNumericalSorting12/> <small>Sort A to Z</small></Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryDsc("dsc"))}><FcNumericalSorting21/> <small>Sort Z to A</small></Dropdown.Item>
+                        <div className={classes.label}><small><label>Contains:</label></small></div>
                         <div>
                             <InputGroup className="mb-3 input-group-sm">
                                 <InputGroup.Prepend className={classes.inputPrepend}>
@@ -276,14 +289,17 @@ const  SearchAirportElement = (props) => {
                                 />
                                 
                             </InputGroup>
-                            {/* <ButtonBordered 
+                            <ButtonBordered 
                                 clicked={() => (props.clickedSearch4(country))}
                                 btnType="Success"                            
                                 >SEARCH
-                            </ButtonBordered> */}
+                            </ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"
+                                toggle="tooltip"
+                                placement="right"
+                                title="Reset all columns"    
                                 >RESET
                             </ButtonBordered> 
                         </div>                                

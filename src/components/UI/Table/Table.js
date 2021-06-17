@@ -21,6 +21,8 @@ import {withRouter} from 'react-router-dom';
 import useBreakpoint from '../../../hooks/useBreakpoint';
 import CustomHeaderTableRow from './CustomHeaderTableRow/CustomHeaderTableRow';
 import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
+import { fontSize } from '@material-ui/system';
+
 
 const TableCustom = (props) => {
     //console.log(props); 
@@ -283,7 +285,7 @@ const TableCustom = (props) => {
                                 </TableFooter>                       
                                 
                             </Table>
-                            : <p style={{textAlign: 'center'}}>There is no flights for this aircraft.</p>
+                            : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There is no flights for this aircraft. Please reset Your search or enter new search term. </p></div>
                         }
                     </TableContainer>
                 </Paper>

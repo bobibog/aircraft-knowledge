@@ -38,7 +38,7 @@ export const fetchAirportsStart = () => {
     }
 };
 
-export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country) => {
+export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc) => {
     return dispatch => {
         dispatch(fetchAirportsStart());
         
@@ -49,6 +49,14 @@ export const fetchAirports = (offset, limit, airportId, airportName, iata, city,
         query.append('country', country);
         query.append('offset', offset);
         query.append('limit', limit); 
+        query.append('airportNameDesc', airportNameDesc);
+        query.append('airportNameAsc', airportNameAsc);
+        query.append('iataDesc', iataDesc);
+        query.append('iataAsc', iataAsc);
+        query.append('cityDesc', cityDesc);
+        query.append('cityAsc', cityAsc);
+        query.append('countryDesc', countryDesc);
+        query.append('countryAsc', countryAsc);
 
         let queryString = limit !== "-1"           
             ? query

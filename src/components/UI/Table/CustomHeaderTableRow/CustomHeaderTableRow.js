@@ -44,17 +44,7 @@ const CustomHeaderTableRow = props => {
                 
                     <StyledTableCell key={`thc-${index}`} >                                            
                         {/* {headerColumnVisible.name} */}
-                        {/* <DropdownButton id="dropdown-item-button" >
-                            
-                            <Dropdown.Item as="button"><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                            <Dropdown.Item as="button"><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
-                            <SearchByColumn 
-                                column={headerColumnVisible.prop}                                
-                                clickedSearch={submitSearchHandler}
-                                clickedReset={resetSearchHandler}
-                            />
-                            
-                        </DropdownButton> */}
+                        
                     </StyledTableCell>
                 )             
             } 

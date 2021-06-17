@@ -9,7 +9,7 @@ import Table from '../../components/UI/Table/Table';
 import {aircraftSearchHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
-import SearchAircraftElement from '../../components/SearchElement/SearchAircraftElement/SearchAircraftElement';
+import SearchAircraftElement2 from '../../components/SearchElement/SearchAircraftElement2/SearchAircraftElement2';
 
 
 const AircraftsSearch = props => {
@@ -40,13 +40,29 @@ const AircraftsSearch = props => {
     const[serialNumber, setSerialNumber]=useState('');
     const[modeS, setModeS]=useState('');
     const[maxManufactureDate, setMaxManufactureDate]=useState('');
-    const[minManufactureDate, setMinManufactureDate]=useState('');    
+    const[minManufactureDate, setMinManufactureDate]=useState(''); 
+    const[airlineDesc, setAirlineDesc]=useState('');
+    const[airlineAsc, setAirlineAsc]=useState('');
+    const[operatorsDesc, setOperatorsDesc]=useState('');
+    const[operatorsAsc, setOperatorsAsc]=useState('');
+    const[typeCodeDesc, setTypeCodeDesc]=useState('');
+    const[typeCodeAsc, setTypeCodeAsc]=useState('');
+    const[fullTypeDesc, setFullTypeDesc]=useState('');
+    const[fullTypeAsc, setFullTypeAsc]=useState('');
+    const[registrationDesc, setRegistrationDesc]=useState('');
+    const[registrationAsc, setRegistrationAsc]=useState('');
+    const[serialNumberDesc, setSerialNumberDesc]=useState('');
+    const[serialNumberAsc, setSerialNumberAsc]=useState('');
+    const[modeSDesc, setModeSDesc]=useState('');
+    const[modeSAsc, setModeSAsc]=useState('');
+    const[manufactureDateDesc, setManufactureDateDesc]=useState('');
+    const[manufactureDateAsc, setManufactureDateAsc]=useState('');
            
     const dispatch = useDispatch();
     
     const onFetchAircrafts = useCallback(
-        () => dispatch(actions.fetchAircrafts(offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate))
-        , [dispatch, offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate]
+        () => dispatch(actions.fetchAircrafts(offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate, airlineDesc, airlineAsc, operatorsDesc, operatorsAsc, typeCodeDesc, typeCodeAsc, fullTypeDesc, fullTypeAsc, registrationDesc, registrationAsc, serialNumberDesc, serialNumberAsc, modeSDesc, modeSAsc, manufactureDateDesc, manufactureDateAsc))
+        , [dispatch, offset, limit, airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate, airlineDesc, airlineAsc, operatorsDesc, operatorsAsc, typeCodeDesc, typeCodeAsc, fullTypeDesc, fullTypeAsc, registrationDesc, registrationAsc, serialNumberDesc, serialNumberAsc, modeSDesc, modeSAsc, manufactureDateDesc, manufactureDateAsc]
     );
     const onSetAircraftOffsetLimit = (offset, limit) => dispatch(actions.setAircraftOffsetLimit(offset, limit));    
     const onSetAircraftPage = (page) => dispatch(actions.setAircraftPage(page));    
@@ -59,19 +75,208 @@ const AircraftsSearch = props => {
         onSetAircraftPage(page);
     };
 
-    const submitSearchHandler = (airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate) => {  
+    // SORTING
+    const orderAirlineDsc = (airlineDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setAirlineDesc(airlineDesc);
+    }
+    const orderAirlineAsc = (airlineAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setAirlineAsc(airlineAsc);
+    }
+    const orderOperatorDsc = (operatorsDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setOperatorsDesc(operatorsDesc);
+    }
+    const orderOperatorAsc = (operatorsAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setOperatorsAsc(operatorsAsc);
+    }
+    const orderTypeCodeDsc = (typeCodeDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setTypeCodeDesc(typeCodeDesc);
+    }
+    const orderTypeCodeAsc = (typeCodeAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setTypeCodeAsc(typeCodeAsc);
+    }
+    const orderFullTypeDsc = (fullTypeDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setFullTypeDesc(fullTypeDesc);
+    }
+    const orderFullTypeAsc = (fullTypeAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setFullTypeAsc(fullTypeAsc);
+    }
+    const orderRegistrationDsc = (registrationDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setRegistrationDesc(registrationDesc);
+    }
+    const orderRegistrationAsc = (registrationAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setRegistrationAsc(registrationAsc);
+    }
+    const orderSerialNumberDsc = (serialNumberDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setSerialNumberDesc(serialNumberDesc);
+    }
+    const orderSerialNumberAsc = (serialNumberAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setSerialNumberAsc(serialNumberAsc);
+    }
+    const orderModeSDsc = (modeSDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setModeSDesc(modeSDesc);
+    }
+    const orderModeSAsc = (modeSAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setModeSAsc(modeSAsc);
+    }
+    const orderManufactureDateDsc = (manufactureDateDesc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setManufactureDateDesc(manufactureDateDesc);
+    }
+    const orderManufactureDateAsc = (manufactureDateAsc)=>{
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        setManufactureDateAsc(manufactureDateAsc);
+    }
+
+    // FILTERING/SEARCHING
+    const submitSearchHandler1 = (airline) => {  
         onSetAircraftOffsetLimit(0, limit);
         onSetAircraftPage(0);
         setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler2 = (operators) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
         setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler3 = (typeCode) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
         setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    }; 
+    const submitSearchHandler4 = (fullType) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
         setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler5 = (registration) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
         setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler6 = (serialNumber) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
         setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler7 = (modeS) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
         setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler8 = (maxManufactureDate) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
         setMaxManufactureDate(maxManufactureDate);
+        // setMinManufactureDate(minManufactureDate);
+    };
+    const submitSearchHandler9 = (minManufactureDate) => {  
+        onSetAircraftOffsetLimit(0, limit);
+        onSetAircraftPage(0);
+        // setAirline(airline);
+        // setOperator(operators);
+        // setTypeCode(typeCode);
+        // setFullType(fullType);
+        // setRegistration(registration);
+        // setSerialNumber(serialNumber);
+        // setModeS(modeS);
+        // setMaxManufactureDate(maxManufactureDate);
         setMinManufactureDate(minManufactureDate);
-    };    
+    };
+    
+    
 
     const resetSearchHandler = () => {        
         onSetAircraftOffsetLimit(0, limit);
@@ -84,7 +289,23 @@ const AircraftsSearch = props => {
         setSerialNumber("");
         setModeS("");
         setMaxManufactureDate("");
-        setMinManufactureDate("");   
+        setMinManufactureDate("");  
+        setAirlineDesc("");
+        setAirlineAsc("");
+        setOperatorsDesc("");
+        setOperatorsAsc("");
+        setTypeCodeDesc("");
+        setTypeCodeAsc("");
+        setFullTypeDesc("");
+        setFullTypeAsc("");
+        setRegistrationDesc("");
+        setRegistrationAsc("");
+        setSerialNumberDesc("");
+        setSerialNumberAsc("");
+        setModeSDesc("");
+        setModeSAsc("");
+        setManufactureDateDesc("");
+        setManufactureDateAsc("");
         // If we want to bring back to previous page (not on default one) 
         //onFetchAircrafts();     
     };      
@@ -124,8 +345,34 @@ const AircraftsSearch = props => {
     return (
         <React.Fragment>           
             {aircraftsPageHeader}             
-            <SearchAircraftElement
-                clickedSearch={submitSearchHandler} 
+            <SearchAircraftElement2
+                clickedSearch1={submitSearchHandler1}
+                clickedSearch2={submitSearchHandler2}
+                clickedSearch3={submitSearchHandler3}
+                clickedSearch4={submitSearchHandler4}
+                clickedSearch5={submitSearchHandler5}
+                clickedSearch6={submitSearchHandler6}
+                clickedSearch7={submitSearchHandler7}
+                clickedSearch8={submitSearchHandler8}
+                clickedSearch9={submitSearchHandler9}
+
+                orderAircraftByAirlineDsc={orderAirlineDsc}
+                orderAircraftByAirlineAsc={orderAirlineAsc}
+                orderAircraftByOperatorDsc={orderOperatorDsc}
+                orderAircraftByOperatorAsc={orderOperatorAsc}
+                orderAircraftByRegistrationDsc={orderRegistrationDsc}
+                orderAircraftByRegistrationAsc={orderRegistrationAsc}
+                orderAircraftByTypeCodeDsc={orderTypeCodeDsc}
+                orderAircraftByTypeCodeAsc={orderTypeCodeAsc}
+                orderAircraftByFullTypeDsc={orderFullTypeDsc}
+                orderAircraftByFullTypeAsc={orderFullTypeAsc}
+                orderAircraftBySerialNumberDsc={orderSerialNumberDsc}
+                orderAircraftBySerialNumberAsc={orderSerialNumberAsc}
+                orderAircraftByModeSDsc={orderModeSDsc}
+                orderAircraftByModeSAsc={orderModeSAsc}
+                orderAircraftByManufactureDateDsc={orderManufactureDateDsc}
+                orderAircraftByManufactureDateAsc={orderManufactureDateAsc}
+
                 clickedReset={resetSearchHandler}
                 id={aircraftsTable.tableId}                   
             /> 

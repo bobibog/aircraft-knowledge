@@ -55,11 +55,16 @@
 .grid_container {
     display: grid;
     grid-row-gap: 5px;
-    grid-template-columns: 520px 170px 350px auto;
+    grid-template-columns: auto auto auto auto;
     padding: 10px;
     margin-bottom: -58px;
     position: relative;
     z-index: 3;
+}
+
+.label {
+    margin-left: 25px;
+    margin-bottom: -15px;
 }
 
 @media only screen and (max-width: 1390px) {
@@ -79,7 +84,8 @@
     }
 }
 
-@media only screen and (max-width: 1670px) {
+
+/* @media only screen and (max-width: 1670px) {
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
@@ -173,4 +179,4 @@
         position: relative;
         z-index: 3;
     }
-}
+} */
