@@ -5,6 +5,14 @@ import classes from './SearchAircraftElement.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import {FcAlphabeticalSortingAz} from 'react-icons/fc';
+import {FcAlphabeticalSortingZa} from 'react-icons/fc';
+import {FcNumericalSorting12} from 'react-icons/fc';
+import {FcNumericalSorting21} from 'react-icons/fc';
+import SearchByColumn from '../SearchByColumn/SearchByColumn';
+import {FcSearch} from 'react-icons/fc';
 
 
 const  SearchAircraftElement = (props) => {
@@ -18,6 +26,11 @@ const  SearchAircraftElement = (props) => {
     const[modeS, setModeS]=useState('');    
     const[minManufactureDate, setMinManufactureDate]=useState('');
     const[maxManufactureDate, setMaxManufactureDate]=useState('');     
+
+    const columnInputConfig = {
+        type:'text',
+        placeholder:'Search'
+    }
 
     const airlineInputConfig = {
         type:'text',
@@ -228,6 +241,7 @@ const  SearchAircraftElement = (props) => {
         
         </div> 
     );
+    
 };
 
 export default SearchAircraftElement;

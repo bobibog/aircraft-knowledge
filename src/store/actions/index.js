@@ -1,7 +1,15 @@
 export {
     fetchAirlines,
     setAirlinesOffsetLimit,
-    setAirlinesPage
+    setAirlinesPage,
+    orderAirlinesByNameDsc,
+    orderAirlinesByNameAsc,
+    orderAirlinesByIataDsc,
+    orderAirlinesByIataAsc,
+    orderAirlinesByIcaoDsc,
+    orderAirlinesByIcaoAsc,
+    orderAirlinesByFleetDsc,
+    orderAirlinesByFleetAsc
 } from './airline';
 
 export {
@@ -16,7 +24,15 @@ export {
     fetchAirports,
     setAirportsOffsetLimit,
     setAirportsPage,
-    unmountAirports
+    unmountAirports,
+    orderAirportsByNameDsc,
+    orderAirportsByNameAsc,
+    orderAirportsByIataDesc,
+    orderAirportsByIataAesc,
+    orderAirportsByCityDsc,
+    orderAirportsByCityAsc,
+    orderAirportsByCountryDsc,
+    orderAirportsByCountryAsc
 } from './airport';
 
 export {
