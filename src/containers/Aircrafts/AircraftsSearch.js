@@ -323,7 +323,10 @@ const AircraftsSearch = props => {
     if (!aircraft && !loading  ) {
         aircraftsTable = <p style={{ textAlign: 'center' }}>Could not read aircraft from the server!</p>;
     }
-    if (aircraft && !loading) {
+    // if (airline == '' || operators == '' || typeCode == '' || fullType == '' || registration == '' || serialNumber == '' || modeS == '' || minManufactureDate == '' || maxManufactureDate == '' || airlineAsc == '' || airlineDesc == '' || operatorsAsc == '' || operatorsDesc == '' || typeCodeAsc == '' || typeCodeDesc == '' || fullTypeAsc == '' || fullTypeDesc =='' || registrationAsc == '' || registrationDesc == '' || serialNumberAsc =='' || serialNumberDesc=='' || modeSAsc == '' || modeSDesc == '' || manufactureDateAsc == '' || manufactureDateDesc == '') {
+    //     aircraftsTable = <p style={{ textAlign: 'center', color:'white', marginTop:'65px', fontSize:'24px', background:'#007bff', borderRadius:'5px', marginLeft:'25px', marginRight:'25px' }}><u>↑ Please start your search ↑</u></p>;
+    // }
+    if (aircraft && !loading ) {
         aircraftsTable = <Table 
             tableId="aircraftTable"
             data={aircraft}

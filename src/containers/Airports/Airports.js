@@ -217,7 +217,10 @@ const Airports = props => {
     if (!airports && !loading) {
         airportsTable = <p style={{ textAlign: 'center' }}>Could not read airports from the server!</p>;
     }
-    if (airports && !loading) {
+    // if (airportName == '' || iata == '' || city == '' || country == '' || airportNameDesc == '' || airportNameAsc == '' || iataDesc == '' || iataAsc == '' || cityDesc == '' || cityAsc == '' || countryDesc == '' || countryAsc == '') {
+    //     airportsTable = <p style={{ textAlign: 'center', color:'white', marginTop:'65px', fontSize:'24px', background:'#007bff', borderRadius:'5px', marginLeft:'25px', marginRight:'25px' }}><u>↑ Please start your search ↑</u></p>;
+    // }
+    if (airports && !loading ) {
         airportsTable = <Table 
             data={airports}
             header={airportHeader}

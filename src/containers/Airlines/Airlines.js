@@ -221,9 +221,13 @@ const Airlines = props => {
     
     let airlinesTable = <Spinner />;
     if (!airlines && !loading  ) {
-        airlinesTable = <p style={{ textAlign: 'center' }}>Could not read airlines from the server!</p>;
+        airlinesTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read airlines from the server!</p>;
     }
-    if (airlines && !loading) {
+    // if (airlineName == '' || iata == '' || icao == '' || fleetMin =='' || fleetMax == '' || airlineNameDesc == '' || airlineNameAsc == '' || iataAsc == '' || iataDesc == '' || icaoAsc == '' || icaoDesc == '' || fleetAsc == '' || fleetDesc == '' ) {
+    //     airlinesTable = <p style={{ textAlign: 'center', color:'white', marginTop:'65px', fontSize:'24px', background:'#007bff', borderRadius:'5px', marginLeft:'25px', marginRight:'25px' }}><u>↑ Please start your search ↑</u></p>;
+        
+    // }
+    if (airlines && !loading ) {
         airlinesTable = <Table 
             data={airlines}
             header={airlineHeader}
@@ -238,7 +242,7 @@ const Airlines = props => {
             setPageStore={setAirlinesPageHandler}
             currPage={page}  
                        
-            />;        
+            /> ;        
     }      
     
     return (
