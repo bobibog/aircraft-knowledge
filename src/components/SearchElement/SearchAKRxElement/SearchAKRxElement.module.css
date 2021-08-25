@@ -59,7 +59,7 @@
 .grid_container {
     display: grid;
     grid-row-gap: 5px;
-    grid-template-columns: 650px 170px 322px auto;
+    grid-template-columns: 120px 100px 90px 120px 90px 90px 90px 80px 90px 70px 80px 80px 150px 80px auto;
     padding: 10px;
     margin-bottom: -58px;
     position: relative;

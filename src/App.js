@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 //import logo from './logo.svg';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
+import AKRx from './containers/AKRx/AKRx';
 import Airlines from './containers/Airlines/Airlines';
 import Aircrafts from './containers/Aircrafts/Aircrafts';
 import AircraftsSearch from './containers/Aircrafts/AircraftsSearch';
@@ -30,10 +31,11 @@ function App() {
       <Route path="/airports" component={Airports} />
       <Route path="/flights/:id" component={Flights} />
       {/* <Route path="/flights" component={Flights} /> */}
+      <Route path="/akrx" component={AKRx} />
       <Route path="/airlines" component={Airlines} />
       <Route path="/logout" component={Logout} />
       <Route path="/auth" component={Auth} />
-      <Redirect from="/" exact to="/airlines" />
+      <Redirect from="/" exact to="/akrx" />
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
   );
