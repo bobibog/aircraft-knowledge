@@ -5,6 +5,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = ( props ) => (
     <ul className={classes.NavigationItems}>
+        <NavigationItem link="/akrx">AKRx messages</NavigationItem>
         <NavigationItem link="/airlines">Airlines</NavigationItem>
         {/* <NavigationItem link="/aircrafts">Aircraft</NavigationItem> */}
         <NavigationItem link="/airports">Airports</NavigationItem>
