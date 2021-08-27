@@ -22,6 +22,9 @@ import useBreakpoint from '../../../hooks/useBreakpoint';
 import CustomHeaderTableRow from './CustomHeaderTableRow/CustomHeaderTableRow';
 import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
 import { fontSize } from '@material-ui/system';
+import { auto } from '@popperjs/core';
+import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 
 const TableCustom = (props) => {
@@ -30,11 +33,19 @@ const TableCustom = (props) => {
 
 
     const useStyles = makeStyles({
-        table: {
-            minWidth: 300,
-        },
+        table: {            
+            tableLayout: 'fixed',
+            width: '100%', 
+            
+        }, 
+        cell:{
+            root:{
+              width: '100%',
+              textAlign: 'center'  
+            }            
+        },             
         root: {
-            width: '100%',
+            width: '100%'            
         },
         tablePagination: {
             minWidth: 300,
@@ -45,6 +56,11 @@ const TableCustom = (props) => {
         toolbar: {
             paddingLeft: 6,
         },
+        body:{            
+            textAlign: 'center',            
+                      
+        }
+            
         // container: {
         //     maxHeight: 540,
         // },
@@ -194,7 +210,6 @@ const TableCustom = (props) => {
         props.changeOffsetOrLimit(0, event.target.value);
         
     };
-
     
     const columnsTotal = props.header.length;    
     
@@ -210,13 +225,31 @@ const TableCustom = (props) => {
         
     // }
 
-    return (        
-        <Grid container spacing={0}>
-            <Grid item xs={12}>
-                <Paper>
-                    <TableContainer component={Paper} className={classes.container}>
+   
+    const theme1 = createMuiTheme({
+        overrides: {
+          // Style sheet name 
+          MuiTableCell: {
+            // Name of the rule
+            root: {              
+              textAlign:'center',
+              width: '100%'
+            },
+          },
+        },
+      });
+
+    
+
+    return (  
+            
+        <Grid container spacing={0} >
+        
+            <Grid item xs={12} >
+                <Paper >
+                    <TableContainer component={Paper} className={classes.container} >
                         {(props.data && props.data.length !== 0)
-                            ? <Table className={classes.table} stickyHeader>
+                            ? <Table  stickyHeader className={classes.table}>
                                 <TableHead>
                                     <CustomHeaderTableRow
                                         header={props.header}
@@ -224,8 +257,9 @@ const TableCustom = (props) => {
                                         colIndVisible={columnIndexVisible} 
                                     />
                                 </TableHead>
+                               <ThemeProvider theme={theme1}>
+                                <TableBody className={classes.body}>
                                 
-                                <TableBody>
                                     {
                                     // (rowsPerPage > 0
                                     //     ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -243,21 +277,31 @@ const TableCustom = (props) => {
                                             rowArrowClose={rowClose}
                                             rowArrowCloseReset={rowCloseResetHandler}
                                             parametersRoute={props.paramsRoute} 
+                                            
                                         />
                                     )}
-
-                                    {emptyRows > 0 && (
-                                        <TableRow style={{ height: emptyRowHeight * emptyRows }}>
+                                    
+                                    {emptyRows > 0 && (                                        
+                                        <TableRow style={{ height: emptyRowHeight * emptyRows}}   >
+                                           
                                             <TableCell 
+                                                
                                                 colSpan={
                                                     (columnsTotal - 1) > columnIndexVisible
                                                     ? columnIndexVisible + 2
-                                                    : columnIndexVisible + 1
-                                                } 
+                                                    : columnIndexVisible + 1                                                    
+                                                }                                       
+                                                                                 
+
                                             />
+                                        
                                         </TableRow>
                                     )}
+
+                                    
+                                   
                                 </TableBody>
+                                </ThemeProvider>
                                 <TableFooter>
                                     <TableRow>
                                         <TablePagination
@@ -290,9 +334,10 @@ const TableCustom = (props) => {
                     </TableContainer>
                 </Paper>
             </Grid>
+            
         </Grid>
         
     );
 };
 
-export default withRouter(TableCustom);
+export default (withRouter(TableCustom));
