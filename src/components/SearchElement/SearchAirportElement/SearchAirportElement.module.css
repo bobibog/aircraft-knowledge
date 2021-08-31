@@ -57,13 +57,18 @@
 }
 
 .grid_container {
-    display: grid;
-    grid-row-gap: 5px;
-    grid-template-columns: auto auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* grid-row-gap: 5px;
+    grid-template-columns: auto auto auto auto; */
     padding: 10px;
     margin-bottom: -58px;
     position: relative;
     z-index: 3;
+}
+
+.grid_container>* {
+    flex: 1 1 10em;
 }
 
 .label {

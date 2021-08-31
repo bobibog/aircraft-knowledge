@@ -25,6 +25,12 @@ const  SearchAirlineElement = (props) => {
     const[fleetMin, setFleetMin] = useState('');
     const[fleetMax, setFleetMax] = useState('');
 
+    const[close, setClose]=useState(false);
+
+    // const toggleDropdown = () => {        
+    //         setClose(true);        
+    // }
+
     const columnInputConfig = {
         type:'text',
         placeholder:'Search'
