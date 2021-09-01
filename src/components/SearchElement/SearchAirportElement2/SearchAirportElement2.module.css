@@ -8,9 +8,9 @@
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    height: 45px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    height: 230px;
+    padding-top: 15px;
+    padding-bottom: 25px;
     background-color: rgb(167, 229, 231);
     padding-left: 10px;
 }
@@ -22,6 +22,7 @@
     padding-bottom: 5px;
     margin-left: 9px;
     width: 650px;
+    background-color: white;
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -32,6 +33,7 @@
     padding-bottom: 2px;
     margin-left: 9px;
     width: 650px;
+    background-color: white;
     border-radius: 0px 0px 5px 5px;
 }
 
@@ -58,7 +60,7 @@
     display: flex;
     flex-wrap: wrap;
     /* grid-row-gap: 5px;
-    grid-template-columns: 650px 170px 322px auto; */
+    grid-template-columns: auto auto auto auto; */
     padding: 10px;
     margin-bottom: -58px;
     position: relative;
@@ -74,82 +76,16 @@
     margin-bottom: -15px;
 }
 
-.dropBtn {
-    color: red;
-}
-
-.Drop {
-    position: absolute;
-}
-
-.dropdownShow {
-    background-color: #0062cc;
-    padding-bottom: 15px;
-    margin-top: -12px;
-    margin-bottom: -7px;
-    border-radius: 0 5px 5px 5px;
-}
-
-.row {
-    width: 620px;
-}
-
 @media only screen and (max-width: 1390px) {
     .container {
         padding-left: 5px;
         padding-right: 20px;
         height: auto;
         padding-bottom: 20px;
-        height: 45px;
     }
     .card {
-        width: 450px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 470px;
-    }
-    .buttonBox {
         width: auto;
         border-radius: 0px 0px 0px 0px;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 250px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 280px;
-    }
-    .buttonBox {
-        width: auto;
-        border-radius: 0px 0px 0px 0px;
-    }
-}
-
-@media only screen and (max-width: 300px) {
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 150px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 180px;
     }
     .buttonBox {
         width: auto;
@@ -162,7 +98,7 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 820px 170px 350px auto;
+        grid-template-columns: 420px 170px 450px 450px;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;
@@ -174,7 +110,7 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 720px 250px 350px auto;
+        grid-template-columns: 320px 250px 420px 450px;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;
@@ -186,7 +122,7 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 680px 260px 310px auto;
+        grid-template-columns: 260px 290px 330px 490px;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;
@@ -198,7 +134,7 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 580px 350px 180px auto;
+        grid-template-columns: 240px 350px 200px 590px;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;
@@ -210,7 +146,7 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 490px 420px 130px auto;
+        grid-template-columns: 220px 420px 130px auto;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;
@@ -222,7 +158,31 @@
     .grid_container {
         display: grid;
         grid-row-gap: 5px;
-        grid-template-columns: 390px 560px 20px auto;
+        grid-template-columns: 220px 350px 90px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1260px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 350px 90px auto;
+        padding: 10px;
+        margin-bottom: -58px;
+        position: relative;
+        z-index: 3;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .grid_container {
+        display: grid;
+        grid-row-gap: 5px;
+        grid-template-columns: 220px 280px 90px auto;
         padding: 10px;
         margin-bottom: -58px;
         position: relative;

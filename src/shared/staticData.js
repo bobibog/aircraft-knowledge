@@ -95,10 +95,10 @@ export const aircraftHeader = [
             "/flights", "aircraftId"
         ],
     },
-    // {
-    //     name: "Airline",
-    //     prop: "airline.airlineName"
-    // },
+    {
+        name: "Airline",
+        prop: "airline.airlineName"
+    },
     {
         name: "Type Code",
         prop: "typeCode"
@@ -226,6 +226,69 @@ export const flightHeader = [
     //     name: "Aircraft",
     //     prop: "aircraftId"
     // }
+];
+
+export const akrxHeader = [
+    {
+      name: "Timestamp",
+    //   prop: "airportName"
+    },
+    {
+      name: "Station ID",
+    //   prop: "airportIata"
+    },
+    {
+      name: "Channel",
+    //   prop: "city"
+    },
+    {
+      name: "Frequency",
+    //   prop: "country"
+    },
+    {
+        name: "Level",
+      //   prop: "airportName"
+      },
+      {
+        name: "Error",
+      //   prop: "airportIata"
+      },
+      {
+        name: "Mode",
+      //   prop: "city"
+      },
+      {
+        name: "Label",
+      //   prop: "country"
+      },
+      {
+        name: "Block ID",
+      //   prop: "airportName"
+      },
+      {
+        name: "Ack",
+      //   prop: "airportIata"
+      },
+      {
+        name: "Tail",
+      //   prop: "city"
+      },
+      {
+        name: "Flight",
+      //   prop: "country"
+      },
+      {
+        name: "Mesage Num.",
+      //   prop: "airportName"
+      },
+      {
+        name: "Text",
+      //   prop: "airportIata"
+      },
+      {
+        name: "End",
+      //   prop: "city"
+      }
 ];
 
 export const airlinesInit = [

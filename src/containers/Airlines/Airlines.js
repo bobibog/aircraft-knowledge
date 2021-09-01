@@ -51,8 +51,8 @@ const Airlines = props => {
     const dispatch = useDispatch();
     
     const onFetchAirlines = useCallback(
-        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax, airlineNameDesc, airlineNameAsc, iataDesc, iataAsc, icaoDesc, icaoAsc, fleetDesc, fleetAsc))
-        , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax, airlineNameDesc, airlineNameAsc, iataDesc, iataAsc, icaoDesc, icaoAsc, fleetDesc, fleetAsc]
+        () => dispatch(actions.fetchAirlines(offset, limit, airlineName, iata, icao, fleetMin, fleetMax))
+        , [dispatch, offset, limit, airlineName, iata, icao, fleetMin, fleetMax]
     );
     
     // Ordering Dsc/Asc
@@ -101,92 +101,20 @@ const Airlines = props => {
         onSetAirlinesPage(page);
     };
 
-    // SORTING
-    const orderAirlineNameDsc = (airlineNameDesc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setAirlineNameDesc(airlineNameDesc);
-    }
-    const orderAirlineNameAsc = (airlineNameAsc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setAirlineNameAsc(airlineNameAsc);
-    }
-    const orderIataDsc = (iataDesc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setIataDesc(iataDesc);
-    }
-    const orderIataAsc = (iataAsc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setIataAsc(iataAsc);
-    }
-    const orderIcaoDsc = (icaoDesc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setIcaoDesc(icaoDesc);
-    }
-    const orderIcaoAsc = (icaoAsc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setIcaoAsc(icaoAsc);
-    }
-    const orderFleetDsc = (fleetDesc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setFleetDesc(fleetDesc);
-    }
-    const orderFleetAsc = (fleetAsc)=>{
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        setFleetAsc(fleetAsc);
-    }
+    
        
     // FILTERING/SEARCHING
-    const submitSearchHandler1 = (airlineName) => {  
+    const submitSearchHandler = (airlineName, iata, icao, fleetMin, fleetMax) => {  
         onSetAirlinesOffsetLimit(0, limit);
         onSetAirlinesPage(0);
         setAirlineName(airlineName);
-        // setIATA(iata);
-        // setICAO(icao);
-        // setFleetMin(fleetMin);  
-        // setFleetMax(fleetMax);        
-    };
-    
-    const submitSearchHandler2 = (iata) => {  
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        // setAirlineName(airlineName);
         setIATA(iata);
-        // setICAO(icao);
-        // setFleetMin(fleetMin);  
-        // setFleetMax(fleetMax);        
-    };
-
-    const submitSearchHandler3 = (icao) => {  
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);
-        // setAirlineName(airlineName);
-        // setIATA(iata);
         setICAO(icao);
-        // setFleetMin(fleetMin);  
-        // setFleetMax(fleetMax);        
-    };
-
-    const submitSearchHandler4 = (fleetMin) => {  
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);        
         setFleetMin(fleetMin);  
-        // setFleetMax(fleetMax);        
-    };
-    const submitSearchHandler5 = (fleetMax) => {  
-        onSetAirlinesOffsetLimit(0, limit);
-        onSetAirlinesPage(0);        
-        //setFleetMin(fleetMin);  
         setFleetMax(fleetMax);        
     };
-
+    
+    
     const resetSearchHandler = () => {
         setAirlineName("");
         setIATA("");
@@ -249,20 +177,8 @@ const Airlines = props => {
         <React.Fragment>           
             {airlinesPageHeader}             
             <SearchAirlineElement
-                clickedSearch1={submitSearchHandler1} 
-                clickedSearch2={submitSearchHandler2}
-                clickedSearch3={submitSearchHandler3}
-                clickedSearch4={submitSearchHandler4}
-                clickedSearch5={submitSearchHandler5}
-
-                orderAirlinesByNameDesc={orderAirlineNameDsc}
-                orderAirlinesByNameAsc={orderAirlineNameAsc}
-                orderAirlinesByIataDesc={orderIataDsc}
-                orderAirlinesByIataAsc={orderIataAsc}
-                orderAirlinesByIcaoDesc={orderIcaoDsc}
-                orderAirlinesByIcaoAsc={orderIcaoAsc}
-                orderAirlinesByFleetDsc={orderFleetDsc}
-                orderAirlinesByFleetAsc={orderFleetAsc}
+                clickedSearch={submitSearchHandler} 
+                                
                 clickedReset={resetSearchHandler}                       
             />                                     
             {airlinesTable}            

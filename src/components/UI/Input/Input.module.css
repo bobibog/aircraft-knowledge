@@ -42,3 +42,11 @@ input[type="date"]:valid:before {
     border: 1px solid red;
     background-color: #FDA49A;
 }
+
+
+/* @media only screen and (max-width: 876px) {
+    .InputElement {
+        font-size: small;
+        color: brown;
+    }
+} */

@@ -43,7 +43,7 @@ const CustomHeaderTableRow = props => {
                 .map((headerColumnVisible, index) =>
                 
                     <StyledTableCell key={`thc-${index}`} >                                            
-                        {/* {headerColumnVisible.name} */}
+                        {headerColumnVisible.name}
                         
                     </StyledTableCell>
                 )             

@@ -52,8 +52,8 @@ const Airports = props => {
     const dispatch = useDispatch();
 
     const onFetchAirports = useCallback(
-        (airportId) => dispatch(actions.fetchAirports(offset, limit, airportId, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc))
-        , [dispatch, offset, limit, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc]);
+        (airportId) => dispatch(actions.fetchAirports(offset, limit, airportId, airportName, iata, city, country))
+        , [dispatch, offset, limit, airportName, iata, city, country]);
     
     // Ordering Dsc/Asc
     // const onOrderAirportsByNameDesc = useCallback(
@@ -102,84 +102,16 @@ const Airports = props => {
         onSetAirportsPage(page);
     }
 
-    // SORTING
-    const orderAirportNameDsc = (airportNameDesc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setAirportNameDesc(airportNameDesc);
-    }
-    const orderAirportNameAsc = (airportNameAsc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setAirportNameAsc(airportNameAsc);
-    }
-    const orderIataDsc = (iataDesc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setIataDesc(iataDesc);
-    }
-    const orderIataAsc = (iataAsc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setIataDesc(iataAsc);
-    }
-    const orderCityDsc = (cityDesc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setIataDesc(cityDesc);
-    }
-    const orderCityAsc = (cityAsc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setIataDesc(cityAsc);
-    }
-    const orderCountryDsc = (countryDesc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setCountryDesc(countryDesc);
-    }
-    const orderCountryAsc = (countryAsc)=>{
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        setCountryAsc(countryAsc);
-    }
-
-
-
-    const submitSearchHandler1 = (airportName) => {  
+    
+    const submitSearchHandler = (airportName, iata, city, country) => {  
         onSetAirportsOffsetLimit(0, limit);
         onSetAirportsPage(0);
         setAirportName(airportName);
-        // setIATA(iata);
-        // setCity(city);
-        // setCountry(country);     
-    };  
-    const submitSearchHandler2 = (iata) => {  
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        // setAirportName(airportName);
         setIATA(iata);
-        // setCity(city);
-        // setCountry(country);     
-    }; 
-    const submitSearchHandler3 = (city) => {  
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        // setAirportName(airportName);
-        // setIATA(iata);
         setCity(city);
-        // setCountry(country);     
-    }; 
-    const submitSearchHandler4 = (country) => {  
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);
-        // setAirportName(airportName);
-        // setIATA(iata);
-        // setCity(city);
         setCountry(country);     
-    }; 
+    };  
     
-
     const resetSearchHandler = () => {
         setAirportName("");
         setIATA("");
@@ -237,19 +169,8 @@ const Airports = props => {
             {/* <h2>Airports</h2> */}
             {airportsPageHeader}
             <SearchAirportElement
-                clickedSearch1={submitSearchHandler1} 
-                clickedSearch2={submitSearchHandler2}
-                clickedSearch3={submitSearchHandler3}
-                clickedSearch4={submitSearchHandler4}
-
-                orderAirportsByNameDesc={orderAirportNameDsc}
-                orderAirportsByNameAsc={orderAirportNameAsc}
-                orderAirportsByIataDesc={orderIataDsc}
-                orderAirportsByIataAsc={orderIataAsc}
-                orderAirportsByCityDesc={orderCityDsc}
-                orderAirportsByCityAsc={orderCityAsc}
-                orderAirportsByCountryDsc={orderCountryDsc}
-                orderAirportsByCountryAsc={orderCountryAsc} 
+                clickedSearch={submitSearchHandler} 
+                
                 clickedReset={resetSearchHandler}
             />
             {airportsTable}
