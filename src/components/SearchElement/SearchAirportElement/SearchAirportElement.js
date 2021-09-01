@@ -27,19 +27,19 @@ const  SearchAirportElement = (props) => {
 
     const airportNameInputConfig = {
         type:'text',
-        placeholder:'Enter airport name'
+        placeholder:'Airport name'
     }
     const iataInputConfig = {
         type:'text',
-        placeholder:'Enter IATA -code'
+        placeholder:'IATA -code'
     }
     const cityInputConfig = {
         type:'text',
-        placeholder:'Enter city'
+        placeholder:'City'
     }
     const countryInputConfig = {
         type:'text',
-        placeholder:'Enter country'
+        placeholder:'Country'
     }    
 
     const resetSearchHandler = () => {
@@ -74,240 +74,87 @@ const  SearchAirportElement = (props) => {
         }
     }
 
-    // return (
-    //     <div className={classes.container}> 
-        
-    //         <div className="row">           
-    //             <div className="col-md">                        
-    //                 <div className={classes.card} >
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={airportName}
-    //                             changed={(e)=>setAirportName(e.target.value)}                                                                             
-    //                             elementType='input' 
-    //                             elementConfig= {airportNameInputConfig}                                                                                                                      
-    //                         />
-    //                     </InputGroup>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={iata}
-    //                             changed={(e)=>setIATA(e.target.value)}
-    //                             elementType='input'
-    //                             elementConfig={iataInputConfig}
-    //                         />
-    //                     </InputGroup>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input 
-    //                             value={city}
-    //                             changed={(e)=>setCity(e.target.value)}          
-    //                             elementType='input' 
-    //                             elementConfig= {cityInputConfig}                     
-    //                         />
-    //                     </InputGroup>                                                 
-    //                 </div>
-    //             </div>    
-    //             <div className="col-md">                
-    //                 <div className={classes.card}>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={country}
-    //                             changed={(e)=>setCountry(e.target.value)}
-    //                             elementType='input' 
-    //                             elementConfig= {countryInputConfig}                                               
-    //                         />
-    //                     </InputGroup>                                              
-    //                 </div>
-    //                 <div className={classes.buttonBox}>
-    //                 <ButtonBordered 
-    //                     clicked={() => (props.clickedSearch(airportName, iata, city, country))}
-    //                     btnType="Success"                            
-    //                 >SEARCH</ButtonBordered>
-    //                 <ButtonBordered
-    //                     clicked={resetSearchHandler}
-    //                     btnType="Secondary"    
-    //                 >RESET</ButtonBordered>
-    //                 </div>
-    //             </div>
-    //         </div>           
-        
-    //     </div> 
-    // );
-    return(
-        <div className={classes.grid_container}>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Name">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByNameDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    value={airportName}
-                                    changed={(e)=>setAirportName(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    onKeyUp = {handleKeyPress1}
-                                />
-                                
-                            </InputGroup>
+    return (
+        <div className={classes.container}> 
+            <DropdownButton title="SEARCH" className={classes.Drop} >
+                <div className={classes.dropdownShow}>
+                    <div className={classes.row}>           
+                        <div className="col-md">                        
+                            <div className={classes.card} >
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={airportName}
+                                        changed={(e)=>setAirportName(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {airportNameInputConfig}                                                                                                                      
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={iata}
+                                        changed={(e)=>setIATA(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={iataInputConfig}
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={city}
+                                        changed={(e)=>setCity(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {cityInputConfig}                     
+                                    />
+                                </InputGroup>                                                 
+                            </div>
+                        </div>    
+                        <div className="col-md">                
+                            <div className={classes.card}>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={country}
+                                        changed={(e)=>setCountry(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {countryInputConfig}                                               
+                                    />
+                                </InputGroup>                                              
+                            </div>
+                            <div className={classes.buttonBox}>
                             <ButtonBordered 
-                                clicked={() => (props.clickedSearch1(airportName))}
+                                clicked={() => (props.clickedSearch(airportName, iata, city, country))}
                                 btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
+                            >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="IATA">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByIataDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    value={iata}
-                                    changed={(e)=>setIATA(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    onKeyUp = {handleKeyPress2}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                clicked={() => (props.clickedSearch2(iata))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="City">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCityDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item>
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    value={city}
-                                    changed={(e)=>setCity(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                clicked={() => (props.clickedSearch3(city))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} title="Country">                            
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryAsc("asc"))}><FcNumericalSorting12/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirportsByCountryDsc("dsc"))}><FcNumericalSorting21/> <small>Sort Z to A</small></Dropdown.Item>
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    value={country}
-                                    changed={(e)=>setCountry(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    onKeyUp = {handleKeyPress4}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                clicked={() => (props.clickedSearch4(country))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-
-            </div>
+                                btnType="Secondary"    
+                            >RESET</ButtonBordered>
+                            </div>
+                        </div>
+                    </div>  
+                </div>         
+            </DropdownButton>
+        </div> 
     );
+    
 };
 
 export default SearchAirportElement;

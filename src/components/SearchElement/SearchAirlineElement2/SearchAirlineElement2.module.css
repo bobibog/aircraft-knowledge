@@ -8,9 +8,9 @@
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    height: 45px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    height: 230px;
+    padding-top: 15px;
+    padding-bottom: 25px;
     background-color: rgb(167, 229, 231);
     padding-left: 10px;
 }
@@ -22,6 +22,7 @@
     padding-bottom: 5px;
     margin-left: 9px;
     width: 650px;
+    background-color: white;
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -32,6 +33,7 @@
     padding-bottom: 2px;
     margin-left: 9px;
     width: 650px;
+    background-color: white;
     border-radius: 0px 0px 5px 5px;
 }
 
@@ -78,78 +80,16 @@
     color: red;
 }
 
-.Drop {
-    position: absolute;
-}
-
-.dropdownShow {
-    background-color: #0062cc;
-    padding-bottom: 15px;
-    margin-top: -12px;
-    margin-bottom: -7px;
-    border-radius: 0 5px 5px 5px;
-}
-
-.row {
-    width: 620px;
-}
-
 @media only screen and (max-width: 1390px) {
     .container {
         padding-left: 5px;
         padding-right: 20px;
         height: auto;
         padding-bottom: 20px;
-        height: 45px;
     }
     .card {
-        width: 450px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 470px;
-    }
-    .buttonBox {
         width: auto;
         border-radius: 0px 0px 0px 0px;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 250px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 280px;
-    }
-    .buttonBox {
-        width: auto;
-        border-radius: 0px 0px 0px 0px;
-    }
-}
-
-@media only screen and (max-width: 300px) {
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 150px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .row {
-        width: 180px;
     }
     .buttonBox {
         width: auto;
