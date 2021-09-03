@@ -41,3 +41,9 @@ export {
     setFlightsPage,
     unmountFlights
 } from './flight';
+
+export {
+    fetchAkrx,
+    setAkrxOffsetLimit,
+    setAkrxPage   
+} from './acarsMessage';

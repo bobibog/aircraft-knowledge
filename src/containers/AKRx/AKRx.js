@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-//import axios from '../../axios-local';
+//import axiosFirebase from '../../axios-firebase';
+import axios from '../../axios-local';
+//import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Table from '../../components/UI/Table/Table';
@@ -10,48 +12,170 @@ import * as actions from '../../store/actions/index';
 import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/SearchAKRxElement';
 
 
-const AKRx = props => {   
+const Akrx = props => {
+    const acarsMessages = useSelector(state => {
+        return state.acarsMessage.acarsMessages;
+    });
+    const acarsMessagesCount = useSelector(state => {
+        return state.acarsMessage.acarsMessagesCount;
+    });
+    const loading = useSelector(state => {
+        return state.acarsMessage.acarsMessagesLoading;
+    });
+    const offset = useSelector(state => {
+        return state.acarsMessage.acarsMessagesOffset;
+    });
+    const limit = useSelector(state => {
+        return state.acarsMessage.acarsMessagesLimit;
+    });
+    const page = useSelector(state => {
+        return state.acarsMessage.acarsMessagesPage;
+    });   
+           
+    const[timestampMin, setTimestampMin] = useState('');
+    const[timestampMax, setTimestampMax] = useState('');
+    const[stationId, setStationId] = useState('');
+    const[channel, setChannel] = useState('');
+    const[freqMin, setFreqMin] = useState('');
+    const[freqMax, setFreqMax] = useState('');
+    const[levelMin, setLevelMin] = useState('');
+    const[levelMax, setLevelMax] = useState('');
+    const[errorMin, setErrorMin] = useState('');
+    const[errorMax, setErrorMax] = useState('');
+    const[mode, setMode] = useState('');
+    const[label, setLabel] = useState('');
+    const[blockId, setBlockId] = useState('');
+    const[ack, setAck] = useState('');
+    const[tail, setTail] = useState('');
+    const[flight, setFlight] = useState('');
+    const[msgno, setMsgno] = useState('');
+    const[text, setText] = useState('');
+    const[end, setEnd] = useState('');
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+
+    const dispatch = useDispatch();
     
+    const onFetchAkrx = useCallback(
+        () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
+            stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))
+        , [dispatch, offset, limit, timestampMin, timestampMax,
+            stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax]
+    );    
+    
+    const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
+    const onSetAkrxPage = (page) => dispatch(actions.setAkrxPage(page));    
+     
+
+    const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
+        onSetAkrxOffsetLimit(tableOffset, tableLimit);   
+    };
+    const setAkrxPageHandler = page => {                
+        onSetAkrxPage(page);
+    };
+
+    
+       
+    // FILTERING/SEARCHING
+    const submitSearchHandler = (timestampMin, timestampMax,
+        stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+        flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {  
+        onSetAkrxOffsetLimit(0, limit);
+        onSetAkrxPage(0);
+        setTimestampMin(timestampMin);
+        setTimestampMax(timestampMax);
+        setStationId(stationId);
+        setChannel(channel);
+        setFreqMin(freqMin);
+        setFreqMax(freqMax);
+        setLevelMin(levelMin);
+        setLevelMax(levelMax);
+        setErrorMin(errorMin);
+        setErrorMax(errorMax);
+        setMode(mode);
+        setLabel(label);
+        setBlockId(blockId);
+        setAck(ack);
+        setTail(tail);
+        setFlight(flight);
+        setMsgno(msgno);
+        setText(text);
+        setEnd(end);
+        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);         
+    };
+    
+    
+    const resetSearchHandler = () => {
+        onSetAkrxOffsetLimit(0, limit);
+        onSetAkrxPage(0);
+        setTimestampMin("");
+        setTimestampMax("");
+        setStationId("");
+        setChannel("");
+        setFreqMin("");
+        setFreqMax("");
+        setLevelMin("");
+        setLevelMax("");
+        setErrorMin("");
+        setErrorMax("");
+        setMode("");
+        setLabel("");
+        setBlockId("");
+        setAck("");
+        setTail("");
+        setFlight("");
+        setMsgno("");
+        setText("");
+        setEnd("");
+        setAcarsMessageDateTimeMin("");
+        setAcarsMessageDateTimeMax("");
+    };      
+       
+    useEffect(() => { 
+        onFetchAkrx();
+        
+    }, [onFetchAkrx]);  
+    
+    
+        
     const akrxPageHeader =
         <CardsInBox
-            headerText="AKRx messages"
+            headerText="AKRx Messages"
             backColor="#F0F8FF" 
             
-        />;
-
+        />;   
+    
     let akrxTable = <Spinner />;
-// if (!aircraft && !loading  ) {
-//     aircraftsTable = <p style={{ textAlign: 'center' }}>Could not read aircraft from the server!</p>;
-// }
-// if (airline == '' || operators == '' || typeCode == '' || fullType == '' || registration == '' || serialNumber == '' || modeS == '' || minManufactureDate == '' || maxManufactureDate == '' || airlineAsc == '' || airlineDesc == '' || operatorsAsc == '' || operatorsDesc == '' || typeCodeAsc == '' || typeCodeDesc == '' || fullTypeAsc == '' || fullTypeDesc =='' || registrationAsc == '' || registrationDesc == '' || serialNumberAsc =='' || serialNumberDesc=='' || modeSAsc == '' || modeSDesc == '' || manufactureDateAsc == '' || manufactureDateDesc == '') {
-//     aircraftsTable = <p style={{ textAlign: 'center', color:'white', marginTop:'65px', fontSize:'24px', background:'#007bff', borderRadius:'5px', marginLeft:'25px', marginRight:'25px' }}><u>↑ Please start your search ↑</u></p>;
-// }
-// if (aircraft && !loading ) {
-    akrxTable = <Table 
-        tableId="akrxTable"
-        //data={aircraft}
-        header={akrxHeader}
-        // paramsRoute={{
-        //     baseRoute: "/aircraft",
-        //     params: ["aircraftId"],
-        //     delimiter: "-"
-        // }}
-        // rowsPerPageDef={limit}
-        // changeOffsetOrLimit={changeOffsetOrLimitHandler}
-        // totalDataCount={aircraftCount}
-        // setPageStore={setAircraftPageHandler}
-        // currPage={page}  
-                   
-        />;        
-    //}
+    if (!acarsMessages && !loading  ) {
+        akrxTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read AKRX messages from the server!</p>;
+    }
+    
+    if (acarsMessages && !loading ) {
+        akrxTable = <Table 
+            data={acarsMessages}
+            header={akrxHeader}            
+            rowsPerPageDef={limit}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            totalDataCount={acarsMessagesCount}
+            setPageStore={setAkrxPageHandler}
+            currPage={page}  
+                       
+            /> ;        
+    }      
     
     return (
         <React.Fragment>           
-            {akrxPageHeader} 
-            {/* <SearchAKRxElement />                        */}
-            {akrxTable}
+            {akrxPageHeader}             
+            <SearchAKRxElement
+                clickedSearch={submitSearchHandler}                               
+                clickedReset={resetSearchHandler}                       
+            />                                     
+            {akrxTable}            
         </React.Fragment>        
     );
 };
 
-export default AKRx;
+export default withErrorHandler(Akrx, axios);

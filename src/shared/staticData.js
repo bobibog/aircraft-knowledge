@@ -231,63 +231,67 @@ export const flightHeader = [
 export const akrxHeader = [
     {
       name: "Timestamp",
-    //   prop: "airportName"
+      prop: "timestamp"
     },
     {
       name: "Station ID",
-    //   prop: "airportIata"
+      prop: "stationId"
     },
     {
       name: "Channel",
-    //   prop: "city"
+      prop: "channel"
     },
     {
       name: "Frequency",
-    //   prop: "country"
+      prop: "freq"
     },
     {
         name: "Level",
-      //   prop: "airportName"
+        prop: "level"
       },
       {
         name: "Error",
-      //   prop: "airportIata"
+        prop: "error"
       },
       {
         name: "Mode",
-      //   prop: "city"
+        prop: "mode"
       },
       {
         name: "Label",
-      //   prop: "country"
+        prop: "label"
       },
       {
         name: "Block ID",
-      //   prop: "airportName"
+        prop: "blockId"
       },
       {
         name: "Ack",
-      //   prop: "airportIata"
+        prop: "ack"
       },
       {
         name: "Tail",
-      //   prop: "city"
+        prop: "tail"
       },
       {
         name: "Flight",
-      //   prop: "country"
+        prop: "flight"
       },
       {
         name: "Mesage Num.",
-      //   prop: "airportName"
+        prop: "msgno"
       },
       {
         name: "Text",
-      //   prop: "airportIata"
+        prop: "text"
       },
       {
         name: "End",
-      //   prop: "city"
+        prop: "end"
+      },
+      {
+        name: "ACM Date-Time",
+        prop: "acarsMessageDateTime"
       }
 ];
 

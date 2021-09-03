@@ -46,10 +46,12 @@ const  SearchAirlineElement = (props) => {
     }
     const fleetMinInputConfig = {
         type:'number',
+        min:0,
         placeholder:'Min. num'
     }
     const fleetMaxInputConfig = {
         type:'number',
+        min:0,
         placeholder:'Max. num'
     }
 
