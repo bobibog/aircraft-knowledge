@@ -9,7 +9,9 @@ const button = (props) => (
         onClick={props.clicked}
         data-toggle={props.toggle} 
         data-placement={props.placement} 
-        title={props.title}
+        title={props.title} 
+        onMouseDown={props.mouseDown}  
+        onMouseLeave={props.mouseLeave}     
         >{props.children}</button>
 );
 

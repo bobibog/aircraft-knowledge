@@ -43,7 +43,7 @@ const CustomDataTableRow = (props) => {
             //display: 'flex',
             // flexGrow: 1,
             borderBottom: 'none',
-            boxShadow: 'none',
+            boxShadow: 'none'
         },
         rootCardContent: {
             padding: 2,
@@ -61,7 +61,7 @@ const CustomDataTableRow = (props) => {
         rootTypography: {
             //display: 'ínline-block',
             margin: 2,
-            fontSize: 16,
+            fontSize: 14,
         },
     });
 
@@ -157,7 +157,7 @@ const CustomDataTableRow = (props) => {
                             const monthNames = ["jan", "feb", "mar", "apr", "may", "jun",
                                 "jul", "aug", "sep", "oct", "nov", "dec"
                             ];
-                            apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
+                            apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear()+" / "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
                         } else if (apiModelHeaderColumn.type === "timespan") {
                             if (apiModelPropValue.value) {
                                 let minutes = apiModelPropValue.value.minutes;

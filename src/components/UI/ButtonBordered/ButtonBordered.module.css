@@ -16,6 +16,8 @@
     transition-duration: 0.4s;
     text-decoration: none;
     overflow: hidden;
+    width: 75px;
+    height: 35px;
 }
 
 .ButtonBordered:after {
@@ -61,4 +63,15 @@
 .Secondary {
     color: rgb(132, 197, 211);
     /* -webkit-text-stroke: 1px white; */
+}
+
+@media only screen and (max-width: 300px) {
+    .ButtonBordered {
+        width: 60px;
+        height: 29px;
+        margin-bottom: 5px;
+        margin-right: -2px;
+        padding-bottom: 5px;
+        text-align: center;
+    }
 }

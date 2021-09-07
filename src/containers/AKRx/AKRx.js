@@ -5,7 +5,7 @@ import axios from '../../axios-local';
 //import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Table from '../../components/UI/Table/Table';
+import TableAKRx from '../../components/UI/Table/TableAKRx';
 import {akrxHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
@@ -132,7 +132,9 @@ const Akrx = props => {
         setEnd("");
         setAcarsMessageDateTimeMin("");
         setAcarsMessageDateTimeMax("");
-    };      
+    }; 
+    
+    
        
     useEffect(() => { 
         onFetchAkrx();
@@ -154,7 +156,7 @@ const Akrx = props => {
     }
     
     if (acarsMessages && !loading ) {
-        akrxTable = <Table 
+        akrxTable = <TableAKRx 
             data={acarsMessages}
             header={akrxHeader}            
             rowsPerPageDef={limit}

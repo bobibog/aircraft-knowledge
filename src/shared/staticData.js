@@ -1,3 +1,5 @@
+import { formatMs } from "@material-ui/core";
+
 export const rowsPerPageDefault = 10;
 
 export const airlineHeader = [
@@ -97,7 +99,11 @@ export const aircraftHeader = [
     },
     {
         name: "Airline",
-        prop: "airline.airlineName"
+        prop: "airline",
+        type: "airlineHeader",
+        dataCellCreator: [
+            "airlineName"
+        ],
     },
     {
         name: "Type Code",
@@ -228,7 +234,41 @@ export const flightHeader = [
     // }
 ];
 
+// var dateString = "acarsMessageDateTime";
+// var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
+// var dateArray = reggie.exec(dateString); 
+// var dateObject = new Date(
+//     (+dateArray[1]),
+//     (+dateArray[2])-1, // Careful, month starts at 0!
+//     (+dateArray[3]),
+//     (+dateArray[4]),
+//     (+dateArray[5]),
+//     (+dateArray[6])
+// );
+
+
 export const akrxHeader = [
+    {
+        name: "Message Time",
+        prop: "acarsMessageDateTime",        
+        type:"datetime"
+    },
+    {
+        name: "Tail",
+        prop: "tail"
+    },
+    {
+        name: "Flight",
+        prop: "flight"
+    },
+    {
+        name: "Text",
+        prop: "text"
+    },
+    {
+      name: "Frequency",
+      prop: "freq"
+    },
     {
       name: "Timestamp",
       prop: "timestamp"
@@ -241,10 +281,7 @@ export const akrxHeader = [
       name: "Channel",
       prop: "channel"
     },
-    {
-      name: "Frequency",
-      prop: "freq"
-    },
+    
     {
         name: "Level",
         prop: "level"
@@ -268,31 +305,18 @@ export const akrxHeader = [
       {
         name: "Ack",
         prop: "ack"
-      },
-      {
-        name: "Tail",
-        prop: "tail"
-      },
-      {
-        name: "Flight",
-        prop: "flight"
-      },
+      },      
+      
       {
         name: "Mesage Num.",
         prop: "msgno"
       },
-      {
-        name: "Text",
-        prop: "text"
-      },
+      
       {
         name: "End",
         prop: "end"
-      },
-      {
-        name: "ACM Date-Time",
-        prop: "acarsMessageDateTime"
       }
+      
 ];
 
 export const airlinesInit = [

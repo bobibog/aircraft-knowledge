@@ -96,10 +96,24 @@ const  SearchAirlineElement = (props) => {
         }
     }
 
+    // Changing Dropdown Button title according to event (search or reset click)
+    const[filter, setFilter] = useState('');
+    let title = filter ? 'FILTER ON': 'FILTER OFF';
+
+    //Closing/Opening DropdownButton
+    const[showDropdown, setShowDropdown] = useState(false);
+
+    const open=()=>{
+        setShowDropdown(true);
+    };
+    
+    const toggleDropdown = () => {        
+            setShowDropdown(false);        
+    };
     
     return (
         <div className={classes.container}> 
-            <DropdownButton title="SEARCH" className={classes.Drop}>
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
                 <div className={classes.dropdownShow}>
                     <div className={classes.row}>           
                         <div className="col-sm">                        
@@ -112,6 +126,7 @@ const  SearchAirlineElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={airlineName}
+                                        // changed={(e)=>setAirlineName(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setAirlineName(e.target.value)}                                                                             
                                         elementType='input' 
                                         elementConfig= {airlineNameInputConfig}                                                                                                                      
@@ -125,6 +140,7 @@ const  SearchAirlineElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={iata}
+                                        // changed={(e)=>setIATA(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setIATA(e.target.value)}
                                         elementType='input'
                                         elementConfig={iataInputConfig}
@@ -138,6 +154,7 @@ const  SearchAirlineElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input 
                                         value={icao}
+                                        // changed={(e)=>setICAO(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setICAO(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {icaoInputConfig}                     
@@ -155,6 +172,7 @@ const  SearchAirlineElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={fleetMin}
+                                        // changed={(e)=>setFleetMin(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setFleetMin(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {fleetMinInputConfig}                                               
@@ -168,6 +186,7 @@ const  SearchAirlineElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={fleetMax}
+                                        // changed={(e)=>setFleetMax(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setFleetMax(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {fleetMaxInputConfig}                                               
@@ -177,11 +196,15 @@ const  SearchAirlineElement = (props) => {
                             <div className={classes.buttonBox}>
                             <ButtonBordered 
                                 clicked={() => (props.clickedSearch(airlineName, iata, icao, fleetMin, fleetMax))}
-                                btnType="Success"                            
+                                btnType="Success"
+                                mouseDown={(e)=>setFilter('a')}  
+                                mouseLeave={(e)=>toggleDropdown()}                          
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary" 
+                                mouseDown={(e)=>setFilter('')}  
+                                mouseLeave={(e)=>toggleDropdown()} 
                             >RESET</ButtonBordered>
                             </div>
                         </div>

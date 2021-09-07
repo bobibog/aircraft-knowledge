@@ -150,265 +150,30 @@ const  SearchAKRxElement = (props) => {
         type:'datetime-local',
         placeholder:'To:'
     }   
-        
+
+    // Changing Dropdown Button title according to event (search or reset click)
+    const[filter, setFilter] = useState('');
+    let title = filter ? 'FILTER ON': 'FILTER OFF';
+
+    //Closing/Opening DropdownButton
+    const[showDropdown, setShowDropdown] = useState(false);
+
+    const open=()=>{
+        setShowDropdown(true);
+    };
+    
+    const toggleDropdown = () => {        
+            setShowDropdown(false);        
+    };
+            
     return (
         <div className={classes.container}> 
-            <DropdownButton title="SEARCH" className={classes.Drop} >
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()} >
                 <div className={classes.dropdownShow}>
-                    <div className="row">           
-                        <div className="col-md">                        
+                    <div className="row"> 
+                    <div className={classes.bar}>          
+                        <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={timestampMin}
-                                        changed={(e)=>setTimestampMin(e.target.value)}                                                                             
-                                        elementType='input' 
-                                        elementConfig= {timeStampMinInputConfig}                                                                                                                      
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={timestampMax}
-                                        changed={(e)=>setTimestampMax(e.target.value)}
-                                        elementType='input'
-                                        elementConfig={timeStampMaxInputConfig}
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={stationId}
-                                        changed={(e)=>setStationId(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {stationIdInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={channel}
-                                        changed={(e)=>setChannel(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {channelInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={freqMin}
-                                        changed={(e)=>setFreqMin(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {freqMinInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={freqMax}
-                                        changed={(e)=>setFreqMax(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {freqMaxInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={levelMin}
-                                        changed={(e)=>setLevelMin(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {levelMinInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={levelMax}
-                                        changed={(e)=>setLevelMax(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {levelMaxInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={errorMin}
-                                        changed={(e)=>setErrorMin(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {errorMinInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={errorMax}
-                                        changed={(e)=>setErrorMax(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {errorMaxInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={mode}
-                                        changed={(e)=>setMode(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {modeInputConfig}                     
-                                    />
-                                </InputGroup>                                                 
-                            </div>
-                        </div>    
-                        <div className="col-md">                
-                            <div className={classes.card}>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={label}
-                                        changed={(e)=>setLabel(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {labelInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={blockId}
-                                        changed={(e)=>setBlockId(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {blockIdInputConfig}                                               
-                                    />
-                                </InputGroup> 
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={ack}
-                                        changed={(e)=>setAck(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {ackInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={tail}
-                                        changed={(e)=>setTail(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {tailInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={flight}
-                                        changed={(e)=>setFlight(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {flightInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={msgno}
-                                        changed={(e)=>setMsgno(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {msgnoInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={text}
-                                        changed={(e)=>setText(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {textInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={end}
-                                        changed={(e)=>setEnd(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {endInputConfig}                                               
-                                    />
-                                </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span2}>
@@ -417,6 +182,7 @@ const  SearchAKRxElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={acarsMessageDateTimeMin}
+                                        // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setAcarsMessageDateTimeMin(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMinInputConfig} 
@@ -433,6 +199,7 @@ const  SearchAKRxElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={acarsMessageDateTimeMax}
+                                        // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setAcarsMessageDateTimeMax(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMaxInputConfig}
@@ -441,6 +208,280 @@ const  SearchAKRxElement = (props) => {
                                         title="TO DATE & TIME"                                              
                                     />
                                 </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={tail}
+                                        // changed={(e)=>setTail(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTail(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {tailInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={flight}
+                                        // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFlight(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {flightInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={text}
+                                        // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setText(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {textInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={freqMin}
+                                        // changed={(e)=>setFreqMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFreqMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {freqMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={freqMax}
+                                        // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFreqMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {freqMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={timestampMin}
+                                        // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTimestampMin(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {timeStampMinInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={timestampMax}
+                                        // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTimestampMax(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={timeStampMaxInputConfig}
+                                    />
+                                </InputGroup>
+                                
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={stationId}
+                                        // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setStationId(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {stationIdInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={channel}
+                                        // changed={(e)=>setChannel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setChannel(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {channelInputConfig}                     
+                                    />
+                                </InputGroup>                                                                               
+                            </div>
+                        </div>
+                        </div>
+                        <div className={classes.bar}>    
+                        <div className="col-sm-3">                
+                            <div className={classes.card}>
+                            <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={levelMin}
+                                        // changed={(e)=>setLevelMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLevelMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {levelMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={levelMax}
+                                        // changed={(e)=>setLevelMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLevelMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {levelMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={errorMin}
+                                        // changed={(e)=>setErrorMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setErrorMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {errorMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={errorMax}
+                                        // changed={(e)=>setErrorMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setErrorMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {errorMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={mode}
+                                        // changed={(e)=>setMode(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setMode(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {modeInputConfig}                     
+                                    />
+                                </InputGroup> 
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={label}
+                                        // changed={(e)=>setLabel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLabel(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {labelInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={blockId}
+                                        // changed={(e)=>setBlockId(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setBlockId(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {blockIdInputConfig}                                               
+                                    />
+                                </InputGroup> 
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={ack}
+                                        // changed={(e)=>setAck(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAck(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {ackInputConfig}                                               
+                                    />
+                                </InputGroup>                               
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={msgno}
+                                        // changed={(e)=>setMsgno(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setMsgno(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {msgnoInputConfig}                                               
+                                    />
+                                </InputGroup>                                
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={end}
+                                        // changed={(e)=>setEnd(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setEnd(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {endInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                
                                                             
                             </div>
                             <div className={classes.buttonBox}>
@@ -448,13 +489,18 @@ const  SearchAKRxElement = (props) => {
                                 clicked={() => (props.clickedSearch(timestampMin, timestampMax,
                                     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
                                     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
-                                btnType="Success"                            
+                                btnType="Success"
+                                mouseDown={(e)=>setFilter('a')}  
+                                mouseLeave={(e)=>toggleDropdown()}                                                                                                                         
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"
+                                mouseDown={(e)=>setFilter('')} 
+                                mouseLeave={(e)=>toggleDropdown()}  
                             >RESET</ButtonBordered>
                             </div>
+                        </div>
                         </div>
                     </div> 
                 </div>          
