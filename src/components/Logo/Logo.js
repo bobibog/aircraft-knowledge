@@ -1,6 +1,6 @@
 import React from 'react';
 
-import aircraftKnowledgeLogo from '../../assets/images/aircraft-knowledge-logo.png';
+import aircraftKnowledgeLogo from '../../assets/images/logo11.JPG';
 import classes from './Logo.module.css';
 
 const logo = (props) => (

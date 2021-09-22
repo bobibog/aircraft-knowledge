@@ -5,17 +5,22 @@ import axios from '../../axios-local';
 //import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import TableAKRx from '../../components/UI/Table/TableAKRx';
 import {akrxHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/SearchAKRxElement';
 
+//import TableAKRx from '../../components/UI/Table/TableAKRx';
+//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRxCustomSide';
+import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRx';
 
 const Akrx = props => {
     const acarsMessages = useSelector(state => {
         return state.acarsMessage.acarsMessages;
     });
+
+    console.log(acarsMessages);
+
     const acarsMessagesCount = useSelector(state => {
         return state.acarsMessage.acarsMessagesCount;
     });
@@ -74,9 +79,7 @@ const Akrx = props => {
     };
     const setAkrxPageHandler = page => {                
         onSetAkrxPage(page);
-    };
-
-    
+    };    
        
     // FILTERING/SEARCHING
     const submitSearchHandler = (timestampMin, timestampMax,
@@ -109,7 +112,7 @@ const Akrx = props => {
     
     
     const resetSearchHandler = () => {
-        onSetAkrxOffsetLimit(0, limit);
+        onSetAkrxOffsetLimit(0, 10);
         onSetAkrxPage(0);
         setTimestampMin("");
         setTimestampMax("");
@@ -132,15 +135,12 @@ const Akrx = props => {
         setEnd("");
         setAcarsMessageDateTimeMin("");
         setAcarsMessageDateTimeMax("");
-    }; 
-    
-    
+        setAllOption(0);          
+    };    
        
     useEffect(() => { 
         onFetchAkrx();
-        
-    }, [onFetchAkrx]);  
-    
+    }, [onFetchAkrx]); 
     
         
     const akrxPageHeader =
@@ -148,34 +148,56 @@ const Akrx = props => {
             headerText="AKRx Messages"
             backColor="#F0F8FF" 
             
-        />;   
-    
+        />; 
+        
+    const[allOption, setAllOption]=useState(0);
+
+    function allChanger(allOption){
+        if(allOption==0){
+            setAllOption(1);
+        return allOption; 
+        }
+               
+    };
+
+      
     let akrxTable = <Spinner />;
     if (!acarsMessages && !loading  ) {
         akrxTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read AKRX messages from the server!</p>;
     }
     
     if (acarsMessages && !loading ) {
-        akrxTable = <TableAKRx 
+        // akrxTable = <TableAKRx 
+        //     data={acarsMessages}
+        //     header={akrxHeader}            
+        //     rowsPerPageDef={limit}
+        //     changeOffsetOrLimit={changeOffsetOrLimitHandler}
+        //     totalDataCount={acarsMessagesCount}
+        //     setPageStore={setAkrxPageHandler}
+        //     currPage={page}                      
+        // /> ;  
+
+        akrxTable =  <TableAKRx
             data={acarsMessages}
-            header={akrxHeader}            
-            rowsPerPageDef={limit}
-            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            rowsPerPageDef={limit}            
             totalDataCount={acarsMessagesCount}
-            setPageStore={setAkrxPageHandler}
-            currPage={page}  
-                       
-            /> ;        
+            currPage={page}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            setPageStore={setAkrxPageHandler}   
+            allOption={allOption}                     
+        />;
+        
     }      
     
     return (
-        <React.Fragment>           
+        <React.Fragment>                       
             {akrxPageHeader}             
             <SearchAKRxElement
                 clickedSearch={submitSearchHandler}                               
-                clickedReset={resetSearchHandler}                       
+                clickedReset={resetSearchHandler} 
+                allChanger={allChanger}                     
             />                                     
-            {akrxTable}            
+            {akrxTable}                       
         </React.Fragment>        
     );
 };

@@ -24,7 +24,7 @@ import CustomDataTableRow from './CustomDataTableRow/CustomDataTableRow';
 import { fontSize } from '@material-ui/system';
 import { auto } from '@popperjs/core';
 import { withStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { unstable_createMuiStrictModeTheme as createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 
 const TableCustom = (props) => {

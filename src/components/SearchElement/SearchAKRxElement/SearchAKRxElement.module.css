@@ -69,11 +69,12 @@
 
 .Drop {
     position: absolute;
-    opacity: 0.85;
+    opacity: 0.92;
     z-index: 4;
     white-space: normal;
     word-break: break-all;
-    margin-left: -1375px;
+    margin-left: -1390px;
+    margin-top: -2px;
 }
 
 .dropdownShow {

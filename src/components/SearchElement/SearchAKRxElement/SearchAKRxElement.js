@@ -165,10 +165,12 @@ const  SearchAKRxElement = (props) => {
     const toggleDropdown = () => {        
             setShowDropdown(false);        
     };
-            
+
+    const changer=0;
+                   
     return (
         <div className={classes.container}> 
-            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()} >
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
                 <div className={classes.dropdownShow}>
                     <div className="row"> 
                     <div className={classes.bar}>          
@@ -491,7 +493,8 @@ const  SearchAKRxElement = (props) => {
                                     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
                                 btnType="Success"
                                 mouseDown={(e)=>setFilter('a')}  
-                                mouseLeave={(e)=>toggleDropdown()}                                                                                                                         
+                                mouseLeave={(e)=>toggleDropdown()} 
+                                onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}

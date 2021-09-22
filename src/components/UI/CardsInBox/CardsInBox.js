@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import {getApiModelPropValue} from '../../../shared/utility'
+import { AutoSizer } from 'react-virtualized';
 
 const CardsInBox = (props) => {
     const useStyles = makeStyles({
@@ -25,7 +26,8 @@ const CardsInBox = (props) => {
             //height: 40,
             //display: 'flex',
             // flexGrow: 1,
-            borderBottom: 'none',
+            borderBottom: 'none',            
+            border: 'none',
             boxShadow: 'none',
             backgroundColor: props.backColor,
             //color: 'white',
@@ -34,7 +36,7 @@ const CardsInBox = (props) => {
             padding: 2,
             display: 'flex',
             flexWrap: 'wrap',
-            justifyContent: 'flex-start',
+            justifyContent: 'flex-start',            
             // alignItems: 'center',
             //color: 'white',
         },
@@ -44,10 +46,11 @@ const CardsInBox = (props) => {
         },
         rootBox: {
             display: 'flex',
-            flexWrap: 'wrap',
+            flexWrap: 'wrap',            
+            width: '100%' ,           
             backgroundColor: props.backColor,
-            // border: '1px solid #ccc',
-            // boxShadow: '1px 1px 1px black',
+            border: 'none',
+            //boxShadow: '1px 1px 1px black',
             //color: 'white',
         },
         rootTypography: {
@@ -67,7 +70,7 @@ const CardsInBox = (props) => {
         headerBox = 
             <Box className={classes.rootBox} style={{paddingBottom: 10}}>
                 {props.headerText
-                    ? <Typography style={{marginLeft: 5, paddingTop: 5, fontWeight: 'bold'}} variant="h5" component="h2">
+                    ? <Typography style={{marginLeft: 15, paddingTop: 5, fontWeight: 'bold'}} variant="h5" component="h2">
                         {props.headerText} 
                     </Typography>
                     : null

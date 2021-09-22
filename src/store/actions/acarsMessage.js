@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-local';
 import {generatePath} from 'react-router';
-
+import {moment} from 'moment';
 
 export const setAkrxOffsetLimit = (offset, limit) => {
     return {
@@ -44,8 +44,14 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {
     return dispatch => {
-        dispatch(fetchAkrxStart());        
-          
+        dispatch(fetchAkrxStart());       
+        
+        // var acarsMINUtc="";
+        // if(acarsMessageDateTimeMin!=''){
+        //     var acarsMINUtc = new Date(acarsMessageDateTimeMin).toUTCString();
+        //     console.log("Datum="+ acarsMINUtc);
+        // }                
+                  
         const query = new URLSearchParams();                        
         query.append('timestampMin', timestampMin);
         query.append('timestampMax', timestampMax);
