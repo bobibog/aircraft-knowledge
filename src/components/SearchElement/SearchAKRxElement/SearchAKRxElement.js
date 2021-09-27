@@ -176,13 +176,15 @@ const  SearchAKRxElement = (props) => {
                     <div className={classes.bar}>          
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
+                                <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span2}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
+                                    </InputGroup.Prepend> 
+                                                      
+                                    <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setAcarsMessageDateTimeMin(e.target.value)}
@@ -192,14 +194,18 @@ const  SearchAKRxElement = (props) => {
                                         placement="right"
                                         title="FROM DATE & TIME"                                              
                                     />
+                                    
                                 </InputGroup>
+                                </div>
+                                <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span2}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
+                                    </InputGroup.Prepend>
+                                                       
+                                    <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setAcarsMessageDateTimeMax(e.target.value)}
@@ -209,7 +215,9 @@ const  SearchAKRxElement = (props) => {
                                         placement="right"
                                         title="TO DATE & TIME"                                              
                                     />
+                                    
                                 </InputGroup>
+                                </div>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>

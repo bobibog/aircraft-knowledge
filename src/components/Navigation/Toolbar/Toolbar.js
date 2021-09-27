@@ -7,7 +7,7 @@ import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 import Background from '../../../assets/images/back3.jpg'
 
 const toolbar = ( props ) => (
-    <header className={classes.Toolbar} style={{backgroundImage:"url("+Background+")", backgroundRepeat:'no-repeat', backgroundSize:'cover', position:'center' }}>
+    <header className={classes.Toolbar} style={{backgroundImage:"url("+Background+")", backgroundRepeat:'no-repeat', backgroundSize:'cover', position:'center'}}>
         <DrawerToggle clicked={props.drawerToggleClicked} />
         <div className={classes.Logo}>
             <Logo />

@@ -46,11 +46,16 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     return dispatch => {
         dispatch(fetchAkrxStart());       
         
-        // var acarsMINUtc="";
-        // if(acarsMessageDateTimeMin!=''){
-        //     var acarsMINUtc = new Date(acarsMessageDateTimeMin).toUTCString();
-        //     console.log("Datum="+ acarsMINUtc);
-        // }                
+        var acarsMINUtc="";
+        if(acarsMessageDateTimeMin!=''){
+            var acarsMINUtc = new Date(acarsMessageDateTimeMin).toUTCString();
+            console.log("Datum="+ acarsMINUtc);
+        }
+        var acarsMAXUtc="";
+        if(acarsMessageDateTimeMax!=''){
+            var acarsMAXUtc = new Date(acarsMessageDateTimeMax).toUTCString();
+            console.log("Datum="+ acarsMAXUtc);
+        }                
                   
         const query = new URLSearchParams();                        
         query.append('timestampMin', timestampMin);
@@ -72,8 +77,8 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         query.append('msgno', msgno);
         query.append('text', text);
         query.append('end', end);
-        query.append('acarsMessageDateTimeMin', acarsMessageDateTimeMin);
-        query.append('acarsMessageDateTimeMax', acarsMessageDateTimeMax);
+        query.append('acarsMessageDateTimeMin', acarsMINUtc);
+        query.append('acarsMessageDateTimeMax', acarsMAXUtc);
         query.append('offset', offset);
         query.append('limit', limit);     
 

@@ -349,6 +349,13 @@
         flex-direction: column;
         flex-wrap: wrap;
     }
+    .dateTime {
+        font-size: 11px;
+        width: 100%;
+    }
+    .span2 {
+        height: 32px;
+    }
 }
 
 @media only screen and (max-width: 450px) {
