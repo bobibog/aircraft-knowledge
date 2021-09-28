@@ -35,13 +35,13 @@ const TableCustom = (props) => {
     const useStyles = makeStyles({
         table: {            
             tableLayout: 'fixed',
-            width: '100%', 
-            
+            width: '100%',           
         }, 
         cell:{
             root:{
               width: '100%',
-              textAlign: 'center'  
+              textAlign: 'center',
+              fontSize:'8px'
             }            
         },             
         root: {
@@ -91,15 +91,15 @@ const TableCustom = (props) => {
     let columnIndexVisible = 0;
 
     if (breakpoints.lg && !breakpoints.md) {
-        columnIndexVisible = 6;
+        columnIndexVisible = 3;
     } else if (breakpoints.md && !breakpoints.sm) {
-        columnIndexVisible = 4;
+        columnIndexVisible = 2;
     } else if (breakpoints.sm && !breakpoints.xs) {
         columnIndexVisible = 2;
     } else if (breakpoints.xs) {
         columnIndexVisible = 0;
     } else {
-        columnIndexVisible = 8;
+        columnIndexVisible = 4;
     }
 
 
@@ -233,7 +233,8 @@ const TableCustom = (props) => {
             // Name of the rule
             root: {              
               textAlign:'center',
-              width: '100%'
+              width: '50%',
+              fontWeight:'150'
             },
           },
         },
@@ -284,14 +285,13 @@ const TableCustom = (props) => {
                                     {emptyRows > 0 && (                                        
                                         <TableRow style={{ height: emptyRowHeight * emptyRows}}   >
                                            
-                                            <TableCell 
+                                            <TableCell className={classes.cell}
                                                 
                                                 colSpan={
                                                     (columnsTotal - 1) > columnIndexVisible
                                                     ? columnIndexVisible + 2
                                                     : columnIndexVisible + 1                                                    
-                                                }                                       
-                                                                                 
+                                                }                                                               
 
                                             />
                                         

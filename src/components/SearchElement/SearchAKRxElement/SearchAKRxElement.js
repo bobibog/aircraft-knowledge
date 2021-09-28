@@ -19,731 +19,505 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const  SearchAKRxElement = (props) => {
 
-    
+    const[timestampMin, setTimestampMin] = useState('');
+    const[timestampMax, setTimestampMax] = useState('');
+    const[stationId, setStationId] = useState('');
+    const[channel, setChannel] = useState('');
+    const[freqMin, setFreqMin] = useState('');
+    const[freqMax, setFreqMax] = useState('');
+    const[levelMin, setLevelMin] = useState('');
+    const[levelMax, setLevelMax] = useState('');
+    const[errorMin, setErrorMin] = useState('');
+    const[errorMax, setErrorMax] = useState('');
+    const[mode, setMode] = useState('');
+    const[label, setLabel] = useState('');
+    const[blockId, setBlockId] = useState('');
+    const[ack, setAck] = useState('');
+    const[tail, setTail] = useState('');
+    const[flight, setFlight] = useState('');
+    const[msgno, setMsgno] = useState('');
+    const[text, setText] = useState('');
+    const[end, setEnd] = useState('');
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
 
-    const columnInputConfig = {
+    const resetSearchHandler = () => {        
+        setTimestampMin("");
+        setTimestampMax("");
+        setStationId("");
+        setChannel("");
+        setFreqMin("");
+        setFreqMax("");
+        setLevelMin("");
+        setLevelMax("");
+        setErrorMin("");
+        setErrorMax("");
+        setMode("");
+        setLabel("");
+        setBlockId("");
+        setAck("");
+        setTail("");
+        setFlight("");
+        setMsgno("");
+        setText("");
+        setEnd("");
+        setAcarsMessageDateTimeMin("");
+        setAcarsMessageDateTimeMax("");
+        props.clickedReset();
+    };    
+
+    const timeStampMinInputConfig = {
         type:'text',
-        placeholder:'Search'
+        placeholder:'Timestamp MIN'
     }
-
-    const timestampInputConfig = {
+    const timeStampMaxInputConfig = {
         type:'text',
-        placeholder:'hh:mm:ss'
+        placeholder:'Timestamp MAX'
     }
+    const stationIdInputConfig = {
+        type:'text',
+        placeholder:'Station ID'
+    }
+    const channelInputConfig = {
+        type:'text',
+        placeholder:'Channel'
+    }
+    const freqMinInputConfig = {
+        type:'text',
+        placeholder:'Freq MIN'
+    }
+    const freqMaxInputConfig = {
+        type:'text',
+        placeholder:'Freq MAX'
+    }
+    const levelMinInputConfig = {
+        type:'text',
+        placeholder:'Level MIN'
+    }
+    const levelMaxInputConfig = {
+        type:'text',
+        placeholder:'Level MAX'
+    }
+    const errorMinInputConfig = {
+        type:'text',
+        placeholder:'Error MIN'
+    }
+    const errorMaxInputConfig = {
+        type:'text',
+        placeholder:'Error MAX'
+    }
+    const modeInputConfig = {
+        type:'text',
+        placeholder:'Mode'
+    }
+    const labelInputConfig = {
+        type:'text',
+        placeholder:'Label'
+    }
+    const blockIdInputConfig = {
+        type:'text',
+        placeholder:'Block ID'
+    }
+    const ackInputConfig = {
+        type:'text',
+        placeholder:'Ack'
+    }
+    const tailInputConfig = {
+        type:'text',
+        placeholder:'Tail'
+    }
+    const flightInputConfig = {
+        type:'text',
+        placeholder:'Flight'
+    }
+    const msgnoInputConfig = {
+        type:'text',
+        placeholder:'Msgno'
+    }
+    const textInputConfig = {
+        type:'text',
+        placeholder:'Text'
+    }
+    const endInputConfig = {
+        type:'text',
+        placeholder:'End'
+    }
+    const acarsMessageDateTimeMinInputConfig = {
+        type:'datetime-local',
+        placeholder:'From:'
+    }
+    const acarsMessageDateTimeMaxInputConfig = {
+        type:'datetime-local',
+        placeholder:'To:'
+    }   
 
-    // const resetSearchHandler = () => {
-    //     setAirlineName("");
-    //     setIATA("");
-    //     setICAO("");
-    //     setFleetMin("");
-    //     setFleetMax("");
-    //     props.clickedReset();       
-    // };     
+    // Changing Dropdown Button title according to event (search or reset click)
+    const[filter, setFilter] = useState('');
+    let title = filter ? 'FILTER ON': 'FILTER OFF';
 
-    // const handleKeyPress1 = (e) =>{
-    //     if (e.key === 'Enter') {
-    //         props.clickedSearch1(airlineName); 
-    //     }
-    // }
+    //Closing/Opening DropdownButton
+    const[showDropdown, setShowDropdown] = useState(false);
 
-    // const handleKeyPress2 = (e) =>{
-    //     if (e.key === 'Enter') {
-    //         props.clickedSearch2(iata); 
-    //     }
-    // }
-
-    // const handleKeyPress3 = (e) =>{
-    //     if (e.key === 'Enter') {
-    //         props.clickedSearch3(icao); 
-    //     }
-    // }
-
-    // const handleKeyPress4 = (e) =>{
-    //     if (e.key === 'Enter') {
-    //         props.clickedSearch4(fleetMin); 
-    //         props.clickedSearch5(fleetMax);
-    //     }
-    // }
-
-    // const handleKeyPress5 = (e) =>{
-    //     if (e.key === 'Enter') {
-    //         props.clickedSearch4(fleetMin);
-    //         props.clickedSearch5(fleetMax); 
-    //     }
-    // }
-
+    const open=()=>{
+        setShowDropdown(true);
+    };
     
-    // return (
-    //     <div className={classes.container}> 
-        
-    //         <div className="row">           
-    //             <div className="col-md">                        
-    //                 <div className={classes.card} >
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={airlineName}
-    //                             changed={(e)=>setAirlineName(e.target.value)}                                                                             
-    //                             elementType='input' 
-    //                             elementConfig= {airlineNameInputConfig}                                                                                                                      
-    //                         />
-    //                     </InputGroup>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={iata}
-    //                             changed={(e)=>setIATA(e.target.value)}
-    //                             elementType='input'
-    //                             elementConfig={iataInputConfig}
-    //                         />
-    //                     </InputGroup>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input 
-    //                             value={icao}
-    //                             changed={(e)=>setICAO(e.target.value)}          
-    //                             elementType='input' 
-    //                             elementConfig= {icaoInputConfig}                     
-    //                         />
-    //                     </InputGroup>                                                 
-    //                 </div>
-    //             </div>    
-    //             <div className="col-md">                
-    //                 <div className={classes.card}>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={fleetMin}
-    //                             changed={(e)=>setFleetMin(e.target.value)}
-    //                             elementType='input' 
-    //                             elementConfig= {fleetMinInputConfig}                                               
-    //                         />
-    //                     </InputGroup>
-    //                     <InputGroup className="mb-3 input-group-sm">
-    //                         <InputGroup.Prepend className={classes.inputPrepend}>
-    //                             <InputGroup.Text className={classes.span}>
-    //                                 <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-    //                             </InputGroup.Text>                                
-    //                         </InputGroup.Prepend>                   
-    //                         <Input
-    //                             value={fleetMax}
-    //                             changed={(e)=>setFleetMax(e.target.value)}
-    //                             elementType='input' 
-    //                             elementConfig= {fleetMaxInputConfig}                                               
-    //                         />
-    //                     </InputGroup>                       
-    //                 </div>
-    //                 <div className={classes.buttonBox}>
-    //                 <ButtonBordered 
-    //                     clicked={() => (props.clickedSearch(airlineName, iata, icao, fleetMin, fleetMax))}
-    //                     btnType="Success"                            
-    //                 >SEARCH</ButtonBordered>
-    //                 <ButtonBordered
-    //                     clicked={resetSearchHandler}
-    //                     btnType="Secondary"    
-    //                 >RESET</ButtonBordered>
-    //                 </div>
-    //             </div>
-    //         </div>           
-        
-    //     </div> 
-    // );
-    return(       
-               
-            <div className={classes.grid_container}>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropButton} title="Timestamp">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetAsc("asc"))}><FcNumericalSorting12/> <small>Sort Min to Max</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByFleetDsc("dsc"))}><FcNumericalSorting21/> <small>Sort Max to Min</small></Dropdown.Item> */}
-                        
-                        <div>
-                        <div className={classes.label}><small><label>From:</label></small></div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={fleetMin}
-                                    //changed={(e)=>setFleetMin(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {timestampInputConfig}
-                                    //onKeyUp = {handleKeyPress4}
-                                />                                
-                            </InputGroup>
-                            <div className={classes.label}><small><label>To:</label></small></div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                             
-                                <Input
-                                    //value={fleetMax}
-                                    //changed={(e)=>setFleetMax(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {timestampInputConfig}
-                                    //onKeyUp = {handleKeyPress5}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch4(fleetMin), props.clickedSearch5(fleetMax))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>   
-                                                     
-                    </DropdownButton>
-                </div>
-                
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" className={classes.dropBtn} title="Station ID" >                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIataDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={iata}
-                                    //changed={(e)=>setIATA(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress2}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch2(iata))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary" 
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"   
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
+    const toggleDropdown = () => {        
+            setShowDropdown(false);        
+    };
 
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Channel">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
+    const changer=0;
+                   
+    return (
+        <div className={classes.container}> 
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
+                <div className={classes.dropdownShow}>
+                    <div className="row"> 
+                    <div className={classes.bar}>          
+                        <div className="col-sm-3" id="bar">                        
+                            <div className={classes.card} >
+                                <div className={classes.dateTime}>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span2}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend> 
+                                                      
+                                    <Input 
+                                        value={acarsMessageDateTimeMin}
+                                        // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAcarsMessageDateTimeMin(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {acarsMessageDateTimeMinInputConfig} 
+                                        toggle="tooltip"
+                                        placement="right"
+                                        title="FROM DATE & TIME"                                              
+                                    />
+                                    
+                                </InputGroup>
+                                </div>
+                                <div className={classes.dateTime}>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span2}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>
+                                                       
+                                    <Input 
+                                        value={acarsMessageDateTimeMax}
+                                        // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAcarsMessageDateTimeMax(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {acarsMessageDateTimeMaxInputConfig}
+                                        toggle="tooltip"
+                                        placement="right"
+                                        title="TO DATE & TIME"                                              
+                                    />
+                                    
+                                </InputGroup>
+                                </div>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={tail}
+                                        // changed={(e)=>setTail(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTail(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {tailInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={flight}
+                                        // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFlight(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {flightInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={text}
+                                        // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setText(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {textInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={freqMin}
+                                        // changed={(e)=>setFreqMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFreqMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {freqMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={freqMax}
+                                        // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setFreqMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {freqMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={timestampMin}
+                                        // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTimestampMin(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {timeStampMinInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={timestampMax}
+                                        // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setTimestampMax(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={timeStampMaxInputConfig}
+                                    />
+                                </InputGroup>
                                 
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Frequency">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={stationId}
+                                        // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setStationId(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {stationIdInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={channel}
+                                        // changed={(e)=>setChannel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setChannel(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {channelInputConfig}                     
+                                    />
+                                </InputGroup>                                                                               
+                            </div>
+                        </div>
+                        </div>
+                        <div className={classes.bar}>    
+                        <div className="col-sm-3">                
+                            <div className={classes.card}>
                             <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={levelMin}
+                                        // changed={(e)=>setLevelMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLevelMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {levelMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={levelMax}
+                                        // changed={(e)=>setLevelMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLevelMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {levelMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={errorMin}
+                                        // changed={(e)=>setErrorMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setErrorMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {errorMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={errorMax}
+                                        // changed={(e)=>setErrorMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setErrorMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {errorMaxInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={mode}
+                                        // changed={(e)=>setMode(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setMode(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {modeInputConfig}                     
+                                    />
+                                </InputGroup> 
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={label}
+                                        // changed={(e)=>setLabel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setLabel(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {labelInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={blockId}
+                                        // changed={(e)=>setBlockId(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setBlockId(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {blockIdInputConfig}                                               
+                                    />
+                                </InputGroup> 
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={ack}
+                                        // changed={(e)=>setAck(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAck(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {ackInputConfig}                                               
+                                    />
+                                </InputGroup>                               
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={msgno}
+                                        // changed={(e)=>setMsgno(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setMsgno(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {msgnoInputConfig}                                               
+                                    />
+                                </InputGroup>                                
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={end}
+                                        // changed={(e)=>setEnd(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setEnd(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {endInputConfig}                                               
+                                    />
+                                </InputGroup>
                                 
-                            </InputGroup>
+                                                            
+                            </div>
+                            <div className={classes.buttonBox}>
                             <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
+                                clicked={() => (props.clickedSearch(timestampMin, timestampMax,
+                                    stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+                                    flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                btnType="Success"
+                                mouseDown={(e)=>setFilter('a')}  
+                                mouseLeave={(e)=>toggleDropdown()} 
+                                onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
+                            >SEARCH</ButtonBordered>
                             <ButtonBordered
-                                //clicked={resetSearchHandler}
+                                clicked={resetSearchHandler}
                                 btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Level">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Error">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Mode">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Label">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Block ID">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Ack">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Tail">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Flight">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Message Num.">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="Text">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-                <div className={classes.grid_item}>
-                    <DropdownButton id="dropdown-item-button" title="End">                            
-                        {/* <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoAsc("asc"))}><FcAlphabeticalSortingAz/> <small>Sort A to Z</small></Dropdown.Item>
-                        <Dropdown.Item as="button" onClick={()=>(props.orderAirlinesByIcaoDesc("dsc"))}><FcAlphabeticalSortingZa/> <small>Sort Z to A</small></Dropdown.Item> */}
-                        <div className={classes.label}><small><label>Contains:</label></small></div>
-                        <div>
-                            <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FcSearch/>                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
-                                <Input
-                                    //value={icao}
-                                    //changed={(e)=>setICAO(e.target.value)}
-                                    elementType='input'
-                                    elementConfig= {columnInputConfig}
-                                    //onKeyUp = {handleKeyPress3}
-                                />
-                                
-                            </InputGroup>
-                            <ButtonBordered 
-                                //clicked={() => (props.clickedSearch3(icao))}
-                                btnType="Success"                            
-                                >SEARCH
-                            </ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                btnType="Secondary"
-                                toggle="tooltip"
-                                placement="right"
-                                title="Reset all columns"    
-                                >RESET
-                            </ButtonBordered> 
-                        </div>                                
-                    </DropdownButton>
-                </div>
-
-            </div>       
+                                mouseDown={(e)=>setFilter('')} 
+                                mouseLeave={(e)=>toggleDropdown()}  
+                            >RESET</ButtonBordered>
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+                </div>          
+            </DropdownButton>
+        </div> 
     );
-};
+}
 
 export default SearchAKRxElement;

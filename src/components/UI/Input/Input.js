@@ -18,7 +18,7 @@ const input = ( props ) => {
                 value={props.value}
                 onChange={props.changed} 
                 onKeyUp={props.onKeyUp}
-
+                title={props.title}
                 />;
             break;
         case ( 'textarea' ):

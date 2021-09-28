@@ -1,3 +1,5 @@
+import { formatMs } from "@material-ui/core";
+
 export const rowsPerPageDefault = 10;
 
 export const airlineHeader = [
@@ -97,7 +99,11 @@ export const aircraftHeader = [
     },
     {
         name: "Airline",
-        prop: "airline.airlineName"
+        prop: "airline",
+        type: "airlineHeader",
+        dataCellCreator: [
+            "airlineName"
+        ],
     },
     {
         name: "Type Code",
@@ -228,67 +234,89 @@ export const flightHeader = [
     // }
 ];
 
+// var dateString = "acarsMessageDateTime";
+// var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
+// var dateArray = reggie.exec(dateString); 
+// var dateObject = new Date(
+//     (+dateArray[1]),
+//     (+dateArray[2])-1, // Careful, month starts at 0!
+//     (+dateArray[3]),
+//     (+dateArray[4]),
+//     (+dateArray[5]),
+//     (+dateArray[6])
+// );
+
+
 export const akrxHeader = [
     {
-      name: "Timestamp",
-    //   prop: "airportName"
+        name: "Message Time",
+        prop: "acarsMessageDateTime",        
+        type:"datetime"
     },
     {
-      name: "Station ID",
-    //   prop: "airportIata"
+        name: "Tail",
+        prop: "tail"
     },
     {
-      name: "Channel",
-    //   prop: "city"
+        name: "Flight",
+        prop: "flight"
+    },
+    {
+        name: "Text",
+        prop: "text"
     },
     {
       name: "Frequency",
-    //   prop: "country"
+      prop: "freq"
     },
     {
+      name: "Timestamp",
+      prop: "timestamp"
+    },
+    {
+      name: "Station ID",
+      prop: "stationId"
+    },
+    {
+      name: "Channel",
+      prop: "channel"
+    },
+    
+    {
         name: "Level",
-      //   prop: "airportName"
+        prop: "level"
       },
       {
         name: "Error",
-      //   prop: "airportIata"
+        prop: "error"
       },
       {
         name: "Mode",
-      //   prop: "city"
+        prop: "mode"
       },
       {
         name: "Label",
-      //   prop: "country"
+        prop: "label"
       },
       {
         name: "Block ID",
-      //   prop: "airportName"
+        prop: "blockId"
       },
       {
         name: "Ack",
-      //   prop: "airportIata"
-      },
-      {
-        name: "Tail",
-      //   prop: "city"
-      },
-      {
-        name: "Flight",
-      //   prop: "country"
-      },
+        prop: "ack"
+      },      
+      
       {
         name: "Mesage Num.",
-      //   prop: "airportName"
+        prop: "msgno"
       },
-      {
-        name: "Text",
-      //   prop: "airportIata"
-      },
+      
       {
         name: "End",
-      //   prop: "city"
+        prop: "end"
       }
+      
 ];
 
 export const airlinesInit = [

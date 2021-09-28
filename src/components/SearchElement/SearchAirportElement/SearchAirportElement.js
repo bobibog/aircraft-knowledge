@@ -74,9 +74,24 @@ const  SearchAirportElement = (props) => {
         }
     }
 
+    // Changing Dropdown Button title according to event (search or reset click)
+    const[filter, setFilter] = useState('');
+    let title = filter ? 'FILTER ON': 'FILTER OFF';;
+
+    //Closing/Opening DropdownButton
+    const[showDropdown, setShowDropdown] = useState(false);
+
+    const open=()=>{
+        setShowDropdown(true);
+    };
+    
+    const toggleDropdown = () => {        
+            setShowDropdown(false);        
+    };
+
     return (
         <div className={classes.container}> 
-            <DropdownButton title="SEARCH" className={classes.Drop} >
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
                 <div className={classes.dropdownShow}>
                     <div className={classes.row}>           
                         <div className="col-md">                        
@@ -89,7 +104,8 @@ const  SearchAirportElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={airportName}
-                                        changed={(e)=>setAirportName(e.target.value)}                                                                             
+                                        // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
+                                        changed={(e)=>setAirportName(e.target.value)}                                                                           
                                         elementType='input' 
                                         elementConfig= {airportNameInputConfig}                                                                                                                      
                                     />
@@ -102,7 +118,7 @@ const  SearchAirportElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={iata}
-                                        changed={(e)=>setIATA(e.target.value)}
+                                        changed={(e)=>setIATA(e.target.value) & setFilter(e.target.value)}
                                         elementType='input'
                                         elementConfig={iataInputConfig}
                                     />
@@ -115,6 +131,7 @@ const  SearchAirportElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input 
                                         value={city}
+                                        // changed={(e)=>setCity(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setCity(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {cityInputConfig}                     
@@ -132,6 +149,7 @@ const  SearchAirportElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={country}
+                                        // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setCountry(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {countryInputConfig}                                               
@@ -141,11 +159,15 @@ const  SearchAirportElement = (props) => {
                             <div className={classes.buttonBox}>
                             <ButtonBordered 
                                 clicked={() => (props.clickedSearch(airportName, iata, city, country))}
-                                btnType="Success"                            
+                                btnType="Success" 
+                                mouseDown={(e)=>setFilter('a')}
+                                mouseLeave={(e)=>toggleDropdown()}                           
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary"  
+                                mouseDown={(e)=>setFilter('')}
+                                mouseLeave={(e)=>toggleDropdown()}  
                             >RESET</ButtonBordered>
                             </div>
                         </div>

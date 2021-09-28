@@ -4,32 +4,39 @@
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    height: 230px;
-    padding-top: 15px;
-    padding-bottom: 25px;
+    height: 45px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background-color: rgb(167, 229, 231);
     padding-left: 10px;
 }
 
 .card {
     padding-left: 5px;
-    opacity: 0.75;
+    opacity: 0.99;
     padding-top: 5px;
     padding-bottom: 5px;
     margin-left: 9px;
-    width: 650px;
-    background-color: white;
+    width: 450px;
     border-radius: 5px 5px 0px 0px;
+}
+
+.bar {
+    margin-right: -45px;
+}
+
+.inputGroup {
+    margin-right: 25px;
+    width: 250px;
 }
 
 .buttonBox {
     padding-left: 5px;
-    opacity: 0.75;
+    opacity: 0.99;
     padding-top: 2px;
     padding-bottom: 2px;
     margin-left: 9px;
-    width: 650px;
-    background-color: white;
+    width: 433px;
     border-radius: 0px 0px 5px 5px;
 }
 
@@ -47,34 +54,39 @@
     margin-left: 22px;
 }
 
+.span2 {
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    background-color: rgb(167, 229, 231);
+    margin-left: 22px;
+}
+
 .icon {
     position: relative;
     color: rgb(69, 158, 161);
 }
 
-.grid_container {
-    background-color: #007bff;
+.Drop {
+    position: absolute;
+    opacity: 0.92;
+    z-index: 4;
+    white-space: normal;
+    word-break: break-all;
+    margin-left: -1390px;
+    margin-top: -2px;
+}
+
+.dropdownShow {
+    background-color: #0062cc;
+    padding-bottom: 15px;
+    margin-top: -12px;
+    margin-bottom: -7px;
+    border-radius: 0 5px 5px 5px;
+    width: 890px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    grid-row-gap: 5px;
-    grid-template-columns: 120px 100px 90px 120px 90px 90px 90px 80px 90px 70px 80px 80px 150px 80px auto;
-    padding: 10px;
-    margin-bottom: -58px;
-    position: relative;
-    z-index: 3;
-}
-
-.grid_container>* {
-    flex: 1 1 5em;
-}
-
-.label {
-    margin-left: 25px;
-    margin-bottom: -15px;
-}
-
-.dropBtn {
-    color: red;
 }
 
 @media only screen and (max-width: 1390px) {
@@ -83,86 +95,389 @@
         padding-right: 20px;
         height: auto;
         padding-bottom: 20px;
+        height: 45px;
     }
     .card {
-        width: auto;
+        width: 450px;
         border-radius: 0px 0px 0px 0px;
     }
     .buttonBox {
-        width: auto;
+        width: 250px;
         border-radius: 0px 0px 0px 0px;
     }
-}
-
-
-/* @media only screen and (max-width: 1670px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 820px 170px 350px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+    .Drop {
+        margin-left: -1115px;
     }
 }
 
-@media only screen and (max-width: 1650px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 720px 250px 350px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+@media only screen and (max-width: 1295px) {
+    .Drop {
+        margin-left: -1015px;
     }
 }
 
-@media only screen and (max-width: 1520px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 680px 260px 310px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+@media only screen and (max-width: 1198px) {
+    .Drop {
+        margin-left: -915px;
     }
 }
 
-@media only screen and (max-width: 1460px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 580px 350px 180px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+@media only screen and (max-width: 1108px) {
+    .Drop {
+        margin-left: -825px;
     }
 }
 
-@media only screen and (max-width: 1350px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 490px 420px 130px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+@media only screen and (max-width: 1008px) {
+    .Drop {
+        margin-left: -725px;
     }
 }
 
-@media only screen and (max-width: 1260px) {
-    .grid_container {
-        display: grid;
-        grid-row-gap: 5px;
-        grid-template-columns: 390px 560px 20px auto;
-        padding: 10px;
-        margin-bottom: -58px;
-        position: relative;
-        z-index: 3;
+@media only screen and (max-width: 908px) {
+    .Drop {
+        margin-left: -655px;
     }
-} */
+    .bar {
+        margin-right: -95px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 450px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 800px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 864px) {
+    .Drop {
+        margin-left: -605px;
+    }
+    .bar {
+        margin-right: -95px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 640px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        margin-left: -565px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 310px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 580px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        margin-left: -565px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        margin-left: -465px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .Drop {
+        margin-left: -365px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .Drop {
+        margin-left: -265px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .dateTime {
+        font-size: 11px;
+        width: 100%;
+    }
+    .span2 {
+        height: 32px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .Drop {
+        margin-left: -185px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 362px) {
+    .Drop {
+        margin-left: -135px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 315px) {
+    .Drop {
+        margin-left: -45px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 220px) {
+    .Drop {
+        margin-left: -5px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}

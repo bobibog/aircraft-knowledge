@@ -5,11 +5,14 @@ import classes from './ButtonBordered.module.css';
 const button = (props) => (
     <button
         disabled={props.disabled}
-        className={[classes.ButtonBordered, classes[props.btnType]].join(' ')}
-        onClick={props.clicked}
+        className={[classes.ButtonBordered, classes[props.btnType]].join(' ')}        
         data-toggle={props.toggle} 
         data-placement={props.placement} 
-        title={props.title}
+        title={props.title} 
+        onClick={props.clicked}
+        onMouseDown={props.mouseDown}  
+        onMouseLeave={props.mouseLeave}   
+        onMouseUp={props.onMouseUp}         
         >{props.children}</button>
 );
 

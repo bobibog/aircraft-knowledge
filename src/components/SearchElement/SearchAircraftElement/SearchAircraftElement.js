@@ -84,18 +84,26 @@ const  SearchAircraftElement = (props) => {
         props.clickedReset();       
     };     
 
-    var show = true;
-
-    var dropdownClose = () => {
-        show = false;
-    };
-
     
+    // Changing Dropdown Button title according to event (search or reset click)
+    const[filter, setFilter] = useState('');
+    let title = filter ? 'FILTER ON': 'FILTER OFF';;
+
+    //Closing/Opening DropdownButton
+    const[showDropdown, setShowDropdown] = useState(false);
+
+    const open=()=>{
+        setShowDropdown(true);
+    };
+    
+    const toggleDropdown = () => {        
+            setShowDropdown(false);        
+    };
 
     return (
        
         <div className={classes.container}> 
-            <DropdownButton title="SEARCH" className={classes.Drop} role='menu'>
+            <DropdownButton title={title} className={classes.Drop} role='menu' show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
                 <div className={classes.dropdownShow}>   
                     <div className={classes.row}>           
                         <div className="col-md">                        
@@ -108,7 +116,8 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={airline}
-                                        changed={(e)=>setAirline(e.target.value)}                                                                             
+                                        // changed={(e)=>setAirline(e.target.value) & setFilter(e.target.value)} 
+                                        changed={(e)=>setAirline(e.target.value)}                                                                            
                                         elementType='input' 
                                         elementConfig= {airlineInputConfig} 
                                         className={classes.input}                                                                                                                     
@@ -122,6 +131,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={operators}
+                                        // changed={(e)=>setOperator(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setOperator(e.target.value)}
                                         elementType='input'
                                         elementConfig={operatorInputConfig}
@@ -136,6 +146,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input 
                                         value={typeCode}
+                                        // changed={(e)=>setTypeCode(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setTypeCode(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {typeCodeInputConfig} 
@@ -150,6 +161,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input 
                                         value={fullType}
+                                        // changed={(e)=>setFullType(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setFullType(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {fullTypeInputConfig}    
@@ -164,6 +176,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input 
                                         value={registration}
+                                        // changed={(e)=>setRegistration(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setRegistration(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {registrationInputConfig} 
@@ -182,6 +195,7 @@ const  SearchAircraftElement = (props) => {
                                 </InputGroup.Prepend>                   
                                 <Input
                                     value={serialNumber}
+                                    // changed={(e)=>setSerialNumber(e.target.value) & setFilter(e.target.value)}
                                     changed={(e)=>setSerialNumber(e.target.value)}
                                     elementType='input' 
                                     elementConfig= {serialNumberInputConfig}   
@@ -196,6 +210,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={modeS}
+                                        // changed={(e)=>setModeS(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setModeS(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {modeSInputConfig}
@@ -210,6 +225,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={minManufactureDate}
+                                        // changed={(e)=>setMinManufactureDate(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setMinManufactureDate(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {minManufactureDateInputConfig}
@@ -224,6 +240,7 @@ const  SearchAircraftElement = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={maxManufactureDate}
+                                        // changed={(e)=>setMaxManufactureDate(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setMaxManufactureDate(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {maxManufactureDateInputConfig}  
@@ -235,11 +252,15 @@ const  SearchAircraftElement = (props) => {
                             <div className={classes.buttonBox}>
                             <ButtonBordered 
                                 clicked={() => (props.clickedSearch(airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate))}
-                                btnType="Success"                            
+                                btnType="Success"
+                                mouseDown={(e)=>setFilter('a')}
+                                mouseLeave={(e)=>toggleDropdown()}                             
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
-                                btnType="Secondary"    
+                                btnType="Secondary" 
+                                mouseDown={(e)=>setFilter('')} 
+                                mouseLeave={(e)=>toggleDropdown()}   
                             >RESET</ButtonBordered>
                             {/* <ReactToExcel
                                 table={props.id}

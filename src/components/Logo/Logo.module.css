@@ -1,11 +1,25 @@
 .Logo {
     background-color: white;
-    padding: 4px;
-    height: 100%;
+    padding: 0px;
+    height: 125%;
     box-sizing: border-box;
     border-radius: 5px;
+    margin-top: -6px;
 }
 
 .Logo img {
     height: 100%;
+}
+
+@media only screen and (max-width: 199px) {
+    .Logo img {
+        margin-left: -37px;
+    }
+}
+
+@media only screen and (max-width: 191px) {
+    .Logo img {
+        margin-left: -42px;
+        width: auto;
+    }
 }

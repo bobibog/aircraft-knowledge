@@ -1,0 +1,178 @@
+body {
+    margin: 0;
+    padding: 0px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 45px;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+}
+
+.select {
+    border: none;
+    margin-left: 10px;
+}
+
+.pagginationBox {
+    width: 450px;
+    position: absolute;
+    right: 2px;
+    height: 55px;
+}
+
+.button {
+    margin-top: 15px;
+    border: none;
+}
+
+#input {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.select {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.boxCheck {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 350px;
+    /* flex-wrap: wrap; */
+    background-color: cornflowerblue;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    border-radius: 2px;
+}
+
+.boxCheck>* {
+    /* flex: 1 1 5%; */
+    border: 1px solid #007bff;
+    padding: 5px;
+    text-align: left;
+    color: white;
+}
+
+.func2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    margin-bottom: 42px;
+}
+
+.func2>* {
+    flex: 1 1 10rem;
+}
+
+.excelBtn {
+    position: absolute;
+    right: 15px;
+}
+
+.drop {
+    position: absolute;
+    left: 12px;
+    margin-top: 0px;
+}
+
+@media only screen and (max-width: 640px) and (orientation: portrait) {
+    .table td {
+        font-size: 11px;
+    }
+}
+
+@media(max-width:550px) {
+    .table thead {
+        display: none;
+    }
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+        padding-bottom: 15px;
+    }
+    .table tr {
+        margin-bottom: 15px;
+    }
+    .table tr:nth-child(even) {
+        background-color: lightblue;
+    }
+    .table td {
+        text-align: right;
+        padding-left: 35%;
+        text-align: right;
+        position: relative;
+    }
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 35%;
+        padding-left: 10px;
+        font-weight: bold;
+        text-align: left;
+        font-size: 12px;
+        background: #007bff;
+        color: white;
+        border-radius: 2px;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .pagginationBox {
+        width: auto;
+        position: absolute;
+        left: 2px;
+        height: 55px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .boxCheck {
+        display: grid;
+        grid-template-columns: 100%;
+        width: 162px;
+        border-radius: 5px;
+    }
+}
+
+@media only screen and (max-width: 305px) {
+    .excelBtn {
+        position: relative;
+        padding-left: 15%;
+        margin-bottom: 5px;
+        margin-top: -2px;
+    }
+}
