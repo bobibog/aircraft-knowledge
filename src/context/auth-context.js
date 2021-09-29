@@ -31,8 +31,8 @@ const AuthContextProvider = props => {
         setAuthLoading(true);
     };
 
-    const authSuccess = (userToken, userId) => {
-        const user = {...initialUser, token: userToken, id: userId};
+    const authSuccess = (userToken, userId, userRole) => {
+        const user = {...initialUser, token: userToken, id: userId, role: userRole};
         setAuthUser(user);
         setAuthError(null);
         setAuthLoading(false);
@@ -47,6 +47,7 @@ const AuthContextProvider = props => {
         localStorage.removeItem('token');
         localStorage.removeItem('expirationDate');
         localStorage.removeItem('userId');
+        localStorage.removeItem('role');
         setAuthUser(initialUser);
     };
 
@@ -56,13 +57,14 @@ const AuthContextProvider = props => {
         }, expirationTimeInSeconds * 1000);
     }, []);
 
-    const expiresInSeconds = 300;
+    const expiresInSeconds = 1300;
 
-    const auth = (username, password, isRegistration) => {
+    const auth = (username, password, role, isRegistration) => {
         authStart();
         const authData = {
             username: username,
-            password: password
+            password: password,
+            role: role
         };
         let url = '/user/register';
         if (!isRegistration) {
@@ -75,7 +77,8 @@ const AuthContextProvider = props => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data.id);
-                authSuccess(response.data.token, response.data.id);
+                localStorage.setItem('role', response.data.role)
+                authSuccess(response.data.token, response.data.id, response.data.role);
                 checkAuthTimeout(expiresInSeconds);
             })
             .catch(err => {
@@ -85,6 +88,7 @@ const AuthContextProvider = props => {
 
     const authCheckState = useCallback(() => {
         const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
         if (!token) {
             logout();
         } else {
@@ -93,7 +97,7 @@ const AuthContextProvider = props => {
                 logout();
             } else {
                 const userId = localStorage.getItem('userId');
-                authSuccess(token, userId);
+                authSuccess(token, userId, role);
                 checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 );
             }   
         }

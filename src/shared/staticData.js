@@ -319,6 +319,21 @@ export const akrxHeader = [
       
 ];
 
+export const crudUserHeader = [
+    {
+        name: "Username",
+        prop: "username"        
+    },
+    {
+      name: "Password",
+      prop: "password"     
+    },
+    {
+      name: "Role",
+      prop: "role"
+    }
+];
+
 export const airlinesInit = [
     {AirlineId: 1, AirlineName: 'ABX Air', IATA: 'GB', ICAO: 'ABX', Fleet: 15},
     {AirlineId: 2, AirlineName: 'ACE Belgium Freighters', IATA: 'X7', ICAO: 'FRH', Fleet: 1},

@@ -47,3 +47,9 @@ export {
     setAkrxOffsetLimit,
     setAkrxPage   
 } from './acarsMessage';
+
+export {
+    fetchUsers,
+    setUsersOffsetLimit,
+    setUsersPage   
+} from './user';
