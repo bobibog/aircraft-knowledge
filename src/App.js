@@ -34,7 +34,7 @@ function App() {
       <Route path="/airlines" component={Airlines} />
       <Route path="/logout" component={Logout} />
       <Route path="/auth" component={Auth} />
-      {/* <Redirect from="/" exact to="/akrx" /> */}
+      <Redirect from="/" exact to="/akrx" />
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
   );
