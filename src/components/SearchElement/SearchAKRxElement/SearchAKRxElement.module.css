@@ -106,7 +106,13 @@
         border-radius: 0px 0px 0px 0px;
     }
     .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
         margin-left: 5px;
+        margin-top: -2px;
     }
 }
 
@@ -125,6 +131,15 @@
         width: 450px;
         border-radius: 0px 0px 0px 0px;
     }
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .dropdownShow {
         background-color: #0062cc;
         padding-bottom: 15px;
@@ -139,6 +154,15 @@
 }
 
 @media only screen and (max-width: 864px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -95px;
     }
@@ -167,6 +191,15 @@
 }
 
 @media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -195,6 +228,15 @@
 }
 
 @media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -223,6 +265,15 @@
 }
 
 @media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -251,6 +302,15 @@
 }
 
 @media only screen and (max-width: 650px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -279,6 +339,15 @@
 }
 
 @media only screen and (max-width: 550px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -314,6 +383,15 @@
 }
 
 @media only screen and (max-width: 450px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -342,6 +420,15 @@
 }
 
 @media only screen and (max-width: 362px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
@@ -370,6 +457,15 @@
 }
 
 @media only screen and (max-width: 315px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
     .bar {
         margin-right: -75px;
     }
