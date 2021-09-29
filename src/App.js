@@ -1,7 +1,6 @@
 import React, {useEffect, useContext} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-//import logo from './logo.svg';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
 import AKRx from './containers/AKRx/AKRx';
