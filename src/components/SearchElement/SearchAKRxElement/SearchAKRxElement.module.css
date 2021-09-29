@@ -110,34 +110,7 @@
     }
 }
 
-@media only screen and (max-width: 1295px) {
-    .Drop {
-        margin-left: 15px;
-    }
-}
-
-@media only screen and (max-width: 1198px) {
-    .Drop {
-        margin-left: 15px;
-    }
-}
-
-@media only screen and (max-width: 1108px) {
-    .Drop {
-        margin-left: -825px;
-    }
-}
-
-@media only screen and (max-width: 1008px) {
-    .Drop {
-        margin-left: -725px;
-    }
-}
-
 @media only screen and (max-width: 908px) {
-    .Drop {
-        margin-left: -655px;
-    }
     .bar {
         margin-right: -95px;
     }
@@ -166,9 +139,6 @@
 }
 
 @media only screen and (max-width: 864px) {
-    .Drop {
-        margin-left: -605px;
-    }
     .bar {
         margin-right: -95px;
     }
@@ -197,9 +167,6 @@
 }
 
 @media only screen and (max-width: 785px) {
-    .Drop {
-        margin-left: -565px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -228,9 +195,6 @@
 }
 
 @media only screen and (max-width: 785px) {
-    .Drop {
-        margin-left: -565px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -259,9 +223,6 @@
 }
 
 @media only screen and (max-width: 785px) {
-    .Drop {
-        margin-left: -465px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -290,9 +251,6 @@
 }
 
 @media only screen and (max-width: 650px) {
-    .Drop {
-        margin-left: -365px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -321,9 +279,6 @@
 }
 
 @media only screen and (max-width: 550px) {
-    .Drop {
-        margin-left: -265px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -359,9 +314,6 @@
 }
 
 @media only screen and (max-width: 450px) {
-    .Drop {
-        margin-left: -185px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -390,9 +342,6 @@
 }
 
 @media only screen and (max-width: 362px) {
-    .Drop {
-        margin-left: -135px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -421,9 +370,6 @@
 }
 
 @media only screen and (max-width: 315px) {
-    .Drop {
-        margin-left: -45px;
-    }
     .bar {
         margin-right: -75px;
     }
@@ -452,9 +398,6 @@
 }
 
 @media only screen and (max-width: 220px) {
-    .Drop {
-        margin-left: -5px;
-    }
     .bar {
         margin-right: -75px;
     }
