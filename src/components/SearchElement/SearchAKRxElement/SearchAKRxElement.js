@@ -41,6 +41,60 @@ const  SearchAKRxElement = (props) => {
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
 
+    // DATE-TIME input VALIDATION
+    const[dateFromErr, setDateFromErr] = useState({});
+    const[dateToErr, setDateToErr] = useState({});
+
+    var hoursMin = acarsMessageDateTimeMin.slice(11, 13);    
+    var minutesMin = acarsMessageDateTimeMin.slice(14, 16);   
+    var dayMin = acarsMessageDateTimeMin.slice(8, 10);    
+    var monthMin = acarsMessageDateTimeMin.slice(5, 7);    
+    var yearMin = acarsMessageDateTimeMin.slice(0, 4);
+
+    var hoursMax = acarsMessageDateTimeMax.slice(11, 13);    
+    var minutesMax = acarsMessageDateTimeMax.slice(14, 16);   
+    var dayMax = acarsMessageDateTimeMax.slice(8, 10);    
+    var monthMax = acarsMessageDateTimeMax.slice(5, 7);    
+    var yearMax = acarsMessageDateTimeMax.slice(0, 4);
+    
+
+    const onMouseLeave1 =(e)=>{
+        e.preventDefault();
+        const isValid1 = dateValidation1();
+    }
+    
+    const onMouseLeave2 =(e)=>{
+        e.preventDefault();
+        const isValid2 = dateValidation2();
+    }
+
+    const dateValidation1 = () =>{
+        const dateFromErr = {};        
+        let isValid1 = true;
+
+        if(yearMin=='' || monthMin=='' || dayMin=='' || hoursMin=='' || minutesMin=='' ){
+            dateFromErr.dateFromInvalid = "Please enter complete date & time or use DatePicker ↑";
+            isValid1 = false;
+        } 
+
+        setDateFromErr(dateFromErr);        
+        return isValid1;
+    }
+    const dateValidation2 = () =>{
+        
+        const dateToErr = {};
+        let isValid2 = true;
+
+        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' || minutesMax=='' ){
+            dateToErr.dateToInvalid = "Please enter complete date & time or use DatePicker ↑";
+            isValid2 = false;
+        }         
+        setDateToErr(dateToErr);
+        return isValid2;
+    }
+
+    
+
     const resetSearchHandler = () => {        
         setTimestampMin("");
         setTimestampMax("");
@@ -63,7 +117,9 @@ const  SearchAKRxElement = (props) => {
         setEnd("");
         setAcarsMessageDateTimeMin("");
         setAcarsMessageDateTimeMax("");
-        props.clickedReset();
+        setDateFromErr({});
+        setDateToErr({});
+        props.clickedReset();        
     };    
 
     const timeStampMinInputConfig = {
@@ -192,9 +248,12 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {acarsMessageDateTimeMinInputConfig} 
                                         toggle="tooltip"
                                         placement="right"
-                                        title="FROM DATE & TIME"                                              
+                                        title="FROM DATE & TIME"
+                                        onMouseLeave={onMouseLeave1}                                              
                                     />
-                                    
+                                    {Object.keys(dateFromErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateFromErr[key]}</div>
+                                    })}
                                 </InputGroup>
                                 </div>
                                 <div className={classes.dateTime}>
@@ -213,9 +272,12 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {acarsMessageDateTimeMaxInputConfig}
                                         toggle="tooltip"
                                         placement="right"
-                                        title="TO DATE & TIME"                                              
+                                        title="TO DATE & TIME"
+                                        onMouseLeave={onMouseLeave2}                                              
                                     />
-                                    
+                                    {Object.keys(dateToErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateToErr[key]}</div>
+                                    })}
                                 </InputGroup>
                                 </div>
                                 <InputGroup className="mb-3 input-group-sm">
