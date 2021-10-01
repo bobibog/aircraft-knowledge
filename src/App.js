@@ -37,7 +37,9 @@ function App() {
       <Route path="/airlines" component={Airlines} />      
       <Route path="/auth" component={Auth} />      
       <Route path="/logout" component={Logout} />    
-      <Redirect from="/" exact to="/airlines" />
+      {/* <Redirect from="/" exact to="/airlines" /> */}
+      <Route path="/akrx" component={AKRx} />
+      <Redirect from="/" exact to="/akrx" />
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
   );
@@ -53,7 +55,7 @@ function App() {
         {/* <Route path="/flights" component={Flights} /> */}
         {/* <Route path="/airlines/:iataIcao" component={Aircrafts} /> */}
 
-        <Route path="/administrator" component={Administrator} />                     
+        {/* <Route path="/administrator" component={Administrator} />                      */}
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
