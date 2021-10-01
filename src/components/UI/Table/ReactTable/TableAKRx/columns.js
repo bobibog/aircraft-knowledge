@@ -5,7 +5,7 @@ export const COLUMNS = [
     {
         Header: "Message Time",
         accessor: "acarsMessageDateTime",        
-        Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy hh:mm:ss")}
+        Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
     },
     {
         Header: "Tail",
@@ -17,7 +17,8 @@ export const COLUMNS = [
     },
     {
         Header: "Text",
-        accessor: "text"
+        accessor: "text",
+        Cell: ({ value }) => { return JSON.stringify(value, null, '')}
     },
     {
         Header: "Frequency",

@@ -41,6 +41,58 @@ const  SearchAKRxElement = (props) => {
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
 
+    // DATE-TIME input VALIDATION
+    const[dateFromErr, setDateFromErr] = useState({});
+    const[dateToErr, setDateToErr] = useState({});
+
+    var hoursMin = acarsMessageDateTimeMin.slice(11, 13);    
+    var minutesMin = acarsMessageDateTimeMin.slice(14, 16);   
+    var dayMin = acarsMessageDateTimeMin.slice(8, 10);    
+    var monthMin = acarsMessageDateTimeMin.slice(5, 7);    
+    var yearMin = acarsMessageDateTimeMin.slice(0, 4);
+
+    var hoursMax = acarsMessageDateTimeMax.slice(11, 13);    
+    var minutesMax = acarsMessageDateTimeMax.slice(14, 16);   
+    var dayMax = acarsMessageDateTimeMax.slice(8, 10);    
+    var monthMax = acarsMessageDateTimeMax.slice(5, 7);    
+    var yearMax = acarsMessageDateTimeMax.slice(0, 4);
+    
+
+    const onBlur1 =(e)=>{
+        e.preventDefault();
+        const isValid1 = dateValidation1();
+    }
+    
+    const onBlur2 =(e)=>{
+        e.preventDefault();
+        const isValid2 = dateValidation2();
+    }    
+
+    const dateValidation1 = () =>{
+        const dateFromErr = {};        
+        let isValid1 = true;
+
+        if(yearMin=='' || monthMin=='' || dayMin=='' || hoursMin=='' || minutesMin=='' ){
+            dateFromErr.dateFromInvalid = "Please enter complete date & time or use DatePicker ↑";
+            isValid1 = false;
+        } 
+
+        setDateFromErr(dateFromErr);        
+        return isValid1;
+    }
+    const dateValidation2 = () =>{
+        
+        const dateToErr = {};
+        let isValid2 = true;
+
+        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' || minutesMax=='' ){
+            dateToErr.dateToInvalid = "Please enter complete date & time or use DatePicker ↑";
+            isValid2 = false;
+        }         
+        setDateToErr(dateToErr);
+        return isValid2;
+    }    
+
     const resetSearchHandler = () => {        
         setTimestampMin("");
         setTimestampMax("");
@@ -63,7 +115,9 @@ const  SearchAKRxElement = (props) => {
         setEnd("");
         setAcarsMessageDateTimeMin("");
         setAcarsMessageDateTimeMax("");
-        props.clickedReset();
+        setDateFromErr({});
+        setDateToErr({});
+        props.clickedReset();        
     };    
 
     const timeStampMinInputConfig = {
@@ -167,6 +221,21 @@ const  SearchAKRxElement = (props) => {
     };
 
     const changer=0;
+
+    const onSerach = (e) =>{
+        props.clickedSearch(timestampMin, timestampMax,
+            stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax);
+        setFilter('a');
+        toggleDropdown();
+        props.allChanger(changer);
+    };
+
+    const onReset =(e)=>{
+        resetSearchHandler();
+        setFilter('');
+        toggleDropdown();
+    };
                    
     return (
         <div className={classes.container}> 
@@ -187,14 +256,17 @@ const  SearchAKRxElement = (props) => {
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>setAcarsMessageDateTimeMin(e.target.value)}
+                                        changed={(e)=>(setAcarsMessageDateTimeMin(e.target.value))}                                        
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMinInputConfig} 
                                         toggle="tooltip"
                                         placement="right"
-                                        title="FROM DATE & TIME"                                              
+                                        title="FROM DATE & TIME"
+                                        onBlur={onBlur1}                                              
                                     />
-                                    
+                                    {Object.keys(dateFromErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateFromErr[key]}</div>
+                                    })}
                                 </InputGroup>
                                 </div>
                                 <div className={classes.dateTime}>
@@ -213,9 +285,12 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {acarsMessageDateTimeMaxInputConfig}
                                         toggle="tooltip"
                                         placement="right"
-                                        title="TO DATE & TIME"                                              
+                                        title="TO DATE & TIME"
+                                        onBlur={onBlur2}                                              
                                     />
-                                    
+                                    {Object.keys(dateToErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateToErr[key]}</div>
+                                    })}
                                 </InputGroup>
                                 </div>
                                 <InputGroup className="mb-3 input-group-sm">
@@ -496,19 +571,21 @@ const  SearchAKRxElement = (props) => {
                             </div>
                             <div className={classes.buttonBox}>
                             <ButtonBordered 
-                                clicked={() => (props.clickedSearch(timestampMin, timestampMax,
-                                    stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-                                    flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
+                                //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+                                //     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                clicked={onSerach}
                                 btnType="Success"
-                                mouseDown={(e)=>setFilter('a')}  
-                                mouseLeave={(e)=>toggleDropdown()} 
-                                onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
+                                //mouseDown={(e)=>setFilter('a')}  
+                                //mouseLeave={(e)=>toggleDropdown()} 
+                                //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
-                                clicked={resetSearchHandler}
+                                //clicked={resetSearchHandler}
+                                clicked={onReset}
                                 btnType="Secondary"
-                                mouseDown={(e)=>setFilter('')} 
-                                mouseLeave={(e)=>toggleDropdown()}  
+                                //mouseDown={(e)=>setFilter('')} 
+                                //mouseLeave={(e)=>toggleDropdown()}  
                             >RESET</ButtonBordered>
                             </div>
                         </div>

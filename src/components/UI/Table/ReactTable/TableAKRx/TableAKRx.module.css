@@ -7,8 +7,22 @@ body {
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: customFont;
+    src: local(Arial Unicode MS);
+}
+
+
+/* @font-face {
+    font-family: customFont;
+    src: url('tt0596m0-webfont.eot');
+    src: url('tt0596m0-webfont.eot?#iefix') format('embedded-opentype'), url('tt0596m0-webfont.woff') format('woff'), url('tt0596m0-webfont.ttf') format('truetype'), url('tt0596m0-webfont.svg#custom-font') format('svg');
+    unicode-range: U+370-FFFF;
+} */
+
 .table {
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'custom-font', Arial Unicode MS, Arial, verdana;
     border-collapse: collapse;
     width: 100%;
     font-size: 14px;

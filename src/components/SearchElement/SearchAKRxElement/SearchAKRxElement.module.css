@@ -73,7 +73,7 @@
     z-index: 4;
     white-space: normal;
     word-break: break-all;
-    margin-left: -1390px;
+    margin-left: 5px;
     margin-top: -2px;
 }
 
@@ -106,38 +106,17 @@
         border-radius: 0px 0px 0px 0px;
     }
     .Drop {
-        margin-left: -1115px;
-    }
-}
-
-@media only screen and (max-width: 1295px) {
-    .Drop {
-        margin-left: -1015px;
-    }
-}
-
-@media only screen and (max-width: 1198px) {
-    .Drop {
-        margin-left: -915px;
-    }
-}
-
-@media only screen and (max-width: 1108px) {
-    .Drop {
-        margin-left: -825px;
-    }
-}
-
-@media only screen and (max-width: 1008px) {
-    .Drop {
-        margin-left: -725px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
 }
 
 @media only screen and (max-width: 908px) {
-    .Drop {
-        margin-left: -655px;
-    }
     .bar {
         margin-right: -95px;
     }
@@ -151,6 +130,15 @@
     .card {
         width: 450px;
         border-radius: 0px 0px 0px 0px;
+    }
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .dropdownShow {
         background-color: #0062cc;
@@ -167,7 +155,13 @@
 
 @media only screen and (max-width: 864px) {
     .Drop {
-        margin-left: -605px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -95px;
@@ -198,7 +192,13 @@
 
 @media only screen and (max-width: 785px) {
     .Drop {
-        margin-left: -565px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -229,7 +229,13 @@
 
 @media only screen and (max-width: 785px) {
     .Drop {
-        margin-left: -565px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -260,7 +266,13 @@
 
 @media only screen and (max-width: 785px) {
     .Drop {
-        margin-left: -465px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -291,7 +303,13 @@
 
 @media only screen and (max-width: 650px) {
     .Drop {
-        margin-left: -365px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -322,7 +340,13 @@
 
 @media only screen and (max-width: 550px) {
     .Drop {
-        margin-left: -265px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -360,7 +384,13 @@
 
 @media only screen and (max-width: 450px) {
     .Drop {
-        margin-left: -185px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -391,7 +421,13 @@
 
 @media only screen and (max-width: 362px) {
     .Drop {
-        margin-left: -135px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -422,7 +458,13 @@
 
 @media only screen and (max-width: 315px) {
     .Drop {
-        margin-left: -45px;
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
     }
     .bar {
         margin-right: -75px;
@@ -452,9 +494,6 @@
 }
 
 @media only screen and (max-width: 220px) {
-    .Drop {
-        margin-left: -5px;
-    }
     .bar {
         margin-right: -75px;
     }

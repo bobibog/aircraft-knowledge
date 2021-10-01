@@ -1,7 +1,6 @@
 import React, {useEffect, useContext} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-//import logo from './logo.svg';
 import './App.css';
 import Layout from './hoc/Layout/Layout';
 import Administrator from './containers/Administrator/Administrator';
@@ -53,6 +52,7 @@ function App() {
         <Route path="/flights/:id" component={Flights} />
         {/* <Route path="/flights" component={Flights} /> */}
         {/* <Route path="/airlines/:iataIcao" component={Aircrafts} /> */}
+
         <Route path="/administrator" component={Administrator} />                     
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />
