@@ -58,15 +58,15 @@ const  SearchAKRxElement = (props) => {
     var yearMax = acarsMessageDateTimeMax.slice(0, 4);
     
 
-    const onMouseLeave1 =(e)=>{
+    const onBlur1 =(e)=>{
         e.preventDefault();
         const isValid1 = dateValidation1();
     }
     
-    const onMouseLeave2 =(e)=>{
+    const onBlur2 =(e)=>{
         e.preventDefault();
         const isValid2 = dateValidation2();
-    }
+    }    
 
     const dateValidation1 = () =>{
         const dateFromErr = {};        
@@ -91,9 +91,7 @@ const  SearchAKRxElement = (props) => {
         }         
         setDateToErr(dateToErr);
         return isValid2;
-    }
-
-    
+    }    
 
     const resetSearchHandler = () => {        
         setTimestampMin("");
@@ -223,6 +221,21 @@ const  SearchAKRxElement = (props) => {
     };
 
     const changer=0;
+
+    const onSerach = (e) =>{
+        props.clickedSearch(timestampMin, timestampMax,
+            stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax);
+        setFilter('a');
+        toggleDropdown();
+        props.allChanger(changer);
+    };
+
+    const onReset =(e)=>{
+        resetSearchHandler();
+        setFilter('');
+        toggleDropdown();
+    };
                    
     return (
         <div className={classes.container}> 
@@ -243,13 +256,13 @@ const  SearchAKRxElement = (props) => {
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>setAcarsMessageDateTimeMin(e.target.value)}
+                                        changed={(e)=>(setAcarsMessageDateTimeMin(e.target.value))}                                        
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMinInputConfig} 
                                         toggle="tooltip"
                                         placement="right"
                                         title="FROM DATE & TIME"
-                                        onMouseLeave={onMouseLeave1}                                              
+                                        onBlur={onBlur1}                                              
                                     />
                                     {Object.keys(dateFromErr).map((key)=>{
                                         return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateFromErr[key]}</div>
@@ -273,7 +286,7 @@ const  SearchAKRxElement = (props) => {
                                         toggle="tooltip"
                                         placement="right"
                                         title="TO DATE & TIME"
-                                        onMouseLeave={onMouseLeave2}                                              
+                                        onBlur={onBlur2}                                              
                                     />
                                     {Object.keys(dateToErr).map((key)=>{
                                         return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateToErr[key]}</div>
@@ -558,19 +571,21 @@ const  SearchAKRxElement = (props) => {
                             </div>
                             <div className={classes.buttonBox}>
                             <ButtonBordered 
-                                clicked={() => (props.clickedSearch(timestampMin, timestampMax,
-                                    stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-                                    flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
+                                //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+                                //     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                clicked={onSerach}
                                 btnType="Success"
-                                mouseDown={(e)=>setFilter('a')}  
-                                mouseLeave={(e)=>toggleDropdown()} 
-                                onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
+                                //mouseDown={(e)=>setFilter('a')}  
+                                //mouseLeave={(e)=>toggleDropdown()} 
+                                //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
-                                clicked={resetSearchHandler}
+                                //clicked={resetSearchHandler}
+                                clicked={onReset}
                                 btnType="Secondary"
-                                mouseDown={(e)=>setFilter('')} 
-                                mouseLeave={(e)=>toggleDropdown()}  
+                                //mouseDown={(e)=>setFilter('')} 
+                                //mouseLeave={(e)=>toggleDropdown()}  
                             >RESET</ButtonBordered>
                             </div>
                         </div>

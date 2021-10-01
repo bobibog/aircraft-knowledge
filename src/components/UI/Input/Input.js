@@ -20,6 +20,7 @@ const input = ( props ) => {
                 onKeyUp={props.onKeyUp}
                 onMouseLeave={props.onMouseLeave}
                 title={props.title}
+                onBlur={props.onBlur}
                 />;
             break;
         case ( 'textarea' ):
