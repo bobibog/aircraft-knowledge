@@ -17,7 +17,8 @@ export const COLUMNS = [
     },
     {
         Header: "Text",
-        accessor: "text"
+        accessor: "text",
+        Cell: ({ value }) => { return JSON.stringify(value, null, '')}
     },
     {
         Header: "Frequency",
