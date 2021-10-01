@@ -1,0 +1,21 @@
+.listGroup {
+    margin-top: 55px;
+    width: 920px;
+    margin-left: 250px;
+}
+
+@media (max-width:500px) {
+    .listGroup {
+        width: 400px;
+        margin-left: 15px;
+    }
+}
+
+.listGroupItem {
+    flex-direction: row;
+    padding-top: 5px;
+}
+
+.commands {
+    padding-top: 5px;
+}

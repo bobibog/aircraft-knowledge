@@ -15,16 +15,16 @@ const Auth = props => {
 // state = {
 //     controls: {
     const [authForm, setAuthForm] = useState({
-        email: {
+        username: {
             elementType: 'input',
             elementConfig: {
-                type: 'email',
-                placeholder: 'Mail Address'
+                type: 'text',
+                placeholder: 'Username'
             },
             value: '',
             validation: {
                 required: true,
-                isEmail: true
+                isUsername: true
             },
             valid: false,
             touched: false
@@ -61,14 +61,21 @@ const Auth = props => {
         // this.setState( { controls: updatedControls } );
     }
 
+    // const submitHandler = ( event ) => {
+    //     event.preventDefault();
+    //     authContext.authenticate( authForm.username.value, authForm.password.value, isRegistration );
+    // }
+
+    // const switchAuthModeHandler = () => {
+    //     setIsRegistration(!isRegistration);
+    // }
+
     const submitHandler = ( event ) => {
         event.preventDefault();
-        authContext.authenticate( authForm.email.value, authForm.password.value, isRegistration );
+        authContext.authenticate( authForm.username.value, authForm.password.value);
     }
 
-    const switchAuthModeHandler = () => {
-        setIsRegistration(!isRegistration);
-    }
+    
 
     const formElementsArray = [];
     for ( let key in authForm ) {
@@ -124,11 +131,13 @@ const Auth = props => {
             {errorMessage}
             <form onSubmit={submitHandler}>
                 {form}
-                <Button btnType="Success">SUBMIT</Button>
+                <Button btnType="Success">LOG IN</Button>
             </form>
-            <Button
-                clicked={switchAuthModeHandler}
-                btnType="Danger">SWITCH TO {isRegistration ? 'SIGN IN' : 'REGISTER'}</Button>
+            {/* <Button
+                // clicked={switchAuthModeHandler}
+                // btnType="Danger">SWITCH TO {isRegistration ? 'SIGN IN' : 'REGISTER'}
+                btnType="Danger">SIGN IN
+            </Button> */}
         </div>
     );
 }
