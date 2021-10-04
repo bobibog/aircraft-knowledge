@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import {getApiModelPropValue} from '../../../shared/utility'
 import { AutoSizer } from 'react-virtualized';
+import zIndex from '@material-ui/core/styles/zIndex';
 
 const CardsInBox = (props) => {
     const useStyles = makeStyles({
@@ -22,7 +23,9 @@ const CardsInBox = (props) => {
         //     },
         // },
         rootCard: {
-            width: 150,
+            //width: 150,
+            // position: "-webkit-sticky",
+            // position:"sticky",
             //height: 40,
             //display: 'flex',
             // flexGrow: 1,
@@ -50,8 +53,12 @@ const CardsInBox = (props) => {
             width: '100%' ,           
             backgroundColor: props.backColor,
             border: 'none',
+            //position: "-webkit-sticky",
+            //position:"sticky",
             //boxShadow: '1px 1px 1px black',
             //color: 'white',
+            position: 'fixed',
+            zIndex:'6'
         },
         rootTypography: {
             display: 'block',

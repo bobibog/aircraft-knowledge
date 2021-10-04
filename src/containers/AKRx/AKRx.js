@@ -58,16 +58,41 @@ const Akrx = props => {
     const[end, setEnd] = useState('');
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const[attachments, setAttachments] = useState('');
+    const[etag, setEtag] = useState('');
+    const[rid, setRid]= useState('');
+    const[self, setSelf]= useState('');
+    const[tsMin, setTsMin]=useState('');
+    const[tsMax, setTsMax]=useState('');
+    const[altMin, setAltMin]=useState('');
+    const[altMax, setAltMax]=useState('');
+    const[dsta, setDsta]=useState('');
+    const[icao, setIcao]=useState('');
+    const[isOnground, setIsOnground]=useState('');
+    const[isResponse, setIsResponse]=useState('');
+    const[latMin, setLatMin]=useState('');
+    const[latMax, setLatMax]=useState('');
+    const[lonMin, setLonMin]=useState('');
+    const[lonMax, setLonMax]=useState('');
+    const[partitionKey, setPartitionKey]=useState('');
+    const[toAddr, setToAddr]=useState('');
+    const[type, setType]=useState('');
 
     const dispatch = useDispatch();
     
     const onFetchAkrx = useCallback(
         () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, attachments,
+            etag, rid, self, tsMin, tsMax, altMin, altMax, dsta, icao,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, partitionKey,
+            toAddr, type))
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax]
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, attachments,
+            etag, rid, self, tsMin, tsMax, altMin, altMax, dsta, icao,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, partitionKey,
+            toAddr, type]
     );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
@@ -84,7 +109,10 @@ const Akrx = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (timestampMin, timestampMax,
         stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-        flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {  
+        flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax,attachments,
+        etag, rid, self, tsMin, tsMax, altMin, altMax, dsta, icao,
+        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, partitionKey,
+        toAddr, type) => {  
         onSetAkrxOffsetLimit(0, limit);
         onSetAkrxPage(0);
         setTimestampMin(timestampMin);
@@ -107,7 +135,26 @@ const Akrx = props => {
         setText(text);
         setEnd(end);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);         
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);    
+        setAttachments(attachments);
+        setEtag(etag);
+        setRid(rid);
+        setSelf(self);
+        setTsMin(tsMin);
+        setTsMax(tsMax);
+        setAltMin(altMin);
+        setAltMax(altMax);
+        setDsta(dsta);
+        setIcao(icao);
+        setIsOnground(isOnground);
+        setIsResponse(isResponse);
+        setLatMin(latMin);
+        setLatMax(latMax);
+        setLonMin(lonMin);
+        setLonMax(lonMax);
+        setPartitionKey(partitionKey);
+        setToAddr(toAddr);
+        setType(type);
     };
     
     
@@ -134,8 +181,27 @@ const Akrx = props => {
         setText("");
         setEnd("");
         setAcarsMessageDateTimeMin("");
-        setAcarsMessageDateTimeMax("");
-        setAllOption(0);          
+        setAcarsMessageDateTimeMax("");        
+        setAttachments("");
+        setEtag("");
+        setRid("");
+        setSelf("");
+        setTsMin("");
+        setTsMax("");
+        setAltMin("");
+        setAltMax("");
+        setDsta("");
+        setIcao("");
+        setIsOnground("");
+        setIsResponse("");
+        setLatMin("");
+        setLatMax("");
+        setLonMin("");
+        setLonMax("");
+        setPartitionKey("");
+        setToAddr("");
+        setType("");    
+        setAllOption(0);    
     };    
        
     useEffect(() => { 

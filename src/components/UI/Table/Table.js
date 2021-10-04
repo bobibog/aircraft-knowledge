@@ -36,6 +36,7 @@ const TableCustom = (props) => {
         table: {            
             tableLayout: 'fixed',
             width: '100%', 
+            marginTop:'90px'
             
         }, 
         cell:{

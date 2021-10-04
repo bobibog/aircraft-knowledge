@@ -285,37 +285,95 @@ export const akrxHeader = [
     {
         name: "Level",
         prop: "level"
-      },
-      {
+    },
+    {
         name: "Error",
         prop: "error"
-      },
-      {
+    },
+    {
         name: "Mode",
         prop: "mode"
-      },
-      {
+    },
+    {
         name: "Label",
         prop: "label"
-      },
-      {
+    },
+    {
         name: "Block ID",
         prop: "blockId"
-      },
-      {
+    },
+    {
         name: "Ack",
         prop: "ack"
-      },      
-      
-      {
+    },     
+    {
         name: "Mesage Num.",
         prop: "msgno"
-      },
-      
-      {
+    },      
+    {
         name: "End",
         prop: "end"
-      }
+    },
+    {
+        name: "Attachments",
+        prop:"_attachments"
+    },
+    {
+        name: "Etag",
+        prop: "_etag"
+    },
+    {
+        name:"Rid",
+        prop: "_rid"
+    },
+    {
+        name: "Self",
+        prop: "_self"
+    },
+    {
+        name: "Ts",
+        prop: "_ts"
+    },
+    {
+        name: "Altitude",
+        prop:"alt"
+    },
+    {
+        name:"Dsta",
+        prop:"dsta"
+    },
+    {
+        name: "Icao",
+        prop:"icao"
+    },
+    {
+        name:"Is on Ground",
+        prop:"is_onground"
+    },
+    {
+        name:"Is Response",
+        prop:"is_response"
+    },
+    {
+        name:"Latitude",
+        prop:"lat"
+    },
+    {
+        name:"Longitude",
+        prop:"lon"
+    },
+    {
+        name:"Partition Key",
+        prop:"partition_key"
+    },
+    {
+        name:"To Addr",
+        prop:"toaddr"
+    },
+    {
+        name:"Message Type",
+        prop: "type"
+    }
       
 ];
 
@@ -331,7 +389,12 @@ export const crudUserHeader = [
     {
       name: "Role",
       prop: "role"
+    },
+    {
+        name:"DELETE",
+        type:"button"
     }
+    
 ];
 
 export const airlinesInit = [

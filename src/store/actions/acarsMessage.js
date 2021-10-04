@@ -42,7 +42,10 @@ export const fetchAkrxStart = () => {
 
 export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-    flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {
+    flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax,attachments,
+    etag, rid, self, tsMin, tsMax, altMin, altMax, dsta, icao,
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, partitionKey,
+    toAddr, type) => {
     return dispatch => {
         dispatch(fetchAkrxStart());       
         
@@ -79,6 +82,25 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         query.append('end', end);
         query.append('acarsMessageDateTimeMin', acarsMINUtc);
         query.append('acarsMessageDateTimeMax', acarsMAXUtc);
+        query.append('attachments', attachments);
+        query.append('etag',etag);
+        query.append('rid', rid);
+        query.append('self', self);
+        query.append('tsMin', tsMin);
+        query.append('tsMax',tsMax);
+        query.append('altMin', altMin);
+        query.append('altMax', altMax);
+        query.append('dsta', dsta);
+        query.append('icao', icao);
+        query.append('isOnground', isOnground);
+        query.append('isResponse',isResponse);
+        query.append('latMin', latMin);
+        query.append('latMax', latMax);
+        query.append('lonMin',lonMin);
+        query.append('lonMax', lonMax);
+        query.append('partitionKey', partitionKey);
+        query.append('toAddr', toAddr);
+        query.append('type',type);
         query.append('offset', offset);
         query.append('limit', limit);     
 

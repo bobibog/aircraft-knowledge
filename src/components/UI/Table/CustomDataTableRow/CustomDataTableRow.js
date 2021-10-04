@@ -158,7 +158,8 @@ const CustomDataTableRow = (props) => {
                                 "jul", "aug", "sep", "oct", "nov", "dec"
                             ];
                             apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear()+" / "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-                        } else if (apiModelHeaderColumn.type === "timespan") {
+                        } 
+                        else if (apiModelHeaderColumn.type === "timespan") {
                             if (apiModelPropValue.value) {
                                 let minutes = apiModelPropValue.value.minutes;
                                 if (minutes < 10) {
@@ -169,7 +170,20 @@ const CustomDataTableRow = (props) => {
                                     }                                    
                                 }
                                 apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;                                
-                            } else {
+                        }
+                        // else if (apiModelHeaderColumn.type === "button") {
+                        //     if (apiModelPropValue.value) {
+                        //         let minutes = apiModelPropValue.value.minutes;
+                        //         if (minutes < 10) {
+                        //             if (minutes !== 0) {
+                        //                 minutes = "0" + minutes;
+                        //             } else {
+                        //                 minutes = "00";
+                        //             }                                    
+                        //         }
+                        //         apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;                                
+                        // }
+                        else {
                                 apiModelPropValue = "-"    
                             }
                         }            
