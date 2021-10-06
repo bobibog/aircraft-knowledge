@@ -8,3 +8,7 @@ a:active,
 a.active {
     color: rgb(0, 112, 192);
 }
+
+.iconTrash {
+    color: red;
+}

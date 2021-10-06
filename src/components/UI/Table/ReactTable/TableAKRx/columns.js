@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import moment from 'moment';
 
 
+
 function replacer(key, value) {
     // Filtering out properties
     if (value === null) {
@@ -12,9 +13,12 @@ function replacer(key, value) {
 
 export const COLUMNS = [
     {
-        Header: "Message Time",
-        accessor: "acarsMessageDateTime",        
-        Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
+        Header: "UTC Date/Time",
+        accessor: "acarsMessageDateTime", 
+        // Local Date Time       
+        //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
+        //UTC
+        Cell: ({ value }) => { return JSON.stringify(value, null, 2).replace(/T/g, ' ').substring(1,20)}
     },
     {
         Header: "Tail",
@@ -27,7 +31,8 @@ export const COLUMNS = [
     {
         Header: "Text",
         accessor: "text",
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '')}        
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '')},
+        
     },
     {
         Header: "Frequency",
@@ -76,33 +81,13 @@ export const COLUMNS = [
     {
         Header: "End",
         accessor: "end"
-    },
-    {
-        Header:"Attachments",
-        accessor:"attachments"
-    },
-    {
-        Header: "Etag",
-        accessor: "etag"
-    },
-    {
-        Header:"Rid",
-        accessor: "rid"
-    },
-    {
-        Header: "Self",
-        accessor: "self"
-    },
-    {
-        Header: "Ts",
-        accessor: "ts"
-    },
+    },    
     {
         Header: "Altitude",
         accessor:"alt"
     },
     {
-        Header:"Dsta",
+        Header:"Destination Airport",
         accessor:"dsta"
     },
     {
@@ -124,11 +109,7 @@ export const COLUMNS = [
     {
         Header:"Longitude",
         accessor:"lon"
-    },
-    {
-        Header:"Partition Key",
-        accessor:"partition_key"
-    },
+    },    
     {
         Header:"To Addr",
         accessor:"toaddr"

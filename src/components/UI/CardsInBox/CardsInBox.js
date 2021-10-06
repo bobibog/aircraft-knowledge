@@ -23,17 +23,12 @@ const CardsInBox = (props) => {
         //     },
         // },
         rootCard: {
-            //width: 150,
-            // position: "-webkit-sticky",
-            // position:"sticky",
-            //height: 40,
-            //display: 'flex',
-            // flexGrow: 1,
+            
             borderBottom: 'none',            
             border: 'none',
             boxShadow: 'none',
             backgroundColor: props.backColor,
-            //color: 'white',
+                        
         },
         rootCardContent: {
             padding: 2,
@@ -58,7 +53,8 @@ const CardsInBox = (props) => {
             //boxShadow: '1px 1px 1px black',
             //color: 'white',
             position: 'fixed',
-            zIndex:'6'
+            zIndex:'6',
+            marginTop:'-2px'
         },
         rootTypography: {
             display: 'block',

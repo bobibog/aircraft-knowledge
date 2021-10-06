@@ -249,7 +249,7 @@ export const flightHeader = [
 
 export const akrxHeader = [
     {
-        name: "Message Time",
+        name: "UTC Date/Time",
         prop: "acarsMessageDateTime",        
         type:"datetime"
     },
@@ -313,27 +313,7 @@ export const akrxHeader = [
     {
         name: "End",
         prop: "end"
-    },
-    {
-        name: "Attachments",
-        prop:"_attachments"
-    },
-    {
-        name: "Etag",
-        prop: "_etag"
-    },
-    {
-        name:"Rid",
-        prop: "_rid"
-    },
-    {
-        name: "Self",
-        prop: "_self"
-    },
-    {
-        name: "Ts",
-        prop: "_ts"
-    },
+    },    
     {
         name: "Altitude",
         prop:"alt"
@@ -361,11 +341,7 @@ export const akrxHeader = [
     {
         name:"Longitude",
         prop:"lon"
-    },
-    {
-        name:"Partition Key",
-        prop:"partition_key"
-    },
+    },    
     {
         name:"To Addr",
         prop:"toaddr"

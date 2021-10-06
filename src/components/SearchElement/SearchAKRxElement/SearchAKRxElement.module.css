@@ -7,9 +7,10 @@
     height: 45px;
     padding-top: 5px;
     padding-bottom: 5px;
-    /* background-color: rgb(167, 229, 231); */
     padding-left: 10px;
-    margin-top: 45px;
+    position: fixed;
+    left: 155px;
+    z-index: 9;
 }
 
 .card {
@@ -17,13 +18,13 @@
     opacity: 0.99;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-left: 2px;
-    width: 297px;
+    margin-right: 2px;
+    width: 300px;
     border-radius: 5px 5px 0px 0px;
 }
 
 .bar {
-    margin-right: -75px;
+    margin-right: -70px;
 }
 
 .inputGroup {
@@ -87,7 +88,7 @@
     margin-top: -12px;
     margin-bottom: -7px;
     border-radius: 0 5px 5px 5px;
-    width: 1260px;
+    width: 1160px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
