@@ -15,6 +15,7 @@ import Logout from './containers/Auth/Logout/Logout';
 import {AuthContext} from './context/auth-context';
 import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
+//some dummy comment
 
 function App() {
   const authContext = useContext(AuthContext);
