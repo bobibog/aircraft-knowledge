@@ -8,9 +8,10 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
-    position: fixed;
+    position: absolute;
     left: 25px;
     z-index: 9;
+    margin-top: 4.5px;
 }
 
 .card {

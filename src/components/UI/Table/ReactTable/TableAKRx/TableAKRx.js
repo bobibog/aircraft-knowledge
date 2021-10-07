@@ -31,8 +31,7 @@ const Styles = styled.div`
     width: 100%;
     font-size: 14px;
     margin-top: 18px;
-    ${'' /* z-index: 12;  */}
-    
+    ${'' /* z-index: 12;      */}
     position: relative;
     
 
@@ -46,9 +45,10 @@ const Styles = styled.div`
       ${'' /* These styles are required for a scrollable table body */}
       overflow-y: scroll;
       overflow-x: auto;
-      height: 750px;
+      height: 740px;
       display: block;
-      text-align: left;      
+      text-align: left;
+      background: white;      
     }
 
     .tr {
@@ -108,6 +108,12 @@ const Styles = styled.div`
         }
       }
     }
+
+    @media only screen and (max-height: 900px) {
+    .tbody {
+        height: 520px;
+    }
+}
   }
 `
 

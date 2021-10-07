@@ -54,7 +54,7 @@ const CardsInBox = (props) => {
             //color: 'white',
             position: 'fixed',
             zIndex:'6',
-            marginTop:'-2px'
+            // marginTop:'-5px'
         },
         rootTypography: {
             display: 'block',

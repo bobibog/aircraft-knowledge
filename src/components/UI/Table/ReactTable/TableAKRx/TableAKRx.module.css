@@ -120,17 +120,17 @@ body {
 }
 
 .excelBtn {
-    position: fixed;
+    position: absolute;
     right: 15px;
     z-index: 9;
-    margin-top: -5px;
+    margin-top: 0px;
 }
 
 .drop {
-    position: fixed;
+    position: absolute;
     right: 255px;
     z-index: 9;
-    margin-top: -5px;
+    margin-top: 0px;
 }
 
 @media only screen and (max-width: 640px) and (orientation: portrait) {
