@@ -22,7 +22,7 @@ const Styles = styled.div`
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
   ${'' /* display: block; */}
   ${'' /* These styles are required for a horizontaly scrollable table overflow */}
-  ${'' /* overflow: auto; */}
+  overflow: auto;
 
   .table {
     border-spacing: 0;    
@@ -30,30 +30,31 @@ const Styles = styled.div`
     border-collapse: collapse;
     width: 100%;
     font-size: 14px;
-    margin-top: 22px;
+    margin-top: 18px;
     ${'' /* z-index: 12;  */}
-    text-align: left;
+    
     position: relative;
     
 
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
       overflow-y: auto;
-      overflow-x: hidden;
+      overflow-x: auto;      
     }
 
     .tbody {
       ${'' /* These styles are required for a scrollable table body */}
       overflow-y: scroll;
-      overflow-x: hidden;
+      overflow-x: auto;
       height: 750px;
       display: block;
+      text-align: left;      
     }
 
     .tr {
       :last-child {
         .td {
-          border-bottom: 0;
+          border-bottom: 1px solid grey;
         }
       }
       border-bottom: 1px solid grey;
@@ -65,9 +66,10 @@ const Styles = styled.div`
         text-align: center;
         background-color: #007bff;
         color: white;
-        position: sticky;        
-        font-size:14px;      
-    }
+        position: sticky;                
+        font-size:14px; 
+        top:0;     
+    }    
 
     .th,
     .td {
@@ -76,9 +78,12 @@ const Styles = styled.div`
       border-right: 1px solid black;
       border: 1px solid #ddd;
       padding: 12px;
-      max-width: 1120px;
-      overflow-wrap: break-word;
-      text-overflow: ellipsis;     
+      width: 180px;
+      word-wrap: break-word;
+      ${'' /* -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;      */}
       position: relative;
 
       :last-child {
@@ -145,14 +150,14 @@ const TableAKRx = (props) => {
           minWidth: 50, // minWidth is only used as a limit for resizing
           width: 180, // width is used for both the flex-basis and flex-grow
           maxWidth: 1120, // maxWidth is only used as a limit for resizing
-                    
+          wordWrap: 'break-all'  ,
+          whiteSpace: 'normal'      
         }),
         []
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
-    const columns = useMemo(()=> COLUMNS, []);
-    
+    const columns = useMemo(()=> COLUMNS, []);    
     
     const data = useMemo(()=> props.data, []);    
     const [pageInd, setPage] = useState(props.currPage);
@@ -224,20 +229,20 @@ const TableAKRx = (props) => {
     //       minWidth: 35,
     //       width: 35,
     //       maxWidth: 35,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-        //   Header: ({ getToggleAllRowsSelectedProps }) => (
-        //     <div>
-        //       <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-        //     </div>
-        //   ),
-        //   // The cell can use the individual row's getToggleRowSelectedProps method
-        //   // to the render a checkbox
-        //   Cell: ({ row }) => (
-        //     <div>
-        //       <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-        //     </div>
-        //   ),
+    //       //The header can use the table's getToggleAllRowsSelectedProps method
+    //       //to render a checkbox
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
     //     },
     //     ...columns,
     //   ])
@@ -246,7 +251,7 @@ const TableAKRx = (props) => {
     //     const selectionGroupHeader = headerGroups[0].headers[0]
     //     selectionGroupHeader.canResize = false
     //   })
-    //}
+    // }
     );
     
         
