@@ -184,7 +184,7 @@ const Akrx = props => {
         
     const akrxPageHeader =
         <CardsInBox
-            headerText="ACARS Messages"
+            // headerText="ACARS Messages"
             backColor="#F0F8FF" 
             
         />; 
