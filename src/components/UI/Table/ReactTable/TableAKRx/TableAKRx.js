@@ -28,7 +28,7 @@ const Styles = styled.div`
     border-spacing: 0;    
     font-family: 'custom-font', Arial Unicode MS, Arial, verdana;
     border-collapse: collapse;
-    width: 100%;
+    width: auto;
     font-size: 14px;
     margin-top: 18px;
     ${'' /* z-index: 12;      */}
@@ -43,12 +43,12 @@ const Styles = styled.div`
 
     .tbody {
       ${'' /* These styles are required for a scrollable table body */}
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: auto;
       height: 740px;
       display: block;
       text-align: left;
-      background: white;      
+      background-color: white;      
     }
 
     .tr {
@@ -68,7 +68,10 @@ const Styles = styled.div`
         color: white;
         position: sticky;                
         font-size:14px; 
-        top:0;     
+        top:0; 
+        :last-child {
+            margin-right: 15px;
+        } 
     }    
 
     .th,
@@ -90,12 +93,13 @@ const Styles = styled.div`
 
       :last-child {
         border-right: 0;
+        
       }   
 
       .resizer {
         right: 0;
         background: #80dfff;
-        width: 3px;
+        width: 2px;
         height: 100%;
         position: absolute;
         top: 0;

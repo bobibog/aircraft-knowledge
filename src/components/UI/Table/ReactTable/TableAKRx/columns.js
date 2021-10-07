@@ -96,11 +96,11 @@ export const COLUMNS = [
     },
     {
         Header:"Is on Ground",
-        accessor:"is_onground"
+        accessor:"isOnground"
     },
     {
         Header:"Is Response",
-        accessor:"is_response"
+        accessor:"isResponse"
     },
     {
         Header:"Latitude",
@@ -112,7 +112,7 @@ export const COLUMNS = [
     },    
     {
         Header:"To Addr",
-        accessor:"toaddr"
+        accessor:"toAddr"
     },
     {
         Header:"Message Type",
