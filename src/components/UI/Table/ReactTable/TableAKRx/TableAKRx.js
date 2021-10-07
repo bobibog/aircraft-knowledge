@@ -79,7 +79,9 @@ const Styles = styled.div`
       border: 1px solid #ddd;
       padding: 12px;
       width: 180px;
-      word-wrap: break-word;
+      ${'' /* word-wrap: break-word; */}
+      overflow-wrap: break-word;
+
       ${'' /* -webkit-hyphens: auto;
       -moz-hyphens: auto;
       -ms-hyphens: auto;
