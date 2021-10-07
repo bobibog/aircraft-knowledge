@@ -39,7 +39,20 @@ const  SearchAKRxElement = (props) => {
     const[text, setText] = useState('');
     const[end, setEnd] = useState('');
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');    
+    const[altMin, setAltMin]=useState('');
+    const[altMax, setAltMax]=useState('');
+    const[dsta, setDsta]=useState('');
+    const[icao, setIcao]=useState('');
+    const[isOnground, setIsOnground]=useState('');
+    const[isResponse, setIsResponse]=useState('');
+    const[latMin, setLatMin]=useState('');
+    const[latMax, setLatMax]=useState('');
+    const[lonMin, setLonMin]=useState('');
+    const[lonMax, setLonMax]=useState('');    
+    const[toAddr, setToAddr]=useState('');
+    const[type, setType]=useState('');
+
 
     // DATE-TIME input VALIDATION
     const[dateFromErr, setDateFromErr] = useState({});
@@ -114,7 +127,20 @@ const  SearchAKRxElement = (props) => {
         setText("");
         setEnd("");
         setAcarsMessageDateTimeMin("");
-        setAcarsMessageDateTimeMax("");
+        setAcarsMessageDateTimeMax("");        
+        setAltMin("");
+        setAltMax("");
+        setDsta("");
+        setIcao("");
+        setIsOnground("");
+        setIsResponse("");
+        setLatMin("");
+        setLatMax("");
+        setLonMin("");
+        setLonMax("");        
+        setToAddr("");
+        setType("");
+        
         setDateFromErr({});
         setDateToErr({});
         props.clickedReset();        
@@ -203,7 +229,66 @@ const  SearchAKRxElement = (props) => {
     const acarsMessageDateTimeMaxInputConfig = {
         type:'datetime-local',
         placeholder:'To:'
-    }   
+    }     
+    const altMinInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Min. Altitude'
+    }
+    const altMaxInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Max. Altitude'
+    }
+    const dstaInputConfig = {
+        type:'text',
+        placeholder:'Dsta'
+    }
+    const icaoInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Icao'
+    }
+    const isOnGroundInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Is on Ground'
+    }
+    const isResponseInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Is Response'
+    }
+    const latMinInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Min. Latitude'
+    }
+    const latMaxInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Max. Latitude'
+    }
+    const lonMinInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Min. Longitude'
+    }
+    const lonMaxInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'Max. Longitude'
+    }
+    
+    const toAddrInputConfig = {
+        type:'number',
+        min:0,
+        placeholder:'To Address'
+    }
+    const typeInputConfig = {
+        type:'text',
+        placeholder:'Message Type'
+    }
 
     // Changing Dropdown Button title according to event (search or reset click)
     const[filter, setFilter] = useState('');
@@ -225,7 +310,8 @@ const  SearchAKRxElement = (props) => {
     const onSerach = (e) =>{
         props.clickedSearch(timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax);
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type);
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -242,7 +328,7 @@ const  SearchAKRxElement = (props) => {
             <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
                 <div className={classes.dropdownShow}>
                     <div className="row"> 
-                    <div className={classes.bar}>          
+                        <div className={classes.bar}>          
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
                                 <div className={classes.dateTime}>
@@ -265,7 +351,7 @@ const  SearchAKRxElement = (props) => {
                                         onBlur={onBlur1}                                              
                                     />
                                     {Object.keys(dateFromErr).map((key)=>{
-                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateFromErr[key]}</div>
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'17px', width:'256px', wordWrap:'break-word', textAlign:'right'}}>{dateFromErr[key]}</div>
                                     })}
                                 </InputGroup>
                                 </div>
@@ -289,7 +375,7 @@ const  SearchAKRxElement = (props) => {
                                         onBlur={onBlur2}                                              
                                     />
                                     {Object.keys(dateToErr).map((key)=>{
-                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'25px'}}>{dateToErr[key]}</div>
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'17px', width:'256px', wordWrap:'break-word', textAlign:'right'}}>{dateToErr[key]}</div>
                                     })}
                                 </InputGroup>
                                 </div>
@@ -390,8 +476,14 @@ const  SearchAKRxElement = (props) => {
                                         elementType='input'
                                         elementConfig={timeStampMaxInputConfig}
                                     />
-                                </InputGroup>
-                                
+                                </InputGroup>                           
+                                                                                                               
+                            </div>
+                        </div>
+                        </div>
+                        <div className={classes.bar}>    
+                        <div className="col-sm-3">                
+                            <div className={classes.card}>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -419,13 +511,7 @@ const  SearchAKRxElement = (props) => {
                                         elementType='input' 
                                         elementConfig= {channelInputConfig}                     
                                     />
-                                </InputGroup>                                                                               
-                            </div>
-                        </div>
-                        </div>
-                        <div className={classes.bar}>    
-                        <div className="col-sm-3">                
-                            <div className={classes.card}>
+                                </InputGroup>
                             <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -524,6 +610,15 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {blockIdInputConfig}                                               
                                     />
                                 </InputGroup> 
+                                                                                            
+                            </div>
+                            
+                        </div>
+                        </div>
+                        {/*3.*/}
+                        <div className={classes.bar}>          
+                        <div className="col-sm-3" id="bar">                        
+                            <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -567,29 +662,203 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 
-                                                            
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={altMin}
+                                        // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAltMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {altMinInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={altMax}
+                                        // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAltMax(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {altMaxInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={dsta}
+                                        // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setDsta(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={dstaInputConfig}
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={icao}
+                                        // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setIcao(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {icaoInputConfig}                     
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend> 
+                                                      
+                                    <Input 
+                                        value={isOnground}                                        
+                                        changed={(e)=>(setIsOnground(e.target.value))}                                        
+                                        elementType='input' 
+                                        elementConfig= {isOnGroundInputConfig}                                                                                    
+                                    />                                    
+                                </InputGroup>                             
+                                
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>
+                                                       
+                                    <Input 
+                                        value={isResponse}                                        
+                                        changed={(e)=>setIsResponse(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {isResponseInputConfig}                                                                                     
+                                    />                                    
+                                </InputGroup>                                                                                                            
+                            </div>
+                        </div>
+                        </div>
+                        {/*3.*/}
+                        {/*4.*/}
+                        <div className={classes.bar}>          
+                        <div className="col-sm-3" id="bar">                        
+                            <div className={classes.card} >                               
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={latMin}                                        
+                                        changed={(e)=>setLatMin(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {latMinInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={latMax}                                        
+                                        changed={(e)=>setLatMax(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {latMaxInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={lonMin}                                        
+                                        changed={(e)=>setLonMin(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {lonMinInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={lonMax}                                        
+                                        changed={(e)=>setLonMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {lonMaxInputConfig}                     
+                                    />
+                                </InputGroup>                                
+                                
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={toAddr}                                        
+                                        changed={(e)=>setToAddr(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {toAddrInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={type}                                        
+                                        changed={(e)=>setType(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={typeInputConfig}
+                                    />
+                                </InputGroup>                     
+                                                                                                               
                             </div>
                             <div className={classes.buttonBox}>
-                            <ButtonBordered 
-                                // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
-                                //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-                                //     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
-                                clicked={onSerach}
-                                btnType="Success"
-                                //mouseDown={(e)=>setFilter('a')}  
-                                //mouseLeave={(e)=>toggleDropdown()} 
-                                //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
-                            >SEARCH</ButtonBordered>
-                            <ButtonBordered
-                                //clicked={resetSearchHandler}
-                                clicked={onReset}
-                                btnType="Secondary"
-                                //mouseDown={(e)=>setFilter('')} 
-                                //mouseLeave={(e)=>toggleDropdown()}  
-                            >RESET</ButtonBordered>
+                                <ButtonBordered 
+                                    // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
+                                    //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
+                                    //     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))}
+                                    clicked={onSerach}
+                                    btnType="Success"
+                                    //mouseDown={(e)=>setFilter('a')}  
+                                    //mouseLeave={(e)=>toggleDropdown()} 
+                                    //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
+                                >SEARCH</ButtonBordered>
+                                <ButtonBordered
+                                    //clicked={resetSearchHandler}
+                                    clicked={onReset}
+                                    btnType="Secondary"
+                                    //mouseDown={(e)=>setFilter('')} 
+                                    //mouseLeave={(e)=>toggleDropdown()}  
+                                >RESET</ButtonBordered>
                             </div>
                         </div>
                         </div>
+                       
+                        
                     </div> 
                 </div>          
             </DropdownButton>

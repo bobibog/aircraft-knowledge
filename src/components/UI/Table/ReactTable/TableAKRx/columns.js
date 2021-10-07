@@ -1,11 +1,24 @@
 import { format } from 'date-fns';
 import moment from 'moment';
 
+
+
+function replacer(key, value) {
+    // Filtering out properties
+    if (value === null) {
+      return '';
+    }
+    return value;
+}
+
 export const COLUMNS = [
     {
-        Header: "Message Time",
-        accessor: "acarsMessageDateTime",        
-        Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
+        Header: "UTC Date/Time",
+        accessor: "acarsMessageDateTime", 
+        // Local Date Time       
+        //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
+        //UTC
+        Cell: ({ value }) => { return JSON.stringify(value, null, 2).replace(/T/g, ' ').substring(1,20)}
     },
     {
         Header: "Tail",
@@ -18,7 +31,8 @@ export const COLUMNS = [
     {
         Header: "Text",
         accessor: "text",
-        Cell: ({ value }) => { return JSON.stringify(value, null, '')}
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '')},
+        
     },
     {
         Header: "Frequency",
@@ -67,5 +81,42 @@ export const COLUMNS = [
     {
         Header: "End",
         accessor: "end"
+    },    
+    {
+        Header: "Altitude",
+        accessor:"alt"
+    },
+    {
+        Header:"Destination Airport",
+        accessor:"dsta"
+    },
+    {
+        Header: "Icao",
+        accessor:"icao"
+    },
+    {
+        Header:"Is on Ground",
+        accessor:"is_onground"
+    },
+    {
+        Header:"Is Response",
+        accessor:"is_response"
+    },
+    {
+        Header:"Latitude",
+        accessor:"lat"
+    },
+    {
+        Header:"Longitude",
+        accessor:"lon"
+    },    
+    {
+        Header:"To Addr",
+        accessor:"toaddr"
+    },
+    {
+        Header:"Message Type",
+        accessor: "type"
     }
+
 ]

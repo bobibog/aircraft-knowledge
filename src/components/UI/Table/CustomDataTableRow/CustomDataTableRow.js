@@ -11,10 +11,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
-
 import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
 import classesCss from './CustomDataTableRow.module.css';
+import Button from '../../Button/Button';
+//import {FaTrashAlt} from 'react-icons/fa';
 
 const styles = {
     cardContent: {
@@ -158,7 +159,8 @@ const CustomDataTableRow = (props) => {
                                 "jul", "aug", "sep", "oct", "nov", "dec"
                             ];
                             apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear()+" / "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-                        } else if (apiModelHeaderColumn.type === "timespan") {
+                        } 
+                        else if (apiModelHeaderColumn.type === "timespan") {
                             if (apiModelPropValue.value) {
                                 let minutes = apiModelPropValue.value.minutes;
                                 if (minutes < 10) {
@@ -169,7 +171,11 @@ const CustomDataTableRow = (props) => {
                                     }                                    
                                 }
                                 apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;                                
-                            } else {
+                        }
+                        // else if (apiModelHeaderColumn.type === "button") {
+                        //      <Button ><FontAwesomeIcon icon={FaTrashAlt} className={classes.iconTrash} /></Button>                          
+                        // }
+                        else {
                                 apiModelPropValue = "-"    
                             }
                         }            

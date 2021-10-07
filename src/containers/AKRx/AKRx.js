@@ -57,17 +57,31 @@ const Akrx = props => {
     const[text, setText] = useState('');
     const[end, setEnd] = useState('');
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');    
+    const[altMin, setAltMin]=useState('');
+    const[altMax, setAltMax]=useState('');
+    const[dsta, setDsta]=useState('');
+    const[icao, setIcao]=useState('');
+    const[isOnground, setIsOnground]=useState('');
+    const[isResponse, setIsResponse]=useState('');
+    const[latMin, setLatMin]=useState('');
+    const[latMax, setLatMax]=useState('');
+    const[lonMin, setLonMin]=useState('');
+    const[lonMax, setLonMax]=useState('');    
+    const[toAddr, setToAddr]=useState('');
+    const[type, setType]=useState('');
 
     const dispatch = useDispatch();
     
     const onFetchAkrx = useCallback(
         () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax))
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type))
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax]
+            flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type]
     );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
@@ -84,7 +98,8 @@ const Akrx = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (timestampMin, timestampMax,
         stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
-        flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {  
+        flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
+        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type) => {  
         onSetAkrxOffsetLimit(0, limit);
         onSetAkrxPage(0);
         setTimestampMin(timestampMin);
@@ -107,7 +122,19 @@ const Akrx = props => {
         setText(text);
         setEnd(end);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);         
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);       
+        setAltMin(altMin);
+        setAltMax(altMax);
+        setDsta(dsta);
+        setIcao(icao);
+        setIsOnground(isOnground);
+        setIsResponse(isResponse);
+        setLatMin(latMin);
+        setLatMax(latMax);
+        setLonMin(lonMin);
+        setLonMax(lonMax);        
+        setToAddr(toAddr);
+        setType(type);
     };
     
     
@@ -134,8 +161,20 @@ const Akrx = props => {
         setText("");
         setEnd("");
         setAcarsMessageDateTimeMin("");
-        setAcarsMessageDateTimeMax("");
-        setAllOption(0);          
+        setAcarsMessageDateTimeMax("");       
+        setAltMin("");
+        setAltMax("");
+        setDsta("");
+        setIcao("");
+        setIsOnground("");
+        setIsResponse("");
+        setLatMin("");
+        setLatMax("");
+        setLonMin("");
+        setLonMax("");        
+        setToAddr("");
+        setType("");    
+        setAllOption(0);    
     };    
        
     useEffect(() => { 
@@ -145,7 +184,7 @@ const Akrx = props => {
         
     const akrxPageHeader =
         <CardsInBox
-            headerText="AKRx Messages"
+            headerText="ACARS Messages"
             backColor="#F0F8FF" 
             
         />; 

@@ -9,6 +9,9 @@
     padding-bottom: 5px;
     background-color: rgb(167, 229, 231);
     padding-left: 10px;
+    position: fixed;
+    margin-top: 45px;
+    z-index: 5;
 }
 
 .card {

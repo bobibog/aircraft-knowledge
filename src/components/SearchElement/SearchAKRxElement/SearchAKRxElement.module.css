@@ -7,22 +7,24 @@
     height: 45px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgb(167, 229, 231);
     padding-left: 10px;
+    position: fixed;
+    left: 155px;
+    z-index: 9;
 }
 
 .card {
-    padding-left: 5px;
+    padding-left: 2px;
     opacity: 0.99;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-left: 9px;
-    width: 450px;
+    margin-right: 2px;
+    width: 300px;
     border-radius: 5px 5px 0px 0px;
 }
 
 .bar {
-    margin-right: -45px;
+    margin-right: -70px;
 }
 
 .inputGroup {
@@ -69,8 +71,11 @@
 
 .Drop {
     position: absolute;
+    /* position: -webkit-sticky;
+    position: sticky; */
+    left: 15px;
     opacity: 0.92;
-    z-index: 4;
+    z-index: 9;
     white-space: normal;
     word-break: break-all;
     margin-left: 5px;
@@ -83,7 +88,7 @@
     margin-top: -12px;
     margin-bottom: -7px;
     border-radius: 0 5px 5px 5px;
-    width: 890px;
+    width: 1160px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -342,7 +347,7 @@
     .Drop {
         position: absolute;
         opacity: 0.92;
-        z-index: 4;
+        z-index: 5;
         white-space: normal;
         word-break: break-all;
         margin-left: 5px;
@@ -386,7 +391,7 @@
     .Drop {
         position: absolute;
         opacity: 0.92;
-        z-index: 4;
+        z-index: 5;
         white-space: normal;
         word-break: break-all;
         margin-left: 5px;
@@ -423,7 +428,7 @@
     .Drop {
         position: absolute;
         opacity: 0.92;
-        z-index: 4;
+        z-index: 5;
         white-space: normal;
         word-break: break-all;
         margin-left: 5px;
@@ -460,7 +465,7 @@
     .Drop {
         position: absolute;
         opacity: 0.92;
-        z-index: 4;
+        z-index: 7;
         white-space: normal;
         word-break: break-all;
         margin-left: 5px;

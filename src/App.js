@@ -17,6 +17,7 @@ import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
 //some dummy comment
 
+
 function App() {
   const authContext = useContext(AuthContext);
   const authCheckState = authContext.authenticationCheckState;
@@ -37,7 +38,8 @@ function App() {
       {/* <Route path="/flights" component={Flights} /> */}            
       <Route path="/airlines" component={Airlines} />      
       <Route path="/auth" component={Auth} />      
-      <Route path="/logout" component={Logout} />    
+      <Route path="/logout" component={Logout} /> 
+      
       {/* <Redirect from="/" exact to="/airlines" /> */}
       <Route path="/akrx" component={AKRx} />
       <Redirect from="/" exact to="/akrx" />

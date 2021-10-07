@@ -5,7 +5,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const navigationItems = ( props ) => (
     <ul className={classes.NavigationItems}>
         {/* {props.isAuthenticated ? <NavigationItem link="/akrx">AKRx messages</NavigationItem> : null} */}
-        <NavigationItem link="/akrx">AKRx messages</NavigationItem>
+        <NavigationItem link="/akrx">ACARS messages</NavigationItem>
         <NavigationItem link="/airlines">Airlines</NavigationItem>        
         <NavigationItem link="/airports">Airports</NavigationItem>
         <NavigationItem link="/aircraft">Aircraft</NavigationItem>  
