@@ -20,9 +20,11 @@ import { wrap } from 'lodash';
 const Styles = styled.div`
   
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
-  ${'' /* display: block; */}
+  display: block;
   ${'' /* These styles are required for a horizontaly scrollable table overflow */}
   overflow: auto;
+
+    
 
   .table {
     border-spacing: 0;    
@@ -70,7 +72,8 @@ const Styles = styled.div`
         font-size:14px; 
         top:0; 
         :last-child {
-            margin-right: 15px;
+            margin-right: 17px;
+            border-radius: 0px 5px 0 0;
         } 
     }    
 
@@ -83,13 +86,13 @@ const Styles = styled.div`
       padding: 12px;
       width: 180px;
       ${'' /* word-wrap: break-word; */}
-      overflow-wrap: break-word;
+      ${'' /* overflow-wrap: break-word; */}
 
       ${'' /* -webkit-hyphens: auto;
       -moz-hyphens: auto;
       -ms-hyphens: auto;
       hyphens: auto;      */}
-      position: relative;
+      ${'' /* position: relative; */}
 
       :last-child {
         border-right: 0;
@@ -114,11 +117,210 @@ const Styles = styled.div`
     }
 
     @media only screen and (max-height: 900px) {
-    .tbody {
-        height: 520px;
+        .tbody {
+            height: 520px;
+        }
+    }
+
+    
+  }
+
+.select {
+    border: none;
+    margin-left: 10px;
+}
+
+.pagginationBox {
+    width: 450px;
+    position: absolute;
+    right: 2px;
+    height: 55px;
+}
+
+.button {
+    margin-top: 15px;
+    border: none;
+}
+
+.input {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.select {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.boxCheck {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 350px;
+    /* flex-wrap: wrap; */
+    background-color: cornflowerblue;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    border-radius: 2px;
+}
+
+.boxCheck>* {
+    /* flex: 1 1 5%; */
+    border: 1px solid #007bff;
+    padding: 5px;
+    text-align: left;
+    color: white;
+    z-index: 3;
+}
+
+.func2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    margin-bottom: 45px;
+    
+}
+
+.func2>* {
+    flex: 1 1 10rem;
+}
+
+.excelBtn {
+    position: absolute;
+    right: 15px;
+    z-index: 9;
+    margin-top: 0px;
+}
+
+.drop {
+    position: absolute;
+    right: 255px;
+    z-index: 9;
+    margin-top: 0px;
+}
+
+@media(max-width:550px) {
+        
+        *{
+	        box-sizing: border-box;
+        }
+
+        .thead{
+            display: none;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        .table,
+        .tbody,
+        .tr,
+        .td  {
+            display: block;
+            width: 100%;
+            padding-bottom: 15px;
+            z-index: 1;            
+            border: 0;
+            position: relative;  
+            border: 0;          
+        }
+        .tbody{
+            overflow-y: auto;
+            overflow-x: hidden;
+            height:100%;
+            position: relative;
+        }
+        .tr {
+            margin-bottom: 15px;
+            border: 0;
+        }
+        .tr:nth-child(even) {
+            background-color: lightblue;
+        }
+        .td {
+            text-align: right;
+            padding-left: 75%;
+            text-align: right;
+            position: relative;
+        }
+        .td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 55%;
+            padding-left: 10px;
+            font-weight: bold;
+            text-align: left;
+            font-size: 12px;
+            background: #007bff;
+            color: white;
+            border-radius: 2px;
+            z-index: 1;
+        }
+        .td,
+        .th {            
+            max-width: 150px;
+            z-index: 1;
+            position: relative;
+            border: 0;
+        }
+
+        .excelBtn {
+            position: relative;        
+            padding-left: 10%;
+            margin-bottom: 5px;
+            margin-top: 45px;
+        } 
+        .drop{
+            position: relative;
+            margin-top:  45px;
+            left: 5px;
+        }
+        
+}
+
+@media only screen and (max-width: 440px) {
+    .pagginationBox {
+        width: auto;
+        position: absolute;
+        left: 2px;
+        height: 55px;
     }
 }
-  }
+
+
+
+@media only screen and (max-width: 320px) {
+    .boxCheck {
+        display: grid;
+        grid-template-columns: 100%;
+        width: 162px;
+        border-radius: 5px;
+    }
+    .excelBtn {
+        position: relative;        
+        padding-left: 10%;        
+        margin-top: 45px;
+    } 
+    .drop{
+        position: relative;
+        margin-top:  5px;
+        left: 5px;
+        padding-top:5px;
+    }
+}
+
+@media only screen and (max-width: 305px) {
+    .excelBtn {
+        position: relative;
+        padding-left: 15%;        
+        margin-top: 45px;
+    } 
+    .drop{
+        position: relative;
+        margin-top:  5px;
+        left: 5px;
+    }   
+}  
+
+    
 `
 
 const headerProps = (props, { column }) => getStyles(props, column.align)
@@ -159,7 +361,7 @@ const TableAKRx = (props) => {
     const defaultColumn = React.useMemo(
         () => ({
           // When using the useFlexLayout:
-          minWidth: 50, // minWidth is only used as a limit for resizing
+          minWidth: 100, // minWidth is only used as a limit for resizing
           width: 180, // width is used for both the flex-basis and flex-grow
           maxWidth: 1120, // maxWidth is only used as a limit for resizing
           wordWrap: 'break-all'  ,
@@ -299,10 +501,9 @@ const TableAKRx = (props) => {
 
     return (
         <Styles>
-        <div>
-        
-            <div className={classes.func2} >
-                <div className={classes.excelBtn}>
+        <div >        
+            <div className="func2" >
+                <div className="excelBtn">
                     <ReactHTMLTableToExcel 
                         className="btn btn-info"
                         table="emp-table"
@@ -313,8 +514,8 @@ const TableAKRx = (props) => {
                     {/* <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button> */}
                 </div>
                 <div>
-                    <DropdownButton title={title} className={classes.drop} drop="down" onToggle={(e) => changeTitle()}>
-                        <div className={classes.boxCheck}>                    
+                    <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
+                        <div className="boxCheck">                    
                             <div>
                                 <CheckBox {...getToggleHideAllColumnsProps()} /><strong> TOGGLE ALL</strong>
                             </div>
@@ -322,7 +523,7 @@ const TableAKRx = (props) => {
                                 allColumns.map(column => (
                                     <div key={column.id}>
                                         <label>
-                                            <input type='checkbox' {...column.getToggleHiddenProps()} id="input"/>
+                                            <input type='checkbox' {...column.getToggleHiddenProps()} id="input" className="input"/>
                                             {column.Header}
                                         </label>
                                     </div>
@@ -338,7 +539,7 @@ const TableAKRx = (props) => {
        {/* <button onClick={resetResizing}>Reset Resizing</button>      */}
         {/* <table {...getTableProps()} className={classes.table} id="emp-table"> */}
         <table {...getTableProps()} className="table" id="emp-table">
-            <thead>
+            <thead className="thead">
                 {
                     headerGroups.map(headerGroup => (                    
                     <tr {...headerGroup.getHeaderGroupProps()} className="tr">
@@ -387,7 +588,7 @@ const TableAKRx = (props) => {
         
         </>
         : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no results for your search. Please reset Your search or enter new search term.</p></div>}
-        <div className={classes.pagginationBox}>
+        <div className="pagginationBox">
             
             {/* <span>
                 | Go to page: {' '}
@@ -397,7 +598,7 @@ const TableAKRx = (props) => {
                 }}/> |
             </span> */}
             Rows per page:{'  '}
-            <select className={classes.select} value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
+            <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
                     [10, 25, 50, 100].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
@@ -418,10 +619,10 @@ const TableAKRx = (props) => {
                 {pageIndex+1} of {pageOptions.length}
                 {' '}
             </span>
-            <button className={classes.button} onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
-            <button className={classes.button} onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
-            <button className={classes.button} onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
-            <button className={classes.button} onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
+            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
+            <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
+            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
+            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
         </div>
         </div>
         </Styles>
