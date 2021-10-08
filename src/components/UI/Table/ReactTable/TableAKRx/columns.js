@@ -31,7 +31,7 @@ export const COLUMNS = [
     {
         Header: "Text",
         accessor: "text",
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '')},
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').split("").join(" ")},
         
     },
     {
@@ -52,11 +52,13 @@ export const COLUMNS = [
     },    
     {
         Header: "Level",
-        accessor: "level"
+        accessor: "level",
+        // Cell: ({ value }) => { return JSON.stringify(value, replacer, '')}
     },
     {
         Header: "Error",
-        accessor: "error"
+        accessor: "error",
+        // Cell: ({ value }) => { return JSON.stringify(value, replacer, '')}
     },
     {
         Header: "Mode",

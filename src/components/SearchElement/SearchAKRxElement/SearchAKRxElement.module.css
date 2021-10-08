@@ -407,6 +407,7 @@
         height: auto;
         padding-bottom: 20px;
         height: 45px;
+        z-index: 12;
     }
     .card {
         width: 350px;
