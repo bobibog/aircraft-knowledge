@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-local';
+import axios from '../../axios-azure';
 import {generatePath} from 'react-router';
 import {moment} from 'moment';
 
