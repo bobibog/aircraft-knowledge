@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-local';
-import axios2 from '../../axios-local2';
+import axios from '../../axios-azure';
+//import axios2 from '../../axios-local2';
 
 export const setAirportsOffsetLimit = (offset, limit) => {
     return {
@@ -101,7 +101,7 @@ export const orderAirportsByNameDsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/airportNameDesc?`+ queryString)
+            axios.get(`/airportNameDesc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -123,7 +123,7 @@ export const orderAirportsByNameAsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/airportNameAsc?`+ queryString)
+            axios.get(`/airportNameAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -145,7 +145,7 @@ export const orderAirportsByIataDesc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/iataDesc?`+ queryString)
+            axios.get(`/iataDesc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -167,7 +167,7 @@ export const orderAirportsByIataAesc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/iataAesc?`+ queryString)
+            axios.get(`/iataAesc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -189,7 +189,7 @@ export const orderAirportsByCityDsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/cityDsc?`+ queryString)
+            axios.get(`/cityDsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -211,7 +211,7 @@ export const orderAirportsByCityAsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/cityAsc?`+ queryString)
+            axios.get(`/cityAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -233,7 +233,7 @@ export const orderAirportsByCountryDsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/countryDsc?`+ queryString)
+            axios.get(`/countryDsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
@@ -255,7 +255,7 @@ export const orderAirportsByCountryAsc = (offset, limit) => {
             ? query
             : '';
         
-            axios2.get(`/countryAsc?`+ queryString)
+            axios.get(`/countryAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
             })
