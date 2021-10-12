@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-local';
+import axios from '../../axios-azure';
 
 export const setAircraftOffsetLimit = (offset, limit) => {
     return {
