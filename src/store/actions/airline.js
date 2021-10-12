@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-local';
-import axios2 from '../../axios-local2';
+import axios from '../../axios-azure';
+//import axios2 from '../../axios-local2';
 import {generatePath} from 'react-router';
 
 
@@ -89,7 +89,7 @@ export const orderAirlinesByNameDsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/airlineNameDesc?`+ queryString)
+            axios.get(`/airlineNameDesc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -112,7 +112,7 @@ export const orderAirlinesByNameAsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/airlineNameAsc?`+ queryString)
+            axios.get(`/airlineNameAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -135,7 +135,7 @@ export const orderAirlinesByIataDsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/iataDsc?`+ queryString)
+            axios.get(`/iataDsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -158,7 +158,7 @@ export const orderAirlinesByIataAsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/iataAsc?`+ queryString)
+            axios.get(`/iataAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -181,7 +181,7 @@ export const orderAirlinesByIcaoDsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/icaoDsc?`+ queryString)
+            axios.get(`/icaoDsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -204,7 +204,7 @@ export const orderAirlinesByIcaoAsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/icaoAsc?`+ queryString)
+            axios.get(`/icaoAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -227,7 +227,7 @@ export const orderAirlinesByFleetDsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/fleetDsc?`+ queryString)
+            axios.get(`/fleetDsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
@@ -249,7 +249,7 @@ export const orderAirlinesByFleetAsc = (offset, limit) => {
             ? query
             : '';            
             
-            axios2.get(`/fleetAsc?`+ queryString)
+            axios.get(`/fleetAsc?`+ queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
