@@ -112,7 +112,7 @@ export const acceptTerms = (id) => {
 
         axios.put(url, {id:id,terms:1})
             .then(response => {                
-                alert("WELCOME! EXPLORE AKRx MESSAGES");                 
+                alert("WELCOME! EXPLORE AKRx WEB SITE");                 
             })
             .catch(error => {
                 alert(error);                                
