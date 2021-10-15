@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
-import axios from '../axios-local';
-//import axios from '../axios-azure';
+//import axios from '../axios-local';
+import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 
 const initialUser = {
