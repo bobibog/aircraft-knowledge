@@ -114,7 +114,7 @@ const Styles = styled.div`
       }
       :nth-child(4){          
         width:420px !important;
-        ${'' /* word-break: break-word !important;  */}
+        word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
       }
@@ -762,14 +762,14 @@ const TableAKRx = (props) => {
               
             <div className="func2" >
                 <div className= "excelBtn">
-                    <ReactHTMLTableToExcel 
+                    {/* <ReactHTMLTableToExcel 
                         className="btn btn-info"
                         table="emp-table"
                         filename="AKRx Messages"
                         sheet="Sheet"
                         buttonText="Export to Excel"                                            
-                    />                
-                    {/* <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button> */}
+                    />                 */}
+                    <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button>
                 </div>
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
