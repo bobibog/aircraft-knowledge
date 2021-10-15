@@ -33,7 +33,7 @@ const TermsOfUse = (props)=> {
     };
 
     const declineClick=(e)=>{
-        alert('You have to accept our Terms and Conditions & Privacy Policy if you want to visit AKRx website. MOTE: You will be prompted to Log in page');
+        alert('You have to accept our Terms and Conditions & Privacy Policy if you want to visit AKRx website. NOTE: You will be prompted to Log in page');
     };
     
     
