@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import moment from 'moment';
+import { RiAwardFill } from 'react-icons/ri';
 
 
 
@@ -7,9 +8,16 @@ function replacer(key, value) {
     // Filtering out properties
     if (value === null) {
       return '';
-    }
+    }    
     return value;
 }
+
+// function replacer(key, value) {
+//     if (typeof value === 'function') {
+//       return value.toString()
+//     }
+//     return value
+//   }
 
 export const COLUMNS = [
     {
@@ -31,8 +39,9 @@ export const COLUMNS = [
     {
         Header: "Text",
         accessor: "text",
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').split("").join(" ")},
-        
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
+        //Cell: ({ value }) => { return String.raw`${value}` }
+        //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
     {
         Header: "Frequency",

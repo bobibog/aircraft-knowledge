@@ -10,9 +10,9 @@ import {
 
 const  Heading = () => {
   return (
-    <Navbar color="dark" >
+    <Navbar color="dark" style={{marginBottom:'-90px'}}>
         <Container >
-            {/* <NavbarBrand href="/crudcustomer">List of Users</NavbarBrand> */}
+            
             <Nav >
                 <NavItem >
                     <Link className="btn btn-primary" to="/addUser">Add User</Link>

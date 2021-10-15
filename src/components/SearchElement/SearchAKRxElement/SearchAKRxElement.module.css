@@ -348,7 +348,7 @@
     .Drop {
         position: absolute;
         opacity: 0.92;
-        z-index: 5;
+        z-index: 200;
         white-space: normal;
         word-break: break-all;
         margin-left: 5px;

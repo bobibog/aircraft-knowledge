@@ -355,6 +355,14 @@ export const akrxHeader = [
 
 export const crudUserHeader = [
     {
+        name:"Name",
+        prop:"name"
+    },
+    {
+        name:"Surname",
+        prop:"surname"
+    },
+    {
         name: "Username",
         prop: "username"        
     },
@@ -362,12 +370,29 @@ export const crudUserHeader = [
       name: "Password",
       prop: "password"     
     },
+    
+    {
+        name:"Company",
+        prop:"company"
+    },
+    {
+        name:"Email",
+        prop:"email"
+    },
     {
       name: "Role",
       prop: "role"
     },
     {
+        name: "Terms",
+        prop:"terms"
+    },
+    {
         name:"DELETE",
+        type:"button"
+    },
+    {
+        name:"UPDATE",
         type:"button"
     }
     

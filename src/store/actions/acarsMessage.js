@@ -47,6 +47,7 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     return dispatch => {
         dispatch(fetchAkrxStart());       
         
+        // Converting Local in UTC
         var acarsMINUtc="";
         if(acarsMessageDateTimeMin!=''){
             var acarsMINUtc = new Date(acarsMessageDateTimeMin).toUTCString();

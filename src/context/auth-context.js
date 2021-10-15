@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
-//import axios from '../axios-local';
-import axios from '../axios-azure';
+import axios from '../axios-local';
+//import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 
 const initialUser = {
@@ -8,7 +8,8 @@ const initialUser = {
     username: null,
     password: null,
     role: null,
-    token: null
+    token: null,
+    terms: null
 };
 
 export const AuthContext = React.createContext({
@@ -31,8 +32,8 @@ const AuthContextProvider = props => {
         setAuthLoading(true);
     };
 
-    const authSuccess = (userToken, userId, userRole) => {
-        const user = {...initialUser, token: userToken, id: userId, role: userRole};
+    const authSuccess = (userToken, userId, userRole, userTerms) => {
+        const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms};
         setAuthUser(user);
         setAuthError(null);
         setAuthLoading(false);
@@ -48,6 +49,7 @@ const AuthContextProvider = props => {
         localStorage.removeItem('expirationDate');
         localStorage.removeItem('userId');
         localStorage.removeItem('role');
+        localStorage.removeItem('terms');
         setAuthUser(initialUser);
     };
 
@@ -57,14 +59,15 @@ const AuthContextProvider = props => {
         }, expirationTimeInSeconds * 1000);
     }, []);
 
-    const expiresInSeconds = 1300;
+    const expiresInSeconds = 3600;
 
-    const auth = (username, password, role, isRegistration) => {
+    const auth = (username, password, role, terms, isRegistration) => {
         authStart();
         const authData = {
             username: username,
             password: password,
-            role: role
+            role: role,
+            terms: terms
         };
         let url = '/user/register';
         if (!isRegistration) {
@@ -77,9 +80,11 @@ const AuthContextProvider = props => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data.id);
-                localStorage.setItem('role', response.data.role)
-                authSuccess(response.data.token, response.data.id, response.data.role);
+                localStorage.setItem('role', response.data.role);
+                localStorage.setItem('terms', response.data.terms);
+                authSuccess(response.data.token, response.data.id, response.data.role, response.data.terms);
                 checkAuthTimeout(expiresInSeconds);
+                alert('Nice to see you again '+response.data.username);
             })
             .catch(err => {
                 authFail(err);
@@ -89,6 +94,7 @@ const AuthContextProvider = props => {
     const authCheckState = useCallback(() => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
+        const terms = localStorage.getItem('terms');
         if (!token) {
             logout();
         } else {
@@ -97,7 +103,7 @@ const AuthContextProvider = props => {
                 logout();
             } else {
                 const userId = localStorage.getItem('userId');
-                authSuccess(token, userId, role);
+                authSuccess(token, userId, role, terms);
                 checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 );
             }   
         }
@@ -111,6 +117,7 @@ const AuthContextProvider = props => {
                     username: authUser.username,
                     password: authUser.password,
                     role: authUser.role,
+                    terms: authUser.terms,
                     token: authUser.token
                 },
                 error: authError,

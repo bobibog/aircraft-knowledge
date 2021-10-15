@@ -5,12 +5,12 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const navigationItems = ( props ) => (
     <ul className={classes.NavigationItems}>
         {/* {props.isAuthenticated ? <NavigationItem link="/akrx">AKRx messages</NavigationItem> : null} */}
-        <NavigationItem link="/akrx">ACARS messages</NavigationItem>
-        <NavigationItem link="/airlines">Airlines</NavigationItem>        
-        <NavigationItem link="/airports">Airports</NavigationItem>
-        <NavigationItem link="/aircraft">Aircraft</NavigationItem>  
+        {props.isAuthenticated ? <NavigationItem link="/akrx">ACARS messages</NavigationItem> : null}
+        {props.isAuthenticated ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}        
+        {props.isAuthenticated ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
+        {props.isAuthenticated ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}  
              
-        {/* {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null} */}
+        {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         {!props.isAuthenticated
             ? <NavigationItem link="/auth">Log in</NavigationItem>
             : <NavigationItem link="/logout">Log out</NavigationItem>}                       

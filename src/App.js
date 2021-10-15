@@ -15,6 +15,7 @@ import Logout from './containers/Auth/Logout/Logout';
 import {AuthContext} from './context/auth-context';
 import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
+import Auth2 from './containers/Auth/Auth2';
 //some dummy comment
 
 
@@ -23,6 +24,7 @@ function App() {
   const authCheckState = authContext.authenticationCheckState;
   let isAuthenticated = authContext.user.token !== null;
   let isRole = authContext.user.role == "Admin";
+  let isNotTermed = authContext.user.terms!==1;
 
   useEffect(() => {
     authCheckState();
@@ -30,19 +32,18 @@ function App() {
 
   let routes = (
     <Switch>
-      <Route path="/aircraft/:id" component={Aircrafts} />
+      {/* <Route path="/aircraft/:id" component={Aircrafts} />
       <Route path="/aircraft" component={AircraftsSearch} />
       <Route path="/airports/:id" component={Airports} />
       <Route path="/airports" component={Airports} />
-      <Route path="/flights/:id" component={Flights} />
+      <Route path="/flights/:id" component={Flights} /> */}
       {/* <Route path="/flights" component={Flights} /> */}            
-      <Route path="/airlines" component={Airlines} />      
-      <Route path="/auth" component={Auth} />      
+      {/* <Route path="/airlines" component={Airlines} />       */}            
       <Route path="/logout" component={Logout} /> 
-      
+      <Route path="/auth" component={Auth} />
       {/* <Redirect from="/" exact to="/airlines" /> */}
-      <Route path="/akrx" component={AKRx} />
-      <Redirect from="/" exact to="/akrx" />
+      {/* <Route path="/akrx" component={AKRx} /> */}
+      <Redirect from="/" exact to="/auth" />
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
   );
@@ -54,14 +55,11 @@ function App() {
         <Route path="/aircraft" component={AircraftsSearch} />
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
-        <Route path="/flights/:id" component={Flights} />
-        {/* <Route path="/flights" component={Flights} /> */}
-        {/* <Route path="/airlines/:iataIcao" component={Aircrafts} /> */}
-
-        {/* <Route path="/administrator" component={Administrator} />                      */}
+        <Route path="/flights/:id" component={Flights} />        
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
+        <Route path="/auth2" component={Auth2} />
         <Route path="/akrx" component={AKRx} />
         <Redirect from="/" exact to="/akrx" />
         <Route render={() => <h1>Not found!</h1>} />
@@ -87,6 +85,17 @@ function App() {
       </Switch>
     );
   }
+  // if (isNotTermed) {
+  //   routes = (
+  //     <Switch>  
+  //       <Route path="/logout" component={Logout} /> 
+  //     <Route path="/auth2" component={Auth2} /> 
+  //     <Redirect from="/" exact to="/auth2" />     
+  //     <Route render={() => <h1>Not found!</h1>} />
+  //     </Switch>
+  //   );
+  // }
+  
    
   
   

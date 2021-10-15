@@ -1,3 +1,4 @@
+import React,{useContext} from 'react';
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-local';
 import {generatePath} from 'react-router';
@@ -40,7 +41,7 @@ export const fetchUsersStart = () => {
 };
 
 
-export const fetchUsers = (offset, limit, username, password, role) => {
+export const fetchUsers = (offset, limit, username, password, role, name, surname, email, company, terms) => {
     return dispatch => {
         dispatch(fetchUsersStart());        
           
@@ -48,6 +49,11 @@ export const fetchUsers = (offset, limit, username, password, role) => {
         query.append('username', username);
         query.append('password', password);
         query.append('role', role);        
+        query.append('name', name);
+        query.append('surname', surname);
+        query.append('email', email);
+        query.append('company', company);
+        query.append('terms', terms);        
         query.append('offset', offset);
         query.append('limit', limit); 
         
@@ -65,4 +71,55 @@ export const fetchUsers = (offset, limit, username, password, role) => {
         );        
     }
 };
+
+export const registerUser = (password, username, role, email, uName, surname, company, terms, isAuthenticated) => {
+    return dispatch => {
+        dispatch(fetchUsersStart());        
+        
+        
+        let url = '/user/register';
+
+        const registerData = {
+            password: password,            
+            username: username,
+            role: role,
+            email: email,
+            name: uName,
+            surname: surname,            
+            company: company,
+            terms: terms
+        };
+
+        const authorization= {'Authorization': `Bearer ${isAuthenticated}`}
+
+        axios.post(url, registerData, authorization)
+        .then(response => {   
+            alert("User is into database.");        
+        })
+        .catch(error => {
+            alert(error);                                
+        }    
+    );
+
+    }   
+};
+
+export const acceptTerms = (id) => {
+    return dispatch => {
+        dispatch(fetchUsersStart());
+            
+        let url = `/user/${id}`;
+
+        axios.put(url, {id:id,terms:1})
+            .then(response => {                
+                alert("WELCOME! EXPLORE AKRx MESSAGES");                 
+            })
+            .catch(error => {
+                alert(error);                                
+            }    
+        );        
+    }
+};
+
+
 

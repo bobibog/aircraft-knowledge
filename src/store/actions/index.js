@@ -51,5 +51,7 @@ export {
 export {
     fetchUsers,
     setUsersOffsetLimit,
-    setUsersPage   
+    setUsersPage,
+    acceptTerms,
+    registerUser 
 } from './user';
