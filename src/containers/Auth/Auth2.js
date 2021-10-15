@@ -1,5 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useState, useContext } from 'react';
 //import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -13,14 +12,11 @@ import {AuthContext} from '../../context/auth-context';
 import Modal from '../../components/UI/Modal/Modal';
 import TermsOfUse from '../../components/TermsOfUse/TermsOfUse';
 import Greetings from '../../components/Greetings/Greetings';
-import * as actions from '../../store/actions/index';
 
-
-const Auth = props => {
-
-    //EYE
-    const[eyeStatus, setEyeStatus]=useState('password');   
-
+// class Auth extends Component {
+const Auth2 = props => {
+// state = {
+//     controls: {
     const [authForm, setAuthForm] = useState({
         username: {
             elementType: 'input',
@@ -52,12 +48,12 @@ const Auth = props => {
         }
     });
     const [isRegistration, setIsRegistration] = useState(true);
-    const[terms, setTerms] = useState(false);
+    const[terms, setTerms] = useState(true);
     
     
     const authContext = useContext(AuthContext);
-    let isAuthenticated = authContext.user.token !== null;    
-    
+    let isAuthenticated = authContext.user.token !== null;
+
     const inputChangedHandler = ( event, controlName ) => {
         const updatedControls = updateObject( authForm, {
             [controlName]: updateObject( authForm[controlName], {
@@ -77,17 +73,21 @@ const Auth = props => {
 
     // const switchAuthModeHandler = () => {
     //     setIsRegistration(!isRegistration);
-    // }    
+    // }
+    
     
     
     //Checking Terms of Use
     const termsHandler = (e)=>{        
-            setTerms(true);                           
+            setTerms(false);                
     };    
     
-    var isTermed = authContext.user.terms;    
+    var isTermed = authContext.user.terms;
+    console.log("TERMED="+isTermed);  
+
+    const idUser = authContext.user.id;
+    console.log("ID="+idUser);  
     
-    var isRole = authContext.user.role;
 
     const submitHandler = (e) => {
         e.preventDefault();          
@@ -102,10 +102,6 @@ const Auth = props => {
         } );
     }
 
-    const onEye=(e)=>{
-        setEyeStatus('text');
-    };
-
     let form = formElementsArray.map( formElement => (
         <Input
             key={formElement.id}
@@ -115,7 +111,7 @@ const Auth = props => {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={( event ) => inputChangedHandler( event, formElement.id )} /> 
+            changed={( event ) => inputChangedHandler( event, formElement.id )} />
     ) );
 
     if ( authContext.loading ) {
@@ -150,14 +146,6 @@ const Auth = props => {
     if(isAuthenticated && isTermed!=1){
         authRedirect = <Redirect to="/auth2"/>
     }
-    if(isRole=='Admin')
-    {
-        authRedirect = <Redirect to="/administrator"/>
-    }
-    if(isAuthenticated && isTermed== 1 && isRole!='Admin')
-    {
-        authRedirect = <Redirect to="/akrx"/>
-    }
 
     return (
         <div className={classes.Auth}>
@@ -179,4 +167,4 @@ const Auth = props => {
     );
 }
 
-export default Auth;
+export default Auth2;

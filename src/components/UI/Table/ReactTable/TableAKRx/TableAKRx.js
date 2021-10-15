@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
 import { COLUMNS } from './columns';
-// import './TableAKRx.css';
-import classes from './TableAKRx.module.css';
+//import './TableAKRx.css';
+// import classes from './TableAKRx.module.css';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {FiSkipForward} from 'react-icons/fi';
@@ -27,30 +27,33 @@ const Styles = styled.div`
     
 
   .table {
-    border-spacing: 0;    
-    font-family: 'custom-font', Arial Unicode MS, Arial, verdana;
+    border-spacing: 0; 
+    ${'' /* font-family: monospace;
+    white-space: pre;    */}
+    ${'' /* font-family: Arial Unicode MS, Arial, verdana; */}
+    font-family: monospace;
     border-collapse: collapse;
     width: auto;
     font-size: 14px;
-    margin-top: 18px;
+    margin-top: -78px;
     ${'' /* z-index: 12;      */}
     position: relative;
     
-
     .thead {
       ${'' /* These styles are required for a scrollable body to align with the header properly */}
-      overflow-y: auto;
-      overflow-x: auto;      
+      overflow-y: scroll;
+      overflow-x: auto; 
+          
     }
 
     .tbody {
       ${'' /* These styles are required for a scrollable table body */}
-      overflow-y: auto;
+      overflow-y: scroll;
       overflow-x: auto;
       height: 740px;
       display: block;
       text-align: left;
-      background-color: white;      
+      background-color: white;            
     }
 
     .tr {
@@ -62,7 +65,7 @@ const Styles = styled.div`
       border-bottom: 1px solid grey;
     }
 
-    .th{
+    .th{        
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: center;
@@ -84,7 +87,10 @@ const Styles = styled.div`
       border-right: 1px solid black;
       border: 1px solid #ddd;
       padding: 12px;
-      width: 180px;
+      width: 180px;      
+      display: inline-block;
+      word-wrap: break-word;
+      
       ${'' /* word-wrap: break-word; */}
       ${'' /* overflow-wrap: break-word; */}
 
@@ -95,14 +101,109 @@ const Styles = styled.div`
       ${'' /* position: relative; */}
 
       :last-child {
-        border-right: 0;
-        
+        border-right: 0;        
       }   
+
+      :nth-child(2){          
+        width:100px !important;
+        word-break: break-word;             
+      }
+      :nth-child(3){          
+        width:80px !important;
+        word-break: break-word;             
+      }
+      :nth-child(4){          
+        width:420px !important;
+        ${'' /* word-break: break-word !important;  */}
+        font-family: monospace;          
+        white-space: pre-wrap;               
+      }
+      :nth-child(5){          
+        width:120px !important;
+        word-break: break-word;             
+      }
+      :nth-child(6){          
+        width:160px !important;
+        word-break: break-word;             
+      }
+      :nth-child(7){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(8){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(9){          
+        width:60px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(10){          
+        width:60px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(11){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(12){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(13){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(14){          
+        width:50px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(15){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(16){          
+        width:50px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(17){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(19){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(20){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(21){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(22){          
+        width:160px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(23){          
+        width:160px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(24){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(25){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      
 
       .resizer {
         right: 0;
         background: #80dfff;
-        width: 2px;
+        width: 1px;
         height: 100%;
         position: absolute;
         top: 0;
@@ -111,14 +212,20 @@ const Styles = styled.div`
         touch-action :none;
 
         &.isResizing {
-          background: yellow;
+          background: white;
         }
       }
     }
 
+    @media only screen and (max-height: 1080px) {
+        .tbody {
+            height: 700px;
+        }
+    }
+
     @media only screen and (max-height: 900px) {
         .tbody {
-            height: 520px;
+            height: 508px;            
         }
     }
 
@@ -175,25 +282,27 @@ const Styles = styled.div`
 .func2 {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     margin-top: 8px;
     margin-bottom: 45px;
-    
+    z-index:4;    
 }
 
 .func2>* {
-    flex: 1 1 10rem;
+    flex: 1 1 5rem;
+    
 }
 
 .excelBtn {
     position: absolute;
-    right: 15px;
+    left: 365px;
     z-index: 9;
     margin-top: 0px;
 }
 
 .drop {
     position: absolute;
-    right: 255px;
+    left: 195px;
     z-index: 9;
     margin-top: 0px;
 }
@@ -202,76 +311,229 @@ const Styles = styled.div`
         
         *{
 	        box-sizing: border-box;
+            overflow: hidden;
         }
-
+    
+        .func2 {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            margin-top: 8px;
+            margin-bottom: 45px;
+            z-index:7;
+            width:220px;                      
+            align-content: left;  
+            height:1540px;                          
+        } 
+        .func2>* {
+            flex: 1 1 5rem;            
+        }       
+        
         .thead{
             display: none;
             overflow-y: hidden;
             overflow-x: hidden;
         }
-        .table,
-        .tbody,
-        .tr,
-        .td  {
+        .table
+          {
+            ${'' /* display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100%; */}
             display: block;
-            width: 100%;
             padding-bottom: 15px;
             z-index: 1;            
             border: 0;
-            position: relative;  
-            border: 0;          
+            position: relative; 
+            margin-top: -1410px;
+            border-top: 1px solid black;
+
+            .tr, .td{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                flex: 1 1 50%;
+                width: 100%;
+                
+            }
+            .tbody,           
+            {
+                display: block;                
+                padding-bottom: 15px;
+                z-index: 1;            
+                border: 1px solid blue;
+                position: relative;                
+                text-align: right;               
+                align-self: auto;                 
+                align-items: flex-end;
+                overflow-y: hidden;
+                overflow-x: hidden;
+                height:100%;
+               
+            } 
+
+            .td{
+                width: 100% !important;                
+                border: 1 solid blue;
+                padding-left: 8%;
+                content-align: center;
+                :nth-child(2){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(3){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(4){          
+                    width:550px !important;
+                    word-break: break-word;                  
+                }
+                :nth-child(5){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(6){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(7){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(8){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(9){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(10){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(11){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(12){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(13){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(14){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(15){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(16){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(17){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(19){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(20){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(21){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(22){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(23){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(24){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(25){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+            }
+
+            
+            .tr {
+                margin-bottom: 15px;
+                border: 0;
+            }
+            .tr:nth-child(even) {
+                background-color: lightblue;
+            }           
+            
+            .td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 25%;
+                padding-left: 5px;
+                font-weight: bold;
+                text-align: left;
+                font-size: 12px;
+                background: #007bff;
+                color: white;
+                border-radius: 2px;
+                z-index: 1;
+                height: 18px;
+                
+            }
+
+            
+            .td,
+            .th {            
+                max-width: 550px;
+                z-index: 1;
+                position: relative;
+                border: 0;
+                width:350px;                
+            }           
         }
-        .tbody{
-            overflow-y: auto;
-            overflow-x: hidden;
-            height:100%;
-            position: relative;
-        }
-        .tr {
-            margin-bottom: 15px;
-            border: 0;
-        }
-        .tr:nth-child(even) {
-            background-color: lightblue;
-        }
-        .td {
-            text-align: right;
-            padding-left: 75%;
-            text-align: right;
-            position: relative;
-        }
-        .td::before {
-            content: attr(data-label);
-            position: absolute;
-            left: 0;
-            width: 55%;
-            padding-left: 10px;
-            font-weight: bold;
-            text-align: left;
-            font-size: 12px;
-            background: #007bff;
-            color: white;
-            border-radius: 2px;
-            z-index: 1;
-        }
-        .td,
-        .th {            
-            max-width: 150px;
-            z-index: 1;
-            position: relative;
-            border: 0;
-        }
+        
 
         .excelBtn {
-            position: relative;        
-            padding-left: 10%;
-            margin-bottom: 5px;
-            margin-top: 45px;
+            position: relative;                   
+            left: 2%;
+            margin-top:55px;
+            margin-bottom:-1365px;
+            z-index:7;
         } 
         .drop{
-            position: relative;
-            margin-top:  45px;
-            left: 5px;
+            position: relative;  
+            left: 2%;
+            z-index:7;
+            height: 1400px; 
+            margin-bottom:-470px;                 
+        }
+        .boxCheck {
+            display: grid;
+            grid-template-columns: 100%;
+            width: 162px;
+            border-radius: 5px;    
+            z-index:7; 
+            height:1400px;             
+        }
+        .dropContainer{
+            height: 150%;
+            z-index:7;
         }
         
 }
@@ -286,37 +548,33 @@ const Styles = styled.div`
 }
 
 
-
 @media only screen and (max-width: 320px) {
     .boxCheck {
         display: grid;
         grid-template-columns: 100%;
         width: 162px;
         border-radius: 5px;
+        
     }
     .excelBtn {
         position: relative;        
-        padding-left: 10%;        
-        margin-top: 45px;
+        padding-left: 1%;        
+       
     } 
     .drop{
-        position: relative;
-        margin-top:  5px;
-        left: 5px;
-        padding-top:5px;
+        position: relative;        
+        left: 1%;        
     }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
-        position: relative;
-        padding-left: 15%;        
-        margin-top: 45px;
+        position: relative;                   
+        left: 1%;       
     } 
     .drop{
-        position: relative;
-        margin-top:  5px;
-        left: 5px;
+        position: relative;       
+        left:1%;
     }   
 }  
 
@@ -333,7 +591,7 @@ const getStyles = (props, align = 'left') => [
     style: {
       justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
       alignItems: 'flex-start',
-      display: 'flex',
+      display: 'flex',      
     },
   },
 ]
@@ -357,16 +615,16 @@ const IndeterminateCheckbox = React.forwardRef(
 
 const TableAKRx = (props) => {
     
-    // +RESIZE
+    //+RESIZE
     const defaultColumn = React.useMemo(
         () => ({
           // When using the useFlexLayout:
           minWidth: 100, // minWidth is only used as a limit for resizing
           width: 180, // width is used for both the flex-basis and flex-grow
           maxWidth: 1120, // maxWidth is only used as a limit for resizing
-          wordWrap: 'break-all'  ,
-          whiteSpace: 'normal'      
-        }),
+          wordBreak: 'break-word',
+          whiteSpace: 'normal',          
+        } ),
         []
     );
 
@@ -501,9 +759,9 @@ const TableAKRx = (props) => {
 
     return (
         <Styles>
-        <div >        
+              
             <div className="func2" >
-                <div className="excelBtn">
+                <div className= "excelBtn">
                     <ReactHTMLTableToExcel 
                         className="btn btn-info"
                         table="emp-table"
@@ -513,7 +771,7 @@ const TableAKRx = (props) => {
                     />                
                     {/* <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button> */}
                 </div>
-                <div>
+                <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
                         <div className="boxCheck">                    
                             <div>
@@ -546,7 +804,7 @@ const TableAKRx = (props) => {
                         {
                             // Gives us access to each column
                             headerGroup.headers.map( column => (
-                                <th {...column.getHeaderProps(headerProps)} className='th'>
+                                <th {...column.getHeaderProps(headerProps)} className="th">
                                 
                                     {column.render('Header')}
                                     
@@ -568,15 +826,15 @@ const TableAKRx = (props) => {
                     ))
                 }
             </thead>
-            <tbody {...getTableBodyProps()} className='tbody'>
+            <tbody {...getTableBodyProps()} className="tbody">
                 {
                     page.map(row => {
                         prepareRow(row)
                         return(
-                            <tr {...row.getRowProps()} className='tr'>
+                            <tr {...row.getRowProps()} className="tr">
                                 {
                                     row.cells.map( cell=> {
-                                        return <td {...cell.getCellProps(cellProps)} data-label={cell.render('Header')} className='td'>{cell.render('Cell')}</td>
+                                        return <td {...cell.getCellProps(cellProps)} data-label={cell.render('Header')} className="td">{cell.render('Cell')}</td>
                                     })
                                 }                                
                             </tr>
@@ -600,7 +858,7 @@ const TableAKRx = (props) => {
             Rows per page:{'  '}
             <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
-                    [10, 25, 50, 100].map(pageSize => (                       
+                    [10, 25, 50, 100, 1000].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
                                 {pageSize}
                             </option>            
@@ -624,8 +882,8 @@ const TableAKRx = (props) => {
             <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
             <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
         </div>
-        </div>
-        </Styles>
+        
+    </Styles>
     )
 };
 

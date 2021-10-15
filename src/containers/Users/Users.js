@@ -9,7 +9,6 @@ import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 import Heading from '../../components/CRUD/Customer/Heading';
 
-
 const Users = props => {
     const users = useSelector(state => {
         return state.user.users;
@@ -35,12 +34,17 @@ const Users = props => {
     const[username, setUsername] = useState('');
     const[password, setPassword] = useState('');
     const[role, setRole] = useState('');
+    const[name, setName] = useState('');
+    const[surname, setSurname]= useState('');
+    const[email, setEmail]=useState('');
+    const[company, setCompany]=useState('');
+    const[terms, setTerms]=useState('');
     
     const dispatch = useDispatch();
     
     const onFetchUsers = useCallback(
-        () => dispatch(actions.fetchUsers(offset, limit, username, password, role))
-        , [dispatch, offset, limit, username, password, role]
+        () => dispatch(actions.fetchUsers(offset, limit, username, password, role, name, surname, email, company, terms ))
+        , [dispatch, offset, limit, username, password, role, name, surname, email, company, terms]
     );
     
     
@@ -76,15 +80,13 @@ const Users = props => {
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={usersCount}
             setPageStore={setUsersPageHandler}
-            currPage={page}  
-                       
+            currPage={page}                        
             /> ;        
     }      
     
     return (
         <React.Fragment>    
-            <Heading/>   
-                                                 
+            <Heading/>                                                
             {usersTable}            
         </React.Fragment>        
     );

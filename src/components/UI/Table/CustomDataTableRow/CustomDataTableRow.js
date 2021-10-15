@@ -15,7 +15,7 @@ import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
 import classesCss from './CustomDataTableRow.module.css';
 import Button from '../../Button/Button';
-//import {FaTrashAlt} from 'react-icons/fa';
+// import {FaTrashAlt} from 'react-icons/fa';
 
 const styles = {
     cardContent: {

@@ -198,7 +198,8 @@ const Akrx = props => {
         }
                
     };
-
+    
+    //console.log(acarsMessages);
       
     let akrxTable = <Spinner />;
     if (!acarsMessages && !loading  ) {
@@ -229,7 +230,7 @@ const Akrx = props => {
     }      
     
     return (
-        <React.Fragment>                       
+        <div style={{marginTop:'-2px'}}>                       
             {akrxPageHeader}             
             <SearchAKRxElement
                 clickedSearch={submitSearchHandler}                               
@@ -237,7 +238,7 @@ const Akrx = props => {
                 allChanger={allChanger}                     
             />                                     
             {akrxTable}                       
-        </React.Fragment>        
+        </div>        
     );
 };
 
