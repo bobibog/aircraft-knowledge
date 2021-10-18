@@ -1,0 +1,156 @@
+.tbody {
+    margin: 0;
+    padding: 0px;
+    z-index: 1;
+    display: block;
+    text-align: center;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+@font-face {
+    font-family: customFont;
+    src: local(Arial Unicode MS);
+}
+
+.table {
+    font-family: 'custom-font', Arial Unicode MS, Arial, verdana;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 85px;
+    /* z-index: 1; */
+    text-align: center !important;
+}
+
+.table thead {
+    position: sticky !important;
+    text-align: center !important;
+    margin-left: -17px !important;
+    max-height: 15px;
+    overflow-y: visible;
+}
+
+.table td,
+.table th {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    position: sticky;
+    top: 0px;
+}
+
+.select {
+    border: none;
+    margin-left: 10px;
+}
+
+.pagginationBox {
+    width: 450px;
+    position: absolute;
+    right: 2px;
+    height: 55px;
+}
+
+.button {
+    margin-top: 15px;
+    border: none;
+}
+
+#input {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.select {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.trashCan {
+    color: red;
+    text-align: center;
+    font-size: 17px;
+}
+
+.update {
+    color: green;
+    text-align: center;
+    font-size: 17px;
+}
+
+@media only screen and (max-width: 640px) and (orientation: portrait) {
+    .table td {
+        font-size: 11px;
+    }
+}
+
+@media(max-width:550px) {
+    .table thead {
+        display: none;
+    }
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+        padding-bottom: 15px;
+        z-index: 1;
+    }
+    .table tr {
+        margin-bottom: 15px;
+    }
+    .table tr:nth-child(even) {
+        background-color: lightblue;
+    }
+    .table td {
+        text-align: right;
+        padding-left: 35%;
+        text-align: right;
+        position: relative;
+    }
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 35%;
+        padding-left: 10px;
+        font-weight: bold;
+        text-align: left;
+        font-size: 12px;
+        background: #007bff;
+        color: white;
+        border-radius: 2px;
+        z-index: 1;
+    }
+    .table td,
+    .table th {
+        max-width: 550px;
+        z-index: 1;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .pagginationBox {
+        width: auto;
+        position: absolute;
+        left: 2px;
+        height: 55px;
+    }
+}

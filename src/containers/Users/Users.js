@@ -3,7 +3,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Table from '../../components/UI/Table/Table';
+// import Table from '../../components/UI/Table/Table';
+import TableUser from '../../components/UI/Table/ReactTable/TableUser/TableUser';
 import {crudUserHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
@@ -73,15 +74,24 @@ const Users = props => {
     }
     
     if (users && !loading ) {
-        usersTable = <Table 
-            data={users}
-            header={crudUserHeader}            
-            rowsPerPageDef={limit}
-            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+        // usersTable = <Table 
+        //     data={users}
+        //     header={crudUserHeader}            
+        //     rowsPerPageDef={limit}
+        //     changeOffsetOrLimit={changeOffsetOrLimitHandler}
+        //     totalDataCount={usersCount}
+        //     setPageStore={setUsersPageHandler}
+        //     currPage={page}                        
+        //     /> ;  
+        usersTable = <TableUser
+            data={users}            
+            rowsPerPageDef={limit}            
             totalDataCount={usersCount}
-            setPageStore={setUsersPageHandler}
-            currPage={page}                        
-            /> ;        
+            currPage={page}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            setPageStore={setUsersPageHandler}   
+             
+        />;      
     }      
     
     return (

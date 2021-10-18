@@ -90,11 +90,14 @@ export const registerUser = (password, username, role, email, uName, surname, co
             terms: terms
         };
 
-        const authorization= {'Authorization': `Bearer ${isAuthenticated}`}
+        const config ={
+            headers: {'Authorization': `Bearer ${isAuthenticated}`}
+        }
+        
 
-        axios.post(url, registerData, authorization)
+        axios.post(url, registerData, config)
         .then(response => {   
-            alert("User is into database.");        
+            alert("User was inserted into database.");        
         })
         .catch(error => {
             alert(error);                                
@@ -103,6 +106,32 @@ export const registerUser = (password, username, role, email, uName, surname, co
 
     }   
 };
+
+
+export const deleteUser = (id, isAuthenticated) => {
+    return dispatch => {
+        dispatch(fetchUsersStart());        
+        
+        
+        let url = `/user/${id}`;
+
+        const config ={
+            headers: {'Authorization': `Bearer ${isAuthenticated}`}
+        }                 
+        
+        axios.delete(url, config)
+        .then(response => {   
+            alert("User was deleted from database."); 
+            window.location.reload();       
+        })
+        .catch(error => {
+            alert(error);                                
+        }    
+    );
+
+    }   
+};
+
 
 export const acceptTerms = (id) => {
     return dispatch => {

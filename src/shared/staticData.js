@@ -389,7 +389,7 @@ export const crudUserHeader = [
     },
     {
         name:"DELETE",
-        type:"button"
+        buttonElement: "buttonDelete"
     },
     {
         name:"UPDATE",
