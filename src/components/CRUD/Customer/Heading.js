@@ -10,11 +10,11 @@ import {
 
 const  Heading = () => {
   return (
-    <Navbar color="dark" style={{marginBottom:'-90px'}}>
+    <Navbar color="white" style={{marginBottom:'-45px'}}>
         <Container >
             
             <Nav >
-                <NavItem >
+                <NavItem style={{position:"fixed", marginLeft:"-195px"}}>
                     <Link className="btn btn-primary" to="/addUser">Add User</Link>
                 </NavItem>
             </Nav>

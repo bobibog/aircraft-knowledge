@@ -83,10 +83,10 @@ const Auth2 = props => {
     };    
     
     var isTermed = authContext.user.terms;
-    console.log("TERMED="+isTermed);  
+    //console.log("TERMED="+isTermed);  
 
     const idUser = authContext.user.id;
-    console.log("ID="+idUser);  
+    //console.log("ID="+idUser);  
     
 
     const submitHandler = (e) => {

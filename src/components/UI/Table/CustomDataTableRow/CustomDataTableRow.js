@@ -15,7 +15,8 @@ import StyledTableRow from '../StyledTableRow/StyledTableRow';
 import StyledTableCell from '../StyledTableRow/StyledTableCell/StyledTableCell';
 import classesCss from './CustomDataTableRow.module.css';
 import Button from '../../Button/Button';
-// import {FaTrashAlt} from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FaTrashAlt} from 'react-icons/fa';
 
 const styles = {
     cardContent: {
@@ -98,7 +99,7 @@ const CustomDataTableRow = (props) => {
         let toLinkRoute = null;
         let toLinkRouteBase = null;
         let toLinkRouteParam = null;
-
+        
         if (rowData[apiModelHeaderColumn.prop]) {
             if (apiModelHeaderColumn.linkRoute) {
                 toLinkRouteBase = apiModelHeaderColumn.linkRoute[0];
@@ -172,9 +173,7 @@ const CustomDataTableRow = (props) => {
                                 }
                                 apiModelPropValue = apiModelPropValue.value.hours + ":" + minutes;                                
                         }
-                        // else if (apiModelHeaderColumn.type === "button") {
-                        //      <Button ><FontAwesomeIcon icon={FaTrashAlt} className={classes.iconTrash} /></Button>                          
-                        // }
+                                                
                         else {
                                 apiModelPropValue = "-"    
                             }
@@ -194,6 +193,7 @@ const CustomDataTableRow = (props) => {
                         {dataCellContent}
                     </Link>            
             }
+            
         }
 
         return dataCellContent;
@@ -229,6 +229,7 @@ const CustomDataTableRow = (props) => {
                         // let dataTableCell = "-";
                         // if (props.rowData[headerColumnVisible.prop]) {
                             const dataTableCell = getApiModelPropValue(props.rowData, headerColumnVisible);
+                            
                         // }
 
                         return (

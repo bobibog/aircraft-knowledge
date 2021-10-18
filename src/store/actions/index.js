@@ -53,5 +53,6 @@ export {
     setUsersOffsetLimit,
     setUsersPage,
     acceptTerms,
-    registerUser 
+    registerUser,
+    deleteUser
 } from './user';
