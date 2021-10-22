@@ -523,14 +523,14 @@ const Styles = styled.div`
 
         .excelBtn {
             position: relative;                   
-            left: 2%;
+            left: 1%;
             margin-top:55px;
             margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
             position: relative;  
-            left: 2%;
+            left: 1%;
             z-index:7;
             height: 1400px; 
             margin-bottom:-470px;                 
