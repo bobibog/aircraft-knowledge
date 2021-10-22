@@ -19,17 +19,21 @@ const TermsOfUse = (props)=> {
     const dispatch = useDispatch();    
 
     var id = authContext.user.id;
-
+    
     const onAcceptTerms = useCallback(
         () => dispatch(actions.acceptTerms(id))
         , [dispatch, id]
     ); 
     
     
+
+    let authRedirect = null;
     const onAccept=(e)=>{
         props.clickedTerms();
         onAcceptTerms();
-        window.location.href="/akrx";
+        //window.location.href="/akrx";
+        // authRedirect = <Redirect from="/auth2" to="/akrx"/>
+        
     };
 
     const declineClick=(e)=>{

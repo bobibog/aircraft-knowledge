@@ -217,7 +217,19 @@ const Styles = styled.div`
       }
     }
 
+    @media only screen and (max-height: 1180px) {
+        .tbody {
+            height: 900px;
+        }
+    }
+
     @media only screen and (max-height: 1080px) {
+        .tbody {
+            height: 800px;
+        }
+    }
+
+    @media only screen and (max-height: 1000px) {
         .tbody {
             height: 700px;
         }
@@ -225,7 +237,7 @@ const Styles = styled.div`
 
     @media only screen and (max-height: 900px) {
         .tbody {
-            height: 508px;            
+            height: 505px;            
         }
     }
 
@@ -295,14 +307,14 @@ const Styles = styled.div`
 
 .excelBtn {
     position: absolute;
-    left: 365px;
+    left: 340px;
     z-index: 9;
     margin-top: 0px;
 }
 
 .drop {
     position: absolute;
-    left: 195px;
+    left: 170px;
     z-index: 9;
     margin-top: 0px;
 }

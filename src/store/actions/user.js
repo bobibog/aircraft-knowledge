@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
 import {generatePath} from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 
 export const setUsersOffsetLimit = (offset, limit) => {
@@ -40,6 +41,35 @@ export const fetchUsersStart = () => {
     }
 };
 
+// 1 USER
+export const fetchUserSuccess = (password, username, name, surname, role, terms, company, email) => {
+    return {
+        type: actionTypes.FETCH_USER_SUCCESS,
+        // user: user 
+        password: password,
+        username: username,
+        name: name,
+        surname: surname,
+        role: role,
+        terms: terms,
+        company: company,
+        email: email       
+    }
+};
+
+export const fetchUserFail = (error) => {
+    return {
+        type: actionTypes.FETCH_USER_FAIL,
+        error: error
+    }
+};
+
+export const fetchUserStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_START
+    }
+};
+
 
 export const fetchUsers = (offset, limit, username, password, role, name, surname, email, company, terms) => {
     return dispatch => {
@@ -67,6 +97,26 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
             })
             .catch(error => {
                 dispatch(fetchUsersFail(error));                                
+            }    
+        );        
+    }
+};
+
+export const getUser = (id) => {
+    return dispatch => {
+        dispatch(fetchUserStart());        
+          
+        let url = `/user/${id}`;         
+            
+        axios.get(url)
+            .then(response => { 
+                dispatch(fetchUserSuccess(response.data.password, response.data.username,
+                    response.data.name, response.data.surname, response.data.role, response.data.terms,
+                    response.data.email, response.data.company))                                 
+            }
+            )
+            .catch(error => {
+                dispatch(fetchUserFail(error));                                
             }    
         );        
     }
@@ -132,17 +182,59 @@ export const deleteUser = (id, isAuthenticated) => {
     }   
 };
 
+export const updateUser = (id, password, username, role, email, uName, surname, company, terms, isAuthenticated) => {
+    return dispatch => {
+        dispatch(fetchUserStart());        
+        
+        
+        let url = `/user/update/${id}`;
+
+        const config ={
+            headers: {'Authorization': `Bearer ${isAuthenticated}`}
+        }
+        
+        const user = {
+            id: parseInt(id),
+            password: password,            
+            username: username,
+            role: role,
+            email: email,
+            name: uName,
+            surname: surname,            
+            company: company,
+            terms: parseInt(terms)
+        };
+        
+        axios.put(url, user, config)
+        .then(response => {   
+            alert("User was successfully updated."); 
+            window.location.reload();       
+        })
+        .catch(error => {
+            alert(error.message);                                
+        }    
+    );
+
+    }   
+};
+
+
 
 export const acceptTerms = (id) => {
     return dispatch => {
         dispatch(fetchUsersStart());
             
         let url = `/user/${id}`;
-
+        let authRedirect = null;
         axios.put(url, {id:id,terms:1})
-            .then(response => {                
-                alert("WELCOME! EXPLORE AKRx WEB SITE");                 
-            })
+        .then(response => { 
+            dispatch(fetchUserSuccess(response.data.terms))                                 
+        
+            alert("WELCOME! EXPOLORE AKRx SITE"); 
+            window.location.href="/akrx";
+        
+        }        
+        )
             .catch(error => {
                 alert(error);                                
             }    

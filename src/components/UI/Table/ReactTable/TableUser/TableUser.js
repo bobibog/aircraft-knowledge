@@ -1,6 +1,6 @@
-import React, { useMemo, useState, useCallback, useContext } from 'react';
+import React, { useMemo, useState, useCallback, useContext, useEffect } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AuthContext} from '../../../../../context/auth-context';
 import * as actions from '../../../../../store/actions/index';
 import './TableUser.css';
@@ -12,7 +12,7 @@ import Button from '../../../Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faPenAlt } from '@fortawesome/free-solid-svg-icons'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 
 const headerProps = (props, { column }) => getStyles(props, column.align)
@@ -54,6 +54,8 @@ const TableAKRx = (props) => {
     
     let isAuthenticated = authContext.user.token;    
     
+    
+
     const COLUMNS = [
         {
             Header: "Id",
@@ -97,20 +99,22 @@ const TableAKRx = (props) => {
             Cell: ( props ) => {return (
                 <Button className='buttonDelete' clicked={useCallback(
                          () => dispatch(actions.deleteUser(props.row.original.id, isAuthenticated))
-                         , [dispatch, props.row.original.id, isAuthenticated])}  
-                         
+                         , [dispatch, props.row.original.id, isAuthenticated])}                           
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} className="trashCan"  />
+                  <FontAwesomeIcon icon={faTrashAlt} className="trashCan"  
+                   />
                 </Button>
               );}
         },
         {
-            Header: "UPDATE",
-            Cell: ({ original }) => (
-                <Button className='buttonUpdate'>
-                  <FontAwesomeIcon icon={faPenAlt} className="update" />
-                </Button>
-              )
+            Header: "UPDATE",            
+            Cell: ( props ) => {return (
+                <Link to={`/updateUser/${props.row.original.id}`} className='buttonUpdate' onClick={
+                    useCallback(() => dispatch(actions.getUser(props.row.original.id))
+                      , [dispatch, props.row.original.id])}>
+                    <FontAwesomeIcon icon={faPenAlt} className="update" />
+                </Link>
+            )}
             
         }
     ];
@@ -191,14 +195,14 @@ const TableAKRx = (props) => {
        
        
         <table {...getTableProps()} className="table" id="emp-table">
-            <thead className="thead">
+            <thead className="thead" style={{textAlign:'center'}}>
                 {
                     headerGroups.map(headerGroup => (                    
                     <tr {...headerGroup.getHeaderGroupProps()} className="tr">
                         {
                             // Gives us access to each column
                             headerGroup.headers.map( column => (
-                                <th {...column.getHeaderProps(headerProps)} className="th">
+                                <th {...column.getHeaderProps(headerProps)} className="th" >
                                 
                                     {column.render('Header')}
                                     
@@ -220,7 +224,7 @@ const TableAKRx = (props) => {
                     ))
                 }
             </thead>
-            <tbody {...getTableBodyProps()} className="tbody">
+            <tbody {...getTableBodyProps()} className="tbody" >
                 {
                     page.map(row => {
                         prepareRow(row)

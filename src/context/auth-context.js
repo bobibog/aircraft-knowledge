@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 //import axios from '../axios-local';
 import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
+import { Redirect } from 'react-router-dom';
 
 const initialUser = {
     id: null,
@@ -44,22 +45,24 @@ const AuthContextProvider = props => {
         setAuthLoading(false);
     };
 
+    let authRedirect = null;
     const logout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('expirationDate');
+        //localStorage.removeItem('expirationDate');
         localStorage.removeItem('userId');
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         setAuthUser(initialUser);
+        
     };
 
-    const checkAuthTimeout = useCallback((expirationTimeInSeconds) => {
-        setTimeout(() => {
-            logout();
-        }, expirationTimeInSeconds * 1000);
-    }, []);
+    // const checkAuthTimeout = useCallback((expirationTimeInSeconds) => {
+    //     setTimeout(() => {
+    //         logout();
+    //     }, expirationTimeInSeconds * 1000);
+    // }, []);
 
-    const expiresInSeconds = 3600;
+    //const expiresInSeconds = 29000;
 
     const auth = (username, password, role, terms, isRegistration) => {
         authStart();
@@ -75,15 +78,15 @@ const AuthContextProvider = props => {
         }
         axios.post(url, authData)
             .then(response => {
-                // const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                const expirationDate = new Date(new Date().getTime() + expiresInSeconds * 1000);
+                //const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+                //const expirationDate = new Date(new Date().getTime() + expiresInSeconds * 1000);
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem('expirationDate', expirationDate);
+                //localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', response.data.id);
                 localStorage.setItem('role', response.data.role);
                 localStorage.setItem('terms', response.data.terms);
                 authSuccess(response.data.token, response.data.id, response.data.role, response.data.terms);
-                checkAuthTimeout(expiresInSeconds);
+                //checkAuthTimeout(expiresInSeconds);
                 alert('Nice to see you again '+response.data.username);
             })
             .catch(err => {
@@ -91,23 +94,44 @@ const AuthContextProvider = props => {
             });
     };
 
+    
+
+    // const authCheckState = useCallback(() => {
+    //     const token = localStorage.getItem('token');
+    //     const role = localStorage.getItem('role');
+    //     const terms = localStorage.getItem('terms');
+    //     if (!token) {
+    //         logout();
+            
+    //     } else {
+    //         const expirationDate = new Date(localStorage.getItem('expirationDate'));
+    //         if (expirationDate <= new Date()) {
+    //             logout();
+                
+    //         } else {
+    //             const userId = localStorage.getItem('userId');
+    //             authSuccess(token, userId, role, terms);
+    //             checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 );
+    //         }   
+    //     }
+    // }, [checkAuthTimeout]);
+
     const authCheckState = useCallback(() => {
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        const terms = localStorage.getItem('terms');
-        if (!token) {
-            logout();
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                logout();
-            } else {
+             const token = localStorage.getItem('token');
+             const role = localStorage.getItem('role');
+             const terms = localStorage.getItem('terms');
+             if (!token) {
+                 logout();
+                
+             } else{   
+                  
                 const userId = localStorage.getItem('userId');
                 authSuccess(token, userId, role, terms);
-                checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 );
-            }   
-        }
-    }, [checkAuthTimeout]);
+                     
+                  
+             }
+    }, []);
+    
 
     return (
         <AuthContext.Provider

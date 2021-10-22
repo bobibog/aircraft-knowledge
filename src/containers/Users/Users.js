@@ -11,11 +11,13 @@ import * as actions from '../../store/actions/index';
 import Heading from '../../components/CRUD/Customer/Heading';
 
 const Users = props => {
+    
+    
+
     const users = useSelector(state => {
         return state.user.users;
-    });
-    console.log(users);
-
+    });    
+    
     const usersCount = useSelector(state => {
         return state.user.usersCount;
     });

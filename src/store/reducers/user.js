@@ -3,6 +3,15 @@ import {rowsPerPageDefault} from '../../shared/staticData';
 import {updateObject} from '../../shared/utility';
 
 const initialState = {
+    
+    username: null,
+    password: null,
+    name: null,
+    surname: null,
+    role: null,
+    terms: null,
+    company: null,
+    email: null,    
     users: null,
     usersCount: null,
     usersLoading: false,
@@ -41,6 +50,32 @@ const fetchUsersFail = (state, action) => {
     });
 };
 
+// 1 USER
+const fetchUserStart = (state, action) => {
+    return updateObject(state, {
+        usersLoading: true
+    });
+};
+const fetchUserSuccess = (state, action) => {
+    return updateObject(state, {
+        
+        password: action.password,  
+        username: action.username,
+        role: action.role,
+        email: action.email,
+        name: action.name,
+        surname: action.surname,
+        company: action.company,
+        terms: action.terms,          
+        usersLoading: false
+    });
+};
+const fetchUserFail = (state, action) => {
+    return updateObject(state, {
+        usersLoading: false
+    });
+};
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -49,6 +84,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_USERS_START: return fetchUsersStart(state, action);            
         case actionTypes.FETCH_USERS_SUCCESS: return fetchUsersSuccess(state, action);            
         case actionTypes.FETCH_USERS_FAIL: return fetchUsersFail(state, action);
+
+        case actionTypes.FETCH_USER_START: return fetchUserStart(state, action);            
+        case actionTypes.FETCH_USER_SUCCESS: return fetchUserSuccess(state, action);            
+        case actionTypes.FETCH_USER_FAIL: return fetchUserFail(state, action);
+
         
         default: return state;
     }

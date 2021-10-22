@@ -6,6 +6,7 @@ import Background from '../../assets/images/arbeit.jpg';
 import Customers from '../../assets/images/crudCustomer.png';
 
 const Administrator = ()=>{
+    
     return(
         <div className={classes.container} style={{backgroundImage:"url("+Background+")"}}>
             <div className="row">
