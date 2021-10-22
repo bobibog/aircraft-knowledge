@@ -51,9 +51,10 @@ const Auth = props => {
             touched: false
         }
     });
-    const [isRegistration, setIsRegistration] = useState(true);
+    
     const[terms, setTerms] = useState(false);
     
+    const[accept, setAccept] = useState(0);
     
     const authContext = useContext(AuthContext);
     let isAuthenticated = authContext.user.token !== null;    
@@ -83,9 +84,11 @@ const Auth = props => {
     //Checking Terms of Use
     const termsHandler = (e)=>{        
             setTerms(true);                           
-    };    
+    };
     
-    var isTermed = authContext.user.terms;    
+    
+    
+    var isTermed = authContext.user.terms;   
     
     var isRole = authContext.user.role;
 
@@ -154,10 +157,11 @@ const Auth = props => {
     {
         authRedirect = <Redirect to="/administrator"/>
     }
-    if(isAuthenticated && isTermed== 1 && isRole!='Admin')
+    if(isAuthenticated && isTermed== 1 && isRole!='Admin' )
     {
         authRedirect = <Redirect to="/akrx"/>
     }
+    
 
     return (
         <div className={classes.Auth}>

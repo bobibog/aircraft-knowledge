@@ -139,20 +139,21 @@ const Auth2 = props => {
         );
     }
 
-    let authRedirect = null;
-    if ( isAuthenticated ) {
-        authRedirect = <Redirect to={authContext.authRedirectPath} />
-    }
-    if(isAuthenticated && isTermed!=1){
-        authRedirect = <Redirect to="/auth2"/>
-    }
+    //let authRedirect = null;
+    // if ( isAuthenticated ) {
+    //     authRedirect = <Redirect to={authContext.authRedirectPath} />
+    // }
+    
+    
+    
+    console.log("TERMED="+isTermed);
 
     return (
         <div className={classes.Auth}>
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
             </Modal> 
-            {authRedirect}
+            {/* {authRedirect} */}
             {errorMessage}
             <form onSubmit={submitHandler}>            
                 {form}

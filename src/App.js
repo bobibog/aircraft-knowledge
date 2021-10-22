@@ -16,6 +16,7 @@ import {AuthContext} from './context/auth-context';
 import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
 import Auth2 from './containers/Auth/Auth2';
+import UpdateUser from './containers/Users/UpdateUser/UpdateUser';
 //some dummy comment
 
 
@@ -31,18 +32,9 @@ function App() {
   }, [authCheckState]);
 
   let routes = (
-    <Switch>
-      {/* <Route path="/aircraft/:id" component={Aircrafts} />
-      <Route path="/aircraft" component={AircraftsSearch} />
-      <Route path="/airports/:id" component={Airports} />
-      <Route path="/airports" component={Airports} />
-      <Route path="/flights/:id" component={Flights} /> */}
-      {/* <Route path="/flights" component={Flights} /> */}            
-      {/* <Route path="/airlines" component={Airlines} />       */}            
+    <Switch>                  
       <Route path="/logout" component={Logout} /> 
-      <Route path="/auth" component={Auth} />
-      {/* <Redirect from="/" exact to="/airlines" /> */}
-      {/* <Route path="/akrx" component={AKRx} /> */}
+      <Route path="/auth" component={Auth} />      
       <Redirect from="/" exact to="/auth" />
       <Route render={() => <h1>Not found!</h1>} />
     </Switch>
@@ -59,13 +51,29 @@ function App() {
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
-        <Route path="/auth2" component={Auth2} />
+        <Route path="/auth2" component={Auth2} />         
         <Route path="/akrx" component={AKRx} />
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <h1>Not found!</h1>} />
+        <Route render={() => <h1>Please Log In</h1>} />
       </Switch>
     );
   }
+
+  
+  
+  // if(!isAuthenticated){
+  //   routes = (
+  //     <Switch>        
+  //       <Route path="/auth" component={Auth} />
+  //       <Redirect from="/aircraft" to="/auth" />        
+  //       <Redirect from="/airports" to="/auth" />                
+  //       <Redirect from="/airlines" to="/auth" />                
+  //       <Redirect from="/akrx" to="/auth" />
+  //       <Redirect from="/" exact to="/auth" />                    
+  //     </Switch>
+  //   );
+  // }  
+
   if (isRole) {
     routes = (
       <Switch>  
@@ -77,26 +85,16 @@ function App() {
         <Route path="/airlines" component={Airlines} />             
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
-        <Route path="/user" component={User} />   
+        <Route path="/user" component={User} />  
         <Route path="/addUser" component={AddUser} />
+        <Route path={"/updateUser/:id"} component={UpdateUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
         <Route render={() => <h1>Not found!</h1>} />
       </Switch>
     );
   }
-  // if (isNotTermed) {
-  //   routes = (
-  //     <Switch>  
-  //       <Route path="/logout" component={Logout} /> 
-  //     <Route path="/auth2" component={Auth2} /> 
-  //     <Redirect from="/" exact to="/auth2" />     
-  //     <Route render={() => <h1>Not found!</h1>} />
-  //     </Switch>
-  //   );
-  // }
   
-   
   
   
   return (    

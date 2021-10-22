@@ -54,5 +54,7 @@ export {
     setUsersPage,
     acceptTerms,
     registerUser,
-    deleteUser
+    deleteUser,
+    updateUser,
+    getUser
 } from './user';
