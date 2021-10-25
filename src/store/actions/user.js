@@ -147,7 +147,8 @@ export const registerUser = (password, username, role, email, uName, surname, co
 
         axios.post(url, registerData, config)
         .then(response => {   
-            alert("User was inserted into database.");        
+            alert("User was inserted into database.");
+            window.location.href="/user";        
         })
         .catch(error => {
             alert(error);                                
@@ -207,8 +208,8 @@ export const updateUser = (id, password, username, role, email, uName, surname, 
         
         axios.put(url, user, config)
         .then(response => {   
-            alert("User was successfully updated."); 
-            window.location.reload();       
+            alert("User was successfully updated.");
+            window.location.href="/user";                    
         })
         .catch(error => {
             alert(error.message);                                

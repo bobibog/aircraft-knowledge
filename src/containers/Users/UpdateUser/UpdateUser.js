@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useCallback, useRef } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link, useHistory, Redirect} from 'react-router-dom';
 import classes from './UpdateUser.module.css';
@@ -8,70 +8,21 @@ import axios from '../../../axios-azure';
 import {match} from 'react-router';
 import {AuthContext} from '../../../context/auth-context';
 import {UserContext} from '../../../context/user-context';
+import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 
 
-const  UpdateUser = (props) => {  
-
-        
+const  UpdateUser = (props) => {          
     
     const dispatch = useDispatch();
 
     const authContext = useContext(AuthContext);
     let isAuthenticated = authContext.user.token;
-    //console.log("TOKEN="+isAuthenticated);
-    
-    // const {customer} = useContext(UserContext);   
-
-    
-    //   const history = useHistory();
-    const idUser = props.match.params.id;
-    
-    // let [selectedCustomer, setSelectedCustomer] = useState({
-    //     id: '',
-    //     name: '',
-    //     surname: '',
-    //     email: '',
-    //     password: '',
-    //     username: '',
-    //     company: '',
-    //     role: '',
-    //     terms: ''
-    //   });    
-    
-    //   useEffect(()=>{
-    //     const customerId = idUser;
         
-    //     const selectedCustomer = Object.values(customer).filter(customer => customer.id === customerId);
-        
-    //     setSelectedCustomer(selectedCustomer);
-      
-    //   }, [idUser, customer])
-
-     
-    
-    //   const onSubmit = () =>{
-    //     updateCustomer(selectedCustomer);
-    //     history.push('/crudcustomer');
-    //   };
-    
-    //   const onChange = (e) => {
-    //     setSelectedCustomer({...selectedCustomer, [e.target.name]: e.target.value, 
-    //                                               [e.target.surname]: e.target.value,
-    //                                               [e.target.email]: e.target.value,
-    //                                               [e.target.password]: e.target.value,
-    //                                               [e.target.username]: e.target.value,
-    //                                               [e.target.role]: e.target.value,
-    //                                               [e.target.company]: e.target.value,
-    //                                               [e.target.terms]: e.target.value
-    //                                             })
-    //   };
-
-
-    
-    
+            
     const userPassword = useSelector(state => {
         return state.user.password;
     });
+    console.log("pasword="+userPassword);
     const userUsername = useSelector(state => {
         return state.user.username;
     });
@@ -83,8 +34,7 @@ const  UpdateUser = (props) => {
     });
     const userEmail = useSelector(state => {
         return state.user.email;
-    });   
-
+    });    
     const userSurname = useSelector(state => {
         return state.user.surname;
     });
@@ -93,26 +43,37 @@ const  UpdateUser = (props) => {
     });
     const userTerms = useSelector(state => {
         return state.user.terms;
-    });
+    });      
 
-    
+    const idUser = props.match.params.id;    
 
     const[id, setId]= useState(idUser);  
-    const[password, setPassword]=useState('');
-    const[username, setUsername]=useState('');
-    const[role, setRole]=useState('');
-    const[email, setEmail]=useState('');
-    const[uName, setName]=useState('');
-    const[surname, setSurname]=useState('');
-    const[company, setCompany]=useState('');
-    const[terms, setTerms]=useState('');
+    const[password, setPassword]=useState(userPassword);
+    const[username, setUsername]=useState(userUsername);
+    const[role, setRole]=useState(userRole);
+    const[email, setEmail]=useState(userCompany);
+    const[uName, setName]=useState(userName);
+    const[surname, setSurname]=useState(userSurname);
+    const[company, setCompany]=useState(userEmail);
+    const[terms, setTerms]=useState(userTerms);   
 
-    let route = null;
-            
-    // const onGetUser = useCallback(
-    //     () => dispatch(actions.getUser(idUser))
-    //     , [dispatch, idUser]
-    // );  
+    
+    useEffect(()=>{
+        setPassword(userPassword);
+        setUsername(userUsername);
+        setName(userName);
+        setSurname(userSurname);
+        setEmail(userCompany);
+        setRole(userRole);
+        setCompany(userEmail);
+        setTerms(userTerms);
+    },[userPassword, userUsername, userName, userSurname, userCompany, userRole, userEmail, userTerms]);
+    
+
+    const onUpdate = useCallback(
+        () => dispatch(actions.updateUser(id, password, username, role, email, uName, surname, company, terms, isAuthenticated))
+        , [dispatch, id, password, username, role, email, uName, surname, company, terms, isAuthenticated]
+    );    
     
     const onReset =()=>{
         setPassword('');
@@ -126,43 +87,16 @@ const  UpdateUser = (props) => {
 
     }
 
-    // useEffect(()=>{
-    //     onGetUser();
-        
-    // },[onGetUser]);
-
-    useEffect(()=>{
-        setPassword(userPassword);
-        setUsername(userUsername);
-        setName(userName);
-        setSurname(userSurname);
-        setEmail(userCompany);
-        setRole(userRole);
-        setCompany(userEmail);
-        setTerms(userTerms);
-    },[setPassword, setUsername, setName,setSurname, setEmail, setRole, setCompany, setTerms]);
-    
-
-    const onUpdate = useCallback(
-        () => dispatch(actions.updateUser(id, password, username, role, email, uName, surname, company, terms, isAuthenticated))
-        , [dispatch, id, password, username, role, email, uName, surname, company, terms, isAuthenticated]
-    );    
-    
-
     const onSubmit =()=>{
         onUpdate();
-        onReset();
-        route =<Redirect to="/user" />
+        onReset();        
     };
         
   return (
     <>
                 <h2><u>UPDATE - {userName}</u></h2>  
                 <div className={classes.container}>         
-                    <form className={classes.form} >
-                        <div >                        
-                            <input className={classes.input} value={id}   placeholder='Name'/>
-                        </div>
+                    <form className={classes.form} >                        
                         <div >                        
                             <input className={classes.input} name="name" value={uName} onChange={(e)=>setName(e.target.value)}  placeholder='Name'/>
                         </div>
