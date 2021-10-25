@@ -529,14 +529,14 @@ const Styles = styled.div`
 
         .excelBtn {
             position: relative;                   
-            left: 0%;
+            left: -25px;
             margin-top:55px;
             margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
             position: relative;  
-            left: 0%;
+            left: -25px;
             z-index:7;
             height: 1400px; 
             margin-bottom:-470px;                 
@@ -576,23 +576,23 @@ const Styles = styled.div`
     }
     .excelBtn {
         position: relative;        
-        padding-left: 0%;        
+        padding-left: -25px;        
        
     } 
     .drop{
         position: relative;        
-        left: 0%;        
+        left: -25px;        
     }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
         position: relative;                   
-        left: 0%;       
+        left: -25px;       
     } 
     .drop{
         position: relative;       
-        left:0%;
+        left:-25px;
     }   
 }  
 
