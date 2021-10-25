@@ -14,7 +14,7 @@ const  Heading = () => {
         <Container >
             
             <Nav >
-                <NavItem style={{position:"absolute", marginLeft:"-195px"}}>
+                <NavItem style={{position:'fixed', left:'22px'}}>
                     <Link className="btn btn-primary" to="/addUser">Add User</Link>
                 </NavItem>
             </Nav>

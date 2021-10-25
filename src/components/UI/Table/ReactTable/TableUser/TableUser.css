@@ -1,9 +1,8 @@
 .tbody {
     margin: 0;
     padding: 0px;
-    z-index: 1;
+    /* z-index: 1; */
     display: block;
-    text-align: center;
     /* overflow-y: scroll; */
 }
 
@@ -18,7 +17,7 @@
     width: 100%;
     font-size: 14px;
     margin-top: 85px;
-    /* z-index: 1; */
+    z-index: 2;
     text-align: center !important;
 }
 
@@ -53,6 +52,12 @@
     color: white;
     position: sticky;
     top: 0px;
+    text-align: center;
+}
+
+.tbody td {
+    background: white;
+    z-index: 2;
     text-align: center;
 }
 
@@ -101,7 +106,8 @@
     }
 }
 
-@media(max-width:550px) {
+
+/* @media(max-width:550px) {
     .table thead {
         display: none;
     }
@@ -154,4 +160,4 @@
         left: 2px;
         height: 55px;
     }
-}
+} */

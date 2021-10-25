@@ -45,7 +45,7 @@ const AuthContextProvider = props => {
         setAuthLoading(false);
     };
 
-    let authRedirect = null;
+    let redirect = null;
     const logout = () => {
         localStorage.removeItem('token');
         //localStorage.removeItem('expirationDate');
@@ -53,7 +53,7 @@ const AuthContextProvider = props => {
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         setAuthUser(initialUser);
-        
+        //redirect = <Redirect to="/auth" />
     };
 
     // const checkAuthTimeout = useCallback((expirationTimeInSeconds) => {

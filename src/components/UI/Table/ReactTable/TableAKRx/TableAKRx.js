@@ -217,6 +217,12 @@ const Styles = styled.div`
       }
     }
 
+    @media only screen and (max-height: 1440px) {
+        .tbody {
+            height: 1140px;
+        }
+    }
+
     @media only screen and (max-height: 1180px) {
         .tbody {
             height: 900px;
@@ -523,14 +529,14 @@ const Styles = styled.div`
 
         .excelBtn {
             position: relative;                   
-            left: 1%;
+            left: 0%;
             margin-top:55px;
             margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
             position: relative;  
-            left: 1%;
+            left: 0%;
             z-index:7;
             height: 1400px; 
             margin-bottom:-470px;                 
@@ -570,23 +576,23 @@ const Styles = styled.div`
     }
     .excelBtn {
         position: relative;        
-        padding-left: 1%;        
+        padding-left: 0%;        
        
     } 
     .drop{
         position: relative;        
-        left: 1%;        
+        left: 0%;        
     }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
         position: relative;                   
-        left: 1%;       
+        left: 0%;       
     } 
     .drop{
         position: relative;       
-        left:1%;
+        left:0%;
     }   
 }  
 

@@ -34,9 +34,10 @@ function App() {
   let routes = (
     <Switch>                  
       <Route path="/logout" component={Logout} /> 
-      <Route path="/auth" component={Auth} />      
+      <Route path="/auth" component={Auth} />       
+      <Redirect from="/logout" to="/auth" />      
       <Redirect from="/" exact to="/auth" />
-      <Route render={() => <h1>Not found!</h1>} />
+      <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
     </Switch>
   );
 
@@ -54,7 +55,7 @@ function App() {
         <Route path="/auth2" component={Auth2} />         
         <Route path="/akrx" component={AKRx} />
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <h1>Please Log In</h1>} />
+        <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
       </Switch>
     );
   }
@@ -90,7 +91,7 @@ function App() {
         <Route path={"/updateUser/:id"} component={UpdateUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
-        <Route render={() => <h1>Not found!</h1>} />
+        <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
       </Switch>
     );
   }

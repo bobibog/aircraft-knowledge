@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { faPenAlt } from '@fortawesome/free-solid-svg-icons'
 import { Redirect, Link } from 'react-router-dom';
+import {match} from 'react-router';
 
 
 const headerProps = (props, { column }) => getStyles(props, column.align)
@@ -113,11 +114,13 @@ const TableAKRx = (props) => {
                     useCallback(() => dispatch(actions.getUser(props.row.original.id))
                       , [dispatch, props.row.original.id])}>
                     <FontAwesomeIcon icon={faPenAlt} className="update" />
-                </Link>
+                </Link>                
             )}
             
         }
     ];
+    
+    
     
     //To avoid refreshing data with each rerender -> useMemo()
     const columns = useMemo(()=> COLUMNS, []);    
