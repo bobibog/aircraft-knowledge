@@ -91,13 +91,17 @@
 .trashCan {
     color: red;
     text-align: center;
-    font-size: 17px;
+    font-size: 18px;
+    margin-left: 45px;
 }
 
 .update {
     color: green;
     text-align: center;
-    font-size: 17px;
+    font-size: 18px;
+    vertical-align: middle;
+    margin-top: 18px;
+    margin-left: 45px;
 }
 
 @media only screen and (max-width: 640px) and (orientation: portrait) {

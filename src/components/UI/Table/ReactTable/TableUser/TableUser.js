@@ -3,7 +3,8 @@ import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, us
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthContext} from '../../../../../context/auth-context';
 import * as actions from '../../../../../store/actions/index';
-import './TableUser.css';
+//import './TableUser.css';
+import classes from './TableUser.module.css';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {FiSkipForward} from 'react-icons/fi';
@@ -98,11 +99,11 @@ const TableAKRx = (props) => {
         {
             Header: "DELETE",
             Cell: ( props ) => {return (
-                <Button className='buttonDelete' clicked={useCallback(
+                <Button className={classes.buttonDelete} clicked={useCallback(
                          () => dispatch(actions.deleteUser(props.row.original.id, isAuthenticated))
                          , [dispatch, props.row.original.id, isAuthenticated])}                           
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} className="trashCan"  
+                  <FontAwesomeIcon icon={faTrashAlt} className={classes.trashCan}  
                    />
                 </Button>
               );}
@@ -110,10 +111,10 @@ const TableAKRx = (props) => {
         {
             Header: "UPDATE",            
             Cell: ( props ) => {return (
-                <Link to={`/updateUser/${props.row.original.id}`} className='buttonUpdate' onClick={
+                <Link to={`/updateUser/${props.row.original.id}`} className={classes.buttonUpdate} onClick={
                     useCallback(() => dispatch(actions.getUser(props.row.original.id))
                       , [dispatch, props.row.original.id])}>
-                    <FontAwesomeIcon icon={faPenAlt} className="update" />
+                    <FontAwesomeIcon icon={faPenAlt} className={classes.update} />
                 </Link>                
             )}
             
@@ -197,15 +198,15 @@ const TableAKRx = (props) => {
        ?   
        
        
-        <table {...getTableProps()} className="table" id="emp-table">
-            <thead className="thead" style={{textAlign:'center'}}>
+        <table {...getTableProps()} className={classes.table} id="emp-table">
+            <thead className={classes.thead} style={{textAlign:'center'}}>
                 {
                     headerGroups.map(headerGroup => (                    
-                    <tr {...headerGroup.getHeaderGroupProps()} className="tr">
+                    <tr {...headerGroup.getHeaderGroupProps()} className={classes.tr}>
                         {
                             // Gives us access to each column
                             headerGroup.headers.map( column => (
-                                <th {...column.getHeaderProps(headerProps)} className="th" >
+                                <th {...column.getHeaderProps(headerProps)} className={classes.th} >
                                 
                                     {column.render('Header')}
                                     
@@ -227,15 +228,15 @@ const TableAKRx = (props) => {
                     ))
                 }
             </thead>
-            <tbody {...getTableBodyProps()} className="tbody" >
+            <tbody {...getTableBodyProps()} className={classes.tbody} >
                 {
                     page.map(row => {
                         prepareRow(row)
                         return(
-                            <tr {...row.getRowProps()} className="tr">
+                            <tr {...row.getRowProps()} className={classes.tr}>
                                 {
                                     row.cells.map( cell=> {
-                                        return <td {...cell.getCellProps(cellProps)} data-label={cell.render('Header')} className="td">{cell.render('Cell')}</td>
+                                        return <td {...cell.getCellProps(cellProps)} data-label={cell.render('Header')} className={classes.td}>{cell.render('Cell')}</td>
                                     })
                                 }                                
                             </tr>
@@ -247,11 +248,11 @@ const TableAKRx = (props) => {
         
         
         : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no results for your search. Please reset Your search or enter new search term.</p></div>}
-        <div className="pagginationBox">
+        <div className={classes.pagginationBox}>
             
             
             Rows per page:{'  '}
-            <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
+            <select className={classes.select} value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
                     [10, 25, 50, 100, 1000].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
@@ -272,10 +273,10 @@ const TableAKRx = (props) => {
                 {pageIndex+1} of {pageOptions.length}
                 {' '}
             </span>
-            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
-            <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
-            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
-            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
+            <button className={classes.button} onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
+            <button className={classes.button} onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
+            <button className={classes.button} onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
+            <button className={classes.button} onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
         </div>
         
     </>
