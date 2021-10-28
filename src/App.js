@@ -91,7 +91,7 @@ function App() {
         <Route path={"/updateUser/:id"} component={UpdateUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
-        <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
+        <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
     );
   }
