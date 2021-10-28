@@ -55,7 +55,7 @@ function App() {
         <Route path="/auth2" component={Auth2} />         
         <Route path="/akrx" component={AKRx} />
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
+        <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
     );
   }

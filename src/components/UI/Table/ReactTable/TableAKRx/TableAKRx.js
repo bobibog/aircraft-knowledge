@@ -225,25 +225,25 @@ const Styles = styled.div`
 
     @media only screen and (max-height: 1180px) {
         .tbody {
-            height: 900px;
+            height: 875px;
         }
     }
 
     @media only screen and (max-height: 1080px) {
         .tbody {
-            height: 800px;
+            height: 775px;
         }
     }
 
     @media only screen and (max-height: 1000px) {
         .tbody {
-            height: 700px;
+            height: 675px;
         }
     }
 
     @media only screen and (max-height: 900px) {
         .tbody {
-            height: 505px;            
+            height: 480px;            
         }
     }
 
