@@ -17,6 +17,7 @@ import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
 import Auth2 from './containers/Auth/Auth2';
 import UpdateUser from './containers/Users/UpdateUser/UpdateUser';
+import Adsb from './containers/Adsb/Adsb';
 //some dummy comment
 
 
@@ -52,7 +53,8 @@ function App() {
         <Route path="/airlines" component={Airlines} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
-        <Route path="/auth2" component={Auth2} />         
+        <Route path="/auth2" component={Auth2} />
+        <Route path="/adsb"  component={Adsb} />   
         <Route path="/akrx" component={AKRx} />
         <Redirect from="/" exact to="/akrx" />
         <Route render={() => <div><h1>Data not found</h1></div>} />
@@ -83,6 +85,7 @@ function App() {
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/akrx" component={AKRx} />
+        <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} />             
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
