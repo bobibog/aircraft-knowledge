@@ -6,6 +6,7 @@ const navigationItems = ( props ) => (
     <ul className={classes.NavigationItems}>
         {/* {props.isAuthenticated ? <NavigationItem link="/akrx">AKRx messages</NavigationItem> : null} */}
         {props.isAuthenticated ? <NavigationItem link="/akrx">ACARS messages</NavigationItem> : null}
+        {props.isAuthenticated ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
         {props.isAuthenticated ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}        
         {props.isAuthenticated ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
         {props.isAuthenticated ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}  

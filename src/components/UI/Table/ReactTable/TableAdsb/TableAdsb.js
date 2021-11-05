@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
 import { COLUMNS } from './columns';
-//import './TableAKRx.css';
-// import classes from './TableAKRx.module.css';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {FiSkipForward} from 'react-icons/fi';
@@ -22,21 +20,15 @@ const Styles = styled.div`
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
   display: block;
   ${'' /* These styles are required for a horizontaly scrollable table overflow */}
-  overflow: auto;
-
-    
+  overflow: auto;    
 
   .table {
-    border-spacing: 0; 
-    ${'' /* font-family: monospace;
-    white-space: pre;    */}
-    ${'' /* font-family: Arial Unicode MS, Arial, verdana; */}
+    border-spacing: 0;     
     font-family: monospace;
     border-collapse: collapse;
     width: auto;
     font-size: 14px;
-    margin-top: -78px;
-    ${'' /* z-index: 12;      */}
+    margin-top: -78px;    
     position: relative;
     
     .thead {
@@ -89,16 +81,8 @@ const Styles = styled.div`
       padding: 12px;
       width: 180px;      
       display: inline-block;
-      word-wrap: break-word;
+      word-wrap: break-word;     
       
-      ${'' /* word-wrap: break-word; */}
-      ${'' /* overflow-wrap: break-word; */}
-
-      ${'' /* -webkit-hyphens: auto;
-      -moz-hyphens: auto;
-      -ms-hyphens: auto;
-      hyphens: auto;      */}
-      ${'' /* position: relative; */}
 
       :last-child {
         border-right: 0;        
@@ -113,7 +97,7 @@ const Styles = styled.div`
         word-break: break-word;             
       }
       :nth-child(4){          
-        width:420px !important;
+        width:120px !important;
         word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
@@ -139,15 +123,15 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       :nth-child(10){          
-        width:60px !important;
+        width:100px !important;
         word-break: break-word;                     
       }
       :nth-child(11){          
-        width:80px !important;
+        width:110px !important;
         word-break: break-word;                     
       }
       :nth-child(12){          
-        width:80px !important;
+        width:40px !important;
         word-break: break-word;                     
       }
       :nth-child(13){          
@@ -170,6 +154,10 @@ const Styles = styled.div`
         width:100px !important;
         word-break: break-word;                     
       }
+      :nth-child(18){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
       :nth-child(19){          
         width:100px !important;
         word-break: break-word;                     
@@ -183,11 +171,11 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       :nth-child(22){          
-        width:160px !important;
+        width:120px !important;
         word-break: break-word;                     
       }
       :nth-child(23){          
-        width:160px !important;
+        width:120px !important;
         word-break: break-word;                     
       }
       :nth-child(24){          
@@ -198,7 +186,114 @@ const Styles = styled.div`
         width:120px !important;
         word-break: break-word;                     
       }
-      
+      :nth-child(26){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(27){          
+        width:160px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(28){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(29){          
+        width:150px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(30){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(31){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(32){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(33){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(34){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(35){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(36){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(37){          
+        width:140px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(38){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(39){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(40){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(41){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(42){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(43){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(44){          
+        width:80px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(44){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(45){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(46){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(47){          
+        width:90px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(49){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(50){          
+        width:40px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(51){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(54){          
+        width:40px !important;
+        word-break: break-word;                     
+      }
 
       .resizer {
         right: 0;
@@ -246,7 +341,6 @@ const Styles = styled.div`
             height: 480px;            
         }
     }
-
     
   }
 
@@ -256,11 +350,11 @@ const Styles = styled.div`
 }
 
 .pagginationBox {
+    margin-top: 12px;
     width: 450px;
     position: absolute;
     right: 2px;
     height: 55px;
-    margin-top: 12px;
 }
 
 .button {
@@ -272,6 +366,7 @@ const Styles = styled.div`
     width: 50px;
     margin-right: -12px;
     margin-left: 2px;
+    
 }
 
 .select {
@@ -281,19 +376,17 @@ const Styles = styled.div`
 
 .boxCheck {
     display: grid;
-    grid-template-columns: 50% 50%;
-    width: 350px;
-    /* flex-wrap: wrap; */
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    width: 850px;    
     background-color: cornflowerblue;
     margin-top: -8px;
     margin-bottom: -8px;
     border-radius: 2px;
 }
 
-.boxCheck>* {
-    /* flex: 1 1 5%; */
+.boxCheck>* {    
     border: 1px solid #007bff;
-    padding: 5px;
+    padding-left: -5px;
     text-align: left;
     color: white;
     z-index: 3;
@@ -392,103 +485,227 @@ const Styles = styled.div`
                
             } 
 
+            .td::before{
+              height: 100%;
+            }
+
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 8%;
+                padding-left: 3%;
                 content-align: center;
+                height: 100%;
                 :nth-child(2){          
-                    width:550px !important;
-                    word-break: break-word;             
+                width:550px !important;
+                word-break: break-word;             
                 }
-                :nth-child(3){          
-                    width:550px !important;
-                    word-break: break-word;             
-                }
-                :nth-child(4){          
-                    width:550px !important;
-                    word-break: break-word;                  
-                }
-                :nth-child(5){          
-                    width:550px !important;
-                    word-break: break-word;             
-                }
-                :nth-child(6){          
-                    width:550px !important;
-                    word-break: break-word;             
-                }
-                :nth-child(7){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(8){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(9){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(10){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(11){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(12){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(13){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(14){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(15){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(16){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(17){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(19){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(20){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(21){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(22){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(23){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(24){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
-                :nth-child(25){          
-                    width:550px !important;
-                    word-break: break-word;                     
-                }
+              :nth-child(1){          
+                width:550px !important;
+                word-break: break-word;             
+              }
+              
+              :nth-child(3){          
+                width:550px !important;
+                word-break: break-word;             
+              }
+              :nth-child(4){          
+                width:550px !important;
+                word-break: break-word !important; 
+                font-family: monospace;          
+                white-space: pre-wrap;               
+              }
+              :nth-child(5){          
+                width:550px !important;
+                word-break: break-word;             
+              }
+              :nth-child(6){          
+                width:550px !important;
+                word-break: break-word;             
+              }
+              :nth-child(7){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(8){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(9){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(10){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(11){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(12){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(13){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(14){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(15){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(16){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(17){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(18){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(19){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(20){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(21){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(22){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(23){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(24){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(25){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(26){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(27){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(28){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(29){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(30){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(31){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(32){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(33){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(34){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(35){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(36){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(37){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(38){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(39){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(40){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(41){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(42){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(43){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(44){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(44){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(45){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(46){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(47){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(49){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(50){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(51){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(54){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
             }
 
             
@@ -545,12 +762,25 @@ const Styles = styled.div`
         }
         .boxCheck {
             display: grid;
-            grid-template-columns: 100%;
-            width: 162px;
+            grid-template-columns: 50% 50%;
+            ${'' /* width: 162px; */}
             border-radius: 5px;    
-            z-index:7; 
-            height:1400px;             
+            z-index: 7; 
+            height:100%; 
+            width: 350px !important;
+            marginTop: -2px; 
+            margin-left:15px;   
+            margin-right: 15px;     
         }
+        .boxCheck>* {    
+            border: 1px solid #007bff;
+            padding-left: -5px;
+            text-align: left;
+            color: white;
+            z-index: 7;
+            
+        }
+        
         .dropContainer{
             height: 150%;
             z-index:7;
@@ -712,38 +942,7 @@ const TableAKRx = (props) => {
     useResizeColumns,
     useFlexLayout,
     useRowSelect,
-    // hooks => {
-    //   hooks.allColumns.push(columns => [
-    //     // Let's make a column for selection
-    //     {
-    //       id: 'selection',
-    //       disableResizing: true,
-    //       minWidth: 35,
-    //       width: 35,
-    //       maxWidth: 35,
-    //       //The header can use the table's getToggleAllRowsSelectedProps method
-    //       //to render a checkbox
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ])
-    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-    //     // fix the parent group of the selection button to not be resizable
-    //     const selectionGroupHeader = headerGroups[0].headers[0]
-    //     selectionGroupHeader.canResize = false
-    //   })
-    // }
+    
     );
     
         
@@ -789,7 +988,7 @@ const TableAKRx = (props) => {
                         sheet="Sheet"
                         buttonText="Export to Excel"                                            
                     />                 */}
-                    <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button>
+                    <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AdsbMesages")}>Export to Excel</button>
                 </div>
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
