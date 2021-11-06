@@ -246,7 +246,6 @@ const Styles = styled.div`
             height: 480px;            
         }
     }
-
     
   }
 

@@ -114,7 +114,7 @@ export const COLUMNS = [
     {
         Header:"Hae Baro Offset",
         accessor:"haeBaroOffset",
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').toString()}
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
     },
     {
         Header:"Heading",
