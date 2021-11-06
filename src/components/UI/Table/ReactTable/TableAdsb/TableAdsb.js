@@ -981,14 +981,14 @@ const TableAKRx = (props) => {
               
             <div className="func2" >
                 <div className= "excelBtn">
-                    {/* <ReactHTMLTableToExcel 
+                    <ReactHTMLTableToExcel 
                         className="btn btn-info"
                         table="emp-table"
                         filename="AKRx Messages"
                         sheet="Sheet"
                         buttonText="Export to Excel"                                            
-                    />                 */}
-                    <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AdsbMesages")}>Export to Excel</button>
+                    />                
+                    {/* <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AdsbMesages")}>Export to Excel</button> */}
                 </div>
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
