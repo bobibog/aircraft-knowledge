@@ -2,8 +2,8 @@
 
 function replacer(key, value) {
     // Filtering out properties
-    if (value === null) {
-      return '';
+    if (value === -9999) {
+      return 'not valid';
     }    
     return value;
 }
@@ -113,7 +113,8 @@ export const COLUMNS = [
     },    
     {
         Header:"Hae Baro Offset",
-        accessor:"haeBaroOffset"
+        accessor:"haeBaroOffset",
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').toString()}
     },
     {
         Header:"Heading",

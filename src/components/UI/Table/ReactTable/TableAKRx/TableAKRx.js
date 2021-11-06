@@ -219,25 +219,25 @@ const Styles = styled.div`
 
     @media only screen and (max-height: 1440px) {
         .tbody {
-            height: 1140px;
+            height: 1130px;
         }
     }
 
     @media only screen and (max-height: 1180px) {
         .tbody {
-            height: 875px;
+            height: 865px;
         }
     }
 
     @media only screen and (max-height: 1080px) {
         .tbody {
-            height: 775px;
+            height: 765px;
         }
     }
 
     @media only screen and (max-height: 1000px) {
         .tbody {
-            height: 675px;
+            height: 665px;
         }
     }
 
