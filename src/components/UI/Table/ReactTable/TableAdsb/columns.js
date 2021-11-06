@@ -113,7 +113,7 @@ export const COLUMNS = [
     },    
     {
         Header:"Hae Baro Offset",
-        accessor:"haeBaro"
+        accessor:"haeBaroOffset"
     },
     {
         Header:"Heading",
@@ -221,7 +221,7 @@ export const COLUMNS = [
     },
     {
         Header:"Vertical Rate Src",
-        accessor: "verticalRateSrc."
+        accessor: "verticalRateSrc"
     },
     {
         Header:"Vertical Status",

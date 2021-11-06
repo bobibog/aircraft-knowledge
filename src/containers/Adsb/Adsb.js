@@ -11,26 +11,24 @@ import SearchAdsbElement from '../../components/SearchElement/SearchAdsbElement/
 import TableAdsb from '../../components/UI/Table/ReactTable/TableAdsb/TableAdsb';
 
 const Adsb = props => {
-    const acarsMessages = useSelector(state => {
-        return state.acarsMessage.acarsMessages;
-    });
-
-    //console.log(acarsMessages);
+    const adsbMessages = useSelector(state => {
+        return state.adsbMessage.acarsMessages;
+    });    
 
     const acarsMessagesCount = useSelector(state => {
-        return state.acarsMessage.acarsMessagesCount;
+        return state.adsbMessage.acarsMessagesCount;
     });
     const loading = useSelector(state => {
-        return state.acarsMessage.acarsMessagesLoading;
+        return state.adsbMessage.adsbMessagesLoading;
     });
     const offset = useSelector(state => {
-        return state.acarsMessage.acarsMessagesOffset;
+        return state.adsbMessage.adsbMessagesOffset;
     });
     const limit = useSelector(state => {
-        return state.acarsMessage.acarsMessagesLimit;
+        return state.adsbMessage.adsbMessagesLimit;
     });
     const page = useSelector(state => {
-        return state.acarsMessage.acarsMessagesPage;
+        return state.adsbMessage.adsbMessagesPage;
     });   
        
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
@@ -117,15 +115,15 @@ const Adsb = props => {
             acarsMessageDateTimeMin, acarsMessageDateTimeMax]
     );    
     
-    const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
-    const onSetAkrxPage = (page) => dispatch(actions.setAkrxPage(page));    
+    const onSetAdsbOffsetLimit = (offset, limit) => dispatch(actions.setAdsbOffsetLimit(offset, limit));    
+    const onSetAdsbPage = (page) => dispatch(actions.setAdsbPage(page));    
      
 
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
-        onSetAkrxOffsetLimit(tableOffset, tableLimit);   
+        onSetAdsbOffsetLimit(tableOffset, tableLimit);   
     };
-    const setAkrxPageHandler = page => {                
-        onSetAkrxPage(page);
+    const setAdsbPageHandler = page => {                
+        onSetAdsbPage(page);
     };    
        
     // FILTERING/SEARCHING
@@ -137,8 +135,8 @@ const Adsb = props => {
         nacp, nsStatus, nsVelocity, nucp, posDecoding, report, sl, squawk, stationId, tFlag,
         timestampMin, timestampMax, type, um, verticalRateMin, verticalRateMax, verticalRateSrc, 
         verticalStatus, vs, acarsMessageDateTimeMin, acarsMessageDateTimeMax) => {  
-        onSetAkrxOffsetLimit(0, limit);
-        onSetAkrxPage(0);     
+        onSetAdsbOffsetLimit(0, limit);
+        onSetAdsbPage(0);     
         setAddress(address);
         setAddressType(addressType);
         setAircraftType(aircraftType);
@@ -205,8 +203,8 @@ const Adsb = props => {
     
     
     const resetSearchHandler = () => {
-        onSetAkrxOffsetLimit(0, 10);
-        onSetAkrxPage(0);
+        onSetAdsbOffsetLimit(0, 10);
+        onSetAdsbPage(0);
         setAddress('');
         setAddressType('');
         setAircraftType('');
@@ -296,20 +294,20 @@ const Adsb = props => {
     //console.log(acarsMessages);
       
     let adsbTable = <Spinner />;
-    if (!acarsMessages && !loading  ) {
+    if (!adsbMessages && !loading  ) {
         adsbTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read Adsb messages from the server!</p>;
     }
     
-    if (acarsMessages && !loading ) {
+    if (adsbMessages && !loading ) {
           
 
         adsbTable =  <TableAdsb
-            data={acarsMessages}
+            data={adsbMessages}
             rowsPerPageDef={limit}            
             totalDataCount={acarsMessagesCount}
             currPage={page}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
-            setPageStore={setAkrxPageHandler}   
+            setPageStore={setAdsbPageHandler}   
             allOption={allOption}                     
         />;
         
