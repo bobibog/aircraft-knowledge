@@ -20,7 +20,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     margin-right: 2px;
-    width: 245px;
+    width: 252px;
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -29,8 +29,8 @@
 }
 
 .inputGroup {
-    margin-right: 25px;
-    width: 245px;
+    margin-right: 15px;
+    width: 252px;
 }
 
 .buttonBox {
@@ -93,7 +93,7 @@
     margin-top: -12px;
     margin-bottom: -7px;
     border-radius: 0 5px 5px 5px;
-    width: 1520px;
+    width: 1560px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
