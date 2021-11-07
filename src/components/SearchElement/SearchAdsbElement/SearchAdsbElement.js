@@ -323,7 +323,7 @@ const  SearchAdsbElement = (props) => {
         placeholder:'Flight Status'
     }
     const haeBaroInputConfig = {
-        type:'number',
+        type:'text',
         min:0,
         placeholder:'Hae Baro'
     }
