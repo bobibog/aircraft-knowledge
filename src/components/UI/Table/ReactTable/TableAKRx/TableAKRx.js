@@ -793,7 +793,7 @@ const TableAKRx = (props) => {
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
                         <div className="boxCheck">                    
-                            <div>
+                            <div style={{paddingLeft:'18px'}}>
                                 <CheckBox {...getToggleHideAllColumnsProps()} /><strong> TOGGLE ALL</strong>
                             </div>
                             {
