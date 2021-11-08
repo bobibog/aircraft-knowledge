@@ -1093,13 +1093,14 @@ const TableAKRx = (props) => {
             </select>{'  '}
             <span>
                 Page{' '}               
-                {pageIndex+1} of {pageOptions.length}
+                {pageIndex+1} 
+                {/* of {pageOptions.length} */}
                 {' '}
             </span>
             <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
             <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
             <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
-            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
+            {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
         </div>
         
     </Styles>
