@@ -434,9 +434,10 @@ const Styles = styled.div`
             margin-top: 8px;
             margin-bottom: 45px;
             z-index:7;
-            width:220px;                      
+            width:450px;                      
             align-content: left;  
-            height:1540px;                          
+            height:1540px; 
+            margin-left: -89px;                                  
         } 
         .func2>* {
             flex: 1 1 5rem;            
@@ -762,23 +763,21 @@ const Styles = styled.div`
         }
         .boxCheck {
             display: grid;
-            grid-template-columns: 50% 50%;
-            ${'' /* width: 162px; */}
+            grid-template-columns: 1fr 1fr;            
             border-radius: 5px;    
             z-index: 7; 
             height:100%; 
-            width: 350px !important;
-            marginTop: -2px; 
-            margin-left:15px;   
-            margin-right: 15px;     
+            width: 310px !important;
+            marginTop: -4px; 
+            margin-left: 0px;             
         }
         .boxCheck>* {    
-            border: 1px solid #007bff;
-            padding-left: -5px;
+            border: 1px solid #007bff;   
+            border-left: 0px solid #007bff;         
             text-align: left;
             color: white;
-            z-index: 7;
-            
+            z-index: 7;  
+            margin-left:-7px;          
         }
         
         .dropContainer{
@@ -795,6 +794,10 @@ const Styles = styled.div`
         left: 2px;
         height: 55px;
     }
+    .func2 {          
+            
+            margin-left: -114px;                                  
+        } 
 }
 
 
@@ -993,7 +996,7 @@ const TableAKRx = (props) => {
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
                         <div className="boxCheck">                    
-                            <div>
+                            <div style={{paddingLeft:'18px'}}>
                                 <CheckBox {...getToggleHideAllColumnsProps()} /><strong> TOGGLE ALL</strong>
                             </div>
                             {

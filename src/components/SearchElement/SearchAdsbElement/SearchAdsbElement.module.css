@@ -355,7 +355,7 @@
         z-index: 200;
         white-space: normal;
         word-break: break-all;
-        margin-left: 5px;
+        margin-left: 30px;
         margin-top: -2px;
     }
     .bar {
@@ -384,11 +384,11 @@
         flex-wrap: wrap;
     }
     .dateTime {
-        font-size: 8px;
+        font-size: 14.5px;
         width: 100%;
     }
     .span2 {
-        height: 32px;
+        height: 38px;
     }
 }
 
