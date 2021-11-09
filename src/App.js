@@ -84,6 +84,7 @@ function App() {
         <Route path="/aircraft" component={AircraftsSearch} />
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
+        <Route path="/flights/:id" component={Flights} />
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} />             
