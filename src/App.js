@@ -18,6 +18,7 @@ import AddUser from './containers/Users/AddUser/AddUser';
 import Auth2 from './containers/Auth/Auth2';
 import UpdateUser from './containers/Users/UpdateUser/UpdateUser';
 import Adsb from './containers/Adsb/Adsb';
+//import Map from './containers/Map/Map';
 //some dummy comment
 
 
@@ -44,7 +45,8 @@ function App() {
 
   if (isAuthenticated) {
     routes = (
-      <Switch>        
+      <Switch> 
+        {/* <Route path="/map" component={Map} />        */}
         <Route path="/aircraft/:id" component={Aircrafts} />
         <Route path="/aircraft" component={AircraftsSearch} />
         <Route path="/airports/:id" component={Airports} />
@@ -80,6 +82,7 @@ function App() {
   if (isRole) {
     routes = (
       <Switch>  
+        {/* <Route path="/map" component={Map} /> */}
         <Route path="/aircraft/:id" component={Aircrafts} />
         <Route path="/aircraft" component={AircraftsSearch} />
         <Route path="/airports/:id" component={Airports} />

@@ -12,11 +12,13 @@ import TableAdsb from '../../components/UI/Table/ReactTable/TableAdsb/TableAdsb'
 
 const Adsb = props => {
     const adsbMessages = useSelector(state => {
-        return state.adsbMessage.acarsMessages;
+        return state.adsbMessage.adsbMessages;
     });    
 
-    const acarsMessagesCount = useSelector(state => {
-        return state.adsbMessage.acarsMessagesCount;
+    //console.log(adsbMessages);
+    
+    const adsbMessageCount = useSelector(state => {
+        return state.adsbMessage.adsbMessageCount;
     });
     const loading = useSelector(state => {
         return state.adsbMessage.adsbMessagesLoading;
@@ -271,9 +273,12 @@ const Adsb = props => {
     };    
        
     useEffect(() => { 
-        onFetchAdsb();
+        
+            onFetchAdsb();
+        
     }, [onFetchAdsb]); 
     
+    //console.log("Latitude="+adsbMessages);
         
     const akrxPageHeader =
         <CardsInBox            
@@ -304,7 +309,7 @@ const Adsb = props => {
         adsbTable =  <TableAdsb
             data={adsbMessages}
             rowsPerPageDef={limit}            
-            totalDataCount={acarsMessagesCount}
+            totalDataCount={adsbMessageCount}
             currPage={page}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             setPageStore={setAdsbPageHandler}   

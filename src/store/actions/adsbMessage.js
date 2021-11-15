@@ -18,11 +18,11 @@ export const setAdsbPage = (page) => {
     }
 };
 
-export const fetchAdsbSuccess = (acarsMessages, acarsMessagesCount) => {
+export const fetchAdsbSuccess = (adsbMessages, adsbMessagesCount) => {
     return {
         type: actionTypes.FETCH_ADSB_SUCCESS,
-        acarsMessages: acarsMessages,
-        acarsMessagesCount: acarsMessagesCount
+        adsbMessages: adsbMessages,
+        adsbMessagesCount: adsbMessagesCount
     }
 };
 
@@ -131,7 +131,7 @@ export const fetchAdsb = (offset, limit, address,
             
         axios.get(url+ queryString)
             .then(response => {                
-                dispatch(fetchAdsbSuccess(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
+                dispatch(fetchAdsbSuccess(response.data['adsbMessages'], response.data['adsbMessagesCount']))                 
             })
             .catch(error => {
                 dispatch(fetchAdsbFail(error));                                

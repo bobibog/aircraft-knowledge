@@ -4,8 +4,8 @@ import {updateObject} from '../../shared/utility';
 
 
 const initialState = {
-    acarsMessages: null,
-    acarsMessagesCount: null,
+    adsbMessages: null,
+    adsbMessagesCount: null,
     adsbMessagesLoading: false,
     adsbMessagesOffset: 0,
     adsbMessagesLimit: rowsPerPageDefault,     
@@ -30,8 +30,8 @@ const fetchAdsbStart = (state, action) => {
 };
 const fetchAdsbSuccess = (state, action) => {
     return updateObject(state, {
-        acarsMessages: action.acarsMessages,
-        acarsMessagesCount: action.acarsMessagesCount,
+        adsbMessages: action.adsbMessages,
+        adsbMessagesCount: action.adsbMessagesCount,
         adsbMessagesLoading: false
     });
 };
