@@ -754,13 +754,13 @@ const Styles = styled.div`
             z-index:7;
         } 
         .drop{
-            ${'' /* position: absolute;  
+            position: absolute;  
             left: -10px;
             z-index:7;
             height: 2200px; 
             width:200px;
-            margin-top:90px;                  */}
-            display: none;
+            margin-top:90px;                 
+            ${'' /* display: none; */}
         }
         .boxCheck {
             display: grid;
@@ -879,7 +879,7 @@ const IndeterminateCheckbox = React.forwardRef(
     }
   );
 
-const TableAKRx = (props) => {
+const TableAdsb = (props) => {
     
     //+RESIZE
     const defaultColumn = React.useMemo(
@@ -1115,7 +1115,7 @@ const TableAKRx = (props) => {
             </span>
             <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
             <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
-            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
+            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={canNextPage}><RiArrowRightSLine/></button>
             {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
         </div>
         
@@ -1123,7 +1123,7 @@ const TableAKRx = (props) => {
     )
 };
 
-export default TableAKRx;
+export default TableAdsb;
 
 // https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
 // 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>

@@ -68,7 +68,7 @@ const AcarsWithExtData = props => {
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
         onSetAcarsWithExtDataOffsetLimit(tableOffset, tableLimit);   
     };
-    const setAdsbPageHandler = page => {                
+    const setAcarsAircraftPAgeHandler = page => {                
         onSetAcarsWithExtDataPage(page);
     };    
        
@@ -154,7 +154,7 @@ const AcarsWithExtData = props => {
             totalDataCount={acarsWithExtDataCount}
             currPage={page}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
-            setPageStore={setAdsbPageHandler}   
+            setPageStore={setAcarsAircraftPAgeHandler}   
             allOption={allOption}                     
         />;
         
