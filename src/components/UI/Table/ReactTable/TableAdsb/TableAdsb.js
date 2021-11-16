@@ -459,7 +459,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1410px;
+            margin-top: -1470px;
             border-top: 1px solid black;
 
             .tr, .td{
@@ -754,12 +754,13 @@ const Styles = styled.div`
             z-index:7;
         } 
         .drop{
-            position: absolute;  
+            ${'' /* position: absolute;  
             left: -10px;
             z-index:7;
             height: 2200px; 
             width:200px;
-            margin-top:90px;                 
+            margin-top:90px;                  */}
+            display: none;
         }
         .boxCheck {
             display: grid;
