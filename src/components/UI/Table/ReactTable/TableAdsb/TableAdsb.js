@@ -349,12 +349,12 @@ const Styles = styled.div`
     margin-left: 10px;
 }
 
-.pagginationBox {
-    margin-top: 12px;
+.pagginationBox {   
     width: 450px;
     position: absolute;
     right: 2px;
     height: 55px;
+    margin-top: 12px;
 }
 
 .button {
@@ -1115,7 +1115,7 @@ const TableAdsb = (props) => {
             </span>
             <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
             <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
-            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={canNextPage}><RiArrowRightSLine/></button>
+            <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
             {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
         </div>
         

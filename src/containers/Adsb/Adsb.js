@@ -18,7 +18,7 @@ const Adsb = props => {
     //console.log(adsbMessages);
     
     const adsbMessageCount = useSelector(state => {
-        return state.adsbMessage.adsbMessageCount;
+        return state.adsbMessage.adsbMessagesCount;
     });
     const loading = useSelector(state => {
         return state.adsbMessage.adsbMessagesLoading;
