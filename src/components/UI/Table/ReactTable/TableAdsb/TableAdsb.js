@@ -434,9 +434,9 @@ const Styles = styled.div`
             margin-top: 8px;
             margin-bottom: 45px;
             z-index:7;
-            width:450px;                      
+            ${'' /* width:150px;                       */}
             align-content: left;  
-            height:1540px; 
+            height:1520px; 
             margin-left: -89px;                                  
         } 
         .func2>* {
@@ -480,7 +480,7 @@ const Styles = styled.div`
                 text-align: right;               
                 align-self: auto;                 
                 align-items: flex-end;
-                overflow-y: hidden;
+                overflow-y: scroll;
                 overflow-x: hidden;
                 height:100%;
                
@@ -496,15 +496,15 @@ const Styles = styled.div`
                 padding-left: 3%;
                 content-align: center;
                 height: 100%;
-                :nth-child(2){          
-                width:550px !important;
-                word-break: break-word;             
-                }
+                
               :nth-child(1){          
                 width:550px !important;
                 word-break: break-word;             
               }
-              
+              :nth-child(2){          
+                width:550px !important;
+                word-break: break-word;             
+                }
               :nth-child(3){          
                 width:550px !important;
                 word-break: break-word;             
@@ -748,26 +748,26 @@ const Styles = styled.div`
         
 
         .excelBtn {
-            position: relative;                   
-            left: -25px;
-            margin-top:55px;
-            margin-bottom:-1365px;
+            position: absolute;                   
+            left: 22px;
+            margin-top:45px;            
             z-index:7;
         } 
         .drop{
-            position: relative;  
-            left: -25px;
+            position: absolute;  
+            left: -10px;
             z-index:7;
-            height: 1400px; 
-            margin-bottom:-470px;                 
+            height: 2200px; 
+            width:200px;
+            margin-top:90px;                 
         }
         .boxCheck {
             display: grid;
-            grid-template-columns: 1fr 1fr;            
+            grid-template-columns: 100%;            
             border-radius: 5px;    
             z-index: 7; 
             height:100%; 
-            width: 310px !important;
+            width: 200px !important;
             marginTop: -4px; 
             margin-left: 0px;             
         }
@@ -798,6 +798,10 @@ const Styles = styled.div`
             
             margin-left: -114px;                                  
         } 
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 }
 
 
@@ -818,17 +822,25 @@ const Styles = styled.div`
         position: relative;        
         left: -25px;        
     }
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
-        position: relative;                   
-        left: -25px;       
+        position: absolute;                   
+             
     } 
     .drop{
-        position: relative;       
-        left:-25px;
+        display: none;
+        
     }   
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 }  
 
     

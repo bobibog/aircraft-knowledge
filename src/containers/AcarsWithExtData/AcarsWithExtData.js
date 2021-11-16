@@ -7,7 +7,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import {akrxHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
-//import SearchAdsbElement from '../../components/SearchElement/SearchAdsbElement/SearchAdsbElement';
+import SearchAcarsWithExtData from '../../components/SearchElement/SearchAcarsWithExtData/SearchAcarsWithExtData';
 import TableAcarsWithExtData from '../../components/UI/Table/ReactTable/TableAcarsWithExtData/TableAcarsWithExtData';
 
 const AcarsWithExtData = props => {
@@ -54,9 +54,11 @@ const AcarsWithExtData = props => {
     
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtData(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber))
+            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
+            airline, aircraftOperator, aircraftType ))
         , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber]
+            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
+            airline, aircraftOperator, aircraftType ]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimit(offset, limit));    
@@ -161,11 +163,11 @@ const AcarsWithExtData = props => {
     return (
         <div style={{marginTop:'-2px'}}>                       
             {/* {akrxPageHeader}              */}
-            {/* <SearchAdsbElement
+            <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 
                 allChanger={allChanger}                     
-            />                                      */}
+            />                                      
             {acarsWithExtDataTable}                       
         </div>        
     );

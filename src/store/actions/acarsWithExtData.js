@@ -42,7 +42,8 @@ export const fetchAcarsWithExtDataFail = (error) => {
 
 
 export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-                                    tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber                                 
+                                    tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
+                                    airline, aircraftOperator, aircraftType                                 
     ) => {
     return dispatch => {
         dispatch(fetchAcarsWithExtDataStart());                      
@@ -60,10 +61,10 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
         query.append('blockId', blockId);
         query.append('msgno', msgno);
         query.append('dsta', dsta);
-        //query.append('airline', airline);
+        query.append('airline', airline);
         query.append('serialNumber', serialNumber);
-        //query.append('aircraftOperator', aircraftOperator);
-        //query.append('aircraftType', aircraftType);
+        query.append('aircraftOperator', aircraftOperator);
+        query.append('aircraftType', aircraftType);
 
         let queryString = limit !== "-1"            
             ? query
