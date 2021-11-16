@@ -391,6 +391,15 @@ const Styles = styled.div`
                
             } 
 
+            .tr {
+              :last-child {
+                .td {
+                  border-bottom: 0px solid grey;
+                }
+              }
+              border-bottom: 0px solid grey;
+            }
+
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
