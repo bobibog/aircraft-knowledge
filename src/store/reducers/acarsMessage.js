@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import {rowsPerPageDefault} from '../../shared/staticData';
 import {updateObject} from '../../shared/utility';
-import axios from '../../axios-local';
+
 
 
 const initialState = {

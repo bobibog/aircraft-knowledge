@@ -1,0 +1,533 @@
+.container {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 45px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    position: absolute;
+    left: 0px;
+    z-index: 9;
+    margin-top: 4.5px;
+}
+
+.card {
+    padding-left: 2px;
+    opacity: 0.99;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 2px;
+    width: 252px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.bar {
+    margin-right: -70px;
+}
+
+.inputGroup {
+    margin-right: 15px;
+    width: 252px;
+}
+
+.buttonBox {
+    padding-left: 5px;
+    opacity: 0.99;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 9px;
+    width: 333px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.inputPrepend {
+    height: 38px;
+    margin-top: 8px;
+    background-color: aquamarine;
+}
+
+.span {
+    position: absolute;
+    display: inline-block;
+    height: 38px;
+    background-color: rgb(167, 229, 231);
+    margin-left: 22px;
+}
+
+.span2 {
+    position: absolute;
+    display: inline-block;
+    height: 34px;
+    background-color: rgb(167, 229, 231);
+    margin-left: 22px;
+}
+
+.icon {
+    position: relative;
+    color: rgb(69, 158, 161);
+}
+
+.Drop {
+    position: absolute;
+    /* position: -webkit-sticky;
+    position: sticky; */
+    left: 15px;
+    opacity: 0.92;
+    z-index: 9;
+    white-space: normal;
+    word-break: break-all;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.dateTime {
+    font-size: 12px;
+}
+
+.dropdownShow {
+    background-color: #0062cc;
+    padding-bottom: 15px;
+    margin-top: -12px;
+    margin-bottom: -7px;
+    border-radius: 0 5px 5px 5px;
+    width: 1560px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 1390px) {
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 450px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .buttonBox {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+}
+
+@media only screen and (max-width: 908px) {
+    .bar {
+        margin-right: -95px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 450px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 800px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 864px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -95px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 640px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 310px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 580px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 4;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 200;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 30px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .dateTime {
+        font-size: 14.5px;
+        width: 100%;
+    }
+    .span2 {
+        height: 38px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 5;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+        z-index: 12;
+    }
+    .card {
+        width: 350px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 362px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 5;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 315px) {
+    .Drop {
+        position: absolute;
+        opacity: 0.92;
+        z-index: 7;
+        white-space: normal;
+        word-break: break-all;
+        margin-left: 5px;
+        margin-top: -2px;
+    }
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 220px) {
+    .bar {
+        margin-right: -75px;
+    }
+    .container {
+        padding-left: 5px;
+        padding-right: 20px;
+        height: auto;
+        padding-bottom: 20px;
+        height: 45px;
+    }
+    .card {
+        width: 250px;
+        border-radius: 0px 0px 0px 0px;
+    }
+    .dropdownShow {
+        background-color: #0062cc;
+        padding-bottom: 15px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+        border-radius: 0 5px 5px 5px;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
