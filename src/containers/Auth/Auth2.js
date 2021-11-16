@@ -146,13 +146,14 @@ const Auth2 = props => {
     
     
     
-    console.log("TERMED="+isTermed);
+    //console.log("TERMED="+isTermed);
 
+    
     return (
         <div className={classes.Auth}>
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
-            </Modal> 
+            </Modal>
             {/* {authRedirect} */}
             {errorMessage}
             <form onSubmit={submitHandler}>            

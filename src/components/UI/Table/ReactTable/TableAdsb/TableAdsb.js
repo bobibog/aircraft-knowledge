@@ -490,6 +490,15 @@ const Styles = styled.div`
               height: 100%;
             }
 
+            .tr {
+              :last-child {
+                .td {
+                  border-bottom: 0px solid grey;
+                }
+              }
+              border-bottom: 0px solid grey;
+            }
+
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
@@ -754,13 +763,13 @@ const Styles = styled.div`
             z-index:7;
         } 
         .drop{
-            position: absolute;  
+            ${'' /* position: absolute;  
             left: -10px;
             z-index:7;
             height: 2200px; 
             width:200px;
-            margin-top:90px;                 
-            ${'' /* display: none; */}
+            margin-top:90px;                  */}
+            display: none;
         }
         .boxCheck {
             display: grid;
