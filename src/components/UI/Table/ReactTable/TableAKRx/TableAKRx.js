@@ -364,7 +364,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1410px;
+            margin-top: -1480px;
             border-top: 1px solid black;
 
             .tr, .td{
@@ -529,30 +529,33 @@ const Styles = styled.div`
         
 
         .excelBtn {
-            position: relative;                   
-            left: -25px;
+            position: absolute;                   
+            left: 22px;
             margin-top:55px;
             margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
-            position: relative;  
+            ${'' /* position: relative;  
             left: -25px;
             z-index:7;
             height: 1400px; 
-            margin-bottom:-470px;                 
+            margin-bottom:-470px;                  */}
+            display: none;
         }
         .boxCheck {
-            display: grid;
+            ${'' /* display: grid;
             grid-template-columns: 100%;
             width: 162px;
             border-radius: 5px;    
             z-index:7; 
-            height:1400px;             
+            height:1400px;              */}
+            display: none;
         }
         .dropContainer{
-            height: 150%;
-            z-index:7;
+            ${'' /* height: 150%;
+            z-index:7; */}
+            display: none;
         }
         
 }
