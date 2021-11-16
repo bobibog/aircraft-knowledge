@@ -66,3 +66,9 @@ export {
     updateUser,
     getUser
 } from './user';
+
+export {    
+    fetchAcarsWithExtData,
+    setAcarsWithExtDataOffsetLimit,
+    setAcarsWithExtDataPage 
+} from './acarsWithExtData';

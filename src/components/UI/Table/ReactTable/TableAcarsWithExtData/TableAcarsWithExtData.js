@@ -97,17 +97,17 @@ const Styles = styled.div`
         word-break: break-word;             
       }
       :nth-child(4){          
-        width:120px !important;
+        width:420px !important;
         word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
       }
       :nth-child(5){          
-        width:120px !important;
+        width:100px !important;
         word-break: break-word;             
       }
       :nth-child(6){          
-        width:160px !important;
+        width:100px !important;
         word-break: break-word;             
       }
       :nth-child(7){          
@@ -119,11 +119,11 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       :nth-child(9){          
-        width:60px !important;
+        width:150px !important;
         word-break: break-word;                     
       }
       :nth-child(10){          
-        width:100px !important;
+        width:120px !important;
         word-break: break-word;                     
       }
       :nth-child(11){          
@@ -138,163 +138,7 @@ const Styles = styled.div`
         width:100px !important;
         word-break: break-word;                     
       }
-      :nth-child(14){          
-        width:50px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(15){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(16){          
-        width:50px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(17){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(18){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(19){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(20){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(21){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(22){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(23){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(24){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(25){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(26){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(27){          
-        width:160px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(28){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(29){          
-        width:150px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(30){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(31){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(32){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(33){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(34){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(35){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(36){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(37){          
-        width:140px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(38){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(39){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(40){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(41){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(42){          
-        width:100px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(43){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(44){          
-        width:80px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(44){          
-        width:90px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(45){          
-        width:90px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(46){          
-        width:90px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(47){          
-        width:90px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(49){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(50){          
-        width:40px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(51){          
-        width:120px !important;
-        word-break: break-word;                     
-      }
-      :nth-child(54){          
-        width:40px !important;
-        word-break: break-word;                     
-      }
-
+      
       .resizer {
         right: 0;
         background: #80dfff;
@@ -434,9 +278,9 @@ const Styles = styled.div`
             margin-top: 8px;
             margin-bottom: 45px;
             z-index:7;
-            ${'' /* width:150px;                       */}
+            width:450px;                      
             align-content: left;  
-            height:1520px; 
+            height:1540px; 
             margin-left: -89px;                                  
         } 
         .func2>* {
@@ -480,7 +324,7 @@ const Styles = styled.div`
                 text-align: right;               
                 align-self: auto;                 
                 align-items: flex-end;
-                overflow-y: scroll;
+                overflow-y: hidden;
                 overflow-x: hidden;
                 height:100%;
                
@@ -496,15 +340,15 @@ const Styles = styled.div`
                 padding-left: 3%;
                 content-align: center;
                 height: 100%;
-                
+                :nth-child(2){          
+                width:550px !important;
+                word-break: break-word;             
+                }
               :nth-child(1){          
                 width:550px !important;
                 word-break: break-word;             
               }
-              :nth-child(2){          
-                width:550px !important;
-                word-break: break-word;             
-                }
+              
               :nth-child(3){          
                 width:550px !important;
                 word-break: break-word;             
@@ -551,162 +395,7 @@ const Styles = styled.div`
                 width:550px !important;
                 word-break: break-word;                     
               }
-              :nth-child(14){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(15){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(16){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(17){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(18){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(19){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(20){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(21){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(22){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(23){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(24){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(25){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(26){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(27){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(28){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(29){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(30){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(31){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(32){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(33){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(34){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(35){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(36){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(37){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(38){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(39){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(40){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(41){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(42){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(43){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(44){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(44){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(45){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(46){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(47){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(49){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(50){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(51){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(54){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
+             
             }
 
             
@@ -748,26 +437,26 @@ const Styles = styled.div`
         
 
         .excelBtn {
-            position: absolute;                   
-            left: 22px;
-            margin-top:45px;            
+            position: relative;                   
+            left: -25px;
+            margin-top:55px;
+            margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
-            position: absolute;  
-            left: -10px;
+            position: relative;  
+            left: -25px;
             z-index:7;
-            height: 2200px; 
-            width:200px;
-            margin-top:90px;                 
+            height: 1400px; 
+            margin-bottom:-470px;                 
         }
         .boxCheck {
             display: grid;
-            grid-template-columns: 100%;            
+            grid-template-columns: 1fr 1fr;            
             border-radius: 5px;    
             z-index: 7; 
             height:100%; 
-            width: 200px !important;
+            width: 310px !important;
             marginTop: -4px; 
             margin-left: 0px;             
         }
@@ -798,10 +487,6 @@ const Styles = styled.div`
             
             margin-left: -114px;                                  
         } 
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
 }
 
 
@@ -822,25 +507,17 @@ const Styles = styled.div`
         position: relative;        
         left: -25px;        
     }
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
-        position: absolute;                   
-             
+        position: relative;                   
+        left: -25px;       
     } 
     .drop{
-        display: none;
-        
+        position: relative;       
+        left:-25px;
     }   
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
 }  
 
     
@@ -878,7 +555,7 @@ const IndeterminateCheckbox = React.forwardRef(
     }
   );
 
-const TableAKRx = (props) => {
+const TableAcarsWithExtData = (props) => {
     
     //+RESIZE
     const defaultColumn = React.useMemo(
@@ -1122,7 +799,7 @@ const TableAKRx = (props) => {
     )
 };
 
-export default TableAKRx;
+export default TableAcarsWithExtData;
 
 // https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
 // 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>

@@ -18,6 +18,7 @@ import flightReducer from './store/reducers/flight';
 import acarsMessageReducer from './store/reducers/acarsMessage';
 import userReducer from './store/reducers/user';
 import adsbMessageReducer from './store/reducers/adsbMessage';
+import acarsWithExtDataReducer from './store/reducers/acarsWithExtData';
 
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   flight: flightReducer,
   acarsMessage: acarsMessageReducer,
   user: userReducer,
-  adsbMessage: adsbMessageReducer
+  adsbMessage: adsbMessageReducer,
+  acarsWithExtData: acarsWithExtDataReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
