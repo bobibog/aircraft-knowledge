@@ -161,6 +161,13 @@ const CustomDataTableRow = (props) => {
                             ];
                             apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear()+" / "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
                         } 
+                        else if (apiModelHeaderColumn.type === "date") {
+                            let d = new Date(apiModelPropValue);
+                            const monthNames = ["jan", "feb", "mar", "apr", "may", "jun",
+                                "jul", "aug", "sep", "oct", "nov", "dec"
+                            ];
+                            apiModelPropValue = d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
+                        }
                         else if (apiModelHeaderColumn.type === "timespan") {
                             if (apiModelPropValue.value) {
                                 let minutes = apiModelPropValue.value.minutes;

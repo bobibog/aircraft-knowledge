@@ -90,10 +90,10 @@
 .dropdownShow {
     background-color: #0062cc;
     padding-bottom: 15px;
-    margin-top: -12px;
+    margin-top: -11px;
     margin-bottom: -7px;
     border-radius: 0 5px 5px 5px;
-    width: 1560px;
+    width: 700px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -355,7 +355,7 @@
         z-index: 200;
         white-space: normal;
         word-break: break-all;
-        margin-left: 30px;
+        margin-left: 10px;
         margin-top: -2px;
     }
     .bar {
