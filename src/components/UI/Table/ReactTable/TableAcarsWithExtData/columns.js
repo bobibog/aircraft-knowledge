@@ -2,9 +2,15 @@ import { format } from 'date-fns';
 import moment from 'moment';
 import { RiAwardFill } from 'react-icons/ri';
 
-
-
 function replacer(key, value) {
+    // Filtering out properties
+    if (value == null ) {
+      return '';
+    }    
+    return value;
+}
+
+function replacer1(key, value) {
     // Filtering out properties
     if (value == null || value == "0001-01-01T00:00:00") {
       return 0;
@@ -108,12 +114,12 @@ export const COLUMNS = [
     {
         Header: "Source Flight Date",
         accessor: "flightDate",         
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, 2).replace(/T/g, ' ').substring(1,11)}
+        Cell: ({ value }) => { return JSON.stringify(value, replacer1, 2).replace(/T/g, ' ').substring(1,11)}
     },
     {
         Header: "Source Flight Std",
         accessor: "flightStd.value.totalSeconds",
         Cell: ({ value }) => { if(value != null){
-            return moment.utc(value*1000).format('HH:mm')}else return ''} 
+            return moment.utc(value*1000).format('HH:mm')} else return ''} 
     },
 ]
