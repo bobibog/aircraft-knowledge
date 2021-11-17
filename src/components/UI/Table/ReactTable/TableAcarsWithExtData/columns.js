@@ -120,6 +120,6 @@ export const COLUMNS = [
         Header: "Source Flight Std",
         accessor: "flightStd.value.totalSeconds",
         Cell: ({ value }) => { if(value != null){
-            return moment.utc(value*1000).format('HH:mm')}else return ''} 
+            return moment.utc(value*1000).format('HH:mm')} else return ''} 
     },
 ]
