@@ -165,7 +165,7 @@ export const flightHeader = [
     {
         name: "Date",
         prop: "flightDate",
-        type: "datetime"
+        type: "date"
     },
     {
         name: "From",

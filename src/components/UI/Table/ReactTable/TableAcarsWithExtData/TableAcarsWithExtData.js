@@ -139,6 +139,47 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       
+      :nth-child(14){          
+        width:160px !important;
+        word-break: break-word;                     
+       }
+      :nth-child(15){          
+        width:100px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(16){          
+        width:180px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(17){          
+        width:180px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(18){          
+        width:180px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(19){          
+        width:100px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(20){          
+        width:180px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(21){          
+        width:180px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(22){          
+        width:120px !important;
+        word-break: break-word;                     
+       }
+       :nth-child(23){          
+        width:120px !important;
+        word-break: break-word;                     
+       }
+      
       .resizer {
         right: 0;
         background: #80dfff;
@@ -220,8 +261,8 @@ const Styles = styled.div`
 
 .boxCheck {
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    width: 850px;    
+    grid-template-columns: 50% 50%;
+    width: 400px;    
     background-color: cornflowerblue;
     margin-top: -8px;
     margin-bottom: -8px;
@@ -278,7 +319,7 @@ const Styles = styled.div`
             margin-top: 8px;
             margin-bottom: 45px;
             z-index:7;
-            width:450px;                      
+            ${'' /* width:450px;                       */}
             align-content: left;  
             height:1540px; 
             margin-left: -89px;                                  
@@ -303,7 +344,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1410px;
+            margin-top: -1470px;
             border-top: 1px solid black;
 
             .tr, .td{
@@ -324,7 +365,7 @@ const Styles = styled.div`
                 text-align: right;               
                 align-self: auto;                 
                 align-items: flex-end;
-                overflow-y: hidden;
+                overflow-y: scroll;
                 overflow-x: hidden;
                 height:100%;
                
@@ -334,20 +375,31 @@ const Styles = styled.div`
               height: 100%;
             }
 
+            .tr {
+              :last-child {
+                .td {
+                  border-bottom: 0px solid grey;
+                }
+              }
+              border-bottom: 0px solid grey;
+            }
+
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 3%;
+                padding-left: 7%;
+                padding-right: 0.5%;
                 content-align: center;
                 height: 100%;
-                :nth-child(2){          
+
+             :nth-child(1){          
                 width:550px !important;
                 word-break: break-word;             
-                }
-              :nth-child(1){          
+              }   
+            :nth-child(2){          
                 width:550px !important;
                 word-break: break-word;             
-              }
+            }             
               
               :nth-child(3){          
                 width:550px !important;
@@ -395,7 +447,46 @@ const Styles = styled.div`
                 width:550px !important;
                 word-break: break-word;                     
               }
-             
+              :nth-child(14){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(15){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(16){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(17){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(18){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(19){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(20){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(21){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(22){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
+              :nth-child(23){          
+                width:550px !important;
+                word-break: break-word;                     
+              }
             }
 
             
@@ -431,32 +522,32 @@ const Styles = styled.div`
                 z-index: 1;
                 position: relative;
                 border: 0;
-                width:350px;                
+                width:250px;                
             }           
         }
         
 
         .excelBtn {
-            position: relative;                   
-            left: -25px;
-            margin-top:55px;
-            margin-bottom:-1365px;
+            position: absolute;                   
+            left: 25px;
+            margin-top:45px;            
             z-index:7;
         } 
         .drop{
-            position: relative;  
+            ${'' /* position: absolute;  
             left: -25px;
             z-index:7;
             height: 1400px; 
-            margin-bottom:-470px;                 
+            margin-bottom:-470px;                  */}
+            display: none;
         }
         .boxCheck {
             display: grid;
-            grid-template-columns: 1fr 1fr;            
+            grid-template-columns: 100%;            
             border-radius: 5px;    
             z-index: 7; 
             height:100%; 
-            width: 310px !important;
+            width: 200px !important;
             marginTop: -4px; 
             margin-left: 0px;             
         }
@@ -486,7 +577,17 @@ const Styles = styled.div`
     .func2 {          
             
             margin-left: -114px;                                  
-        } 
+    } 
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    .excelBtn {
+            position: absolute;                   
+            left: 25px;
+            margin-top:45px;            
+            z-index:7;
+    }
 }
 
 
@@ -499,25 +600,37 @@ const Styles = styled.div`
         
     }
     .excelBtn {
-        position: relative;        
-        padding-left: -25px;        
-       
+            position: absolute;                   
+            left: 25px;
+            margin-top:45px;            
+            z-index:7;
     } 
     .drop{
         position: relative;        
         left: -25px;        
     }
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
-        position: relative;                   
-        left: -25px;       
+            position: absolute;                   
+            left: 25px;
+            margin-top:45px;            
+            z-index:7;
     } 
     .drop{
-        position: relative;       
-        left:-25px;
+        ${'' /* position: relative;       
+        left:-25px; */}
+        display: none;
     }   
+    .tbody{
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
 }  
 
     
