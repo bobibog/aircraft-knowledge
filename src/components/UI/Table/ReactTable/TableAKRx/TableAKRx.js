@@ -187,7 +187,7 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       :nth-child(23){          
-        width:160px !important;
+        width:170px !important;
         word-break: break-word;                     
       }
       :nth-child(24){          

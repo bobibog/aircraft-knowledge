@@ -15,7 +15,7 @@ const AcarsWithExtData = props => {
         return state.acarsWithExtData.acarsWithExtData;
     });    
 
-    console.log(acarsWithExtData);
+    
     
     const acarsWithExtDataCount = useSelector(state => {
         return state.acarsWithExtData.acarsWithExtDataCount;
@@ -147,7 +147,7 @@ const AcarsWithExtData = props => {
     
     if (acarsWithExtData && !loading ) {
           
-
+        
         acarsWithExtDataTable =  <TableAcarsWithExtData
             data={acarsWithExtData}
             rowsPerPageDef={limit}            
