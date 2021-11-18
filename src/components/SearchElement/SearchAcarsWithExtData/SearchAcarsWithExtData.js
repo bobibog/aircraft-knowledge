@@ -172,10 +172,7 @@ const  SearchAcarsWithExtData = (props) => {
     }
     const serialNumberInputConfig = {
         type:'text',
-        placeholder:'Serial Number',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
+        placeholder:'Serial Number'        
     }
     const operatorInputConfig = {
         type:'text',
