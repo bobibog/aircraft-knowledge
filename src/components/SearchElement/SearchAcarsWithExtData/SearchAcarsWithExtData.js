@@ -21,20 +21,15 @@ const  SearchAcarsWithExtData = (props) => {
     const[blockId, setBlockId] = useState('');
     const[msgno, setMsgno]= useState('');
     const[dsta, setDsta]= useState('');
-    const[airline, setAirline]= useState('');
-    const[serialNumber, setSerialNumber] = useState('');
-    const[aircraftOperator, setAircraftOperator] = useState('');
+    const[airlineName, setAirlineName]= useState('');
+    const[airlineIata, setAirlineIATA] = useState('');
+    const[airlineIcao, setAirlineICAO] = useState('');
+    const[operatorName, setOperatorName] = useState('');
+    const[operatorIata, setOperatorIata] = useState('');
+    const[operatorIcao, setOperatorIcao] = useState('');
+    const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
-    const[fromAirport, setFromAirport] = useState('');
-    const[fromIata, setFromIata] = useState('');
-    const[fromCity, setFromCity] = useState('');
-    const[fromCountry, setFromCountry] = useState('');
-    const[toAirport, setToAirport] = useState('');
-    const[toIata, setToIata] = useState('');
-    const[toCity, setToCity] = useState('');
-    const[toCountry, setToCountry] = useState('');
-    const[sourceFlightDate, setSourceFlightDate] = useState('');
-    const[sourceFlightStd, setSourceFlightStd] = useState('');
+    const[typeCode, setTypeCode] = useState('');
 
     // Disable Input
     const [disabled, setDisabled] = useState(true);
@@ -102,20 +97,15 @@ const  SearchAcarsWithExtData = (props) => {
         setBlockId('');
         setMsgno('');
         setDsta('');
-        setAirline('');
-        setSerialNumber('');
-        setAircraftOperator('');
-        setAircraftType('');  
-        setFromAirport('');     
-        setFromIata('');
-        setFromCity('');
-        setFromCountry('');
-        setToAirport('');
-        setToIata('');
-        setToCity('');
-        setToCountry('');
-        setSourceFlightDate('');
-        setSourceFlightStd('');
+        setAirlineName('');
+        setAirlineIATA('');
+        setAirlineICAO('');
+        setOperatorName('');
+        setOperatorIata('');
+        setOperatorIcao('');
+        setSerialNumber('');        
+        setAircraftType('');
+        setTypeCode(''); 
 
         setDateFromErr({});
         setDateToErr({});
@@ -165,102 +155,40 @@ const  SearchAcarsWithExtData = (props) => {
     }
     const airlineInputConfig = {
         type:'text',
-        placeholder:'Airline',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
+        placeholder:'Airline Name',        
+    }
+    const airlineIataInputConfig = {
+        type:'text',
+        placeholder:'Airline IATA',        
+    }
+    const airlineIcaoInputConfig = {
+        type:'text',
+        placeholder:'Airline ICAO',        
+    }
+    const operartorNameInputConfig = {
+        type:'text',
+        placeholder:'Operator Name',        
+    }
+    const operartorIataInputConfig = {
+        type:'text',
+        placeholder:'Operator IATA',        
+    }
+    const operartorIcaoInputConfig = {
+        type:'text',
+        placeholder:'Operator ICAO',        
+    }
+    const aircraftTypeInputConfig = {
+        type:'text',
+        placeholder:'Aircraft Type',        
     }
     const serialNumberInputConfig = {
         type:'text',
         placeholder:'Serial Number'        
     }
-    const operatorInputConfig = {
+    const typeCodeInputConfig = {
         type:'text',
-        placeholder:'Operator',
-        disabled: {disabled},
-        toggle:'tooltip',
-        title:'Disabled'
-    }
-    const aircraftTypeInputConfig = {
-        type:'text',
-        placeholder:'Aircraft Type',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-
-    const fromAirportInputConfig = {
-        type:'text',
-        placeholder:'From Airport',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const fromIATAInputConfig = {
-        type:'text',
-        placeholder:'From IATA',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const fromCityInputConfig = {
-        type:'text',
-        placeholder:'From City',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const fromCountryInputConfig = {
-        type:'text',
-        placeholder:'From Country',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-
-    const toAirportInputConfig = {
-        type:'text',
-        placeholder:'To Airport',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const toIATAInputConfig = {
-        type:'text',
-        placeholder:'To IATA',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const toCityInputConfig = {
-        type:'text',
-        placeholder:'To City',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const toCountryInputConfig = {
-        type:'text',
-        placeholder:'To Country',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-
-    const sourceFlightDateInputConfig = {
-        type:'datetime-local',
-        placeholder:'Source Flight Date',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'
-    }
-    const sourceFlightStdInputConfig = {
-        type:'text',
-        placeholder:'Source Flight Std',
-        disabled: {disabled},
-        toggle:"tooltip",
-        title:'Disabled'        
-    }
+        placeholder:'Type Code'        
+    }    
     
     // Changing Dropdown Button title according to event (search or reset click)
     const[filter, setFilter] = useState('');
@@ -280,9 +208,9 @@ const  SearchAcarsWithExtData = (props) => {
     const changer=0;
 
     const onSerach = (e) =>{
-        props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-            tail, flight, text, mode, label, blockId, msgno, dsta, airline, serialNumber
-            ,aircraftOperator, aircraftType);
+        props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, tail,  flight, text, 
+            mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode);
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -431,16 +359,7 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementType='input' 
                                         elementConfig= {blockIdInputConfig}                     
                                     />
-                                </InputGroup>                                                       
-                                                                                                               
-                            </div>
-                        </div>
-                        </div>
-                        {/* 2. column */}
-                        <div className={classes.bar}>    
-                        <div className="col-sm-3">                
-                            <div className={classes.card}>
-                                
+                                </InputGroup>  
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -466,7 +385,15 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementType='input' 
                                         elementConfig= {dstaIdInputConfig}                     
                                     />
-                                </InputGroup>
+                                </InputGroup>                                                     
+                                                                                                               
+                            </div>
+                        </div>
+                        </div>
+                        {/* 2. column */}
+                        <div className={classes.bar}>    
+                        <div className="col-sm-3">                
+                            <div className={classes.card}>                               
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -474,8 +401,8 @@ const  SearchAcarsWithExtData = (props) => {
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
                                     <Input
-                                        value={airline}                                        
-                                        changed={(e)=>setAirline(e.target.value)}
+                                        value={airlineName}                                        
+                                        changed={(e)=>setAirlineName(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {airlineInputConfig}                                               
                                     />
@@ -488,10 +415,10 @@ const  SearchAcarsWithExtData = (props) => {
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
                                     <Input
-                                        value={serialNumber}                                        
-                                        changed={(e)=>setSerialNumber(e.target.value)}
+                                        value={airlineIata}                                        
+                                        changed={(e)=>setAirlineIATA(e.target.value)}
                                         elementType='input' 
-                                        elementConfig= {serialNumberInputConfig}                                               
+                                        elementConfig= {airlineIataInputConfig}                                               
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
@@ -501,13 +428,51 @@ const  SearchAcarsWithExtData = (props) => {
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
                                     <Input 
-                                        value={aircraftOperator}                                        
-                                        changed={(e)=>setAircraftOperator(e.target.value)}          
+                                        value={airlineIcao}                                        
+                                        changed={(e)=>setAirlineICAO(e.target.value)}          
                                         elementType='input' 
-                                        elementConfig= {operatorInputConfig}                     
+                                        elementConfig= {airlineIcaoInputConfig}                     
                                     />
-                                </InputGroup>                                
-                                
+                                </InputGroup>                               
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={operatorName}                                        
+                                        changed={(e)=> setOperatorName(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {operartorNameInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>                               
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input 
+                                        value={operatorIata}                                        
+                                        changed={(e)=>setOperatorIata(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {operartorIataInputConfig}                     
+                                    />
+                                </InputGroup>                               
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={operatorIcao}                                        
+                                        changed={(e)=> setOperatorIcao(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {operartorIcaoInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -521,21 +486,6 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {aircraftTypeInputConfig}                                                                                                               
                                     />
                                 </InputGroup>
-
-                                {/* b */}
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={fromAirport}                                        
-                                        changed={(e)=>setFromAirport(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {fromAirportInputConfig}                     
-                                    />
-                                </InputGroup>                               
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -543,133 +493,26 @@ const  SearchAcarsWithExtData = (props) => {
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
                                     <Input
-                                        value={fromIata}                                        
-                                        changed={(e)=> setFromIata(e.target.value)}                                                                             
+                                        value={serialNumber}                                        
+                                        changed={(e)=> setSerialNumber(e.target.value)}                                                                             
                                         elementType='input' 
-                                        elementConfig= {fromIATAInputConfig}                                                                                                               
+                                        elementConfig= {serialNumberInputConfig}                                                                                                               
+                                    />
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={typeCode}                                        
+                                        changed={(e)=> setTypeCode(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {typeCodeInputConfig}                                                                                                               
                                     />
                                 </InputGroup>
                                                                                             
-                            </div>
-                            
-                        </div>
-                        </div>
-                        
-                       
-                        {/*3.*/}
-                        <div className={classes.bar}>          
-                        <div className="col-sm-3" id="bar">                        
-                            <div className={classes.card} >                               
-                            <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={fromCity}                                        
-                                        changed={(e)=>setFromCity(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {fromCityInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={fromCountry}                                        
-                                        changed={(e)=>setFromCountry(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {fromCountryInputConfig}                     
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={toAirport}                                        
-                                        changed={(e)=>setToAirport(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {toAirportInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={toIata}                                        
-                                        changed={(e)=>setToIata(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {toIATAInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={toCity}                                        
-                                        changed={(e)=>setToCity(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {toCityInputConfig}                     
-                                    />
-                                </InputGroup>                                
-                                
-                                <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={toCountry}                                        
-                                        changed={(e)=> setToCountry(e.target.value)}                                                                             
-                                        elementType='input' 
-                                        elementConfig= {toCountryInputConfig}                                                                                                               
-                                    />
-                                </InputGroup>
-                                
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input 
-                                        value={sourceFlightDate}                                        
-                                        changed={(e)=>setSourceFlightDate(e.target.value)}          
-                                        elementType='input' 
-                                        elementConfig= {sourceFlightDateInputConfig}                     
-                                    />
-                                </InputGroup>                               
-                                <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={sourceFlightStd}                                        
-                                        changed={(e)=> setSourceFlightStd(e.target.value)}                                                                             
-                                        elementType='input' 
-                                        elementConfig= {sourceFlightStdInputConfig}                                                                                                               
-                                    />
-                                </InputGroup>
-
-                                                 
-                                                                                                               
                             </div>
                             <div className={classes.buttonBox}>
                                 <ButtonBordered                                    
@@ -683,8 +526,12 @@ const  SearchAcarsWithExtData = (props) => {
                                      
                                 >RESET</ButtonBordered>
                             </div>
+                            
                         </div>
                         </div>
+                        
+                       
+                        
                        
                         
                     </div> 

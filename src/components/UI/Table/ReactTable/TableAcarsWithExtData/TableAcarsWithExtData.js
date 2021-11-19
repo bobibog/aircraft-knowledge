@@ -131,16 +131,16 @@ const Styles = styled.div`
         word-break: break-word;                     
       }
       :nth-child(12){          
-        width:40px !important;
+        width:60px !important;
         word-break: break-word;                     
       }
       :nth-child(13){          
-        width:100px !important;
+        width:150px !important;
         word-break: break-word;                     
       }
       
       :nth-child(14){          
-        width:160px !important;
+        width:120px !important;
         word-break: break-word;                     
        }
       :nth-child(15){          
@@ -148,37 +148,19 @@ const Styles = styled.div`
         word-break: break-word;                     
        }
        :nth-child(16){          
-        width:180px !important;
+        width:160px !important;
         word-break: break-word;                     
        }
        :nth-child(17){          
-        width:180px !important;
+        width:60px !important;
         word-break: break-word;                     
        }
        :nth-child(18){          
-        width:180px !important;
+        width:60px !important;
         word-break: break-word;                     
        }
-       :nth-child(19){          
-        width:100px !important;
-        word-break: break-word;                     
-       }
-       :nth-child(20){          
-        width:180px !important;
-        word-break: break-word;                     
-       }
-       :nth-child(21){          
-        width:180px !important;
-        word-break: break-word;                     
-       }
-       :nth-child(22){          
-        width:120px !important;
-        word-break: break-word;                     
-       }
-       :nth-child(23){          
-        width:120px !important;
-        word-break: break-word;                     
-       }
+       
+       
       
       .resizer {
         right: 0;
@@ -387,7 +369,7 @@ const Styles = styled.div`
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 7%;
+                padding-left: 9%;
                 padding-right: 0.5%;
                 content-align: center;
                 height: 100%;

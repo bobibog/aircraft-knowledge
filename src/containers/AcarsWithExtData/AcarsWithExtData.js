@@ -44,21 +44,26 @@ const AcarsWithExtData = props => {
     const[blockId, setBlockId] = useState('');
     const[msgno, setMsgno]= useState('');
     const[dsta, setDsta]= useState('');
-    const[airline, setAirline]= useState('');
-    const[serialNumber, setSerialNumber] = useState('');
-    const[aircraftOperator, setAircraftOperator] = useState('');
+    const[airlineName, setAirlineName]= useState('');
+    const[airlineIata, setAirlineIATA] = useState('');
+    const[airlineIcao, setAirlineICAO] = useState('');
+    const[operatorName, setOperatorName] = useState('');
+    const[operatorIata, setOperatorIata] = useState('');
+    const[operatorIcao, setOperatorIcao] = useState('');
+    const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
+    const[typeCode, setTypeCode] = useState('');
 
 
     const dispatch = useDispatch();
     
     const onFetchAcarsWithExtData = useCallback(
-        () => dispatch(actions.fetchAcarsWithExtData(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
-            airline, aircraftOperator, aircraftType ))
-        , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
-            airline, aircraftOperator, aircraftType ]
+        () => dispatch(actions.fetchAcarsWithExtData(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+            tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode ))
+        , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+            tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode ]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimit(offset, limit));    
@@ -73,9 +78,9 @@ const AcarsWithExtData = props => {
     };    
        
     // FILTERING/SEARCHING
-    const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-        tail, flight, text, mode, label, blockId, msgno, dsta, airline, serialNumber
-        ,aircraftOperator, aircraftType) => {  
+    const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+        tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
@@ -88,10 +93,15 @@ const AcarsWithExtData = props => {
         setBlockId(blockId);
         setMsgno(msgno);
         setDsta(dsta);
-        setAirline(airline);
-        setSerialNumber(serialNumber);
-        setAircraftOperator(aircraftOperator);
+        setAirlineName(airlineName);
+        setAirlineIATA(airlineIata);
+        setAirlineICAO(airlineIcao);
+        setOperatorName(operatorName);
+        setOperatorIata(operatorIata);
+        setOperatorIcao(operatorIcao);
+        setSerialNumber(serialNumber);        
         setAircraftType(aircraftType);
+        setTypeCode(typeCode);
     };
     
     
@@ -108,10 +118,16 @@ const AcarsWithExtData = props => {
         setBlockId('');
         setMsgno('');
         setDsta('');
-        setAirline('');
-        setSerialNumber('');
-        setAircraftOperator('');
-        setAircraftType('');    
+        setAirlineName('');
+        setAirlineIATA('');
+        setAirlineICAO('');
+        setOperatorName('');
+        setOperatorIata('');
+        setOperatorIcao('');
+        setSerialNumber('');        
+        setAircraftType('');
+        setTypeCode('');      
+        
         setAllOption(0);    
     };    
        
