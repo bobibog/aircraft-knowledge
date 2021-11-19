@@ -93,7 +93,7 @@
     margin-top: -11px;
     margin-bottom: -7px;
     border-radius: 0 5px 5px 5px;
-    width: 700px;
+    width: 488px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -108,7 +108,7 @@
         height: 45px;
     }
     .card {
-        width: 450px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .buttonBox {
@@ -138,7 +138,7 @@
         height: 45px;
     }
     .card {
-        width: 450px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .Drop {
@@ -156,7 +156,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 800px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -184,7 +184,7 @@
         height: 45px;
     }
     .card {
-        width: 350px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -193,7 +193,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 640px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -221,7 +221,7 @@
         height: 45px;
     }
     .card {
-        width: 310px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -230,7 +230,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 580px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -258,7 +258,7 @@
         height: 45px;
     }
     .card {
-        width: 350px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -267,7 +267,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -295,7 +295,7 @@
         height: 45px;
     }
     .card {
-        width: 350px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -304,7 +304,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -332,7 +332,7 @@
         height: 45px;
     }
     .card {
-        width: 350px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -341,7 +341,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -369,7 +369,7 @@
         height: 45px;
     }
     .card {
-        width: 350px;
+        width: 252px;
         border-radius: 0px 0px 0px 0px;
     }
     .dropdownShow {
@@ -378,7 +378,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 488px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;

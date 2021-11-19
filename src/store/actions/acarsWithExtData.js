@@ -41,9 +41,9 @@ export const fetchAcarsWithExtDataFail = (error) => {
 
 
 
-export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax,
-                                    tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber,
-                                    airline, aircraftOperator, aircraftType                                 
+export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+    tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+    serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode                                 
     ) => {
     return dispatch => {
         dispatch(fetchAcarsWithExtDataStart());                      
@@ -61,10 +61,16 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
         query.append('blockId', blockId);
         query.append('msgno', msgno);
         query.append('dsta', dsta);
-        query.append('airline', airline);
-        query.append('serialNumber', serialNumber);
-        query.append('aircraftOperator', aircraftOperator);
+        query.append('airlineName', airlineName);
+        query.append('airlineIata', airlineIata);
+        query.append('airlineIcao', airlineIcao);
+        query.append('operatorName', operatorName);
+        query.append('operatorIata', operatorIata);
+        query.append('operatorIcao', operatorIcao);
+        query.append('operatorIcao', operatorIcao);
+        query.append('serialNumber', serialNumber);        
         query.append('aircraftType', aircraftType);
+        query.append('typeCode', typeCode);
 
         let queryString = limit !== "-1"            
             ? query

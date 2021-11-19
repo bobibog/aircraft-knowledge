@@ -56,7 +56,7 @@ export const COLUMNS = [
         accessor: "blockId"
     },
     {
-        Header: "Mesage Num.",
+        Header: "Message Num.",
         accessor: "msgno"
     },
     {
@@ -64,62 +64,82 @@ export const COLUMNS = [
         accessor:"dsta"
     },   
     {
-        Header:"Airline",
+        Header:"Airline Name",
         accessor:"airline.airlineName"
     },  
     {
-        Header:"Serial Number",
-        accessor:"serialNumber"
+        Header:"Airline IATA",
+        accessor:"airline.iata"
     },
     {
-        Header:"Operator",
+        Header:"Airline ICAO",
+        accessor:"airline.icao"
+    },    
+    {
+        Header:"Operator Name",
         accessor:"operator.airlineName"
+    },
+    {
+        Header:"Operator IATA",
+        accessor:"operator.iata"
+    },
+    {
+        Header:"Operator ICAO",
+        accessor:"operator.icao"
     },
     {
         Header:"Aircraft Type",
         accessor:"aircraftType"
     },
     {
-        Header:"From airport",
-        accessor:"fromAirport.airportName"
+        Header:"Serial Number",
+        accessor:"serialNumber"
     },
     {
-        Header:"From IATA",
-        accessor:"fromAirport.airportIata"
+        Header:"Type Code",
+        accessor:"typeCode"
     },
-    {
-        Header:"From City",
-        accessor:"fromAirport.city"
-    },
-    {
-        Header:"From Country",
-        accessor:"fromAirport.country"
-    },
-    {
-        Header:"To airport",
-        accessor:"toAirport.airportName"
-    },
-    {
-        Header:"To IATA",
-        accessor:"toAirport.airportIata"
-    },
-    {
-        Header:"To City",
-        accessor:"toAirport.city"
-    },
-    {
-        Header:"To Country",
-        accessor:"toAirport.country"
-    },
-    {
-        Header: "Source Flight Date",
-        accessor: "flightDate",         
-        Cell: ({ value }) => { return JSON.stringify(value, replacer1, 2).replace(/T/g, ' ').substring(1,11)}
-    },
-    {
-        Header: "Source Flight Std",
-        accessor: "flightStd.value.totalSeconds",
-        Cell: ({ value }) => { if(value != null){
-            return moment.utc(value*1000).format('HH:mm')} else return ''} 
-    },
+    // {
+    //     Header:"From airport",
+    //     accessor:"fromAirport.airportName"
+    // },
+    // {
+    //     Header:"From IATA",
+    //     accessor:"fromAirport.airportIata"
+    // },
+    // {
+    //     Header:"From City",
+    //     accessor:"fromAirport.city"
+    // },
+    // {
+    //     Header:"From Country",
+    //     accessor:"fromAirport.country"
+    // },
+    // {
+    //     Header:"To airport",
+    //     accessor:"toAirport.airportName"
+    // },
+    // {
+    //     Header:"To IATA",
+    //     accessor:"toAirport.airportIata"
+    // },
+    // {
+    //     Header:"To City",
+    //     accessor:"toAirport.city"
+    // },
+    // {
+    //     Header:"To Country",
+    //     accessor:"toAirport.country"
+    // },
+    // {
+    //     Header: "Source Flight Date",
+    //     accessor: "flightDate",         
+    //     Cell: ({ value }) => { return JSON.stringify(value, replacer1, 2).replace(/T/g, ' ').substring(1,11)}
+    // },
+    // {
+    //     Header: "Source Flight Std",
+    //     accessor: "flightStd.value.totalSeconds",
+    //     Cell: ({ value }) => { if(value != null){
+    //         return moment.utc(value*1000).format('HH:mm')} else return ''} 
+    // },
 ]
