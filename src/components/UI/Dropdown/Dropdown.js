@@ -18,22 +18,26 @@ const Dropdown = ({
     const[open, setOpen]=useState(false);
     const[query, setQuery] = useState('');
     const ref = useRef(null);
-
+    const[unwrap, setUnwrap]= useState(false);
     
-    useEffect(()=>{        
+    useEffect(()=>{         
         
-            ["click", "touchend"].forEach(e=>{
-                document.addEventListener(e, toggle);
+            ["click", "touchend"].forEach(e=>{                
+                    document.addEventListener(e, toggle);
+                                
             })
+            
             return () => ["click", "touchend"].forEach(e=>{
                 document.removeEventListener(e , toggle);
-            })
-             
+            }) 
+                                       
          
     }, []);
 
-    const toggle =(e)=>{        
-            setOpen(e && e.target === ref.current);                            
+    const toggle =(e)=>{   
+        
+        setOpen(e && e.target === ref.current);
+                                                         
     };
 
     const filter = (options) => {
@@ -63,7 +67,6 @@ const Dropdown = ({
     };
     
     
-
     return (
         <div className='dropdown'>
             <div className='control'>
@@ -83,7 +86,7 @@ const Dropdown = ({
                 </div>
                 <div className={`arrow ${open ? "open" : null}` } />
             </div>
-            <div className={ `options ${open ? "open" : null}` }>
+            <div className={ `options ${query.length>3 ? "open" : null}` }>
                 {filter(options).map((option, i) => 
                 <div 
                     key={`dr-${i}`} 
