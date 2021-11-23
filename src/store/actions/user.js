@@ -71,7 +71,7 @@ export const fetchUserStart = () => {
 };
 
 
-export const fetchUsers = (offset, limit, username, password, role, name, surname, email, company, terms) => {
+export const fetchUsers = (offset, limit, username, password, role, name, surname, email, company, terms, isAuthenticated) => {
     return dispatch => {
         dispatch(fetchUsersStart());        
           
@@ -89,9 +89,15 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
         
         let queryString = limit !== "-1"            
             ? query
-            : '';            
+            : '';    
+        
+        let url = '/User?';
             
-        axios.get(`/User?`+ queryString)
+        const config ={
+            headers: {'Authorization': `Bearer ${isAuthenticated}`}
+        }
+            
+        axios.get(url, config, queryString)
             .then(response => {                
                 dispatch(fetchUsersSuccess(response.data['users'], response.data['usersCount']))                 
             })
@@ -102,13 +108,17 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
     }
 };
 
-export const getUser = (id) => {
+export const getUser = (id, isAuthenticated) => {
     return dispatch => {
         dispatch(fetchUserStart());        
           
-        let url = `/user/${id}`;         
+        let url = `/user/${id}`;
+        
+        const config ={
+            headers: {'Authorization': `Bearer ${isAuthenticated}`}
+        }
             
-        axios.get(url)
+        axios.get(url, config)
             .then(response => { 
                 dispatch(fetchUserSuccess(response.data.password, response.data.username,
                     response.data.name, response.data.surname, response.data.role, response.data.terms,

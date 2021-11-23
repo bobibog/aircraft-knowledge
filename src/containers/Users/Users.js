@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../axios-local';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
@@ -9,9 +9,9 @@ import {crudUserHeader} from '../../shared/staticData';
 import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 import Heading from '../../components/CRUD/Customer/Heading';
+import {AuthContext} from '../../context/auth-context';
 
-const Users = props => {
-    
+const Users = props => {   
     
 
     const users = useSelector(state => {
@@ -44,10 +44,15 @@ const Users = props => {
     const[terms, setTerms]=useState('');
     
     const dispatch = useDispatch();
+
+    const authContext = useContext(AuthContext);
+    let isAuthenticated = authContext.user.token;
+
+        console.log("TOLKEN="+isAuthenticated);
     
     const onFetchUsers = useCallback(
-        () => dispatch(actions.fetchUsers(offset, limit, username, password, role, name, surname, email, company, terms ))
-        , [dispatch, offset, limit, username, password, role, name, surname, email, company, terms]
+        () => dispatch(actions.fetchUsers(offset, limit, username, password, role, name, surname, email, company, terms, isAuthenticated ))
+        , [dispatch, offset, limit, username, password, role, name, surname, email, company, terms, isAuthenticated]
     );
     
     

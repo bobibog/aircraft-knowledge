@@ -2,6 +2,7 @@ export {
     fetchAirlines,
     setAirlinesOffsetLimit,
     setAirlinesPage,
+    fetchAirlineNameList,
     orderAirlinesByNameDsc,
     orderAirlinesByNameAsc,
     orderAirlinesByIataDsc,

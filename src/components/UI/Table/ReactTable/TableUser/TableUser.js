@@ -49,7 +49,7 @@ const IndeterminateCheckbox = React.forwardRef(
     }
   );
 
-const TableAKRx = (props) => {
+const TableUser = (props) => {
     
     const authContext = useContext(AuthContext);
     const dispatch = useDispatch();
@@ -112,7 +112,7 @@ const TableAKRx = (props) => {
             Header: "UPDATE",            
             Cell: ( props ) => {return (
                 <Link to={`/updateUser/${props.row.original.id}`} className={classes.buttonUpdate} onClick={
-                    useCallback(() => dispatch(actions.getUser(props.row.original.id))
+                    useCallback(() => dispatch(actions.getUser(props.row.original.id, isAuthenticated))
                       , [dispatch, props.row.original.id])}>
                     <FontAwesomeIcon icon={faPenAlt} className={classes.update} />
                 </Link>                
@@ -283,7 +283,7 @@ const TableAKRx = (props) => {
     )
 };
 
-export default TableAKRx;
+export default TableUser;
 
 // https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
 // 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>

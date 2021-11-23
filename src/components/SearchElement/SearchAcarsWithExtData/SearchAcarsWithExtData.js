@@ -1,4 +1,6 @@
-import React, {useState, useSelector} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import * as actions from '../../../store/actions/index';
 import Input from '../../UI/Input/Input';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchAcarsWithExtData.module.css';
@@ -7,9 +9,17 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Dropdown from '../../UI/Dropdown/Dropdown';
+import SearchBar from '../../UI/SearchBar/SearchBar';
 
 
 const  SearchAcarsWithExtData = (props) => {
+
+    const airlineNameList = useSelector(state => {
+        return state.airline.airlines;
+    });       
+
+    const[value, setValue] = useState(null);
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
@@ -29,10 +39,24 @@ const  SearchAcarsWithExtData = (props) => {
     const[operatorIcao, setOperatorIcao] = useState('');
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
-    const[typeCode, setTypeCode] = useState('');
+    const[typeCode, setTypeCode] = useState('');   
+    
+    
+
+    const dispatch = useDispatch();
+
+    const onFetchAirlineName = useCallback(
+        () => dispatch(actions.fetchAirlineNameList(airlineName ))
+        , [dispatch, airlineName ]
+    );
+
+    useEffect(()=>{
+        onFetchAirlineName();       
+    }, [onFetchAirlineName]);
+    
 
     // Disable Input
-    const [disabled, setDisabled] = useState(true);
+    const [disabled, setDisabled] = useState(false);
 
     // DATE-TIME input VALIDATION
     const[dateFromErr, setDateFromErr] = useState({});
@@ -106,12 +130,41 @@ const  SearchAcarsWithExtData = (props) => {
         setSerialNumber('');        
         setAircraftType('');
         setTypeCode(''); 
+        setValue(null);
 
         setDateFromErr({});
         setDateToErr({});
         props.clickedReset();        
     };    
 
+    const disabler = () =>{
+        if(airlineName!= null){
+            setDisabled(true);
+        }
+    }
+
+    // DROPDOWN MENU
+    let drop = '';
+
+    const onDropChange = (e) =>{
+        setValue(e);       
+        setAirlineName(e.airlineName);
+        //disabler();                     
+    }
+
+       
+    if(airlineNameList != null)
+    {
+        drop = <Dropdown
+            prompt= 'Airline Name'            
+            options={airlineNameList}              
+            value={value}   
+            onChange={onDropChange} 
+            descriptor='airlineName'                                                  
+        />;
+    }
+
+   
        
     const acarsMessageDateTimeMinInputConfig = {
         type:'datetime-local',
@@ -187,7 +240,8 @@ const  SearchAcarsWithExtData = (props) => {
     }
     const typeCodeInputConfig = {
         type:'text',
-        placeholder:'Type Code'        
+        placeholder:'Type Code',
+        //disabled: disabled        
     }    
     
     // Changing Dropdown Button title according to event (search or reset click)
@@ -214,6 +268,7 @@ const  SearchAcarsWithExtData = (props) => {
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
+        //onSetAirlineName();
     };
 
     const onReset =(e)=>{
@@ -400,12 +455,18 @@ const  SearchAcarsWithExtData = (props) => {
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    <Input
+                                    {/* <Input
                                         value={airlineName}                                        
                                         changed={(e)=>setAirlineName(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {airlineInputConfig}                                               
-                                    />
+                                    /> */}
+                                    <div className={classes.dropDownList}>
+                                        {drop}
+                                    </div>                                    
+                                    {/* <div className={classes.searchBarContainer}>
+                                        {searchBar}
+                                    </div> */}
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
