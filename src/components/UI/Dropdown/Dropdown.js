@@ -1,5 +1,6 @@
 import { getByDisplayValue } from '@testing-library/dom';
 import React, {useState, useRef, useEffect} from 'react';
+import { fetchAirlineNameList } from '../../../store/actions';
 import './Dropdown.css';
 //import classes from './Dropdown.module.css'
 
@@ -20,14 +21,16 @@ const Dropdown = ({
 
     
     useEffect(()=>{
-        
-        ["click", "touchend"].forEach(e=>{
+        if(fetchAirlineNameList.length>3){
+           ["click", "touchend"].forEach(e=>{
             document.addEventListener(e, toggle);
         })
        
         return () => ["click", "touchend"].forEach(e=>{
             document.removeEventListener(e , toggle);
-        })
+        }) 
+        }
+        
            
         
     }, []);

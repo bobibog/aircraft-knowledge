@@ -51,7 +51,10 @@ const  SearchAcarsWithExtData = (props) => {
     );
 
     useEffect(()=>{
-        onFetchAirlineName();       
+        
+            onFetchAirlineName(); 
+        
+              
     }, [onFetchAirlineName]);
     
 
