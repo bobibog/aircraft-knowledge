@@ -20,29 +20,28 @@ const Dropdown = ({
     const ref = useRef(null);
 
     
-    useEffect(()=>{
+    useEffect(()=>{        
         
-           ["click", "touchend"].forEach(e=>{
-            document.addEventListener(e, toggle);
-        })
-       
-        return () => ["click", "touchend"].forEach(e=>{
-            document.removeEventListener(e , toggle);
-        }) 
-            
-        
+            ["click", "touchend"].forEach(e=>{
+                document.addEventListener(e, toggle);
+            })
+            return () => ["click", "touchend"].forEach(e=>{
+                document.removeEventListener(e , toggle);
+            })
+             
+         
     }, []);
 
-    const toggle =(e)=>{
-        
-            setOpen(e && e.target === ref.current);
-                  
+    const toggle =(e)=>{        
+            setOpen(e && e.target === ref.current);                            
     };
 
     const filter = (options) => {
-         return options.filter(
+        
+           return options.filter(
              (option) => option[descriptor].toLowerCase().indexOf(query.toLowerCase()) > -1
-         )
+         ) 
+                 
     };
 
     const displayValue = () => {
@@ -63,6 +62,8 @@ const Dropdown = ({
         setOpen(false);
     };
     
+    
+
     return (
         <div className='dropdown'>
             <div className='control'>

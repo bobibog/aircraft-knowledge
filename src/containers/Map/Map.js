@@ -24,7 +24,7 @@ const Map = () =>{
                         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}    
                         onViewportChange={(viewport)=>{setViewport(viewport)}}  
                         //mapStyle="mapbox://styles/mladenzv/ckvv71grn2cxo14nmuq5g3jqh"
-                        mapStyle="mapbox://styles/mladenzv/ckwapbp181k1b16o7tfm7wn3a"     
+                        //mapStyle="mapbox://styles/mladenzv/ckwapbp181k1b16o7tfm7wn3a"     
             >
                 {/* MARKERI */}       
                     
