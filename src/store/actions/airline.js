@@ -87,15 +87,18 @@ export const fetchAirlineNameList = (airlineName) => {
         let url = '/Airline/airlineName?';
 
         let queryString =  query;            
-            
-        axios.get(url + queryString)
+        
+        
+           axios.get(url + queryString)
             .then(response => {                
                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
             })
             .catch(error => {
                 dispatch(fetchAirlinesFail(error));                                
             }    
-        );        
+        ); 
+        
+                
     }
 };
 
