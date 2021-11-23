@@ -21,7 +21,7 @@ const Dropdown = ({
 
     
     useEffect(()=>{
-        if(fetchAirlineNameList.length>3){
+        
            ["click", "touchend"].forEach(e=>{
             document.addEventListener(e, toggle);
         })
@@ -29,9 +29,7 @@ const Dropdown = ({
         return () => ["click", "touchend"].forEach(e=>{
             document.removeEventListener(e , toggle);
         }) 
-        }
-        
-           
+            
         
     }, []);
 
