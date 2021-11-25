@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Input from '../../UI/Input/Input';
@@ -84,6 +84,9 @@ const  SearchAcarsWithExtData = (props) => {
         onFetchTypeCode();           
     }, [onFetchAirlineName, onFetchAircraftType, onFetchTypeCode]);
     
+
+    
+
 
     // Disable Input
     const [disabled, setDisabled] = useState(false);
@@ -426,7 +429,31 @@ const  SearchAcarsWithExtData = (props) => {
             setShowDropdown(false);        
     };
 
+    // FUNKCION WHICH LISTEN EVENTS OUTSIDE ELEMENT
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+          
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                toggleDropdown();
+            }
+          }
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+      }
+
+      const wrapperRef = useRef(null);
+      useOutsideAlerter(wrapperRef);
+
+      // /
+
     const changer=0;
+    
 
     const onSerach = (e) =>{
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, tail,  flight, text, 
@@ -445,8 +472,9 @@ const  SearchAcarsWithExtData = (props) => {
     };
                    
     return (
-        <div className={classes.container}> 
-            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
+        <div className={classes.container} > 
+            {/* <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}> */}
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} ref={wrapperRef} >
                 <div className={classes.dropdownShow}>
                     <div className="row"> 
                         {/* 1. kolona */}
@@ -610,6 +638,7 @@ const  SearchAcarsWithExtData = (props) => {
                                 </InputGroup>                                                     
                                                                                                                
                             </div>
+                            
                         </div>
                         </div>
                         {/* 2. column */}
