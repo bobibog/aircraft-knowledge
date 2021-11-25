@@ -11,7 +11,7 @@ const navigationItems = ( props ) => (
         {props.isAuthenticated ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}        
         {props.isAuthenticated ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
         {props.isAuthenticated ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}  
-        {/* {props.isAuthenticated ? <NavigationItem link="/map">Map</NavigationItem> : null}  */}
+        {props.isAuthenticated ? <NavigationItem link="/map">Map</NavigationItem> : null}
 
         {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         

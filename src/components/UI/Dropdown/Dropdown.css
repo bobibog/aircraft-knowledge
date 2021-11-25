@@ -21,6 +21,8 @@
 .dropdown .arrow.open {
     border-color: transparent transparent #999;
     border-width: 0 5px 5px;
+    opacity: 0.99;
+    z-index: 99;
 }
 
 .dropdown .selectedValue input {
@@ -34,9 +36,10 @@
     outline: none;
     padding: 8px 52px 8px 10px;
     transition: all 200ms ease;
-    width: 165px;
+    width: 175px;
     margin-top: 3px;
     height: 38px;
+    opacity: 0.99 !important;
 }
 
 .dropdown .options {
@@ -53,10 +56,13 @@
     width: 100%;
     z-index: 1000;
     -webkit-overflow-scrolling: touch;
+    opacity: 0.99 !important;
 }
 
 .dropdown .options.open {
     display: block;
+    opacity: 1 !important;
+    z-index: 120 !important;
 }
 
 .dropdown .option {
@@ -70,5 +76,6 @@
 .dropdown .option.selected,
 .dropdown .option:hover {
     background-color: #f2f9fc;
+    opacity: 0.99 !important;
     color: #333;
 }

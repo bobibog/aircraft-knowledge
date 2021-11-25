@@ -92,13 +92,14 @@ export const COLUMNS = [
         accessor:"aircraftType"
     },
     {
-        Header:"Serial Number",
-        accessor:"serialNumber"
-    },
-    {
         Header:"Type Code",
         accessor:"typeCode"
     },
+    {
+        Header:"Serial Number",
+        accessor:"serialNumber"
+    }
+    
     // {
     //     Header:"From airport",
     //     accessor:"fromAirport.airportName"

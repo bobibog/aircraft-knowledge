@@ -43,3 +43,8 @@ const Map = () =>{
 export default Map;
 
 // https://www.youtube.com/watch?v=JJatzkPcmoI
+// PROBLEMI - RIJESENJA
+// https://docs.mapbox.com/help/troubleshooting/blank-tiles/
+
+// BING
+// https://www.youtube.com/watch?v=QgM-q0z9aEw
