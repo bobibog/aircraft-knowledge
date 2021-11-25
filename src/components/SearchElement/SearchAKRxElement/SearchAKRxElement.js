@@ -1,4 +1,4 @@
-import React, {useState, useSelector} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Input from '../../UI/Input/Input';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchAKRxElement.module.css';
@@ -305,6 +305,28 @@ const  SearchAKRxElement = (props) => {
             setShowDropdown(false);        
     };
 
+    // FUNKCION WHICH LISTEN EVENTS OUTSIDE ELEMENT
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+          
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                toggleDropdown();
+            }
+          }
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+      }
+
+      const wrapperRef = useRef(null);
+      useOutsideAlerter(wrapperRef);
+    // /
+
     const changer=0;
 
     const onSerach = (e) =>{
@@ -325,7 +347,8 @@ const  SearchAKRxElement = (props) => {
                    
     return (
         <div className={classes.container}> 
-            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}>
+            {/* <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}> */}
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} ref={wrapperRef} >
                 <div className={classes.dropdownShow}>
                     <div className="row"> 
                         <div className={classes.bar}>          
