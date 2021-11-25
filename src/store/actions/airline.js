@@ -77,12 +77,12 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, 
     }
 };
 
-export const fetchAirlineNameList = (airlineName) => {
+export const fetchAirlineNameList = () => {
     return dispatch => {
         dispatch(fetchAirlinesStart());        
           
         const query = new URLSearchParams();                        
-        query.append('airlineName', airlineName);
+        // query.append('airlineName', airlineName);
          
         let url = '/Airline/airlineName?';
 
@@ -91,7 +91,8 @@ export const fetchAirlineNameList = (airlineName) => {
         
            axios.get(url + queryString)
             .then(response => {                
-                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+                // dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
             })
             .catch(error => {
                 dispatch(fetchAirlinesFail(error));                                
@@ -101,6 +102,56 @@ export const fetchAirlineNameList = (airlineName) => {
                 
     }
 };
+
+// export const fetchAirlineIATAList = (iata) => {
+//     return dispatch => {
+//         dispatch(fetchAirlinesStart());        
+          
+//         const query = new URLSearchParams();                        
+//         query.append('iata', iata);
+         
+//         let url = '/Airline/airlineIATA?';
+
+//         let queryString =  query;            
+        
+        
+//            axios.get(url + queryString)
+//             .then(response => {                
+//                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+//             })
+//             .catch(error => {
+//                 dispatch(fetchAirlinesFail(error));                                
+//             }    
+//         ); 
+        
+                
+//     }
+// };
+
+// export const fetchAirlineICAOList = (icao) => {
+//     return dispatch => {
+//         dispatch(fetchAirlinesStart());        
+          
+//         const query = new URLSearchParams();                        
+//         query.append('icao', icao);
+         
+//         let url = '/Airline/airlineICAO?';
+
+//         let queryString =  query;            
+        
+        
+//            axios.get(url + queryString)
+//             .then(response => {                
+//                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+//             })
+//             .catch(error => {
+//                 dispatch(fetchAirlinesFail(error));                                
+//             }    
+//         ); 
+        
+                
+//     }
+// };
 
 export const orderAirlinesByNameDsc = (offset, limit) => {
     return dispatch => {

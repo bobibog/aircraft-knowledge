@@ -12,14 +12,14 @@ const Dropdown = ({
     value,
     onChange,
     onSelect,
-    descriptor 
+    descriptor,
+    characterLimit,
 }) => {
 
     const[open, setOpen]=useState(false);
     const[query, setQuery] = useState('');
     const ref = useRef(null);
-    const[unwrap, setUnwrap]= useState(false);
-    
+        
     useEffect(()=>{         
         
             ["click", "touchend"].forEach(e=>{                
@@ -42,10 +42,10 @@ const Dropdown = ({
 
     const filter = (options) => {
         
-           return options.filter(
-             (option) => option[descriptor].toLowerCase().indexOf(query.toLowerCase()) > -1
-         ) 
-                 
+        return options.filter(
+            (option) => option[descriptor]!=null ? option[descriptor].toLowerCase().indexOf(query.toLowerCase()) > -1 : null
+        ) 
+                       
     };
 
     const displayValue = () => {
@@ -86,7 +86,8 @@ const Dropdown = ({
                 </div>
                 <div className={`arrow ${open ? "open" : null}` } />
             </div>
-            <div className={ `options ${query.length>3 ? "open" : null}` }>
+            <div className={ `options ${query.length>characterLimit ? "open" : null}` }>
+            
                 {filter(options).map((option, i) => 
                 <div 
                     key={`dr-${i}`} 

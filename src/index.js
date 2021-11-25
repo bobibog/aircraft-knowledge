@@ -19,6 +19,8 @@ import acarsMessageReducer from './store/reducers/acarsMessage';
 import userReducer from './store/reducers/user';
 import adsbMessageReducer from './store/reducers/adsbMessage';
 import acarsWithExtDataReducer from './store/reducers/acarsWithExtData';
+import aircraftTypeReducer from './store/reducers/aircraftType';
+import typeCodeReducer from './store/reducers/typeCode';
 
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -31,7 +33,9 @@ const rootReducer = combineReducers({
   acarsMessage: acarsMessageReducer,
   user: userReducer,
   adsbMessage: adsbMessageReducer,
-  acarsWithExtData: acarsWithExtDataReducer
+  acarsWithExtData: acarsWithExtDataReducer,
+  aircraftType: aircraftTypeReducer,
+  typeCode: typeCodeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

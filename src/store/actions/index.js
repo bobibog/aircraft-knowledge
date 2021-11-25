@@ -3,6 +3,8 @@ export {
     setAirlinesOffsetLimit,
     setAirlinesPage,
     fetchAirlineNameList,
+    // fetchAirlineIATAList,
+    // fetchAirlineICAOList,
     orderAirlinesByNameDsc,
     orderAirlinesByNameAsc,
     orderAirlinesByIataDsc,
@@ -44,8 +46,7 @@ export {
 } from './flight';
 
 export {
-    fetchAkrx,
-    //fetchAdsb,
+    fetchAkrx,    
     setAkrxOffsetLimit,
     setAkrxPage   
 } from './acarsMessage';
@@ -73,3 +74,11 @@ export {
     setAcarsWithExtDataOffsetLimit,
     setAcarsWithExtDataPage 
 } from './acarsWithExtData';
+
+export {
+    fetchAircraftTypes
+} from './aircraftType'
+
+export {
+    fetchTypeCodes
+} from './typeCode'
