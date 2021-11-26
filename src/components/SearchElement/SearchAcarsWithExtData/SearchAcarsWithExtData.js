@@ -234,6 +234,48 @@ const  SearchAcarsWithExtData = (props) => {
         setTypeCode(e.typeCode);
         //disabler();                     
     }
+
+    // DELETING SELECTED VALUE BY BACKSPACE
+    const deletingAirlineName=(e)=>{
+        if (e.keyCode === 8) {
+            setValueName('');
+        }
+    }
+    const deletingAirlineIATA=(e)=>{
+        if (e.keyCode === 8) {
+            setValueIATA(null);
+        }
+    }
+    const deletingAirlineICAO=(e)=>{
+        if (e.keyCode === 8) {
+            setValueICAO(null);
+        }
+    }
+    const deletingOperatorName=(e)=>{
+        if (e.keyCode === 8) {
+            setValueOperatorName(null);
+        }
+    }
+    const deletingOperatorIATA=(e)=>{
+        if (e.keyCode === 8) {
+            setValueOperatorIATA(null);
+        }
+    }
+    const deletingOperatorICAO=(e)=>{
+        if (e.keyCode === 8) {
+            setValueOperatorICAO(null);
+        }
+    }
+    const deletingAircraftType=(e)=>{
+        if (e.keyCode === 8) {
+            setValueAircraftTypeFull(null);
+        }
+    }
+    const deletingTypeCode=(e)=>{
+        if (e.keyCode === 8) {
+            setValueTypeCode(null);
+        }
+    }
      
     // Dropdown Airline Name
     if(airlineNameList != null)
@@ -244,9 +286,12 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueName}   
             onChange={onDropNameChange} 
             descriptor='airlineName' 
-            characterLimit = {2}                                                 
+            characterLimit = {2} 
+            onKeyDown={deletingAirlineName}                                              
         />;
     }
+
+    
     // Dropdown Airline IATA
     if(airlineNameList != null)
     {
@@ -256,7 +301,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueIATA}   
             onChange={onDropIATAChange} 
             descriptor='iata'  
-            characterLimit = {0}                                                
+            characterLimit = {0}  
+            onKeyDown={deletingAirlineIATA}                                              
         />;
     }
     // Dropdown Airline ICAO
@@ -268,7 +314,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueICAO}   
             onChange={onDropICAOChange} 
             descriptor='icao'
-            characterLimit = {1}                                                  
+            characterLimit = {1}  
+            onKeyDown={deletingAirlineICAO}                                                
         />;
     }
 
@@ -281,7 +328,8 @@ const  SearchAcarsWithExtData = (props) => {
         value={valueOperatorName}   
         onChange={onDropOperatorNameChange} 
         descriptor='airlineName' 
-        characterLimit = {2}                                                 
+        characterLimit = {2}   
+        onKeyDown={deletingOperatorName}                                              
         />;
     }
     // Dropdown Operator IATA
@@ -293,7 +341,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueOperatorIATA}   
             onChange={onDropOperatorIATAChange} 
             descriptor='iata'  
-            characterLimit = {0}                                                
+            characterLimit = {0} 
+            onKeyDown={deletingOperatorIATA}                                               
         />;
     }
     // Dropdown Operator ICAO
@@ -305,7 +354,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueOperatorICAO}   
             onChange={onDropOperatorICAOChange} 
             descriptor='icao'
-            characterLimit = {1}                                                  
+            characterLimit = {1} 
+            onKeyDown ={deletingOperatorICAO}                                                 
         />;
     }
 
@@ -318,7 +368,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueAircraftTypeFull}   
             onChange={onDropAircraftTypeFullhange} 
             descriptor='aircraftType'
-            characterLimit = {2}                                                  
+            characterLimit = {2}   
+            onKeyDown={deletingAircraftType}                                               
         />;
     }
 
@@ -331,7 +382,8 @@ const  SearchAcarsWithExtData = (props) => {
             value={valueTypeCode}   
             onChange={onDropTypeCodeChange} 
             descriptor='typeCode'
-            characterLimit = {1}                                                  
+            characterLimit = {1}  
+            onKeyDown = {deletingTypeCode}                                                
         />;
     }
    
