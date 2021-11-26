@@ -5,15 +5,14 @@ import './Dropdown.css';
 //import classes from './Dropdown.module.css'
 
 const Dropdown = ({
-    options,
-    id,
-    label,
+    options,    
     prompt,
     value,
     onChange,
     onSelect,
     descriptor,
     characterLimit,
+    onKeyDown
 }) => {
 
     const[open, setOpen]=useState(false);
@@ -82,6 +81,7 @@ const Dropdown = ({
                         onClick={toggle}
                         onTouchEnd={toggle}                          
                         onSelect={onSelect}
+                        onKeyDown={onKeyDown}                   
                     />
                 </div>
                 <div className={`arrow ${open ? "open" : null}` } />
