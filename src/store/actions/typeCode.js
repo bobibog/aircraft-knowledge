@@ -25,12 +25,12 @@ export const fetchTypeCodeStart = () => {
 
 
 
-export const fetchTypeCodes = (typeCode) => {
+export const fetchTypeCodes = () => {
     return dispatch => {
         dispatch(fetchTypeCodeStart());        
           
         const query = new URLSearchParams();                        
-        query.append('typeCode', typeCode);
+        //query.append('typeCode', typeCode);
           
 
         let queryString = query;            
