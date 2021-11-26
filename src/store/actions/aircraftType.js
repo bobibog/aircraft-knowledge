@@ -25,12 +25,12 @@ export const fetchAircraftTypeStart = () => {
 
 
 
-export const fetchAircraftTypes = (aircraftType) => {
+export const fetchAircraftTypes = () => {
     return dispatch => {
         dispatch(fetchAircraftTypeStart());        
           
         const query = new URLSearchParams();                        
-        query.append('aircraftType', aircraftType);
+        //query.append('aircraftType', aircraftType);
           
 
         let queryString = query;            

@@ -28,6 +28,8 @@ const  SearchAcarsWithExtData = (props) => {
     const typeCodeList = useSelector(state=>{
         return state.typeCode.typeCodes;
     });
+
+    //console.log(typeCodeList);
         
     const[valueName, setValueName] = useState(null);
     const[valueIATA, setValueIATA] = useState(null);
@@ -68,13 +70,13 @@ const  SearchAcarsWithExtData = (props) => {
     );
     
     const onFetchAircraftType = useCallback(
-        () => dispatch(actions.fetchAircraftTypes(aircraftType))
-        , [dispatch, aircraftType ]
+        () => dispatch(actions.fetchAircraftTypes())
+        , [dispatch ]
     );
 
     const onFetchTypeCode = useCallback(
-        () => dispatch(actions.fetchTypeCodes(typeCode))
-        , [dispatch, typeCode ]
+        () => dispatch(actions.fetchTypeCodes())
+        , [dispatch ]
     );
 
 
@@ -243,37 +245,37 @@ const  SearchAcarsWithExtData = (props) => {
     }
     const deletingAirlineIATA=(e)=>{
         if (e.keyCode === 8) {
-            setValueIATA(null);
+            setValueIATA('');
         }
     }
     const deletingAirlineICAO=(e)=>{
         if (e.keyCode === 8) {
-            setValueICAO(null);
+            setValueICAO('');
         }
     }
     const deletingOperatorName=(e)=>{
         if (e.keyCode === 8) {
-            setValueOperatorName(null);
+            setValueOperatorName('');
         }
     }
     const deletingOperatorIATA=(e)=>{
         if (e.keyCode === 8) {
-            setValueOperatorIATA(null);
+            setValueOperatorIATA('');
         }
     }
     const deletingOperatorICAO=(e)=>{
         if (e.keyCode === 8) {
-            setValueOperatorICAO(null);
+            setValueOperatorICAO('');
         }
     }
     const deletingAircraftType=(e)=>{
         if (e.keyCode === 8) {
-            setValueAircraftTypeFull(null);
+            setValueAircraftTypeFull('');
         }
     }
     const deletingTypeCode=(e)=>{
         if (e.keyCode === 8) {
-            setValueTypeCode(null);
+            setValueTypeCode('');
         }
     }
      
