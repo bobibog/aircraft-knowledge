@@ -864,7 +864,7 @@ const TableAcarsWithExtData = (props) => {
             Rows per page:{'  '}
             <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
-                    [10, 25, 50, 100, 1000, 50000].map(pageSize => (                       
+                    [10, 25, 50, 100, 1000, 10000, 50000].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
                                 {pageSize}
                             </option>            
