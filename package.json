@@ -41,6 +41,7 @@
         "redux": "^4.0.5",
         "redux-thunk": "^2.3.0",
         "styled-components": "^5.3.1",
+        "worker-loader": "^3.0.8",
         "xlsx": "^0.17.2"
     },
     "scripts": {
@@ -52,13 +53,18 @@
     "eslintConfig": {
         "extends": "react-app"
     },
-    "browserslist": "> 0.25%, not dead",
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "useBuiltIns": "entry"
-            }
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all",
+            "not chrome < 51",
+            "not safari < 10"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
         ]
-    ]
+    }
 }
