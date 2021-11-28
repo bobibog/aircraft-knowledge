@@ -19,6 +19,7 @@
     "date-fns": "^2.23.0",
     "file-saver": "^2.0.5",
     "lodash": "^4.17.15",
+    "mapbox-gl": "^2.6.1",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

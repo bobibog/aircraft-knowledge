@@ -4,6 +4,8 @@ import { fetchAirlineNameList } from '../../../store/actions';
 import './Dropdown.css';
 //import classes from './Dropdown.module.css'
 
+
+
 const Dropdown = ({
     options,    
     prompt,
@@ -12,15 +14,23 @@ const Dropdown = ({
     onSelect,
     descriptor,
     characterLimit,
-    onKeyDown
+    onKeyDown,
+    dropChanger
 }) => {
 
     const[open, setOpen]=useState(false);
     const[query, setQuery] = useState('');
     const ref = useRef(null);
-        
+
+    
+    
+                
     useEffect(()=>{         
-        
+        const timer = setTimeout(() => {
+            //console.log("DROP="+dropChanger);
+            if(dropChanger==1){
+                setQuery("");                
+            }
             ["click", "touchend"].forEach(e=>{                
                     document.addEventListener(e, toggle);
                                 
@@ -29,9 +39,10 @@ const Dropdown = ({
             return () => ["click", "touchend"].forEach(e=>{
                 document.removeEventListener(e , toggle);
             }) 
-                                       
+          }, 80);
+          return () => clearTimeout(timer);             
          
-    }, []);
+    }, [dropChanger]);
 
     const toggle =(e)=>{   
         
@@ -60,16 +71,18 @@ const Dropdown = ({
     };
 
     const selectOption =(option)=>{
-        setQuery("")                                    
+        setQuery("");                                    
         onChange(option);
         setOpen(false);
     };
+
     
-    
+        
     return (
         <div className='dropdown'>
             <div className='control'>
                 <div className={`selectedValue ${open ? "open" : null} `}>
+                    
                     <input type="text" 
                         ref={ref}
                         placeholder={value ? value[descriptor] : prompt}
@@ -81,13 +94,14 @@ const Dropdown = ({
                         onClick={toggle}
                         onTouchEnd={toggle}                          
                         onSelect={onSelect}
-                        onKeyDown={onKeyDown}                   
+                        onKeyDown={onKeyDown} 
+                                     
                     />
                 </div>
                 <div className={`arrow ${open ? "open" : null}` } />
             </div>
-            <div className={ `options ${query.length>characterLimit ? "open" : null}` }>
-            
+            <div className={ `options ${query.length>characterLimit ? "open" : null}` }>               
+
                 {filter(options).map((option, i) => 
                 <div 
                     key={`dr-${i}`} 
