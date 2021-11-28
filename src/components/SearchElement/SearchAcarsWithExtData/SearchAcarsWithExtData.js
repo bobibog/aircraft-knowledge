@@ -17,9 +17,7 @@ const  SearchAcarsWithExtData = (props) => {
 
     const airlineNameList = useSelector(state => {
         return state.airline.airlines;
-    });  
-
-    
+    });      
     
     const aircraftTypeList = useSelector(state=>{
         return state.aircraftType.aircraftTypes;
@@ -28,8 +26,7 @@ const  SearchAcarsWithExtData = (props) => {
     const typeCodeList = useSelector(state=>{
         return state.typeCode.typeCodes;
     });
-
-    //console.log(typeCodeList);
+    
         
     const[valueName, setValueName] = useState(null);
     const[valueIATA, setValueIATA] = useState(null);
@@ -58,8 +55,7 @@ const  SearchAcarsWithExtData = (props) => {
     const[operatorIcao, setOperatorIcao] = useState('');
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
-    const[typeCode, setTypeCode] = useState('');   
-    
+    const[typeCode, setTypeCode] = useState('');     
     
 
     const dispatch = useDispatch();
@@ -85,8 +81,6 @@ const  SearchAcarsWithExtData = (props) => {
         onFetchAircraftType(); 
         onFetchTypeCode();           
     }, [onFetchAirlineName, onFetchAircraftType, onFetchTypeCode]);
-    
-
     
 
 
@@ -278,6 +272,16 @@ const  SearchAcarsWithExtData = (props) => {
             setValueTypeCode('');
         }
     }
+
+    // Dropdow  Staus 
+    const[dropStatus, setDropStatus]=useState(0);
+    function dropChanger(dropStatus){
+        if(dropStatus==0){
+            setDropStatus(1);
+            return dropStatus; 
+        }
+             
+    };
      
     // Dropdown Airline Name
     if(airlineNameList != null)
@@ -289,7 +293,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropNameChange} 
             descriptor='airlineName' 
             characterLimit = {2} 
-            onKeyDown={deletingAirlineName}                                              
+            onKeyDown={deletingAirlineName} 
+            dropChanger={dropStatus}                                             
         />;
     }
 
@@ -304,7 +309,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropIATAChange} 
             descriptor='iata'  
             characterLimit = {0}  
-            onKeyDown={deletingAirlineIATA}                                              
+            onKeyDown={deletingAirlineIATA} 
+            dropChanger={dropStatus}                                             
         />;
     }
     // Dropdown Airline ICAO
@@ -317,7 +323,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropICAOChange} 
             descriptor='icao'
             characterLimit = {1}  
-            onKeyDown={deletingAirlineICAO}                                                
+            onKeyDown={deletingAirlineICAO}
+            dropChanger={dropStatus}                                                
         />;
     }
 
@@ -331,7 +338,8 @@ const  SearchAcarsWithExtData = (props) => {
         onChange={onDropOperatorNameChange} 
         descriptor='airlineName' 
         characterLimit = {2}   
-        onKeyDown={deletingOperatorName}                                              
+        onKeyDown={deletingOperatorName}  
+        dropChanger={dropStatus}                                            
         />;
     }
     // Dropdown Operator IATA
@@ -344,7 +352,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropOperatorIATAChange} 
             descriptor='iata'  
             characterLimit = {0} 
-            onKeyDown={deletingOperatorIATA}                                               
+            onKeyDown={deletingOperatorIATA}
+            dropChanger={dropStatus}                                               
         />;
     }
     // Dropdown Operator ICAO
@@ -357,7 +366,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropOperatorICAOChange} 
             descriptor='icao'
             characterLimit = {1} 
-            onKeyDown ={deletingOperatorICAO}                                                 
+            onKeyDown ={deletingOperatorICAO} 
+            dropChanger={dropStatus}                                                
         />;
     }
 
@@ -371,7 +381,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropAircraftTypeFullhange} 
             descriptor='aircraftType'
             characterLimit = {2}   
-            onKeyDown={deletingAircraftType}                                               
+            onKeyDown={deletingAircraftType}
+            dropChanger={dropStatus}                                             
         />;
     }
 
@@ -385,7 +396,8 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropTypeCodeChange} 
             descriptor='typeCode'
             characterLimit = {1}  
-            onKeyDown = {deletingTypeCode}                                                
+            onKeyDown = {deletingTypeCode}   
+            dropChanger={dropStatus}                                       
         />;
     }
    
@@ -483,7 +495,7 @@ const  SearchAcarsWithExtData = (props) => {
             setShowDropdown(false);        
     };
 
-    // FUNKCION WHICH LISTEN EVENTS OUTSIDE ELEMENT
+    // FUNCTION WHICH LISTEN EVENTS OUTSIDE ELEMENT
     function useOutsideAlerter(ref) {
         useEffect(() => {
           
@@ -508,6 +520,7 @@ const  SearchAcarsWithExtData = (props) => {
 
     const changer=0;
     
+   
 
     const onSerach = (e) =>{
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, tail,  flight, text, 
@@ -523,12 +536,13 @@ const  SearchAcarsWithExtData = (props) => {
         resetSearchHandler();
         setFilter('');
         toggleDropdown();
+        dropChanger(changer);
     };
                    
     return (
         <div className={classes.container} > 
             {/* <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}> */}
-            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} ref={wrapperRef} >
+            <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} ref={wrapperRef}  onClick={(e)=> dropStatus==1 ? setDropStatus(0) : setDropStatus(1) }>
                 <div className={classes.dropdownShow}>
                     <div className="row"> 
                         {/* 1. kolona */}
