@@ -117,7 +117,7 @@ export const fetchAirlineIATAList = (iata) => {
         
            axios.get(url + queryString)
             .then(response => {                
-                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
             })
             .catch(error => {
                 dispatch(fetchAirlinesFail(error));                                
@@ -128,30 +128,109 @@ export const fetchAirlineIATAList = (iata) => {
     }
 };
 
-// export const fetchAirlineICAOList = (icao) => {
-//     return dispatch => {
-//         dispatch(fetchAirlinesStart());        
+export const fetchAirlineICAOList = (icao) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
           
-//         const query = new URLSearchParams();                        
-//         query.append('icao', icao);
+        const query = new URLSearchParams();                        
+        query.append('icao', icao);
          
-//         let url = '/Airline/airlineICAO?';
+        let url = '/Airline/airlineICAO?';
 
-//         let queryString =  query;            
+        let queryString =  query;            
         
         
-//            axios.get(url + queryString)
-//             .then(response => {                
-//                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
-//             })
-//             .catch(error => {
-//                 dispatch(fetchAirlinesFail(error));                                
-//             }    
-//         ); 
+           axios.get(url + queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        ); 
         
                 
-//     }
-// };
+    }
+};
+
+// OPERATOR Actions
+export const fetchOperatorNameList = (airlineName) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();                        
+        query.append('airlineName', airlineName);
+         
+        let url = '/Airline/operatorName?';
+
+        let queryString =  query;            
+        
+        
+           axios.get(url + queryString)
+            .then(response => {                
+                
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        ); 
+        
+                
+    }
+};
+
+export const fetchOperatorIATAList = (iata) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();                        
+        query.append('iata', iata);
+         
+        let url = '/Airline/operatorIATA?';
+
+        let queryString =  query;            
+        
+        
+           axios.get(url + queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        ); 
+        
+                       
+    }
+};
+
+export const fetchOperatorICAOList = (icao) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
+          
+        const query = new URLSearchParams();                        
+        query.append('icao', icao);
+         
+        let url = '/Airline/operatorICAO?';
+
+        let queryString =  query;            
+        
+        
+           axios.get(url + queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        ); 
+        
+                
+    }
+};
+
+
 
 export const orderAirlinesByNameDsc = (offset, limit) => {
     return dispatch => {
