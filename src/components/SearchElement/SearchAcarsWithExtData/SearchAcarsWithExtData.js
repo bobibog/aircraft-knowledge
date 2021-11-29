@@ -64,6 +64,31 @@ const  SearchAcarsWithExtData = (props) => {
         () => dispatch(actions.fetchAirlineNameList(airlineName))
         , [dispatch, airlineName ]
     );
+
+    const onFetchAirlineIATA = useCallback(
+        () => dispatch(actions.fetchAirlineIATAList(airlineIata))
+        , [dispatch, airlineIata ]
+    );
+
+    const onFetchAirlineICAO = useCallback(
+        () => dispatch(actions.fetchAirlineICAOList(airlineIcao))
+        , [dispatch, airlineIcao ]
+    );
+
+    const onFetchOperatorName = useCallback(
+        () => dispatch(actions.fetchOperatorNameList(operatorName))
+        , [dispatch, operatorName ]
+    );
+
+    const onFetchOperatorIATA = useCallback(
+        () => dispatch(actions.fetchOperatorIATAList(operatorIata))
+        , [dispatch, operatorIata ]
+    );
+
+    const onFetchOperatorICAO = useCallback(
+        () => dispatch(actions.fetchOperatorICAOList(operatorIcao))
+        , [dispatch, operatorIcao ]
+    );
     
     const onFetchAircraftType = useCallback(
         () => dispatch(actions.fetchAircraftTypes(aircraftType))
@@ -76,11 +101,36 @@ const  SearchAcarsWithExtData = (props) => {
     );
 
 
-    useEffect(()=>{        
-        onFetchAirlineName(); 
-        onFetchAircraftType(); 
-        onFetchTypeCode();           
-    }, [onFetchAirlineName, onFetchAircraftType, onFetchTypeCode]);
+    useEffect(()=>{ 
+        const timer = setTimeout(() => {
+
+            
+            onFetchAirlineName();
+             
+            if(airlineIata!=''){
+                onFetchAirlineIATA();
+            }           
+            if(airlineIcao!=''){
+                onFetchAirlineICAO();
+            }
+            if(operatorName!= ''){
+                onFetchOperatorName();
+            }
+            if(operatorIata!=''){
+                onFetchOperatorIATA();
+            }
+            if(operatorIcao!=''){
+               onFetchOperatorICAO(); 
+            }            
+            onFetchAircraftType();             
+            
+            onFetchTypeCode(); 
+                       
+        
+        }, 300);
+        return () => clearTimeout(timer);
+
+    }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao, aircraftType, typeCode]);
     
 
 
@@ -241,26 +291,31 @@ const  SearchAcarsWithExtData = (props) => {
     const deletingAirlineIATA=(e)=>{
         if (e.keyCode === 8) {
             setValueIATA('');
+            setAirlineIATA('');
         }
     }
     const deletingAirlineICAO=(e)=>{
         if (e.keyCode === 8) {
             setValueICAO('');
+            setAirlineICAO('');
         }
     }
     const deletingOperatorName=(e)=>{
         if (e.keyCode === 8) {
             setValueOperatorName('');
+            setOperatorName('');
         }
     }
     const deletingOperatorIATA=(e)=>{
         if (e.keyCode === 8) {
             setValueOperatorIATA('');
+            setOperatorIata('');
         }
     }
     const deletingOperatorICAO=(e)=>{
         if (e.keyCode === 8) {
             setValueOperatorICAO('');
+            setOperatorIcao('');
         }
     }
     const deletingAircraftType=(e)=>{
