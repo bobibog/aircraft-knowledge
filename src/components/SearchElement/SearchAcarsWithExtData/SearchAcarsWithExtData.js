@@ -61,18 +61,18 @@ const  SearchAcarsWithExtData = (props) => {
     const dispatch = useDispatch();
 
     const onFetchAirlineName = useCallback(
-        () => dispatch(actions.fetchAirlineNameList())
-        , [dispatch ]
+        () => dispatch(actions.fetchAirlineNameList(airlineName))
+        , [dispatch, airlineName ]
     );
     
     const onFetchAircraftType = useCallback(
-        () => dispatch(actions.fetchAircraftTypes())
-        , [dispatch ]
+        () => dispatch(actions.fetchAircraftTypes(aircraftType))
+        , [dispatch, aircraftType ]
     );
 
     const onFetchTypeCode = useCallback(
-        () => dispatch(actions.fetchTypeCodes())
-        , [dispatch ]
+        () => dispatch(actions.fetchTypeCodes(typeCode))
+        , [dispatch, typeCode ]
     );
 
 
@@ -235,6 +235,7 @@ const  SearchAcarsWithExtData = (props) => {
     const deletingAirlineName=(e)=>{
         if (e.keyCode === 8) {
             setValueName('');
+            setAirlineName('');
         }
     }
     const deletingAirlineIATA=(e)=>{
@@ -265,11 +266,13 @@ const  SearchAcarsWithExtData = (props) => {
     const deletingAircraftType=(e)=>{
         if (e.keyCode === 8) {
             setValueAircraftTypeFull('');
+            setAircraftType('');
         }
     }
     const deletingTypeCode=(e)=>{
         if (e.keyCode === 8) {
             setValueTypeCode('');
+            setTypeCode('');
         }
     }
 

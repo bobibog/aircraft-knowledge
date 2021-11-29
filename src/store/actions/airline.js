@@ -77,12 +77,12 @@ export const fetchAirlines = (offset, limit, airlineName, iata, icao, fleetMin, 
     }
 };
 
-export const fetchAirlineNameList = () => {
+export const fetchAirlineNameList = (airlineName) => {
     return dispatch => {
         dispatch(fetchAirlinesStart());        
           
         const query = new URLSearchParams();                        
-        // query.append('airlineName', airlineName);
+        query.append('airlineName', airlineName);
          
         let url = '/Airline/airlineName?';
 
@@ -103,30 +103,30 @@ export const fetchAirlineNameList = () => {
     }
 };
 
-// export const fetchAirlineIATAList = (iata) => {
-//     return dispatch => {
-//         dispatch(fetchAirlinesStart());        
+export const fetchAirlineIATAList = (iata) => {
+    return dispatch => {
+        dispatch(fetchAirlinesStart());        
           
-//         const query = new URLSearchParams();                        
-//         query.append('iata', iata);
+        const query = new URLSearchParams();                        
+        query.append('iata', iata);
          
-//         let url = '/Airline/airlineIATA?';
+        let url = '/Airline/airlineIATA?';
 
-//         let queryString =  query;            
+        let queryString =  query;            
         
         
-//            axios.get(url + queryString)
-//             .then(response => {                
-//                 dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
-//             })
-//             .catch(error => {
-//                 dispatch(fetchAirlinesFail(error));                                
-//             }    
-//         ); 
+           axios.get(url + queryString)
+            .then(response => {                
+                dispatch(fetchAirlinesSuccess(response.data['airlines'], response.data['airlinesCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirlinesFail(error));                                
+            }    
+        ); 
         
-                
-//     }
-// };
+                       
+    }
+};
 
 // export const fetchAirlineICAOList = (icao) => {
 //     return dispatch => {
