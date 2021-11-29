@@ -1,0 +1,16 @@
+.mapContainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+.popup {
+    color: red;
+}
+
+.marker {
+    background-color: green;
+}
+
+.leafletDivIcon {
+    text-align: center;
+}

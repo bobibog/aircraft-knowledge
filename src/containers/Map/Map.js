@@ -6,8 +6,10 @@ import axios from '../../axios-local';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import mapboxgl from 'mapbox-gl';
+//import 'mapbox-gl/dist/mapbox-gl.css';
 import classes from './Map.module.css';
 
+// mapboxgl.workerClass = require('worker-loader mapbox-gl/dist/mapbox-gl-csp-worker').default;
 mapboxgl.accessToken = 'pk.eyJ1IjoibWxhZGVuenYiLCJhIjoiY2t2dXoxejNxMDFjajJ2bDQ5NnZoZDkzaCJ9.040VkLVqD79PjdLXdItnLg';
 
 const Map = () =>{   

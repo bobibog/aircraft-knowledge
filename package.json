@@ -11,6 +11,7 @@
         "@material-ui/core": "^4.10.1",
         "@material-ui/icons": "^4.9.1",
         "@material-ui/styles": "^4.11.4",
+        "@react-leaflet/core": "^1.0.2",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
@@ -18,15 +19,18 @@
         "bootstrap": "^4.6.0",
         "date-fns": "^2.23.0",
         "file-saver": "^2.0.5",
+        "leaflet": "^1.6.0",
         "lodash": "^4.17.15",
         "mapbox-gl": "^2.6.1",
         "moment": "^2.29.1",
         "prop-types": "^15.7.2",
-        "react": "^16.13.1",
+        "react": "^16.14.0",
+        "react-azure-maps": "^0.3.0",
         "react-bootstrap": "^1.5.2",
-        "react-dom": "^16.13.1",
+        "react-dom": "^16.14.0",
         "react-html-table-to-excel": "^2.0.0",
         "react-icons": "^4.2.0",
+        "react-leaflet": "^3.1.0",
         "react-map-gl": "^6.1.17",
         "react-query": "^3.23.2",
         "react-query-devtools": "^2.6.3",
@@ -53,18 +57,9 @@
     "eslintConfig": {
         "extends": "react-app"
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all",
-            "not chrome < 51",
-            "not safari < 10"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+    ]
 }
