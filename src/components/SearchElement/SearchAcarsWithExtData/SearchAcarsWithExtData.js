@@ -103,8 +103,7 @@ const  SearchAcarsWithExtData = (props) => {
 
     useEffect(()=>{ 
         const timer = setTimeout(() => {
-
-            
+                        
             onFetchAirlineName();
              
             if(airlineIata!=''){
@@ -122,16 +121,21 @@ const  SearchAcarsWithExtData = (props) => {
             if(operatorIcao!=''){
                onFetchOperatorICAO(); 
             }            
-            onFetchAircraftType();             
-            
-            onFetchTypeCode(); 
-                       
+                                   
         
         }, 300);
         return () => clearTimeout(timer);
 
-    }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao, aircraftType, typeCode]);
+    }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
     
+
+    useEffect(()=>{
+        onFetchAircraftType();
+    }, [onFetchAircraftType])
+
+    useEffect(()=>{
+        onFetchTypeCode();
+    }, [onFetchTypeCode])
 
 
     // Disable Input
@@ -281,7 +285,7 @@ const  SearchAcarsWithExtData = (props) => {
         //disabler();                     
     }
 
-    // DELETING SELECTED VALUE BY BACKSPACE
+    // DELETING VALUE BY BACKSPACE
     const deletingAirlineName=(e)=>{
         if (e.keyCode === 8) {
             setValueName('');
