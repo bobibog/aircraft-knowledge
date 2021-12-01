@@ -22,8 +22,27 @@
     height: 80%;
 }
 
-@media (max-width: 854px) {
+.Clock {
+    position: fixed;
+    margin-left: 140px;
+}
+
+@media (max-width: 1055px) {
     .DesktopOnly {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .Clock {
+        position: absolute;
+        font-size: 12px;
+        margin-left: 60px;
+    }
+}
+
+@media (max-width: 272px) {
+    .Clock {
         display: none;
     }
 }

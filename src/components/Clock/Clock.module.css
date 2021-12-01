@@ -1,0 +1,10 @@
+.Clock {
+    color: white;
+    width: 150px;
+}
+
+@media (max-width: 420px) {
+    .Clock {
+        width: 100px;
+    }
+}

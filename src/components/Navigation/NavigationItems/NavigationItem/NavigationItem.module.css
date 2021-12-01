@@ -24,7 +24,7 @@
     border-right: 12px solid rgb(0, 112, 192);
 }
 
-@media (min-width: 855px) {
+@media (min-width: 1055px) {
     .NavigationItem {
         margin: 0;
         display: flex;

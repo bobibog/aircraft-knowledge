@@ -28,7 +28,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         },
     });
 
-    var customIcon = new LeafIcon({iconUrl: "/assests/images/pin.png"});
+    var customIcon = new LeafIcon({iconUrl: "/assests/images/airplane.png"});
     
     return (
         <MapContainer center={position} zoom={3} className={classes.mapContainer} scrollWheelZoom={false}>
@@ -56,3 +56,5 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 export default OpenstreetMap;
 
 // https://www.youtube.com/watch?v=MujnOg175Yo
+
+// https://www.youtube.com/watch?v=1gkAnx6TGCk
