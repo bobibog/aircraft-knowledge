@@ -9,6 +9,7 @@ import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 import SearchAcarsWithExtData from '../../components/SearchElement/SearchAcarsWithExtData/SearchAcarsWithExtData';
 import TableAcarsWithExtData from '../../components/UI/Table/ReactTable/TableAcarsWithExtData/TableAcarsWithExtData';
+import Clock from '../../components/Clock/Clock';
 
 const AcarsWithExtData = props => {
     const acarsWithExtData = useSelector(state => {
@@ -177,8 +178,7 @@ const AcarsWithExtData = props => {
     }      
     
     return (
-        <div style={{marginTop:'-2px'}}>                       
-            {/* {akrxPageHeader}              */}
+        <div style={{marginTop:'-2px'}}>             
             <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 
