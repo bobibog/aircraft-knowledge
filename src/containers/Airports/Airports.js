@@ -38,22 +38,37 @@ const Airports = props => {
 
     const[airportName, setAirportName] = useState('');
     const[iata, setIATA] = useState('');
+    const[airportICAO, setICAO] = useState('');
     const[city, setCity] = useState('');
     const[country, setCountry] = useState('');
-    const[airportNameDesc, setAirportNameDesc] = useState('');
-    const[airportNameAsc, setAirportNameAsc] = useState('');
-    const[iataDesc, setIataDesc] = useState('');
-    const[iataAsc, setIataAsc] = useState('');
-    const[cityDesc, setCityDesc] = useState('');
-    const[cityAsc, setCityAsc] = useState('');
-    const[countryDesc, setCountryDesc] = useState('');
-    const[countryAsc, setCountryAsc] = useState('');
+    const[continent, setContinent] = useState('');
+    const[isoCountry, setIsoCountry] = useState('');
+    const[airportType, setAirportType] = useState('');
+    const[elevationFtMin, setElevationFtMin] = useState('');
+    const[elevationFtMax, setElevationFtMax] = useState('');
+    const[isoRegion, setIsoRegion] = useState('');
+    const[gpsCode, setGpsCode] = useState('');
+    const[localCode, setLocalCode] = useState('');
+    const[latitudeDegMin, setLatitudeDegMin] = useState('');
+    const[latitudeDegMax, setLatitudeDegMax] = useState('');
+    const[longitudeDegMin, setLongitudeDegMin] = useState('');
+    const[longitudeDegMax, setLongitudeDegMax] = useState('');
+    // const[airportNameDesc, setAirportNameDesc] = useState('');
+    // const[airportNameAsc, setAirportNameAsc] = useState('');
+    // const[iataDesc, setIataDesc] = useState('');
+    // const[iataAsc, setIataAsc] = useState('');
+    // const[cityDesc, setCityDesc] = useState('');
+    // const[cityAsc, setCityAsc] = useState('');
+    // const[countryDesc, setCountryDesc] = useState('');
+    // const[countryAsc, setCountryAsc] = useState('');
 
     const dispatch = useDispatch();
 
     const onFetchAirports = useCallback(
-        (airportId) => dispatch(actions.fetchAirports(offset, limit, airportId, airportName, iata, city, country))
-        , [dispatch, offset, limit, airportName, iata, city, country]);
+        () => dispatch(actions.fetchAirports(offset, limit, airportName, iata, city, country, airportICAO, airportType, elevationFtMin, elevationFtMax, continent, isoCountry, isoRegion, gpsCode, localCode, latitudeDegMin, latitudeDegMax
+            , longitudeDegMin, longitudeDegMax))
+        , [dispatch, offset, limit, airportName, iata, city, country, airportICAO, airportType, elevationFtMin, elevationFtMax, continent, isoCountry, isoRegion, gpsCode, localCode, latitudeDegMin, latitudeDegMax
+            , longitudeDegMin, longitudeDegMax]);
     
     // Ordering Dsc/Asc
     // const onOrderAirportsByNameDesc = useCallback(
@@ -103,35 +118,52 @@ const Airports = props => {
     }
 
     
-    const submitSearchHandler = (airportName, iata, city, country) => {  
+    const submitSearchHandler = (airportName, iata, city, country, airportICAO, airportType, elevationFtMin, elevationFtMax, continent, isoCountry, isoRegion, gpsCode, localCode, latitudeDegMin, latitudeDegMax
+        , longitudeDegMin, longitudeDegMax) => {  
         onSetAirportsOffsetLimit(0, limit);
         onSetAirportsPage(0);
         setAirportName(airportName);
         setIATA(iata);
         setCity(city);
-        setCountry(country);     
+        setCountry(country);   
+        setICAO(airportICAO);
+        setAirportType(airportType);
+        setElevationFtMin(elevationFtMin);
+        setElevationFtMax(elevationFtMax)
+        setContinent(continent);
+        setIsoCountry(isoCountry);
+        setIsoRegion(isoRegion);
+        setGpsCode(gpsCode);
+        setLocalCode(localCode);
+        setLatitudeDegMin(latitudeDegMin);
+        setLatitudeDegMax(latitudeDegMax);
+        setLongitudeDegMin(longitudeDegMin);
+        setLongitudeDegMax(longitudeDegMax);
     };  
     
     const resetSearchHandler = () => {
-        setAirportName("");
-        setIATA("");
-        setCity("");
-        setCountry("");
-        onSetAirportsOffsetLimit(0, limit);
-        onSetAirportsPage(0);    
-        setAirportNameAsc("");
-        setAirportNameDesc("");
-        setIataAsc("");
-        setIataDesc("");
-        setCityAsc("");
-        setCityDesc("");
-        setCountryAsc("");
-        setCountryDesc("");               
+        setAirportName('');
+        setIATA('');
+        setCity('');
+        setCountry('');   
+        setICAO('');
+        setAirportType('');
+        setElevationFtMin('');
+        setElevationFtMax('');
+        setContinent('');
+        setIsoCountry('');
+        setIsoRegion('');
+        setGpsCode('');
+        setLocalCode('');
+        setLatitudeDegMin('');
+        setLatitudeDegMax('');
+        setLongitudeDegMin('');
+        setLongitudeDegMax('');              
     };
 
     useEffect(() => {
-        onFetchAirports(match.params.id);
-    }, [match.params.id, onFetchAirports]);
+        onFetchAirports();
+    }, [onFetchAirports]);
 
     useEffect(() => {
         return () => {

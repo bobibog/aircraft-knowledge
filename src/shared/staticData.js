@@ -144,17 +144,59 @@ export const airportHeader = [
       prop: "airportName"
     },
     {
-      name: "IATA",
-      prop: "airportIata"
-    },
+        name: "Type",
+        prop: "airportType"
+    },    
+    
     {
       name: "City",
       prop: "city"
     },
+    // {
+    //   name: "Country",
+    //   prop: "country"
+    // },
     {
-      name: "Country",
-      prop: "country"
-    }
+        name: "Continent",
+        prop: "continent"
+    },
+    {
+        name: "ISO Country",
+        prop: "isoCountry"
+    },    
+    {
+        name: "ISO Region",
+        prop: "isoRegion"
+    },
+    {
+      name: "IATA",
+      prop: "airportIata"
+    },
+    {
+        name: "ICAO",
+        prop: "airportICAO"
+    },
+    
+    {
+        name: "GPS Code",
+        prop: "gpsCode"
+    },
+    {
+        name: "Local Code",
+        prop: "localCode"
+    },
+    {
+        name: "Elevation (ft)",
+        prop: "elevationFt"
+    },
+    {
+        name: "Latitude",
+        prop: "latitudeDeg"
+    },
+    {
+        name: "Longitude",
+        prop: "longitudeDeg"
+    },
 ];
 
 export const flightHeader = [

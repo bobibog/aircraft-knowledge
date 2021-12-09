@@ -221,13 +221,13 @@ const  SearchAirlineElement = (props) => {
                                 clicked={() => (props.clickedSearch(airlineName, iata, icao, fleetMin, fleetMax))}
                                 btnType="Success"
                                 mouseDown={(e)=>setFilter('a')}  
-                                mouseLeave={(e)=>toggleDropdown()}                          
+                                //mouseLeave={(e)=>toggleDropdown()}                          
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
                                 btnType="Secondary" 
                                 mouseDown={(e)=>setFilter('')}  
-                                mouseLeave={(e)=>toggleDropdown()} 
+                                //mouseLeave={(e)=>toggleDropdown()} 
                             >RESET</ButtonBordered>
                             </div>
                         </div>

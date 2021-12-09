@@ -38,55 +38,112 @@ export const fetchAirportsStart = () => {
     }
 };
 
-export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc) => {
-    return dispatch => {
-        dispatch(fetchAirportsStart());
+// export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc) => {
+//     return dispatch => {
+//         dispatch(fetchAirportsStart());
         
-        const query = new URLSearchParams();                        
-        query.append('airportName', airportName);
-        query.append('iata', iata);
-        query.append('city', city);
-        query.append('country', country);
-        query.append('offset', offset);
-        query.append('limit', limit); 
-        query.append('airportNameDesc', airportNameDesc);
-        query.append('airportNameAsc', airportNameAsc);
-        query.append('iataDesc', iataDesc);
-        query.append('iataAsc', iataAsc);
-        query.append('cityDesc', cityDesc);
-        query.append('cityAsc', cityAsc);
-        query.append('countryDesc', countryDesc);
-        query.append('countryAsc', countryAsc);
+//         const query = new URLSearchParams();                        
+//         query.append('airportName', airportName);
+//         query.append('iata', iata);
+//         query.append('city', city);
+//         query.append('country', country);
+//         query.append('offset', offset);
+//         query.append('limit', limit); 
+//         query.append('airportNameDesc', airportNameDesc);
+//         query.append('airportNameAsc', airportNameAsc);
+//         query.append('iataDesc', iataDesc);
+//         query.append('iataAsc', iataAsc);
+//         query.append('cityDesc', cityDesc);
+//         query.append('cityAsc', cityAsc);
+//         query.append('countryDesc', countryDesc);
+//         query.append('countryAsc', countryAsc);
 
-        let queryString = limit !== "-1"           
-            ? query
-            : '';
+//         let queryString = limit !== "-1"           
+//             ? query
+//             : '';
         
-        if (!airportId) {
-            axios.get('/airport?' + queryString)
-                .then(response => {
-                    dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
-                })
-                .catch(error => {
-                    dispatch(fetchAirportsFail(error));                
-                });
-        } else {
-            axios.get(`/airport/${airportId}`)
-                .then(response => {
-                    const airportsArray = [];
-                    if (response.data) {
-                        airportsArray.push(response.data);
-                    }
-                    const airportsArrayCount =  airportsArray.length
-                    // dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))
-                    dispatch(fetchAirportsSuccess(airportsArray, airportsArrayCount))                 
-                })
-                .catch(error => {
-                    dispatch(fetchAirportsFail(error));                
-                });            
+//         if (!airportId) {
+//             axios.get('/airport?' + queryString)
+//                 .then(response => {
+//                     dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+//                 })
+//                 .catch(error => {
+//                     dispatch(fetchAirportsFail(error));                
+//                 });
+//         } else {
+//             axios.get(`/airport/${airportId}`)
+//                 .then(response => {
+//                     const airportsArray = [];
+//                     if (response.data) {
+//                         airportsArray.push(response.data);
+//                     }
+//                     const airportsArrayCount =  airportsArray.length
+//                     // dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))
+//                     dispatch(fetchAirportsSuccess(airportsArray, airportsArrayCount))                 
+//                 })
+//                 .catch(error => {
+//                     dispatch(fetchAirportsFail(error));                
+//                 });            
+//         }
+//     }
+// };
+
+export const fetchAirports = (offset, limit, airportName, iata, city, country, airportICAO, airportType, elevationFtMin, elevationFtMax, continent, isoCountry, isoRegion, gpsCode, localCode, latitudeDegMin, latitudeDegMax
+    , longitudeDegMin, longitudeDegMax) => {
+        return dispatch => {
+            dispatch(fetchAirportsStart());
+            
+            const query = new URLSearchParams();                        
+            query.append('offset', offset);
+            query.append('limit', limit);
+            query.append('airportName', airportName);
+            query.append('iata', iata);
+            query.append('city', city);
+            query.append('country', country);
+            query.append('airportICAO', airportICAO);
+            query.append('airportType', airportType);
+            query.append('elevationFtMin', elevationFtMin);
+            query.append('elevationFtMax', elevationFtMax);
+            query.append('continent', continent);
+            query.append('isoCountry', isoCountry);
+            query.append('isoRegion', isoRegion);
+            query.append('gpsCode', gpsCode);
+            query.append('localCode', localCode);
+            query.append('latitudeDegMin', latitudeDegMin);
+            query.append('latitudeDegMax', latitudeDegMax);
+            query.append('longitudeDegMin', longitudeDegMin);
+            query.append('longitudeDegMax', longitudeDegMax);
+            
+    
+            let queryString = limit !== "-1"           
+                ? query
+                : '';
+            
+            //if (!airportId) {
+                axios.get('/airport?' + queryString)
+                    .then(response => {
+                        dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+                    })
+                    .catch(error => {
+                        dispatch(fetchAirportsFail(error));                
+                    });
+            // } else {
+            //     axios.get(`/airport/${airportId}`)
+            //         .then(response => {
+            //             const airportsArray = [];
+            //             if (response.data) {
+            //                 airportsArray.push(response.data);
+            //             }
+            //             const airportsArrayCount =  airportsArray.length
+            //             // dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))
+            //             dispatch(fetchAirportsSuccess(airportsArray, airportsArrayCount))                 
+            //         })
+            //         .catch(error => {
+            //             dispatch(fetchAirportsFail(error));                
+            //         });            
+            // }
         }
-    }
-};
+    };
 
 
 export const orderAirportsByNameDsc = (offset, limit) => {
