@@ -278,13 +278,13 @@ const  SearchAircraftElement = (props) => {
                                 clicked={() => (props.clickedSearch(airline, operators, typeCode, fullType, registration, serialNumber, modeS, maxManufactureDate, minManufactureDate))}
                                 btnType="Success"
                                 mouseDown={(e)=>setFilter('a')}
-                                mouseLeave={(e)=>toggleDropdown()}                             
+                                //mouseLeave={(e)=>toggleDropdown()}                             
                             >SEARCH</ButtonBordered>
                             <ButtonBordered
                                 clicked={resetSearchHandler}
                                 btnType="Secondary" 
                                 mouseDown={(e)=>setFilter('')} 
-                                mouseLeave={(e)=>toggleDropdown()}   
+                                //mouseLeave={(e)=>toggleDropdown()}   
                             >RESET</ButtonBordered>
                             {/* <ReactToExcel
                                 table={props.id}
