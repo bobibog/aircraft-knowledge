@@ -5,9 +5,9 @@ const OsmMap = dynamic(()=> import("./Openstreet/OpenstreetMap"), {
     ssr: false,
 });
 
-const Markers=()=> {
+const StaticMarkers=()=> {
     
-    const[location, setLocation]= useState({lng:20.4568974, lat: 44.8178131});
+    const[location, setLocation]= useState({lon:0, lat: 0});
     
     return (
         <div>
@@ -17,15 +17,15 @@ const Markers=()=> {
                 draggable={true}
                 title="sample"
                 onDragMarker={(e)=>{
-                    let loc = {lat: e.lng, lng: e.lat};
+                    let loc = {lat: e.lon, lon: e.lat};
                     setLocation(loc); 
                 }}
             />
-            {"lng: "+location.lng}
+            {"lon: "+location.lon}
             <br />
             {"lat: "+location.lat}
         </div>
     )
 }
 
-export default Markers;
+export default StaticMarkers;

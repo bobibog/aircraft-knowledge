@@ -85,3 +85,7 @@ export {
 export {
     fetchTypeCodes
 } from './typeCode'
+
+export {
+    fetchCurrentLocations
+} from './currentLocation'
