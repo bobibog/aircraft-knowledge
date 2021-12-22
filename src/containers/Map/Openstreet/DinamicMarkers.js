@@ -20,8 +20,7 @@ const DinamicMarkers = () => {
         return state.currentLocation.currentLocationLoading;
     });
     
-    console.log(currentLocations);
-
+    
     const dispatch = useDispatch();
 
     const onFetchCurrentLocations = useCallback(
