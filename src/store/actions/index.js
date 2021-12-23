@@ -38,7 +38,8 @@ export {
     orderAirportsByCityDsc,
     orderAirportsByCityAsc,
     orderAirportsByCountryDsc,
-    orderAirportsByCountryAsc
+    orderAirportsByCountryAsc,
+    fetchAirpotsLocation
 } from './airport';
 
 export {

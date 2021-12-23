@@ -10,6 +10,7 @@ import L from 'leaflet';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/airplane-2-multi-size.ico';
 import DinamicMarkers from './DinamicMarkers';
+import StaticMarkers from './StaticMarkers';
 
 
 const position = [0.0, 0.0]
@@ -51,6 +52,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         
             
             <DinamicMarkers />
+            <StaticMarkers />
         </MapContainer>
     //}
     
