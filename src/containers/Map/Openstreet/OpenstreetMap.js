@@ -52,7 +52,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         
             
             <DinamicMarkers />
-            <StaticMarkers />
+            {/* <StaticMarkers /> */}
         </MapContainer>
     //}
     
@@ -66,4 +66,3 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 
 export default withErrorHandler(OpenstreetMap,axios);
 
-// https://www.youtube.com/watch?v=QNBfYWdIacE&list=PLThyvG1mlMzltDxuQj0uQw1TDu1gJUNeG&index=3

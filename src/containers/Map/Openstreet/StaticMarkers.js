@@ -16,7 +16,7 @@ const StaticMarkers = () => {
         return state.airport.airports;
     });
 
-    //console.log(airports);
+    console.log(airports);
 
     const loading = useSelector(state => {
         return state.airport.airportsLoading;
