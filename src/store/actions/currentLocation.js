@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
 
 
-
 export const fetchCurrentLocationSuccess = (currentLocations) => {
     return {
         type: actionTypes.FETCH_CURRENTLOCATION_SUCCESS,
@@ -28,19 +27,17 @@ export const fetchCurrentLocations = () => {
         dispatch(fetchCurrentLocationStart());        
           
         const query = new URLSearchParams();                        
+        let queryString = query;
+         
+            axios.get(`/CurrentLocation?`+queryString)
+                .then(response => {                
+                    dispatch(fetchCurrentLocationSuccess(response.data['currentLocations']))                 
+                })
+                .catch(error => {
+                    dispatch(fetchCurrentLocationFail(error));                                
+                })
+                       
         
-          
-
-        let queryString = query;            
-            
-        axios.get(`/CurrentLocation?`+queryString)
-            .then(response => {                
-                dispatch(fetchCurrentLocationSuccess(response.data['currentLocations']))                 
-            })
-            .catch(error => {
-                dispatch(fetchCurrentLocationFail(error));                                
-            }    
-        );        
     }
 };
 

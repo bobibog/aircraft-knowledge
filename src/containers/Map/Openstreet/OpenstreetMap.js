@@ -39,9 +39,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         },
     });
 
-    var customIcon = new LeafIcon({iconUrl: markerIcon});
-
-    
+    var customIcon = new LeafIcon({iconUrl: markerIcon}); 
 
     
     let  map = <MapContainer center={position} zoom={3.5} className={classes.mapContainer} scrollWheelZoom={true}>
