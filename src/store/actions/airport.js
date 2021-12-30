@@ -143,7 +143,29 @@ export const fetchAirports = (offset, limit, airportName, iata, city, country, a
             //         });            
             // }
         }
-    };
+};
+
+export const fetchAirpotsLocation = () => {
+        return dispatch => {
+            dispatch(fetchAirportsStart());
+            
+            const query = new URLSearchParams();                        
+                    
+    
+            let queryString = query;
+                
+            
+            
+                axios.get('/airport/locations?' + queryString)
+                    .then(response => {
+                        dispatch(fetchAirportsSuccess(response.data['airports']))                 
+                    })
+                    .catch(error => {
+                        dispatch(fetchAirportsFail(error));                
+                    });
+            
+        }
+};
 
 
 export const orderAirportsByNameDsc = (offset, limit) => {

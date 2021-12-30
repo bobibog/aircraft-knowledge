@@ -48,7 +48,7 @@ function App() {
     routes = (
       <Switch> 
         {/* <Route path="/map" component={Map} />        */}
-        <Route path="/openstreetMap" component={OpenstreetMap} />
+        <Route path="/openstreetMap" component={OpenstreetMap} />              
         <Route path="/aircraft/:id" component={Aircrafts} />
         <Route path="/aircraft" component={AircraftsSearch} />
         <Route path="/airports/:id" component={Airports} />

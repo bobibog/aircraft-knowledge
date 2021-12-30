@@ -4,7 +4,10 @@
 }
 
 .popup {
-    color: red;
+    color: darkblue;
+    height: 60px;
+    width: auto;
+    margin-top: 5px;
 }
 
 .marker {

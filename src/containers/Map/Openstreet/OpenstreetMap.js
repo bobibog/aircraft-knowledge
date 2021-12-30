@@ -1,13 +1,24 @@
-import React, {useRef, useMemo} from 'react';
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
+import React, {useState, useEffect, useCallback, useRef, useMemo} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import axios from '../../../axios-local';
+import * as actions from '../../../store/actions/index';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import {MapContainer, TileLayer,Marker, Popup} from 'react-leaflet';
 import classes from './OpenstreetMap.module.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import markerIcon from '../../../assets/images/airplane-2-multi-size.ico';
+import DinamicMarkers from './DinamicMarkers';
+import StaticMarkers from './StaticMarkers';
 
-const position = [20.4568974, 44.8178131]
+
+const position = [0.0, 0.0]
 
 const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     
+    
+
     const markerRef = useRef(null);
 
     const dragHandlers = useMemo(
@@ -24,37 +35,32 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     
     var LeafIcon = L.Icon.extend({
         options: {
-            iconSize: [40,40],
+            iconSize: [30,30],
         },
     });
 
-    var customIcon = new LeafIcon({iconUrl: "/assests/images/airplane.png"});
+    var customIcon = new LeafIcon({iconUrl: markerIcon}); 
+
+    
+    let  map = <MapContainer center={position} zoom={3.5} className={classes.mapContainer} scrollWheelZoom={true}>
+        <TileLayer 
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        
+            
+            <DinamicMarkers />
+            {/* <StaticMarkers /> */}
+        </MapContainer>
+    //}
     
     return (
-        <MapContainer center={position} zoom={3} className={classes.mapContainer} scrollWheelZoom={false}>
-            <TileLayer 
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            <Marker 
-                icon={customIcon}
-                position={[
-                    location && location.lng ? location.lng : "",
-                    location && location.lat ? location.lat : "",
-                ]}
-                draggable = {draggable}
-                eventHandlers={dragHandlers}
-                ref={markerRef}
-            >
-                <Popup className={classes.popup}>{"my title"}</Popup>
-            </Marker>
-
-        </MapContainer>
+        <div>           
+            {map} 
+        </div>
+        
     )
 }
 
-export default OpenstreetMap;
+export default withErrorHandler(OpenstreetMap,axios);
 
-// https://www.youtube.com/watch?v=MujnOg175Yo
-
-// https://www.youtube.com/watch?v=1gkAnx6TGCk

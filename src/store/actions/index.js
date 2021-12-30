@@ -38,7 +38,8 @@ export {
     orderAirportsByCityDsc,
     orderAirportsByCityAsc,
     orderAirportsByCountryDsc,
-    orderAirportsByCountryAsc
+    orderAirportsByCountryAsc,
+    fetchAirpotsLocation
 } from './airport';
 
 export {
@@ -85,3 +86,7 @@ export {
 export {
     fetchTypeCodes
 } from './typeCode'
+
+export {
+    fetchCurrentLocations
+} from './currentLocation'
