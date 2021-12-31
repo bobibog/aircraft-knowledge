@@ -74,20 +74,22 @@ const AuthContextProvider = props => {
         };
         let url = '/user/register';
         if (!isRegistration) {
-            url = '/user/authenticate';
+            url = '/account/authenticate';
         }
         axios.post(url, authData)
             .then(response => {
-                //const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                //const expirationDate = new Date(new Date().getTime() + expiresInSeconds * 1000);
-                localStorage.setItem('token', response.data.token);
-                //localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.id);
-                localStorage.setItem('role', response.data.role);
-                localStorage.setItem('terms', response.data.terms);
-                authSuccess(response.data.token, response.data.id, response.data.role, response.data.terms);
-                //checkAuthTimeout(expiresInSeconds);
-                alert('Nice to see you again '+response.data.username);
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+
+                axios.get('/account/me', {headers: {'Authorization': `Bearer ${token}`}})
+                    .then(r => {
+                        localStorage.setItem('userId', r.data.id);
+                        localStorage.setItem('role', r.data.role);
+                        localStorage.setItem('terms', r.data.terms);
+                        authSuccess(token, r.data.id, r.data.role, r.data.terms);
+                        alert('Nice to see you again '+r.data.userName);
+                    });
+                
             })
             .catch(err => {
                 authFail(err);
