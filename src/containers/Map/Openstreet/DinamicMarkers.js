@@ -25,13 +25,16 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
         marker.setRotationOrigin(rotationOrigin);
       }
     }, [rotationAngle, rotationOrigin]);
+   
   
     return (
       <Marker
         ref={(ref) => {
+          
           markerRef.current = ref;
           if (forwardRef) {
             forwardRef.current = ref;
+            
           }
         }}
         {...props}
@@ -146,6 +149,7 @@ const DinamicMarkers = () => {
         const interval = setInterval(()=>
         { 
             onFetchCurrentLocations();
+           
         }, 5000);
         return () => clearInterval(interval);         
     }, [onFetchCurrentLocations]);
@@ -175,23 +179,22 @@ const DinamicMarkers = () => {
                 ]}               
                 
                 rotationAngle = {currentLocation.angle}
-                rotationOrigin='center center'
+                rotationOrigin= 'center center'
                 
             >
+            
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}
-                        <br />
-                        Latitude = {currentLocation.lat} 
-                        <br />
-                        Longitude = {currentLocation.lon}
-                        <br />
+                        {/* <br />
+                        Angle = {currentLocation.angle}  */}
+                        <br />                        
                         Altitude = {currentLocation.altitude}
                     </div>
                     
                 </Popup>
             </RotatedMarker>
-             
+            
         ))
         // marker = 
                         
