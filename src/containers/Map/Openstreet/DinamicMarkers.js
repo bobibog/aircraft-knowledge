@@ -65,6 +65,8 @@ const DinamicMarkers = () => {
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
     });  
+
+    const[previousAngle, setPreviousAngle]= useState(0);
     
     //Creating HUB Connection
     //const hubConnection = new signalR.HubConnectionBuilder().withUrl("/CurrentLocation").build();
@@ -149,6 +151,11 @@ const DinamicMarkers = () => {
         const interval = setInterval(()=>
         { 
             onFetchCurrentLocations();
+            // if(currentLocations!=null){
+            //     currentLocations.map((currentLocation)=>{
+            //         setPreviousAngle(currentLocation.angle);  
+            //     })
+            // }        
            
         }, 5000);
         return () => clearInterval(interval);         
@@ -168,8 +175,8 @@ const DinamicMarkers = () => {
 
     if(currentLocations && !loading){
         
-        marker = currentLocations.map((currentLocation, i)=>(
-            
+        marker = currentLocations.map((currentLocation)=>(
+                        
             <RotatedMarker 
                 key={currentLocation.id}
                 icon={customIcon}
@@ -178,24 +185,26 @@ const DinamicMarkers = () => {
                     currentLocation.lon ? currentLocation.lon : 0
                 ]}               
                 
+                //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
                 rotationAngle = {currentLocation.angle}
                 rotationOrigin= 'center center'
                 
-            >
-            
+            >            
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}
-                        {/* <br />
-                        Angle = {currentLocation.angle}  */}
+                        <br />
+                        Angle = {currentLocation.angle} 
                         <br />                        
-                        Altitude = {currentLocation.altitude}
+                        Lat = {currentLocation.lat}
+                        <br />
+                        Lon = {currentLocation.lon}
                     </div>
                     
                 </Popup>
             </RotatedMarker>
             
-        ))
+      ))
         // marker = 
                         
         //     <RotatedMarker 
