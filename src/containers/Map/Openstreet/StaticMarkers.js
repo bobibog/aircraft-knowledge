@@ -10,7 +10,7 @@ import L from 'leaflet';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/pin2.ico';
 
-const StaticMarkers = () => {
+const StaticMarkers = (props) => {
     
     const airports = useSelector(state => {
         return state.airport.airports;
@@ -22,12 +22,19 @@ const StaticMarkers = () => {
         return state.airport.airportsLoading;
     });
     
+    const[iata, setIata] = useState();
+    const[airportName, setAirportName] = useState();
+    const[city, setCity] = useState();
+    const[lat1, setLat1] = useState();
+    const[lat2, setLat2] = useState();
+    const[lon1, setLon1] = useState();
+    const[lon2, setLon2] = useState();
     
     const dispatch = useDispatch();
 
     const onFetchAirportLocations = useCallback(
-        () => dispatch(actions.fetchAirpotsLocation())
-        , [dispatch]
+        () => dispatch(actions.fetchLargeAirports(iata, airportName, city, lat1, lat2, lon1, lon2))
+        , [dispatch, iata, airportName, city, lat1, lat2, lon1, lon2]
     );
 
         
@@ -54,7 +61,7 @@ const StaticMarkers = () => {
                 icon={customIcon}
                 position={[  
                     airportLocation.latitudeDeg ? airportLocation.latitudeDeg : "",
-                    airportLocation.longitudeDeg ? airportLocation.longitudeDeg : "",
+                    airportLocation.longitudeDeg ? airportLocation.longitudeDeg : ""
                 ]}
                 
             >
