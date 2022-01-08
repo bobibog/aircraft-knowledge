@@ -67,7 +67,8 @@ const fetchUserSuccess = (state, action) => {
         surname: action.surname,
         company: action.company,
         terms: action.terms,          
-        usersLoading: false
+        usersLoading: false,
+        emailConfirmed: action.emailConfirmed
     });
 };
 const fetchUserFail = (state, action) => {

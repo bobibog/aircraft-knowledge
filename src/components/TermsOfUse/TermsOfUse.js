@@ -19,10 +19,11 @@ const TermsOfUse = (props)=> {
     const dispatch = useDispatch();    
 
     var id = authContext.user.id;
+    var token = authContext.user.token;
     
     const onAcceptTerms = useCallback(
-        () => dispatch(actions.acceptTerms(id))
-        , [dispatch, id]
+        () => dispatch(actions.acceptTerms(id, token))
+        , [dispatch, id, token]
     ); 
     
     
