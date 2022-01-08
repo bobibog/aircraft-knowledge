@@ -42,6 +42,7 @@ const Users = props => {
     const[email, setEmail]=useState('');
     const[company, setCompany]=useState('');
     const[terms, setTerms]=useState('');
+    const[emailConfirmed, setEmailConfirmed]=useState('');
     
     const dispatch = useDispatch();
 

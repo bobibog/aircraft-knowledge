@@ -21,6 +21,7 @@ import Adsb from './containers/Adsb/Adsb';
 //import Map from './containers/Map/Map';
 import AcarsWithExtData from './containers/AcarsWithExtData/AcarsWithExtData';
 import OpenstreetMap from './containers/Map/Openstreet/OpenstreetMap';
+import ConfirmEmail from './containers/Auth/ConfirmEmail'
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
       <Route path="/auth" component={Auth} />       
       <Redirect from="/logout" to="/auth" />      
       <Redirect from="/" exact to="/auth" />
+      <Route path="/confirmemail" component={ConfirmEmail} />
       <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
     </Switch>
   );
