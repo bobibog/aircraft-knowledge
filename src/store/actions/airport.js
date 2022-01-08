@@ -163,7 +163,7 @@ export const fetchLargeAirports = (iata, airportName, city, lat1, lat2, lon1, lo
             let queryString = query;
             
             
-            axios.get('/airport/largeLocations?' + queryString)
+            axios.get('/Airport/largeLocations?' + queryString)
                 .then(response => {
                     dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
                 })
