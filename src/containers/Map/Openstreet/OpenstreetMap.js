@@ -18,11 +18,11 @@ const position = [0.0, 0.0];
 const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     
     
-    const[lati1, setLat1] = useState();
-    const[lati2, setLat2] = useState();
-    const[loni1, setLon1] = useState();
-    const[loni2, setLon2] = useState();
-    const[zoomi, setZoom] = useState();
+    const[lati1, setLat1] = useState(90);
+    const[lati2, setLat2] = useState(-90);
+    const[loni1, setLon1] = useState(180);
+    const[loni2, setLon2] = useState(-180);
+    const[zoomi, setZoom] = useState(0);
 
     //console.log(zoomi);
 
@@ -120,9 +120,9 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         />       
             <MapDragInfo />
             <MapZoomInfo />
-            {/* <DinamicMarkers 
+            <DinamicMarkers 
                 
-            /> */}
+            />
             
             <StaticMarkers 
                 zoom = {zoomi}

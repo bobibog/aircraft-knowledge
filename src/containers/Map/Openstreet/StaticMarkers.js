@@ -25,11 +25,7 @@ const StaticMarkers = (props) => {
     const[iata, setIata] = useState('');
     const[airportName, setAirportName] = useState('');
     const[city, setCity] = useState('');
-    const[lat1, setLat1] = useState('');
-    const[lat2, setLat2] = useState('');
-    const[lon1, setLon1] = useState('');
-    const[lon2, setLon2] = useState('');
-    const[zoom, setZoom]= useState('');   
+     
     
     // console.log("ZOOM="+props.zoom);
     // console.log("Lat1"+props.lat1);
@@ -55,17 +51,18 @@ const StaticMarkers = (props) => {
     );
         
     useEffect(() => { 
-        if(props.zoom <=3 || props.zoom == null || props.lat1 == null || props.lat2 == null || props.lon1 == null || props.lon2 == null){
+        const timer = setTimeout(() => {
+        if(props.zoom <=3 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
             onFetchLargeAirportLocations();
-        }       
-
+        }
         if(props.zoom >=4 && props.zoom < 7){
             onFetchLargeAndMediumAirportLocations();
         }
         if(props.zoom >=7){
-            onFetchLargeAndMediumAirportLocations();
+            onFetchAllAirportLocations();
         }
-            
+    }, 1000);
+    return () => clearTimeout(timer);     
         
     }, [props.zoom, props.lat1, props.lat2, props.lon1, props.lon2]);
 
