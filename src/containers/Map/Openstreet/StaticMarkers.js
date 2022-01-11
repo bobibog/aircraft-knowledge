@@ -52,13 +52,13 @@ const StaticMarkers = (props) => {
         
     useEffect(() => { 
         const timer = setTimeout(() => {
-        if(props.zoom <=3 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
+        if(props.zoom <=5 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
             onFetchLargeAirportLocations();
         }
-        if(props.zoom >=4 && props.zoom < 7){
+        if(props.zoom >5 && props.zoom < 8){
             onFetchLargeAndMediumAirportLocations();
         }
-        if(props.zoom >=7){
+        if(props.zoom >=8){
             onFetchAllAirportLocations();
         }
     }, 1000);
