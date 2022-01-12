@@ -23,7 +23,7 @@
         "geo-tz": "^7.0.1",
         "leaflet": "^1.6.0",
         "leaflet-rotatedmarker": "^0.2.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.21",
         "mapbox-gl": "^2.6.1",
         "moment": "^2.29.1",
         "prop-types": "^15.7.2",
