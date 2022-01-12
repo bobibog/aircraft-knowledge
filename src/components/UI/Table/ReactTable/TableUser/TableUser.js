@@ -11,8 +11,7 @@ import {FiSkipForward} from 'react-icons/fi';
 import {FiSkipBack} from 'react-icons/fi';
 import Button from '../../../Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { faPenAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faPenAlt, faCheckCircle, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import { Redirect, Link } from 'react-router-dom';
 import {match} from 'react-router';
 
@@ -60,10 +59,6 @@ const TableUser = (props) => {
 
     const COLUMNS = [
         {
-            Header: "Id",
-            accessor: "id"
-        },
-        {
             Header: "Name",
             accessor: "name",             
         },
@@ -74,11 +69,6 @@ const TableUser = (props) => {
         {
             Header: "Username",
             accessor: "username"
-        },
-        {
-            Header: "Password",
-            accessor: "password",
-            
         },
         {
             Header: "Company",
@@ -95,6 +85,10 @@ const TableUser = (props) => {
         {
             Header: "Terms",
             accessor: "terms"
+        },
+        {
+            Header: "Email confirmed",
+            Cell: (props) => {return props.row.original.emailConfirmed ? (<FontAwesomeIcon icon={faCheckCircle} className={classes.update}/>) : (<span/>);}
         },    
         {
             Header: "DELETE",

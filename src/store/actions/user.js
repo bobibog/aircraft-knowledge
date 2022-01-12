@@ -77,8 +77,6 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
           
         const query = new URLSearchParams();                        
         query.append('username', username);
-        query.append('password', password);
-        query.append('role', role);        
         query.append('name', name);
         query.append('surname', surname);
         query.append('email', email);
@@ -91,7 +89,7 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
             ? query
             : '';    
         
-        let url = '/User?';
+        let url = '/Account/Users?';
             
         const config ={
             headers: {'Authorization': `Bearer ${isAuthenticated}`}
@@ -137,7 +135,7 @@ export const registerUser = (password, username, role, email, uName, surname, co
         dispatch(fetchUsersStart());        
         
         
-        let url = '/user/register';
+        let url = '/account/register';
 
         const registerData = {
             password: password,            
@@ -157,11 +155,11 @@ export const registerUser = (password, username, role, email, uName, surname, co
 
         axios.post(url, registerData, config)
         .then(response => {   
-            alert("User was inserted into database.");
+            alert("User was created successfully. Confirmation email has been sent to " + registerData.email);
             window.location.href="/user";        
         })
         .catch(error => {
-            alert(error);                                
+            alert(error.response.data.message);                                
         }    
     );
 
@@ -174,7 +172,7 @@ export const deleteUser = (id, isAuthenticated) => {
         dispatch(fetchUsersStart());        
         
         
-        let url = `/user/${id}`;
+        let url = `/Account/Delete/${id}`;
 
         const config ={
             headers: {'Authorization': `Bearer ${isAuthenticated}`}
@@ -229,15 +227,13 @@ export const updateUser = (id, password, username, role, email, uName, surname, 
     }   
 };
 
-
-
-export const acceptTerms = (id) => {
+export const acceptTerms = (id, token) => {
     return dispatch => {
         dispatch(fetchUsersStart());
             
-        let url = `/user/${id}`;
+        let url = `/Account/AcceptTerms/${id}`;
         let authRedirect = null;
-        axios.put(url, {id:id,terms:1})
+        axios.put(url, {}, {headers: {'Authorization': `Bearer ${token}`}})
         .then(response => { 
             dispatch(fetchUserSuccess(response.data.terms))                                 
         
@@ -252,6 +248,3 @@ export const acceptTerms = (id) => {
         );        
     }
 };
-
-
-
