@@ -9,6 +9,8 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/pin2.ico';
+import geoTz from 'geo-tz';
+
 
 const StaticMarkers = (props) => {
     
@@ -52,13 +54,13 @@ const StaticMarkers = (props) => {
         
     useEffect(() => { 
         const timer = setTimeout(() => {
-        if(props.zoom <=5 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
+        if(props.zoom <=7 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
             onFetchLargeAirportLocations();
         }
-        if(props.zoom >5 && props.zoom < 8){
+        if(props.zoom >7 && props.zoom < 10){
             onFetchLargeAndMediumAirportLocations();
         }
-        if(props.zoom >=8){
+        if(props.zoom >=10){
             onFetchAllAirportLocations();
         }
     }, 1000);
@@ -73,6 +75,10 @@ const StaticMarkers = (props) => {
     });
 
     var customIcon = new LeafIcon({iconUrl: markerIcon});
+
+    var geoTz = require("geo-tz");
+    // var tzwhere = require("tzwhere");
+    // tzwhere.init();
     
     let marker = <Spinner />
 
@@ -92,9 +98,11 @@ const StaticMarkers = (props) => {
                         Name = {airportLocation.airportName}
                         <br />
                         City = {airportLocation.city} 
-                        
-                    </div>
-                    
+                        <br />
+                        ICAO/IATA = {airportLocation.airportICAO ? airportLocation.airportICAO : "-"} / {airportLocation.airportIata ? airportLocation.airportIata : "-" }
+                        {/* <br/> */}
+                        {/* Timezone = {(geoTz(airportLocation.latitudeDeg, airportLocation.longitudeDeg)[0])} */}
+                    </div>                    
                 </Popup>
             </Marker> 
             ))
