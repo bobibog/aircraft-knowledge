@@ -245,7 +245,7 @@ const  SearchAKRxElement = (props) => {
         placeholder:'Dsta'
     }
     const icaoInputConfig = {
-        type:'number',
+        type:'text',
         min:0,
         placeholder:'Icao'
     }

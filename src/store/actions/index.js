@@ -39,7 +39,9 @@ export {
     orderAirportsByCityAsc,
     orderAirportsByCountryDsc,
     orderAirportsByCountryAsc,
-    fetchAirpotsLocation
+    fetchLargeAirports,
+    fetchLargeAndMediumAirports,
+    fetchAllAirports
 } from './airport';
 
 export {

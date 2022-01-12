@@ -145,27 +145,94 @@ export const fetchAirports = (offset, limit, airportName, iata, city, country, a
         }
 };
 
-export const fetchAirpotsLocation = () => {
+// Large Airports
+export const fetchLargeAirports = (iata, airportName, city, lat1, lat2, lon1, lon2) => {
         return dispatch => {
             dispatch(fetchAirportsStart());
             
             const query = new URLSearchParams();                        
-                    
+            
+            query.append('iata', iata);
+            query.append('airportName', airportName);            
+            query.append('city', city);
+            query.append('lat1', lat1);
+            query.append('lat2', lat2);           
+            query.append('lon1', lon1);
+            query.append('lon2', lon2);
     
             let queryString = query;
-                
             
             
-                axios.get('/airport/locations?' + queryString)
-                    .then(response => {
-                        dispatch(fetchAirportsSuccess(response.data['airports']))                 
-                    })
-                    .catch(error => {
-                        dispatch(fetchAirportsFail(error));                
-                    });
+            axios.get('/Airport/largeLocations?' + queryString)
+                .then(response => {
+                    dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+                })
+                .catch(error => {
+                    dispatch(fetchAirportsFail(error));                
+                });
             
         }
 };
+
+// Large & Medium Airports
+export const fetchLargeAndMediumAirports = (iata, airportName, city, lat1, lat2, lon1, lon2) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();                        
+        
+        query.append('iata', iata);
+        query.append('airportName', airportName);            
+        query.append('city', city);
+        query.append('lat1', lat1);
+        query.append('lat2', lat2);           
+        query.append('lon1', lon1);
+        query.append('lon2', lon2);
+
+        let queryString = query;
+        
+        
+        axios.get('/airport/largeAndMediumLocations?' + queryString)
+            .then(response => {
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                
+            });
+        
+    }
+};
+
+// All Airports
+export const fetchAllAirports = (iata, airportName, city, lat1, lat2, lon1, lon2) => {
+    return dispatch => {
+        dispatch(fetchAirportsStart());
+        
+        const query = new URLSearchParams();                        
+        
+        query.append('iata', iata);
+        query.append('airportName', airportName);            
+        query.append('city', city);
+        query.append('lat1', lat1);
+        query.append('lat2', lat2);           
+        query.append('lon1', lon1);
+        query.append('lon2', lon2);
+
+        let queryString = query;
+        
+        
+        axios.get('/airport/allLocations?' + queryString)
+            .then(response => {
+                dispatch(fetchAirportsSuccess(response.data['airports'], response.data['airportsCount']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAirportsFail(error));                
+            });
+        
+    }
+};
+
+
 
 
 export const orderAirportsByNameDsc = (offset, limit) => {

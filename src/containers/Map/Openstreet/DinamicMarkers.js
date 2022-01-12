@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef, useMemo, forwardRef} from 'react';
+import React, {useState, useEffect, useCallback, useRef, useMemo, forwardRef, useLayoutEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from '../../../axios-local';
 import * as actions from '../../../store/actions/index';
@@ -38,20 +38,12 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
           }
         }}
         {...props}
+        
       >
         {children}
       </Marker>
     );
-  });
-
-  // Custom hook to catch previous position value
-//   const usePreviousValue = (value) => {
-//     const ref = useRef();
-//     useEffect(() => {            
-//         ref.current = value;        
-//     });
-//     return ref.current;
-//   };
+});
 
 
 const DinamicMarkers = () => {

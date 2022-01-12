@@ -9,8 +9,10 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/pin2.ico';
+import geoTz from 'geo-tz';
 
-const StaticMarkers = () => {
+
+const StaticMarkers = (props) => {
     
     const airports = useSelector(state => {
         return state.airport.airports;
@@ -22,20 +24,49 @@ const StaticMarkers = () => {
         return state.airport.airportsLoading;
     });
     
+    const[iata, setIata] = useState('');
+    const[airportName, setAirportName] = useState('');
+    const[city, setCity] = useState('');
+     
+    
+    // console.log("ZOOM="+props.zoom);
+    // console.log("Lat1"+props.lat1);
+    // console.log("Lat2="+props.lat2);
+    // console.log("Lon1"+props.lon1);
+    // console.log("Lon2="+props.lon2);
     
     const dispatch = useDispatch();
 
-    const onFetchAirportLocations = useCallback(
-        () => dispatch(actions.fetchAirpotsLocation())
-        , [dispatch]
+    const onFetchLargeAirportLocations = useCallback(
+        () => dispatch(actions.fetchLargeAirports(iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2))
+        , [dispatch, iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2]
+    );
+    
+    const onFetchLargeAndMediumAirportLocations = useCallback(
+        () => dispatch(actions.fetchLargeAndMediumAirports(iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2))
+        , [dispatch, iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2]
     );
 
+    const onFetchAllAirportLocations = useCallback(
+        () => dispatch(actions.fetchAllAirports(iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2))
+        , [dispatch, iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2]
+    );
         
     useEffect(() => { 
+        const timer = setTimeout(() => {
+        if(props.zoom <=7 || props.zoom === null || props.lat1 === undefined || props.lat2 === undefined || props.lon1 === undefined || props.lon2 === undefined){
+            onFetchLargeAirportLocations();
+        }
+        if(props.zoom >7 && props.zoom < 10){
+            onFetchLargeAndMediumAirportLocations();
+        }
+        if(props.zoom >=10){
+            onFetchAllAirportLocations();
+        }
+    }, 1000);
+    return () => clearTimeout(timer);     
         
-            onFetchAirportLocations();         
-        
-    }, [onFetchAirportLocations]);
+    }, [props.zoom, props.lat1, props.lat2, props.lon1, props.lon2]);
 
     var LeafIcon = L.Icon.extend({
         options: {
@@ -44,6 +75,10 @@ const StaticMarkers = () => {
     });
 
     var customIcon = new LeafIcon({iconUrl: markerIcon});
+
+    var geoTz = require("geo-tz");
+    // var tzwhere = require("tzwhere");
+    // tzwhere.init();
     
     let marker = <Spinner />
 
@@ -54,7 +89,7 @@ const StaticMarkers = () => {
                 icon={customIcon}
                 position={[  
                     airportLocation.latitudeDeg ? airportLocation.latitudeDeg : "",
-                    airportLocation.longitudeDeg ? airportLocation.longitudeDeg : "",
+                    airportLocation.longitudeDeg ? airportLocation.longitudeDeg : ""
                 ]}
                 
             >
@@ -63,9 +98,11 @@ const StaticMarkers = () => {
                         Name = {airportLocation.airportName}
                         <br />
                         City = {airportLocation.city} 
-                        
-                    </div>
-                    
+                        <br />
+                        ICAO/IATA = {airportLocation.airportICAO ? airportLocation.airportICAO : "-"} / {airportLocation.airportIata ? airportLocation.airportIata : "-" }
+                        {/* <br/> */}
+                        {/* Timezone = {(geoTz(airportLocation.latitudeDeg, airportLocation.longitudeDeg)[0])} */}
+                    </div>                    
                 </Popup>
             </Marker> 
             ))
