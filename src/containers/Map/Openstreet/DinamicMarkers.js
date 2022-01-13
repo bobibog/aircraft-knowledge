@@ -46,13 +46,13 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
 });
 
 
-const DinamicMarkers = () => {
+const DinamicMarkers = (props) => {
     
     const currentLocations = useSelector(state => {
         return state.currentLocation.currentLocations;
     });
 
-    //console.log(currentLocations);
+    console.log(currentLocations);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
@@ -97,8 +97,8 @@ const DinamicMarkers = () => {
     const dispatch = useDispatch();
 
     const onFetchCurrentLocations = useCallback(
-        () => dispatch(actions.fetchCurrentLocations())
-        , [dispatch]
+        () => dispatch(actions.fetchCurrentLocations(props.lat1, props.lat2, props.lon1, props.lon2))
+        , [dispatch, props.lat1, props.lat2, props.lon1, props.lon2]
     );
 
     
@@ -142,16 +142,11 @@ const DinamicMarkers = () => {
     useEffect(() => { 
         const interval = setInterval(()=>
         { 
-            onFetchCurrentLocations();
-            // if(currentLocations!=null){
-            //     currentLocations.map((currentLocation)=>{
-            //         setPreviousAngle(currentLocation.angle);  
-            //     })
-            // }        
+            onFetchCurrentLocations();              
            
         }, 5000);
         return () => clearInterval(interval);         
-    }, [onFetchCurrentLocations]);
+    }, [props.lat1, props.lat2, props.lon1, props.lon2]);
 
 
     var LeafIcon = L.Icon.extend({
