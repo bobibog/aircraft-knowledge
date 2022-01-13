@@ -121,7 +121,11 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
             <MapDragInfo />
             <MapZoomInfo />
             <DinamicMarkers 
-                
+                zoom = {zoomi}
+                lat1 = {lati1}
+                lat2 = {lati2}
+                lon1 = {loni1}
+                lon2 = {loni2}
             />
             
             <StaticMarkers 

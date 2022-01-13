@@ -22,11 +22,16 @@ export const fetchCurrentLocationStart = () => {
     }
 };
 
-export const fetchCurrentLocations = () => {
+export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
     return dispatch => {
         dispatch(fetchCurrentLocationStart());        
           
-        const query = new URLSearchParams();                        
+        const query = new URLSearchParams(); 
+            query.append('lat1', lat1);
+            query.append('lat2', lat2);           
+            query.append('lon1', lon1);
+            query.append('lon2', lon2);  
+                                 
         let queryString = query;
          
             axios.get(`/CurrentLocation?`+queryString)
