@@ -115,8 +115,10 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 
     let  mapContainer = <MapContainer center={position} zoom={2} className={classes.mapContainer} scrollWheelZoom={true}>
         <TileLayer 
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />       
             <MapDragInfo />
             <MapZoomInfo />
