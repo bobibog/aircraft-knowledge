@@ -10,6 +10,8 @@ import L from 'leaflet';
 import "leaflet-rotatedmarker";
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/airplane-2-multi-size.ico';
+import markerIcon1 from '../../../assets/images/a2.png';
+import { forEach } from 'lodash';
 //import * as signalR from '@microsoft/signalr';
 //import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 
@@ -45,6 +47,37 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
     );
 });
 
+const RotatedMarkerOpenSky = forwardRef(({ children, ...props }, forwardRef) => {
+    const markerRef = useRef();
+  
+    const { rotationAngle, rotationOrigin } = props;
+    useEffect(() => {
+      const marker2 = markerRef.current;
+      if (marker2) {
+        marker2.setRotationAngle(rotationAngle);
+        marker2.setRotationOrigin(rotationOrigin);
+      }
+    }, [rotationAngle, rotationOrigin]);
+   
+  
+    return (
+      <Marker
+        ref={(ref) => {
+          
+          markerRef.current = ref;
+          if (forwardRef) {
+            forwardRef.current = ref;
+            
+          }
+        }}
+        {...props}
+        
+      >
+        {children}
+      </Marker>
+    );
+});
+
 
 const DinamicMarkers = (props) => {
     
@@ -52,11 +85,21 @@ const DinamicMarkers = (props) => {
         return state.currentLocation.currentLocations;
     });
 
-    console.log(currentLocations);
+    const states = useSelector(state => {
+        return state.currentLocation.states;
+    }); 
+
+            
+
+       
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
-    });  
+    }); 
+    
+    const loadingStates = useSelector(state => {
+        return state.currentLocation.statesLoading;
+    });
 
     const[previousAngle, setPreviousAngle]= useState(0);
     
@@ -101,48 +144,19 @@ const DinamicMarkers = (props) => {
         , [dispatch, props.lat1, props.lat2, props.lon1, props.lon2]
     );
 
+    const onFetchCurrentLocations2 = useCallback(
+        () => dispatch(actions.fetchCurrentLocations2(props.lat2, props.lon2, props.lat1, props.lon1))
+        , [dispatch, props.lat2, props.lon2, props.lat1, props.lon1]
+    );
+
     
-    // const angleFromCoordinate=(lat1, lon1, lat2, lon2)=>
-    // {
-    //     var dLon = (lon2 - lon1);
-
-    //     var y = Math.sin(dLon) * Math.cos(lat2);
-    //     var x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
-    //             * Math.cos(lat2) * Math.cos(dLon);
-
-    //     // Angle expressed in radians
-    //     var brng = Math.atan2(y, x);
-
-    //     // Angle expressed in radians
-    //     var deg = (180 / Math.PI) * brng;
-    //     deg = (deg + 360) % 360;
-    //     //deg = 360 - deg; // count degrees counter-clockwise - remove to make clockwise
-
-    //     return deg;
-    // }
-
-    //const[hubConnection, setHubConnection]=useState(null);
-
-    //const hubConnection = new signalR.HubConnectionBuilder().withUrl("/openstreetMap").build();
-    //hubConnection.start();
-       
-    // useEffect(() => {
-    //     const connect = new HubConnectionBuilder()
-    //       .withUrl("https://localhost:44350/api/v1/CurrentLocation")
-    //       .withAutomaticReconnect()
-    //       .build();
     
-    //     setConnection(connect);
-    //     if(connect){
-    //         console.log("SignalR Established connection")
-    //     }
-    //   }, []);
-
 
     useEffect(() => { 
         const interval = setInterval(()=>
         { 
-            onFetchCurrentLocations();              
+            onFetchCurrentLocations();     
+            onFetchCurrentLocations2();         
            
         }, 5000);
         return () => clearInterval(interval);         
@@ -156,9 +170,11 @@ const DinamicMarkers = (props) => {
     });
 
     var customIcon = new LeafIcon({iconUrl: markerIcon});
+    var openSkyIcon = new LeafIcon({iconUrl:markerIcon1})
     
         
     let marker = <Spinner />
+    let marker2 = <Spinner />
 
     if(currentLocations && !loading){
         
@@ -192,39 +208,57 @@ const DinamicMarkers = (props) => {
             </RotatedMarker>
             
       ))
-        // marker = 
-                        
-        //     <RotatedMarker 
-        //         key={key}
-        //         icon={customIcon}
-        //         position={[                    
-        //             latitude1 ? latitude1 : 0,
-        //             longitude1 ? longitude1 : 0
-        //         ]}
-                
-        //         rotationAngle={angleFromCoordinate(latitude1 ? latitude1 : 0,
-        //         longitude1 ? longitude1 : 0, typeof latitude2 !== 'undefined' ? latitude2 : latitude1,
-        //         typeof longitude2!== 'undefined'  ? longitude2 : longitude1)}
-        //         rotationOrigin="center"
-        //     >
-        //         <Popup className={classes.popupContainer}>
-        //             <div className={classes.popup}>
-        //                 {/* ICAO = {currentLocation.icao} */}
-        //                 <br />
-        //                 Latitude = {latitude1} 
-        //                 <br />
-        //                 Longitude = {longitude1}
-        //             </div>
-                    
-        //         </Popup>
-        //     </RotatedMarker> 
-            
-                
     }
+
+    // OpenSky Markeri
+    if(states && !loadingStates){  
+        
+        let array = states.map((nested)=>{
+            return nested;
+        });
+
+        let segment = array.map((x)=>{
+            return x;
+        })
+
+        
+        marker2 = segment.map((st, i)=>(           
+            
+          <RotatedMarkerOpenSky 
+                key={`dr-${i}`}
+                icon={openSkyIcon}                
+                
+                 position={[                    
+                    st[6] ? st[6] : 0,
+                    st[5] ? st[5] : 0                   
+                    
+                ]}                 
+                rotationAngle = {st[10]}
+                rotationOrigin= 'center center'
+                
+            >            
+                
+                <Popup className={classes.popupContainer}>
+                    <div className={classes.popup}>
+                        Origin Country = {st[2]}
+                        <br />
+                        Velocity = {st[9]} 
+                        <br />                        
+                        Vertical Rate = {st[11]}                        
+                    </div>
+                    
+                </Popup>
+            </RotatedMarkerOpenSky>))               
+                 
+    }
+
+             
+    
 
     return (
         <div>
             {marker}
+            {marker2}
         </div>
     )
 }
@@ -233,4 +267,4 @@ export default withErrorHandler(DinamicMarkers,axios);
 
 
 
-// https://labs.sogeti.com/create-a-simple-real-time-notification-with-net-core-reactjs-and-signalr/
+

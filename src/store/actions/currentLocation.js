@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
+import axios2 from 'axios';
 
 
 export const fetchCurrentLocationSuccess = (currentLocations) => {
@@ -19,6 +20,26 @@ export const fetchCurrentLocationFail = (error) => {
 export const fetchCurrentLocationStart = () => {
     return {
         type: actionTypes.FETCH_CURRENTLOCATION_START
+    }
+};
+
+export const fetchStatesSuccess = (states) => {
+    return {
+        type: actionTypes.FETCH_STATES_SUCCESS,
+        states: states,        
+    }
+};
+
+export const fetchStatesFail = (error) => {
+    return {
+        type: actionTypes.FETCH_STATES_FAIL,
+        error: error
+    }
+};
+
+export const fetchStatesStart = () => {
+    return {
+        type: actionTypes.FETCH_STATES_START
     }
 };
 
@@ -42,6 +63,32 @@ export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
                     dispatch(fetchCurrentLocationFail(error));                                
                 })
                        
+        
+    }
+};
+
+export const fetchCurrentLocations2 = (lamin, lomin, lamax, lomax) => {
+    return dispatch => {
+        dispatch(fetchStatesStart());        
+          
+        const query = new URLSearchParams(); 
+            query.append('lamin', lamin);
+            query.append('lomin', lomin);
+            query.append('lamax', lamax);            
+            query.append('lomax', lomax);  
+                                 
+        let queryString = query;
+
+        let url = 'https://opensky-network.org/api/states/all?';
+         
+            axios2.get(url+queryString)
+                .then(response => {                
+                    dispatch(fetchStatesSuccess(response.data['states']))
+                    //console.log("STANJE= "+response.data['states'])                 
+                })
+                .catch(error => {
+                    dispatch(fetchStatesFail(error));                                
+                })                      
         
     }
 };

@@ -13,7 +13,7 @@ import DinamicMarkers from './DinamicMarkers';
 import StaticMarkers from './StaticMarkers';
 
 
-const position = [0.0, 0.0];
+const position = [45.0, 25.0];
 
 const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     
@@ -113,7 +113,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     
     
 
-    let  mapContainer = <MapContainer center={position} zoom={2} className={classes.mapContainer} scrollWheelZoom={true}>
+    let  mapContainer = <MapContainer center={position} zoom={5} className={classes.mapContainer} scrollWheelZoom={true}>
         <TileLayer 
             //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
