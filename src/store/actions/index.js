@@ -41,7 +41,8 @@ export {
     orderAirportsByCountryAsc,
     fetchLargeAirports,
     fetchLargeAndMediumAirports,
-    fetchAllAirports
+    fetchAllAirports,
+    fetchAirportsStatistic
 } from './airport';
 
 export {
@@ -90,5 +91,6 @@ export {
 } from './typeCode'
 
 export {
-    fetchCurrentLocations
+    fetchCurrentLocations,
+    fetchCurrentLocations2
 } from './currentLocation'

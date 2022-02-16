@@ -20,6 +20,12 @@ const StaticMarkers = (props) => {
 
     //console.log(airports);
 
+    const routes = useSelector(state =>{
+        return state.airport.routes;
+    })
+
+    //console.log(routes);
+
     const loading = useSelector(state => {
         return state.airport.airportsLoading;
     });
@@ -27,6 +33,7 @@ const StaticMarkers = (props) => {
     const[iata, setIata] = useState('');
     const[airportName, setAirportName] = useState('');
     const[city, setCity] = useState('');
+    const[icao, setIcao] = useState('');
      
     
     // console.log("ZOOM="+props.zoom);
@@ -51,6 +58,11 @@ const StaticMarkers = (props) => {
         () => dispatch(actions.fetchAllAirports(iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2))
         , [dispatch, iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2]
     );
+
+    // const onFetchRoutes = useCallback(
+    //     () => dispatch(actions.fetchAirportsStatistic(icao))
+    //     , [dispatch, icao]
+    // );
         
     useEffect(() => { 
         const timer = setTimeout(() => {
@@ -67,6 +79,10 @@ const StaticMarkers = (props) => {
     return () => clearTimeout(timer);     
         
     }, [props.zoom, props.lat1, props.lat2, props.lon1, props.lon2]);
+
+    // useEffect(()=>{
+    //     onFetchRoutes();
+    // }, [onFetchRoutes]);
 
     var LeafIcon = L.Icon.extend({
         options: {

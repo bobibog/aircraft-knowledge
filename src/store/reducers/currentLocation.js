@@ -4,6 +4,8 @@ import {updateObject} from '../../shared/utility';
 const initialState = {
     currentLocations: null,    
     currentLocationLoading: false,
+    states: null,
+    statesLoading: false
 };
 
 const fetchCurrentLocationStart = (state, action) => {
@@ -23,6 +25,23 @@ const fetchCurrentLocationFail = (state, action) => {
     });
 };
 
+const fetchStatesStart = (state, action) => {
+    return updateObject(state, {
+        statesLoading: true
+    });
+};
+const fetchStatesSuccess = (state, action) => {
+    return updateObject(state, {
+        states: action.states,        
+        statesLoading: false
+    });
+};
+const fetchStatesFail = (state, action) => {
+    return updateObject(state, {
+        statesLoading: false
+    });
+};
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -30,6 +49,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_CURRENTLOCATION_START: return fetchCurrentLocationStart(state, action);            
         case actionTypes.FETCH_CURRENTLOCATION_SUCCESS: return fetchCurrentLocationSuccess(state, action);            
         case actionTypes.FETCH_CURRENTLOCATION_FAIL: return fetchCurrentLocationFail(state, action);
+        case actionTypes.FETCH_STATES_START: return fetchStatesStart(state, action);
+        case actionTypes.FETCH_STATES_SUCCESS: return fetchStatesSuccess(state, action);
+        case actionTypes.FETCH_STATES_FAIL: return fetchStatesFail(state, action);
         
         default: return state;
     }

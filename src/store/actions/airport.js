@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
-//import axios2 from '../../axios-local2';
+import axios2 from 'axios';
 
 export const setAirportsOffsetLimit = (offset, limit) => {
     return {
@@ -35,6 +35,27 @@ export const fetchAirportsFail = (error) => {
 export const fetchAirportsStart = () => {
     return {
         type: actionTypes.FETCH_AIRPORTS_START
+    }
+};
+
+
+export const fetchRoutesSuccess = (routes) => {
+    return {
+        type: actionTypes.FETCH_ROUTES_SUCCESS,
+        routes: routes
+    }
+};
+
+export const fetchRoutesFail = (error) => {
+    return {
+        type: actionTypes.FETCH_ROUTES_FAIL,
+        error: error
+    }
+};
+
+export const fetchRoutesStart = () => {
+    return {
+        type: actionTypes.FETCH_ROUTES_START
     }
 };
 
@@ -228,6 +249,47 @@ export const fetchAllAirports = (iata, airportName, city, lat1, lat2, lon1, lon2
             .catch(error => {
                 dispatch(fetchAirportsFail(error));                
             });
+        
+    }
+};
+
+// Airport routes and daily flights by ICAO code
+export const fetchAirportsStatistic = (icao) => {
+    return dispatch => {
+        dispatch(fetchRoutesStart());
+        
+        const query = new URLSearchParams();                        
+        
+        query.append('icao', icao);
+        
+        let queryString = query;
+
+        var options = {
+            method: 'GET',
+            url: 'https://aerodatabox.p.rapidapi.com/airports/icao/'+icao+'/stats/routes/daily',
+            headers: {
+              'x-rapidapi-host': 'aerodatabox.p.rapidapi.com',
+              'x-rapidapi-key': '3cd8f4833dmsh99cba184baa6abep1e514ajsnd8982e704375'
+            }
+          };
+          
+          axios2.request(options).then( response => {
+            dispatch(fetchRoutesSuccess(response.data['routes']))
+            console.log(response.data);
+          })
+          .catch(error => {
+              dispatch(fetchRoutesFail(error));
+              console.error(error);
+          });
+        
+        
+        // axios2.get('https://aerodatabox.p.rapidapi.com/airports/icao/?' +queryString+'/stats/routes/daily')
+        //     .then(response => {
+        //         dispatch(fetchRoutesSuccess(response.data['routes']))                 
+        //     })
+        //     .catch(error => {
+        //         dispatch(fetchRoutesFail(error));                
+        //     });
         
     }
 };
