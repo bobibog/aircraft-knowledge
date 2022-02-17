@@ -220,7 +220,6 @@ const DinamicMarkers = (props) => {
         let segment = array.map((x)=>{
             return x;
         })
-
         
         marker2 = segment.map((st, i)=>(           
             
@@ -240,11 +239,13 @@ const DinamicMarkers = (props) => {
                 
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
+                        ICAO = {st[0]}
+                        <br />
                         Origin Country = {st[2]}
                         <br />
-                        Velocity = {st[9]} 
+                        Velocity(m/s) = {st[9]} 
                         <br />                        
-                        Vertical Rate = {st[11]}                        
+                        Vertical Rate(m/s) = {st[11]}                        
                     </div>
                     
                 </Popup>
