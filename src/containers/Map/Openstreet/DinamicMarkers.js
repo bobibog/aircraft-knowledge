@@ -87,11 +87,7 @@ const DinamicMarkers = (props) => {
 
     const states = useSelector(state => {
         return state.currentLocation.states;
-    }); 
-
-            
-
-       
+    });        
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
@@ -170,7 +166,7 @@ const DinamicMarkers = (props) => {
     });
 
     var customIcon = new LeafIcon({iconUrl: markerIcon});
-    var openSkyIcon = new LeafIcon({iconUrl:markerIcon1})
+    var openSkyIcon = new LeafIcon({iconUrl:markerIcon1});
     
         
     let marker = <Spinner />
@@ -195,8 +191,8 @@ const DinamicMarkers = (props) => {
             >            
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
-                        ICAO = {currentLocation.icao}
-                        <br />
+                        ICAO = {currentLocation.icao}                         
+                        <br/>
                         Angle = {currentLocation.angle} 
                         <br />                        
                         Lat = {currentLocation.lat}
@@ -235,11 +231,12 @@ const DinamicMarkers = (props) => {
                 rotationAngle = {st[10]}
                 rotationOrigin= 'center center'
                 
-            >            
-                
+            >                 
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {st[0]}
+                        <br />                        
+                        Registration =
                         <br />
                         Origin Country = {st[2]}
                         <br />
@@ -251,15 +248,13 @@ const DinamicMarkers = (props) => {
                 </Popup>
             </RotatedMarkerOpenSky>))               
                  
-    }
-
-             
+    }             
     
 
     return (
         <div>
             {marker}
-            {marker2}
+            {/* {marker2} */}
         </div>
     )
 }

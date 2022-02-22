@@ -269,13 +269,14 @@ export const fetchAirportsStatistic = (icao) => {
             url: 'https://aerodatabox.p.rapidapi.com/airports/icao/'+icao+'/stats/routes/daily',
             headers: {
               'x-rapidapi-host': 'aerodatabox.p.rapidapi.com',
-              'x-rapidapi-key': '3cd8f4833dmsh99cba184baa6abep1e514ajsnd8982e704375'
+              'x-rapidapi-key': '2beb1346d3mshadbc9d2f053835ep17be22jsn7725595d9adf'
             }
           };
-          
+
+                  
           axios2.request(options).then( response => {
             dispatch(fetchRoutesSuccess(response.data['routes']))
-            console.log(response.data);
+            //console.log(response.data);
           })
           .catch(error => {
               dispatch(fetchRoutesFail(error));

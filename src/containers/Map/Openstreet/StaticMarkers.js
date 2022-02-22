@@ -18,13 +18,26 @@ const StaticMarkers = (props) => {
         return state.airport.airports;
     });
 
-    //console.log(airports);
-
+    
     const routes = useSelector(state =>{
         return state.airport.routes;
     })
 
-    //console.log(routes);
+    let dest = null;
+    
+    if(routes!=null){
+        let f = routes.map((adf)=>{
+        return adf.averageDailyFlights;
+        });
+
+        dest = routes.map((dst)=>{
+            let destinations = dst.destination.name.toString();            
+            return destinations;
+        })  
+        
+    }      
+    
+    console.log(dest);
 
     const loading = useSelector(state => {
         return state.airport.airportsLoading;
@@ -35,13 +48,8 @@ const StaticMarkers = (props) => {
     const[city, setCity] = useState('');
     const[icao, setIcao] = useState('');
      
-    
-    // console.log("ZOOM="+props.zoom);
-    // console.log("Lat1"+props.lat1);
-    // console.log("Lat2="+props.lat2);
-    // console.log("Lon1"+props.lon1);
-    // console.log("Lon2="+props.lon2);
-    
+    console.log(icao);
+        
     const dispatch = useDispatch();
 
     const onFetchLargeAirportLocations = useCallback(
@@ -59,10 +67,10 @@ const StaticMarkers = (props) => {
         , [dispatch, iata, airportName, city, props.lat1, props.lat2, props.lon1, props.lon2]
     );
 
-    // const onFetchRoutes = useCallback(
-    //     () => dispatch(actions.fetchAirportsStatistic(icao))
-    //     , [dispatch, icao]
-    // );
+    const onFetchRoutes = useCallback(
+        () => dispatch(actions.fetchAirportsStatistic(icao))
+        , [dispatch, icao]
+    );
         
     useEffect(() => { 
         const timer = setTimeout(() => {
@@ -80,9 +88,9 @@ const StaticMarkers = (props) => {
         
     }, [props.zoom, props.lat1, props.lat2, props.lon1, props.lon2]);
 
-    // useEffect(()=>{
-    //     onFetchRoutes();
-    // }, [onFetchRoutes]);
+    useEffect(()=>{
+        onFetchRoutes();
+    }, [icao]);
 
     var LeafIcon = L.Icon.extend({
         options: {
@@ -100,6 +108,7 @@ const StaticMarkers = (props) => {
 
     if(airports && !loading){
         marker = airports.map((airportLocation, i)=>(
+            
             <Marker 
                 key={`dr-${i}`}
                 icon={customIcon}
@@ -107,7 +116,11 @@ const StaticMarkers = (props) => {
                     airportLocation.latitudeDeg ? airportLocation.latitudeDeg : "",
                     airportLocation.longitudeDeg ? airportLocation.longitudeDeg : ""
                 ]}
-                
+                eventHandlers={{
+                    click: () => {
+                    setIcao(airportLocation.airportICAO)
+                    },
+                }}
             >
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
@@ -116,17 +129,22 @@ const StaticMarkers = (props) => {
                         City = {airportLocation.city} 
                         <br />
                         ICAO/IATA = {airportLocation.airportICAO ? airportLocation.airportICAO : "-"} / {airportLocation.airportIata ? airportLocation.airportIata : "-" }
-                        {/* <br/> */}
-                        {/* Timezone = {(geoTz(airportLocation.latitudeDeg, airportLocation.longitudeDeg)[0])} */}
+                        <br/>
+                        {/* DESTINATIONS = {dest} */}
                     </div>                    
                 </Popup>
+                
+                
             </Marker> 
             ))
+            
     }
 
+    
     return (
         <div>
             {marker}
+            
         </div>
     )
 }
