@@ -8,7 +8,10 @@ const initialState = {
     aircraftLoading: false,
     aircraftOffset: 0,
     aircraftLimit: rowsPerPageDefault,
-    aircraftPage: 0
+    aircraftPage: 0,
+    aircraftJson: null,
+    aircraftJsonCount: null,
+    aircraftJsonLoading: false
 };
 
 const setAircraftOffsetLimit = (state, action) => {
@@ -47,6 +50,24 @@ const unmountAircraft = (state, action) => {
     });
 };
 
+const fetchAircraftJsonStart = (state, action) => {
+    return updateObject(state, {
+        aircraftJsonLoading: true
+    });
+};
+const fetchAircraftJsonSuccess = (state, action) => {
+    return updateObject(state, {
+        aircraftJson: action.aircraftJson,
+        aircraftJsonCount: action.aircraftJsonCount,
+        aircraftJsonLoading: false
+    });
+};
+const fetchAircraftJsonFail = (state, action) => {
+    return updateObject(state, {
+        aircraftJsonLoading: false
+    });
+}; 
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AIRCRAFT_OFFSET_LIMIT: return setAircraftOffsetLimit(state, action);
@@ -55,6 +76,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_AIRCRAFT_SUCCESS: return fetchAircraftSuccess(state, action);            
         case actionTypes.FETCH_AIRCRAFT_FAIL: return fetchAircraftFail(state, action);
         case actionTypes.UNMOUNT_AIRCRAFT: return unmountAircraft(state, action);
+        case actionTypes.FETCH_AIRCRAFTJSON_START: return fetchAircraftJsonStart(state, action);
+        case actionTypes.FETCH_AIRCRAFTJSON_SUCCESS: return fetchAircraftJsonSuccess(state, action);            
+        case actionTypes.FETCH_AIRCRAFTJSON_FAIL: return fetchAircraftJsonFail(state, action);
         default: return state;
     }
 };

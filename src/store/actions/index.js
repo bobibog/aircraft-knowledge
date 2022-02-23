@@ -23,7 +23,8 @@ export {
     fetchAircrafts,
     setAircraftOffsetLimit,
     setAircraftPage,
-    unmountAircraft
+    unmountAircraft,
+    fetchAircraftRegistration
 } from './aircraft';
 
 export {
