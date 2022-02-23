@@ -87,17 +87,37 @@ const DinamicMarkers = (props) => {
 
     const states = useSelector(state => {
         return state.currentLocation.states;
-    });        
+    });  
+    
+    //console.log('OPNSKY='+states);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
     }); 
     
+    const aircraftJson = useSelector(state => {
+      return state.aircraft.aircraftJson;  });
+
+
     const loadingStates = useSelector(state => {
         return state.currentLocation.statesLoading;
     });
 
     const[previousAngle, setPreviousAngle]= useState(0);
+
+    const[icao, setIcao] = useState('');
+
+    let registration = '';
+
+       if(aircraftJson != null){
+         registration = aircraftJson.registration
+         console.log("A="+ registration);
+       } 
+    
+    
+    //console.log("AircraftJSON="+aircraftJson);
+    
+    
     
     //Creating HUB Connection
     //const hubConnection = new signalR.HubConnectionBuilder().withUrl("/CurrentLocation").build();
@@ -145,7 +165,10 @@ const DinamicMarkers = (props) => {
         , [dispatch, props.lat2, props.lon2, props.lat1, props.lon1]
     );
 
-    
+    const onFetchAircraftRegistration = useCallback(
+      () => dispatch(actions.fetchAircraftRegistration(icao))
+      , [dispatch, icao]
+  );   
     
 
     useEffect(() => { 
@@ -157,6 +180,10 @@ const DinamicMarkers = (props) => {
         }, 5000);
         return () => clearInterval(interval);         
     }, [props.lat1, props.lat2, props.lon1, props.lon2]);
+
+    useEffect(()=>{
+      onFetchAircraftRegistration();
+    },[icao]);
 
 
     var LeafIcon = L.Icon.extend({
@@ -187,17 +214,18 @@ const DinamicMarkers = (props) => {
                 //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
                 rotationAngle = {currentLocation.angle}
                 rotationOrigin= 'center center'
+                eventHandlers={{
+                    click: () => {
+                    setIcao(currentLocation.icao)
+                    },
+                }}
                 
             >            
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}                         
                         <br/>
-                        Angle = {currentLocation.angle} 
-                        <br />                        
-                        Lat = {currentLocation.lat}
-                        <br />
-                        Lon = {currentLocation.lon}
+                       Registration = {registration}
                     </div>
                     
                 </Popup>
@@ -230,13 +258,19 @@ const DinamicMarkers = (props) => {
                 ]}                 
                 rotationAngle = {st[10]}
                 rotationOrigin= 'center center'
+
+                eventHandlers={{
+                    click: () => {
+                    setIcao(st[0])
+                    },
+                }}
                 
             >                 
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {st[0]}
-                        <br />                        
-                        Registration =
+                        <br />                       
+                        Registration = {registration}
                         <br />
                         Origin Country = {st[2]}
                         <br />
@@ -254,7 +288,7 @@ const DinamicMarkers = (props) => {
     return (
         <div>
             {marker}
-            {/* {marker2} */}
+            {marker2}
         </div>
     )
 }

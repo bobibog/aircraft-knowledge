@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
+import axios2 from 'axios';
 
 export const setAircraftOffsetLimit = (offset, limit) => {
     return {
@@ -34,6 +35,28 @@ export const fetchAircraftFail = (error) => {
 export const fetchAircraftStart = () => {
     return {
         type: actionTypes.FETCH_AIRCRAFT_START
+    }
+};
+
+
+export const fetchAircraftJsonSuccess = (aircraftJson, aircraftJsonCount) => {
+    return {
+        type: actionTypes.FETCH_AIRCRAFTJSON_SUCCESS,
+        aircraftJson: aircraftJson,
+        aircraftJsonCount: aircraftJsonCount
+    }
+};
+
+export const fetchAircraftJsonFail = (error) => {
+    return {
+        type: actionTypes.FETCH_AIRCRAFTJSON_FAIL,
+        error: error
+    }
+};
+
+export const fetchAircraftJsonStart = () => {
+    return {
+        type: actionTypes.FETCH_AIRCRAFTJSON_START
     }
 };
 
@@ -111,5 +134,27 @@ export const fetchAircrafts = (offset, limit, airline, operators, typeCode, full
 export const unmountAircraft = () => {
     return {
         type: actionTypes.UNMOUNT_AIRCRAFT
+    }
+};
+
+export const fetchAircraftRegistration = (icao) =>{
+    return dispatch => {
+        dispatch(fetchAircraftJsonStart());
+        
+        const query = new URLSearchParams();                        
+        
+        query.append('icao24', icao);
+        
+        let queryString = query;
+
+        axios.get(`/aircraft/GetAircraftByICAO?`+ queryString)
+            .then(response => {                
+                dispatch(fetchAircraftJsonSuccess(response.data))  
+                //console.log(response.data);      
+            })
+            .catch(error => {
+                dispatch(fetchAircraftJsonFail(error));                                
+            }    
+        ); 
     }
 };
