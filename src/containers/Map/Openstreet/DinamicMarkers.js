@@ -89,15 +89,17 @@ const DinamicMarkers = (props) => {
         return state.currentLocation.states;
     });  
     
-    //console.log('OPNSKY='+states);
+    console.log('OPNSKY='+states);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
     }); 
     
     const aircraftJson = useSelector(state => {
-      return state.aircraft.aircraftJson;  });
+      return state.aircraft.aircraftJson;  
+    });
 
+       
 
     const loadingStates = useSelector(state => {
         return state.currentLocation.statesLoading;
@@ -106,13 +108,14 @@ const DinamicMarkers = (props) => {
     const[previousAngle, setPreviousAngle]= useState(0);
 
     const[icao, setIcao] = useState('');
+    //const[registration, setRegistration] = useState('');
+    //let registration = '';
 
-    let registration = '';
-
-       if(aircraftJson != null){
-         registration = aircraftJson.registration
-         console.log("A="+ registration);
-       } 
+      //  if(aircraftJson != null){
+      //    //registration = aircraftJson.registration
+      //    setRegistration(aircraftJson.registration);
+      //    console.log("A="+ registration);
+      //  } 
     
     
     //console.log("AircraftJSON="+aircraftJson);
@@ -221,11 +224,12 @@ const DinamicMarkers = (props) => {
                 }}
                 
             >            
+                
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}                         
                         <br/>
-                       Registration = {registration}
+                       Registration = {aircraftJson.registration}
                     </div>
                     
                 </Popup>
@@ -270,7 +274,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {st[0]}
                         <br />                       
-                        Registration = {registration}
+                        Registration = {aircraftJson.registration == null ? 0 : aircraftJson.registration}
                         <br />
                         Origin Country = {st[2]}
                         <br />

@@ -99,6 +99,21 @@
     flex-wrap: wrap;
 }
 
+.inputApend {
+    margin-top: -46px;
+}
+
+.existsBtn {
+    font-size: small;
+    height: 39.5px;
+    margin-top: 7.5px;
+    margin-left: -51px;
+    background-color: yellow;
+    color: #0062cc;
+    width: 52px;
+    border: 1px solid #0062cc;
+}
+
 @media only screen and (max-width: 1390px) {
     .container {
         padding-left: 5px;
