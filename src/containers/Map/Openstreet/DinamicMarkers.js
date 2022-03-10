@@ -109,13 +109,13 @@ const DinamicMarkers = (props) => {
 
     const[icao, setIcao] = useState('');
     //const[registration, setRegistration] = useState('');
-    //let registration = '';
+    let registration = '';
 
-      //  if(aircraftJson != null){
-      //    //registration = aircraftJson.registration
-      //    setRegistration(aircraftJson.registration);
-      //    console.log("A="+ registration);
-      //  } 
+       if(aircraftJson != null){
+         registration = aircraftJson.registration
+         //setRegistration(aircraftJson.registration);
+         //console.log("A="+ registration);
+       } 
     
     
     //console.log("AircraftJSON="+aircraftJson);
@@ -229,7 +229,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}                         
                         <br/>
-                       Registration = {aircraftJson.registration == null ? 0 : aircraftJson.registration}
+                       Registration = {aircraftJson.registration}
                     </div>
                     
                 </Popup>
@@ -274,7 +274,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {st[0]}
                         <br />                       
-                        Registration = {aircraftJson.registration == null ? 0 : aircraftJson.registration}
+                        Registration = {aircraftJson.registration}
                         <br />
                         Origin Country = {st[2]}
                         <br />
