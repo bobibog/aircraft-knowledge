@@ -229,7 +229,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}                         
                         <br/>
-                       Registration = {aircraftJson.registration}
+                       Registration = {aircraftJson.registration == null ? 0 : aircraftJson.registration}
                     </div>
                     
                 </Popup>
