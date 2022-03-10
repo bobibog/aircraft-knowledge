@@ -229,7 +229,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {currentLocation.icao}                         
                         <br/>
-                       Registration = {aircraftJson.registration}
+                       {/* Registration = {aircraftJson.registration} */}
                     </div>
                     
                 </Popup>
@@ -274,7 +274,7 @@ const DinamicMarkers = (props) => {
                     <div className={classes.popup}>
                         ICAO = {st[0]}
                         <br />                       
-                        Registration = {aircraftJson.registration}
+                        {/* Registration = {aircraftJson.registration} */}
                         <br />
                         Origin Country = {st[2]}
                         <br />
