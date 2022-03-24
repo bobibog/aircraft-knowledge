@@ -93,5 +93,6 @@ export {
 
 export {
     fetchCurrentLocations,
-    fetchCurrentLocations2
+    fetchCurrentLocations2,
+    fetchOpenSkyCurrentLocations
 } from './currentLocation'

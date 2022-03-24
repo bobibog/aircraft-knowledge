@@ -22,6 +22,15 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     const[lati2, setLat2] = useState(-90);
     const[loni1, setLon1] = useState(180);
     const[loni2, setLon2] = useState(-180);
+    
+    //START ZOOM = 5
+    const[alt1, setAlt1] = useState(10500);
+    const[alt2, setAlt2] = useState(16000);
+
+    // Icon dimensions at zoom 5
+    const[lengthPix, setLengthPix] = useState(18);
+    const[widthPix, setWidthPix] = useState(18);
+    
     const[zoomi, setZoom] = useState(0);
 
     //console.log(zoomi);
@@ -58,17 +67,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
                 setLon1(lon1);
                 setLon2(lon2);
                 setZoom(zoom);
-                // console.log(
-                //     'center=' + center +'\n'+
-                //     'lon1='+lon1 +'\n'+
-                //     'lon2='+lon2+'\n'+
-                //     'lat1='+lat1+'\n'+
-                //     'lat2='+lat2+'\n'+
-                //     'width=' + width +'\n'+
-                //     'height=' + height +'\n'+
-                //     'Screen size in pixels=' + map.getSize() +'\n'+
-                //     'Zoom ='+zoom
-                // );
+                
             });                
           },     
         
@@ -93,17 +92,82 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
                 setLon1(lon1);
                 setLon2(lon2);
                 setZoom(zoom);
-                // console.log(
-                //     'center=' + center +'\n'+
-                //     'lon1='+lon1 +'\n'+
-                //     'lon2='+lon2+'\n'+
-                //     'lat1='+lat1+'\n'+
-                //     'lat2='+lat2+'\n'+
-                //     'width=' + width +'\n'+
-                //     'height=' + height +'\n'+
-                //     'Screen size in pixels=' + map.getSize() +'\n'+
-                //     'Zoom ='+zoom
-                // );
+                
+                if(zoom <= 2)
+                {
+                    setAlt1(12500);
+                    setAlt2(20000);
+                    setLengthPix(10);
+                    setWidthPix(10);
+                }
+                if(zoom == 3)
+                {
+                    setAlt1(12000);
+                    setAlt2(20000);
+                    setLengthPix(12);
+                    setWidthPix(12);
+                }
+                if(zoom == 4)
+                {
+                    setAlt1(11500);
+                    setAlt2(20000);
+                    setLengthPix(15);
+                    setWidthPix(15);
+                }
+                if(zoom == 5)
+                {
+                    setAlt1(10500);
+                    setAlt2(20000);
+                    setLengthPix(18);
+                    setWidthPix(18);
+                }
+                if(zoom == 6)
+                {
+                    setAlt1(9500);
+                    setAlt2(20000);
+                    setLengthPix(20);
+                    setWidthPix(20);
+                }
+                if(zoom == 7)
+                {
+                    setAlt1(8500);
+                    setAlt2(20000);
+                    setLengthPix(25);
+                    setWidthPix(25);
+                }
+                if(zoom == 8)
+                {
+                    setAlt1(6000);
+                    setAlt2(20000);
+                    setLengthPix(30);
+                    setWidthPix(30);
+                }
+                if(zoom == 9)
+                {
+                    setAlt1(1000);
+                    setAlt2(20000);
+                    setLengthPix(32);
+                    setWidthPix(32);
+                }
+                if(zoom >= 10)
+                {
+                    setAlt1(0);
+                    setAlt2(20000);
+                    setLengthPix(35);
+                    setWidthPix(35);
+                }
+                
+                console.log(
+                    'center=' + center +'\n'+
+                    'lon1='+lon1 +'\n'+
+                    'lon2='+lon2+'\n'+
+                    'lat1='+lat1+'\n'+
+                    'lat2='+lat2+'\n'+
+                    'width=' + width +'\n'+
+                    'height=' + height +'\n'+
+                    'Screen size in pixels=' + map.getSize() +'\n'+
+                    'Zoom ='+zoom
+                );
             });                
           },     
         
@@ -128,6 +192,10 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
                 lat2 = {lati2}
                 lon1 = {loni1}
                 lon2 = {loni2}
+                alt1 = {alt1}
+                alt2 = {alt2}
+                lengthPix = {lengthPix}
+                widthPix = {widthPix}
             />
             
             <StaticMarkers 

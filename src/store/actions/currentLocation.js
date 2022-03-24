@@ -43,6 +43,27 @@ export const fetchStatesStart = () => {
     }
 };
 
+export const fetchOpenSkysStart = () => {
+    return {
+        type: actionTypes.FETCH_OPENSKYS_START
+    }
+};
+
+export const fetchOpenSkysFail = (error) => {
+    return {
+        type: actionTypes.FETCH_OPENSKYS_FAIL,
+        error: error
+    }
+};
+
+export const fetchOpenSkysSuccess = (openSkys) => {
+    return {
+        type: actionTypes.FETCH_OPENSKYS_SUCCESS,
+        openSkys: openSkys,        
+    }
+};
+
+// Data fetched by our transponder
 export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
     return dispatch => {
         dispatch(fetchCurrentLocationStart());        
@@ -67,6 +88,7 @@ export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
     }
 };
 
+// OpenSky API - directly
 export const fetchCurrentLocations2 = (lamin, lomin, lamax, lomax) => {
     return dispatch => {
         dispatch(fetchStatesStart());        
@@ -93,3 +115,29 @@ export const fetchCurrentLocations2 = (lamin, lomin, lamax, lomax) => {
     }
 };
 
+// OpenSky data  -  Our API
+export const fetchOpenSkyCurrentLocations = (lat1, lat2, lon1, lon2, alt1, alt2) => {
+    return dispatch => {
+        dispatch(fetchOpenSkysStart());        
+          
+        const query = new URLSearchParams(); 
+            query.append('latitude1', lat2);
+            query.append('latitude2', lat1);           
+            query.append('longitude1', lon2);
+            query.append('longitude2', lon1);  
+            query.append('baro_altitude1', alt1);  
+            query.append('baro_altitude2', alt2);  
+                                 
+        let queryString = query;
+         
+            axios.get(`/OpenSkyFlightsCurrentLocation?`+queryString)
+                .then(response => {                
+                    dispatch(fetchOpenSkysSuccess(response.data['openSkys']))                 
+                })
+                .catch(error => {
+                    dispatch(fetchOpenSkysFail(error));                                
+                })
+                       
+        
+    }
+};
