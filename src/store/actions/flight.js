@@ -48,9 +48,9 @@ export const fetchFlights = (offset, limit, aircraftId) => {
             : '';
 
         if (aircraftId) {
-            axios.get('/flight/getflightsforaircraft/' + aircraftId + queryString)
+            axios.get('/flight/getflightsforaircraft/' + aircraftId)            
                 .then(response => {                    
-                    dispatch(fetchFlightsSuccess(response.data['flights'], response.data['flightsCount']));
+                    dispatch(fetchFlightsSuccess(response.data['flights']));
                 })
                 .catch(error => {
                     dispatch(fetchFlightsFail(error));               

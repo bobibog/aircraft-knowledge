@@ -59,6 +59,26 @@ export const fetchRoutesStart = () => {
     }
 };
 
+export const fetchMetarSuccess = (metar) => {
+    return {
+        type: actionTypes.FETCH_METARS_SUCCESS,
+        metar: metar
+    }
+};
+
+export const fetchMetarFail = (error) => {
+    return {
+        type: actionTypes.FETCH_METARS_FAIL,
+        error: error
+    }
+};
+
+export const fetchMetarStart = () => {
+    return {
+        type: actionTypes.FETCH_METARS_START
+    }
+};
+
 // export const fetchAirports = (offset, limit, airportId, airportName, iata, city, country, airportNameDesc, airportNameAsc, iataDesc, iataAsc, cityDesc, cityAsc, countryDesc, countryAsc) => {
 //     return dispatch => {
 //         dispatch(fetchAirportsStart());
@@ -293,6 +313,31 @@ export const fetchAirportsStatistic = (icao) => {
         //     });
         
     }
+};
+
+// Airport METAR - data
+export const fetchMetar = (icao) => {
+    return dispatch => {
+        dispatch(fetchMetarStart());        
+        
+        const token = 'exj21Y10ssanxJuwdpR-2yu8If_c4QR4gukeqD1O18Y';
+       
+        var url = 'https://avwx.rest/api/metar/';
+        //var url =  'https://api.weather.gov/points/';   
+
+          axios2.get(url + icao, {headers: {
+                Authorization: 'BEARER ' + token}})
+            .then( response => {
+            dispatch(fetchMetarSuccess(response.data))
+            console.log('Metar -'+response.data)
+          })
+          .catch(error => {
+              dispatch(fetchMetarFail(error));
+              console.error(error);
+          });      
+        
+    }
+
 };
 
 

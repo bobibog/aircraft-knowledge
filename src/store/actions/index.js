@@ -43,7 +43,8 @@ export {
     fetchLargeAirports,
     fetchLargeAndMediumAirports,
     fetchAllAirports,
-    fetchAirportsStatistic
+    fetchAirportsStatistic,
+    fetchMetar
 } from './airport';
 
 export {
@@ -93,5 +94,6 @@ export {
 
 export {
     fetchCurrentLocations,
-    fetchCurrentLocations2
+    fetchCurrentLocations2,
+    fetchOpenSkyCurrentLocations
 } from './currentLocation'

@@ -21,23 +21,27 @@ const StaticMarkers = (props) => {
     
     const routes = useSelector(state =>{
         return state.airport.routes;
-    })
+    });
+
+    const metar = useSelector(state => {
+        return state.airport.metar;
+    });
 
     let dest = null;
     
-    if(routes!=null){
-        let f = routes.map((adf)=>{
-        return adf.averageDailyFlights;
-        });
+    // if(routes!=null){
+    //     let f = routes.map((adf)=>{
+    //     return adf.averageDailyFlights;
+    //     });
 
-        dest = routes.map((dst)=>{
-            let destinations = dst.destination.name.toString();            
-            return destinations;
-        })  
+    //     dest = routes.map((dst)=>{
+    //         let destinations = dst.destination.name.toString();            
+    //         return destinations;
+    //     })  
         
-    }      
+    // }  
     
-    console.log(dest);
+       
 
     const loading = useSelector(state => {
         return state.airport.airportsLoading;
@@ -47,8 +51,10 @@ const StaticMarkers = (props) => {
     const[airportName, setAirportName] = useState('');
     const[city, setCity] = useState('');
     const[icao, setIcao] = useState('');
+    const[latitude, setLatitude] = useState('');
+    const[longitude, setLongitude] = useState('');
      
-    console.log(icao);
+    //console.log(icao);
         
     const dispatch = useDispatch();
 
@@ -71,6 +77,11 @@ const StaticMarkers = (props) => {
         () => dispatch(actions.fetchAirportsStatistic(icao))
         , [dispatch, icao]
     );
+
+    const onFetchMetars = useCallback(
+        () => dispatch(actions.fetchMetar(icao))
+        , [dispatch, icao]
+    );
         
     useEffect(() => { 
         const timer = setTimeout(() => {
@@ -88,8 +99,12 @@ const StaticMarkers = (props) => {
         
     }, [props.zoom, props.lat1, props.lat2, props.lon1, props.lon2]);
 
+    // useEffect(()=>{
+    //     onFetchRoutes();
+    // }, [icao]);
+
     useEffect(()=>{
-        onFetchRoutes();
+        onFetchMetars();
     }, [icao]);
 
     var LeafIcon = L.Icon.extend({
@@ -119,6 +134,8 @@ const StaticMarkers = (props) => {
                 eventHandlers={{
                     click: () => {
                     setIcao(airportLocation.airportICAO)
+                    // setLatitude(airportLocation.latitudeDeg);
+                    // setLongitude(airportLocation.longitudeDeg);
                     },
                 }}
             >
@@ -131,6 +148,11 @@ const StaticMarkers = (props) => {
                         ICAO/IATA = {airportLocation.airportICAO ? airportLocation.airportICAO : "-"} / {airportLocation.airportIata ? airportLocation.airportIata : "-" }
                         <br/>
                         {/* DESTINATIONS = {dest} */}
+                        Temperature = {metar != null ? metar.temperature.value+' °C' : "/"} 
+                        <br/>
+                        Relative humidity = {metar != null ? metar.relative_humidity : "/"}
+                        <br />
+                        Visibility = {metar != null ? metar.visibility.value + ' m' : "/"}
                     </div>                    
                 </Popup>
                 

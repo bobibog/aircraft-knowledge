@@ -78,6 +78,37 @@ const RotatedMarkerOpenSky = forwardRef(({ children, ...props }, forwardRef) => 
     );
 });
 
+const RotatedMarkerOpenSkyOurAPI = forwardRef(({ children, ...props }, forwardRef) => {
+  const markerRef = useRef();
+
+  const { rotationAngle, rotationOrigin } = props;
+  useEffect(() => {
+    const marker3 = markerRef.current;
+    if (marker3) {
+      marker3.setRotationAngle(rotationAngle);
+      marker3.setRotationOrigin(rotationOrigin);
+    }
+  }, [rotationAngle, rotationOrigin]);
+ 
+
+  return (
+    <Marker
+      ref={(ref) => {
+        
+        markerRef.current = ref;
+        if (forwardRef) {
+          forwardRef.current = ref;
+          
+        }
+      }}
+      {...props}
+      
+    >
+      {children}
+    </Marker>
+  );
+});
+
 
 const DinamicMarkers = (props) => {
     
@@ -88,8 +119,13 @@ const DinamicMarkers = (props) => {
     const states = useSelector(state => {
         return state.currentLocation.states;
     });  
+
+    const openSkys = useSelector(state =>{
+      return state.currentLocation.openSkys;
+    })
     
-    console.log('OPNSKY='+states);
+    
+    //console.log('OPNSKY='+openSkys);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
@@ -97,13 +133,15 @@ const DinamicMarkers = (props) => {
     
     const aircraftJson = useSelector(state => {
       return state.aircraft.aircraftJson;  
-    });
-
-       
+    });       
 
     const loadingStates = useSelector(state => {
         return state.currentLocation.statesLoading;
     });
+
+    const loadingOpenSkyAPI = useSelector(state =>{
+      return state.currentLocation.openSkyAPIloading;
+    })
 
     const[previousAngle, setPreviousAngle]= useState(0);
 
@@ -163,10 +201,17 @@ const DinamicMarkers = (props) => {
         , [dispatch, props.lat1, props.lat2, props.lon1, props.lon2]
     );
 
+    // OpenSky - Directly
     const onFetchCurrentLocations2 = useCallback(
         () => dispatch(actions.fetchCurrentLocations2(props.lat2, props.lon2, props.lat1, props.lon1))
         , [dispatch, props.lat2, props.lon2, props.lat1, props.lon1]
     );
+
+    // OpenSky - our API
+    const onFetchOpenSkyCurrentLocations = useCallback(
+      () => dispatch(actions.fetchOpenSkyCurrentLocations(props.lat1, props.lat2, props.lon1, props.lon2, props.alt1, props.alt2))
+      , [dispatch, props.lat1, props.lat2, props.lon1, props.lon2, props.alt1, props.alt2]
+  );
 
     const onFetchAircraftRegistration = useCallback(
       () => dispatch(actions.fetchAircraftRegistration(icao))
@@ -178,11 +223,12 @@ const DinamicMarkers = (props) => {
         const interval = setInterval(()=>
         { 
             onFetchCurrentLocations();     
-            onFetchCurrentLocations2();         
-           
+            //onFetchCurrentLocations2();         
+            onFetchOpenSkyCurrentLocations();
+
         }, 5000);
         return () => clearInterval(interval);         
-    }, [props.lat1, props.lat2, props.lon1, props.lon2]);
+    }, [props.lat1, props.lat2, props.lon1, props.lon2, props.alt1, props.alt2]);
 
     useEffect(()=>{
       onFetchAircraftRegistration();
@@ -191,7 +237,7 @@ const DinamicMarkers = (props) => {
 
     var LeafIcon = L.Icon.extend({
         options: {
-            iconSize: [30,30],
+            iconSize: [props.lengthPix,props.widthPix],
         },
     });
 
@@ -201,6 +247,7 @@ const DinamicMarkers = (props) => {
         
     let marker = <Spinner />
     let marker2 = <Spinner />
+    let marker3 = <Spinner />
 
     if(currentLocations && !loading){
         
@@ -239,60 +286,99 @@ const DinamicMarkers = (props) => {
     }
 
     // OpenSky Markeri
-    if(states && !loadingStates){  
+    // if(states && !loadingStates){  
         
-        let array = states.map((nested)=>{
-            return nested;
-        });
+    //     let array = states.map((nested)=>{
+    //         return nested;
+    //     });
 
-        let segment = array.map((x)=>{
-            return x;
-        })
+    //     let segment = array.map((x)=>{
+    //         return x;
+    //     })
         
-        marker2 = segment.map((st, i)=>(           
+    //     marker2 = segment.map((st, i)=>(           
             
-          <RotatedMarkerOpenSky 
-                key={`dr-${i}`}
-                icon={openSkyIcon}                
+    //       <RotatedMarkerOpenSky 
+    //             key={`dr-${i}`}
+    //             icon={openSkyIcon}                
                 
-                 position={[                    
-                    st[6] ? st[6] : 0,
-                    st[5] ? st[5] : 0                   
+    //              position={[                    
+    //                 st[6] ? st[6] : 0,
+    //                 st[5] ? st[5] : 0                   
                     
-                ]}                 
-                rotationAngle = {st[10]}
-                rotationOrigin= 'center center'
+    //             ]}                 
+    //             rotationAngle = {st[10]}
+    //             rotationOrigin= 'center center'
 
-                eventHandlers={{
-                    click: () => {
-                    setIcao(st[0])
-                    },
-                }}
+    //             eventHandlers={{
+    //                 click: () => {
+    //                 setIcao(st[0])
+    //                 },
+    //             }}
                 
-            >                 
-                <Popup className={classes.popupContainer}>
-                    <div className={classes.popup}>
-                        ICAO = {st[0]}
-                        <br />                       
-                        {/* Registration = {aircraftJson.registration} */}
-                        <br />
-                        Origin Country = {st[2]}
-                        <br />
-                        Velocity(m/s) = {st[9]} 
-                        <br />                        
-                        Vertical Rate(m/s) = {st[11]}                        
-                    </div>
+    //         >                 
+    //             <Popup className={classes.popupContainer}>
+    //                 <div className={classes.popup}>
+    //                     ICAO = {st[0]}
+    //                     <br />                       
+    //                     {/* Registration = {aircraftJson.registration} */}
+    //                     <br />
+    //                     Origin Country = {st[2]}
+    //                     <br />
+    //                     Velocity(m/s) = {st[9]} 
+    //                     <br />                        
+    //                     Vertical Rate(m/s) = {st[11]}                        
+    //                 </div>
                     
-                </Popup>
-            </RotatedMarkerOpenSky>))               
+    //             </Popup>
+    //         </RotatedMarkerOpenSky>))               
                  
-    }             
+    // }             
     
+
+    // OpenSky - our API
+    if(openSkys && !loadingOpenSkyAPI){
+        
+      marker3 = openSkys.map((openSky)=>(
+                      
+          <RotatedMarkerOpenSkyOurAPI 
+              key={openSky.id}
+              icon={openSkyIcon}
+              position={[                    
+                openSky.latitude ? openSky.latitude : 0,
+                openSky.longitude ? openSky.longitude : 0
+              ]}               
+              
+              //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+              rotationAngle = {openSky.true_track}
+              rotationOrigin= 'center center'
+              eventHandlers={{
+                  click: () => {
+                  setIcao(openSky.icao24)
+                  },
+              }}
+              
+          >            
+              
+              <Popup className={classes.popupContainer}>
+                  <div className={classes.popup}>
+                      ICAO = {openSky.icao24}                         
+                      <br/>
+                      Callsign = {openSky.callsign}
+                      <br/>
+                      Altitude = {openSky.baro_altitude} m
+                  </div>
+                  
+              </Popup>
+          </RotatedMarkerOpenSkyOurAPI>
+          
+    ))
+  }
 
     return (
         <div>
             {marker}
-            {marker2}
+            {marker3}
         </div>
     )
 }

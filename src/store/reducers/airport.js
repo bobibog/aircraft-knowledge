@@ -11,7 +11,10 @@ const initialState = {
     airportsPage: 0,
     routes: null,
     routesCount: null,
-    routesLoading: false
+    routesLoading: false,
+    metar : null,
+    metarsCount: null,
+    metarsLoading: false
 };
 
 const setAirportsOffsetLimit = (state, action) => {
@@ -67,6 +70,24 @@ const fetchRoutesFail = (state, action) => {
     });
 };
 
+// METAR
+const fetchMetarStart = (state, action) => {
+    return updateObject(state, {
+        metarsLoading: true
+    });
+};
+const fetchMetarSuccess = (state, action) => {
+    return updateObject(state, {
+        metar: action.metar,
+        metarsLoading: false
+    });
+};
+const fetchMetarFail = (state, action) => {
+    return updateObject(state, {
+        metarsLoading: false
+    });
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AIRPORTS_OFFSET_LIMIT: return setAirportsOffsetLimit(state, action);
@@ -78,6 +99,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_ROUTES_START: return fetchRoutesStart(state, action);
         case actionTypes.FETCH_ROUTES_SUCCESS: return fetchRoutesSuccess(state, action);
         case actionTypes.FETCH_ROUTES_FAIL: return fetchRoutesFail(state, action);
+
+        case actionTypes.FETCH_METARS_START: return fetchMetarStart(state, action);
+        case actionTypes.FETCH_METARS_SUCCESS: return fetchMetarSuccess(state, action);
+        case actionTypes.FETCH_METARS_FAIL: return fetchMetarFail(state, action);
+
         default: return state;
     }
 };
