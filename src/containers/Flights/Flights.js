@@ -37,6 +37,14 @@ const Flights = props => {
         return state.flight.flightsPage;
     });
 
+    var flightsFirstCount = 0;
+
+    if(flights != null){
+        flightsFirstCount = flights.length;
+        console.log("Br Letova = "+flightsFirstCount);
+    }
+    
+
     const dispatch = useDispatch();
 
     const onFetchFlights = useCallback((aircraftId) => dispatch(actions.fetchFlights(offset, limit, aircraftId)), [dispatch, offset, limit]);
@@ -65,8 +73,7 @@ const Flights = props => {
 
     const setAirlinesPageHandler = page => {
         onSetFlightsPage(page);
-    }
-    
+    }    
 
     useEffect(() => {
         onFetchFlights(match.params.id);
@@ -145,7 +152,7 @@ const Flights = props => {
             header={flightHeader}
             rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
-            totalDataCount={flightsCount}
+            totalDataCount={flightsFirstCount}
             setPageStore={setAirlinesPageHandler}
             currPage={page} />;        
     };    

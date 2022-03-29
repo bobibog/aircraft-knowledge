@@ -366,7 +366,7 @@ const DinamicMarkers = (props) => {
                       <br/>
                       Callsign = {openSky.callsign}
                       <br/>
-                      Altitude = {openSky.baro_altitude}
+                      Altitude = {openSky.baro_altitude} m
                   </div>
                   
               </Popup>

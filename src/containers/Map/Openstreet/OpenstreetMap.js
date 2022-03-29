@@ -11,12 +11,12 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import markerIcon from '../../../assets/images/airplane-2-multi-size.ico';
 import DinamicMarkers from './DinamicMarkers';
 import StaticMarkers from './StaticMarkers';
+import ButtonMap from 'react-bootstrap/Button';
 
 
 const position = [45.0, 25.0];
 
-const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
-    
+const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {    
     
     const[lati1, setLat1] = useState(90);
     const[lati2, setLat2] = useState(-90);
@@ -30,10 +30,84 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
     // Icon dimensions at zoom 5
     const[lengthPix, setLengthPix] = useState(18);
     const[widthPix, setWidthPix] = useState(18);
-    
+
     const[zoomi, setZoom] = useState(0);
 
     //console.log(zoomi);
+    
+    var[tail, setTail]= useState('openAIP'); 
+    var[tailLayer, setTailLayer] = useState();
+
+    const onButton1 = (e) =>{
+       
+        setTail('main');
+     }
+    const onButton2 = (e) =>{
+        
+        setTail('deLome');
+     }
+
+    useEffect(()=>{
+        
+        if(tail == 'main')
+        {
+            setTailLayer(<TileLayer        
+            // GLAVNI TAJL    
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            />)
+        }
+        if(tail == 'deLome')
+        {
+            setTailLayer(<TileLayer url = "https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution = 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme' />)
+        }
+        if(tail == 'topographic'){
+            setTailLayer(<TileLayer 
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution = "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
+            />)
+        }
+        if(tail == 'topo2'){
+            setTailLayer(<TileLayer 
+                 url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+            attribution = 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            />)
+        }
+        if(tail == 'worldImagery'){
+            setTailLayer(<TileLayer 
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            attribution = "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+            />)
+        }
+        if(tail == 'ocean'){
+            setTailLayer(<TileLayer 
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}"
+            attribution = "Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri"
+            />)
+        }
+        if(tail == 'natGeo'){
+            setTailLayer(<TileLayer 
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution = "Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC"
+            />)
+        }
+        if(tail == 'openAIP'){            
+           setTailLayer(<div><TileLayer 
+            url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            /><TileLayer 
+            url = "https://{s}.tile.maps.openaip.net/geowebcache/service/tms/1.0.0/openaip_basemap@EPSG%3A900913@png/{z}/{x}/{y}.{ext}"
+            attribution = '<a href="https://www.openaip.net/">openAIP Data</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-NC-SA</a>)'
+            ext = 'png'
+            tms = 'true'
+            detectRetina = 'true'
+	        subdomains = '12'
+            minZoom = '4'
+	        maxZoom = '14'
+        /></div>)
+        }
+        }, [tail]);
 
     const markerRef = useRef(null);
 
@@ -173,17 +247,21 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
         
         })
         return null
-    };
+    };   
     
     
+    // TAJLOVI - http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 
-    let  mapContainer = <MapContainer center={position} zoom={5} className={classes.mapContainer} scrollWheelZoom={true}>
-        <TileLayer 
-            //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-            //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />       
+    let  mapContainer = 
+    <div>
+    {/* <ButtonMap className={classes.buttonMap1} onClick= {onButton1}>Main</ButtonMap>
+    <ButtonMap className={classes.buttonMap1} onClick= {onButton2}>DeLome</ButtonMap> */}
+    <MapContainer center={position} zoom={5} className={classes.mapContainer} scrollWheelZoom={true} >
+        
+        {
+            tailLayer
+        }
+        
             <MapDragInfo />
             <MapZoomInfo />
             <DinamicMarkers 
@@ -205,13 +283,12 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
                 lon1 = {loni1}
                 lon2 = {loni2}
             />
+            
         </MapContainer>   
-    
-
-    
+        </div>    
     
     return (
-        <div>           
+        <div>               
             {mapContainer}             
         </div>
         
