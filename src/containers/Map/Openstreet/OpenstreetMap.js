@@ -35,7 +35,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 
     //console.log(zoomi);
     
-    var[tail, setTail]= useState('openAIP'); 
+    var[tail, setTail]= useState('main'); 
     var[tailLayer, setTailLayer] = useState();
 
     const onButton1 = (e) =>{
