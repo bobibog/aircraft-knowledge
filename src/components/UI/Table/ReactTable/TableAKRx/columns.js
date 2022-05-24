@@ -22,7 +22,8 @@ function replacer(key, value) {
 export const COLUMNS = [
     {
         Header: "UTC Date/Time",
-        accessor: "acarsMessageDateTime", 
+        //accessor: "acarsMessageDateTime", 
+        accessor: "acarsDateTime", 
         // Local Date Time       
         //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
         //UTC
