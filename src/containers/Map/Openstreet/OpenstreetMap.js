@@ -14,6 +14,7 @@ import StaticMarkers from './StaticMarkers';
 import ButtonMap from 'react-bootstrap/Button';
 
 
+
 const position = [45.0, 25.0];
 
 const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {    
@@ -35,7 +36,7 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 
     //console.log(zoomi);
     
-    var[tail, setTail]= useState('main'); 
+    var[tail, setTail]= useState('worldImagery'); 
     var[tailLayer, setTailLayer] = useState();
 
     const onButton1 = (e) =>{
@@ -49,12 +50,11 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
 
     useEffect(()=>{
         
-        if(tail == 'main')
-        {
-            setTailLayer(<TileLayer        
-            // GLAVNI TAJL    
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+        
+        if(tail == 'natGeo'){
+            setTailLayer(<TileLayer 
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution = "Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC"
             />)
         }
         if(tail == 'deLome')
@@ -62,51 +62,103 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
             setTailLayer(<TileLayer url = "https://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}"
             attribution = 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme' />)
         }
-        if(tail == 'topographic'){
+        if(tail == 'topo2'){
             setTailLayer(<TileLayer 
                  url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
             attribution = "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community"
             />)
         }
-        if(tail == 'topo2'){
+        //1. Basic - Pocetni tajl
+        if(tail == 'main')
+        {
+            setTailLayer(<TileLayer               
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            />)
+        }       
+        //2. Topography
+        if(tail == 'topographic'){
             setTailLayer(<TileLayer 
-                 url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
-            attribution = 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+                 url = 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}'
+                attribution = 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
             />)
         }
-        if(tail == 'worldImagery'){
-            setTailLayer(<TileLayer 
-                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            attribution = "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-            />)
-        }
+       //3. Oceans
         if(tail == 'ocean'){
             setTailLayer(<TileLayer 
                  url = "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}"
-            attribution = "Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri"
+                attribution = "Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri"
             />)
-        }
-        if(tail == 'natGeo'){
+        }  
+        
+        // 4. Streets
+        if(tail == 'streets'){
             setTailLayer(<TileLayer 
-                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
-            attribution = "Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC"
+                 url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+                attribution = "Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012"
             />)
+        }       
+        
+        //5. World Imagery
+        if(tail == 'worldImagery'){
+            setTailLayer(<div><TileLayer 
+                url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                attribution = "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+                />
+                
+                </div>)
         }
+        //6. World at night
+        if(tail == 'worldAtNight'){
+            setTailLayer(<div><TileLayer 
+                url = "https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}"
+                attribution = "Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href='https://earthdata.nasa.gov'>ESDIS</a>) with funding provided by NASA/HQ."
+                //bounds = [-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]
+	            minZoom= '1'
+	            maxZoom= '8'
+	            format= 'jpg'
+	            time= ''
+	            tilematrixset= 'GoogleMapsCompatible_Level'
+
+                /><TileLayer 
+                url = "https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png"
+                attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                subdomains = 'abcd'
+                maxZoom = '20'
+            /></div>)
+        }
+        // Dark Layer
+        if(tail == 'darkLayer'){
+            setTailLayer(<div><TileLayer 
+                url = "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
+                attribution = "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
+                subdomains = 'abcd'
+                maxZoom = '20'
+
+                /><TileLayer 
+                url = "https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png"
+                attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                subdomains = 'abcd'
+                maxZoom = '20'
+            /></div>)
+        }  
+        // FIR/ATC Boundaries
         if(tail == 'openAIP'){            
-           setTailLayer(<div><TileLayer 
-            url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-            attribution = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-            /><TileLayer 
-            url = "https://{s}.tile.maps.openaip.net/geowebcache/service/tms/1.0.0/openaip_basemap@EPSG%3A900913@png/{z}/{x}/{y}.{ext}"
-            attribution = '<a href="https://www.openaip.net/">openAIP Data</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-NC-SA</a>)'
-            ext = 'png'
-            tms = 'true'
-            detectRetina = 'true'
-	        subdomains = '12'
-            minZoom = '4'
-	        maxZoom = '14'
-        /></div>)
-        }
+            setTailLayer(<div><TileLayer 
+             url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+             attribution = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+             /><TileLayer 
+             url = "https://{s}.tile.maps.openaip.net/geowebcache/service/tms/1.0.0/openaip_basemap@EPSG%3A900913@png/{z}/{x}/{y}.{ext}"
+             attribution = '<a href="https://www.openaip.net/">openAIP Data</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-NC-SA</a>)'
+             ext = 'png'
+             tms = 'true'
+             detectRetina = 'true'
+             subdomains = '12'
+             minZoom = '4'
+             maxZoom = '14'
+         /></div>)
+         }
+
         }, [tail]);
 
     const markerRef = useRef(null);
@@ -242,7 +294,8 @@ const OpenstreetMap = ({center, draggable, onDragMarker, location}) => {
                     'Screen size in pixels=' + map.getSize() +'\n'+
                     'Zoom ='+zoom
                 );
-            });                
+            });    
+                      
           },     
         
         })

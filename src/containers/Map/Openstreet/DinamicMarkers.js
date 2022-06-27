@@ -125,7 +125,7 @@ const DinamicMarkers = (props) => {
     })
     
     
-    //console.log('OPNSKY='+openSkys);
+    console.log('OPNSKY='+openSkys);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;
@@ -257,6 +257,7 @@ const DinamicMarkers = (props) => {
                 key={currentLocation.id}
                 icon={customIcon}
                 position={[                    
+                    
                     currentLocation.lat ? currentLocation.lat : 0,
                     currentLocation.lon ? currentLocation.lon : 0
                 ]}               
@@ -345,8 +346,10 @@ const DinamicMarkers = (props) => {
               key={openSky.id}
               icon={openSkyIcon}
               position={[                    
-                openSky.latitude ? openSky.latitude : 0,
-                openSky.longitude ? openSky.longitude : 0
+                
+                  openSky.longitudePrevious != null  ? (openSky.latitude ? openSky.latitude : 0) : null,
+                  openSky.latitudePrevious != null ?  (openSky.longitude ? openSky.longitude : 0) : null                  
+                
               ]}               
               
               //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
