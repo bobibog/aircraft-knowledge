@@ -347,8 +347,8 @@ const DinamicMarkers = (props) => {
               icon={openSkyIcon}
               position={[                    
                 
-                openSky.latitudePrevious != null ? openSky.latitude : 0,
-                openSky.longitudePrevious != null ? openSky.longitude : 0                 
+                openSky.latitude != null ? openSky.latitude : 0,
+                openSky.longitude != null ? openSky.longitude : 0                 
                   
               ]}               
               
