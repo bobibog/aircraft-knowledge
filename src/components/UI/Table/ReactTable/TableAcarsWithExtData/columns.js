@@ -44,6 +44,12 @@ export const COLUMNS = [
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
     {
+        Header: "Aggregated Text",
+        accessor: "aggregatedText",
+        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
+          
+    },
+    {
         Header: "Mode",
         accessor: "mode"
     },

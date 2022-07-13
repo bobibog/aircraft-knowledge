@@ -103,59 +103,65 @@ const Styles = styled.div`
         white-space: pre-wrap;               
       }
       :nth-child(5){          
-        width:100px !important;
-        word-break: break-word;             
+        width:420px !important;
+        word-break: break-word !important; 
+        font-family: monospace;          
+        white-space: pre-wrap;               
       }
       :nth-child(6){          
         width:100px !important;
         word-break: break-word;             
       }
       :nth-child(7){          
-        width:90px !important;
-        word-break: break-word;                     
+        width:100px !important;
+        word-break: break-word;             
       }
       :nth-child(8){          
         width:90px !important;
         word-break: break-word;                     
       }
       :nth-child(9){          
-        width:150px !important;
+        width:90px !important;
         word-break: break-word;                     
       }
       :nth-child(10){          
-        width:120px !important;
+        width:150px !important;
         word-break: break-word;                     
       }
       :nth-child(11){          
-        width:110px !important;
+        width:120px !important;
         word-break: break-word;                     
       }
       :nth-child(12){          
-        width:60px !important;
+        width:110px !important;
         word-break: break-word;                     
       }
       :nth-child(13){          
+        width:60px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(14){          
         width:150px !important;
         word-break: break-word;                     
       }
       
-      :nth-child(14){          
+      :nth-child(15){          
         width:120px !important;
         word-break: break-word;                     
        }
-      :nth-child(15){          
+      :nth-child(16){          
         width:100px !important;
         word-break: break-word;                     
        }
-       :nth-child(16){          
+       :nth-child(17){          
         width:160px !important;
         word-break: break-word;                     
        }
-       :nth-child(17){          
+       :nth-child(18){          
         width:60px !important;
         word-break: break-word;                     
        }
-       :nth-child(18){          
+       :nth-child(19){          
         width:60px !important;
         word-break: break-word;                     
        }

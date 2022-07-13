@@ -54,6 +54,7 @@ const AcarsWithExtData = props => {
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');
+    const[aggregatedText, setAggregatedText] = useState('');
 
 
     const dispatch = useDispatch();
@@ -61,10 +62,10 @@ const AcarsWithExtData = props => {
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtData(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode ))
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText ))
         , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode ]
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode , aggregatedText]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimit(offset, limit));    
@@ -81,7 +82,7 @@ const AcarsWithExtData = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode) => {  
+        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
@@ -103,6 +104,7 @@ const AcarsWithExtData = props => {
         setSerialNumber(serialNumber);        
         setAircraftType(aircraftType);
         setTypeCode(typeCode);
+        setAggregatedText(aggregatedText);
     };
     
     
@@ -127,7 +129,8 @@ const AcarsWithExtData = props => {
         setOperatorIcao('');
         setSerialNumber('');        
         setAircraftType('');
-        setTypeCode('');      
+        setTypeCode('');   
+        setAggregatedText('');   
         
         setAllOption(0);    
     };    

@@ -55,7 +55,8 @@ const  SearchAcarsWithExtData = (props) => {
     const[operatorIcao, setOperatorIcao] = useState('');
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
-    const[typeCode, setTypeCode] = useState('');     
+    const[typeCode, setTypeCode] = useState('');   
+    const[aggregatedText, setAggregatedText] = useState(''); 
     
 
     const dispatch = useDispatch();
@@ -213,6 +214,7 @@ const  SearchAcarsWithExtData = (props) => {
         setSerialNumber('');        
         setAircraftType('');
         setTypeCode(''); 
+        setAggregatedText('');
         setValueName(null);
         setValueIATA(null);
         setValueICAO(null);
@@ -221,6 +223,7 @@ const  SearchAcarsWithExtData = (props) => {
         setValueOperatorICAO(null);
         setValueAircraftTypeFull(null);
         setValueTypeCode(null);
+        
 
         setDateFromErr({});
         setDateToErr({});
@@ -335,7 +338,7 @@ const  SearchAcarsWithExtData = (props) => {
         }
     }
 
-    // Dropdow  Staus 
+    // Dropdown  Staus 
     const[dropStatus, setDropStatus]=useState(0);
     function dropChanger(dropStatus){
         if(dropStatus==0){
@@ -540,6 +543,11 @@ const  SearchAcarsWithExtData = (props) => {
         type:'text',
         placeholder:'Type Code',
         //disabled: disabled        
+    }
+    const aggregatedTextInputConfig = {
+        type:'text',
+        placeholder:'Aggregated Text',
+             
     }    
     
     // Changing Dropdown Button title according to event (search or reset click)
@@ -587,7 +595,7 @@ const  SearchAcarsWithExtData = (props) => {
     const onSerach = (e) =>{
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, tail,  flight, text, 
             mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode);
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText);
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -916,7 +924,19 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {serialNumberInputConfig}                                                                                                               
                                     />
                                 </InputGroup>
-                                
+                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggregatedText}                                        
+                                        changed={(e)=> setAggregatedText(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {aggregatedTextInputConfig}                                                                                                           
+                                    />
+                                </InputGroup>
                                                                                             
                             </div>
                             <div className={classes.buttonBox}>
