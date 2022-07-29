@@ -92,6 +92,8 @@ const Auth = props => {
     
     var isRole = authContext.user.role;
 
+    var isParser = authContext.user.role;
+
     const submitHandler = (e) => {
         e.preventDefault();          
         authContext.authenticate( authForm.username.value, authForm.password.value);                
@@ -157,7 +159,11 @@ const Auth = props => {
     {
         authRedirect = <Redirect to="/administrator"/>
     }
-    if(isAuthenticated && isTermed== 1 && isRole!='Admin' )
+    if(isRole=='Parser' && isAuthenticated)
+    {
+        authRedirect = <Redirect to="/parser"/>
+    }
+    if(isAuthenticated && isTermed== 1 && isRole!='Admin' && isRole != 'Parser' )
     {
         authRedirect = <Redirect to="/akrx"/>
     }

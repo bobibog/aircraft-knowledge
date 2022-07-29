@@ -78,6 +78,10 @@ export {
     getUser
 } from './user';
 
+export{
+    decodingAkrx
+} from './acarsDecoder';
+
 export {    
     fetchAcarsWithExtData,
     setAcarsWithExtDataOffsetLimit,
