@@ -15,6 +15,7 @@ const navigationItems = ( props ) => (
         {props.isAuthenticated ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
 
         {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
+        {props.isParser ? <NavigationItem link="/parser">Parser</NavigationItem> : null}
         
         {!props.isAuthenticated
             ? <NavigationItem link="/auth">Log in</NavigationItem>

@@ -22,6 +22,7 @@ import acarsWithExtDataReducer from './store/reducers/acarsWithExtData';
 import aircraftTypeReducer from './store/reducers/aircraftType';
 import typeCodeReducer from './store/reducers/typeCode';
 import currentLocationReducer from './store/reducers/currentLocation';
+import acarsDecoderReducer from './store/reducers/acarsDecoder';
 
 
 let composeEnhancers = null;
@@ -42,7 +43,8 @@ const rootReducer = combineReducers({
   acarsWithExtData: acarsWithExtDataReducer,
   aircraftType: aircraftTypeReducer,
   typeCode: typeCodeReducer,
-  currentLocation: currentLocationReducer
+  currentLocation: currentLocationReducer,
+  acarsDecoder: acarsDecoderReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

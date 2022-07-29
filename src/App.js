@@ -21,7 +21,9 @@ import Adsb from './containers/Adsb/Adsb';
 //import Map from './containers/Map/Map';
 import AcarsWithExtData from './containers/AcarsWithExtData/AcarsWithExtData';
 import OpenstreetMap from './containers/Map/Openstreet/OpenstreetMap';
-import ConfirmEmail from './containers/Auth/ConfirmEmail'
+import ConfirmEmail from './containers/Auth/ConfirmEmail';
+import Parser from './containers/Parser/Parser';
+import Decoding from './containers/Parser/ParserFunctions/Decoding/Decoding';
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
   const authCheckState = authContext.authenticationCheckState;
   let isAuthenticated = authContext.user.token !== null;
   let isRole = authContext.user.role == "Admin";
+  let isParser = authContext.user.role == "Parser";
   let isNotTermed = authContext.user.terms!==1;
 
   useEffect(() => {
@@ -46,7 +49,7 @@ function App() {
     </Switch>
   );
 
-  if (isAuthenticated) {
+  if (isAuthenticated && !isParser) {
     routes = (
       <Switch> 
         {/* <Route path="/map" component={Map} />        */}
@@ -105,6 +108,33 @@ function App() {
         <Route path={"/updateUser/:id"} component={UpdateUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
+        <Route render={() => <div><h1>Data not found</h1></div>} />
+      </Switch>
+    );
+  }
+
+  if (isParser && isAuthenticated) {
+    routes = (
+      <Switch>  
+        {/* <Route path="/map" component={Map} /> */}
+        <Route path="/openstreetMap" component={OpenstreetMap} />
+        <Route path="/aircraft/:id" component={Aircrafts} />
+        <Route path="/aircraft" component={AircraftsSearch} />
+        <Route path="/airports/:id" component={Airports} />
+        <Route path="/airports" component={Airports} />
+        <Route path="/flights/:id" component={Flights} />
+        <Route path="/akrx" component={AKRx} />
+        <Route path="/adsb"  component={Adsb} />
+        <Route path="/airlines" component={Airlines} /> 
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />            
+        <Route path="/logout" component={Logout} />
+        <Route path="/auth" component={Auth} /> 
+        {/* <Route path="/user" component={User} />  
+        <Route path="/addUser" component={AddUser} />
+        <Route path={"/updateUser/:id"} component={UpdateUser} /> */}
+        <Route path="/decoding" component={Decoding} />
+        <Route path="/parser" component={Parser} />    
+        <Redirect from="/" exact to="/parser" />
         <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
     );

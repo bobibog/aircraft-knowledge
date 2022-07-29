@@ -84,7 +84,7 @@ const AddUser = props => {
                     </form>
                     <div className={classes.btnContainer}>
                         <div className={classes.button}>
-                            <button  className type="submit" className="btn btn-primary" onClick={onSubmit}>REGISTER</button>
+                            <button  className type="submit"  onClick={onSubmit}>REGISTER</button>
                         </div>
                         <div className={classes.button}>
                             <button  type="submit" className="btn btn-warning" onClick={onReset}>CLEAR</button>
