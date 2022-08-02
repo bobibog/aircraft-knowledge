@@ -16,6 +16,7 @@ const toolbar = ( props ) => (
         <div className={classes.Clock}><Clock/></div>
         <nav className={classes.DesktopOnly}>
             <NavigationItems isAuthenticated={props.isAuth} />
+            {/* <NavigationItems isParser={props.isPars} /> */}
         </nav>        
     </header>
 );

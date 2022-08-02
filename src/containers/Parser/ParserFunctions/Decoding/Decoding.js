@@ -83,7 +83,7 @@ const Decoding = props => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className={classes.resultLabel}>DECODING RESULTS </label>
+                        <label className={classes.resultLabel}>DECODING RESULTS: </label>
                         <textarea className={classes.formControl} id="exampleFormControlTextarea3" rows="12" value = {messageToPresent != null ? 'Decoded message: '+messageToPresent : ''} />              
                         
                     </div>
