@@ -31,7 +31,7 @@ function App() {
   const authCheckState = authContext.authenticationCheckState;
   let isAuthenticated = authContext.user.token !== null;
   let isRole = authContext.user.role == "Admin";
-  let isParser = authContext.user.role == "Parser";
+  let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
 
   useEffect(() => {
