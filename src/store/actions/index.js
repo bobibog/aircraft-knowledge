@@ -101,3 +101,7 @@ export {
     fetchCurrentLocations2,
     fetchOpenSkyCurrentLocations
 } from './currentLocation'
+
+export{
+    statisticsMessagesNumber
+} from './statistics'
