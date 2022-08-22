@@ -24,7 +24,7 @@ import OpenstreetMap from './containers/Map/Openstreet/OpenstreetMap';
 import ConfirmEmail from './containers/Auth/ConfirmEmail';
 import Parser from './containers/Parser/Parser';
 import Decoding from './containers/Parser/ParserFunctions/Decoding/Decoding';
-
+import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumber';
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -60,6 +60,7 @@ function App() {
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />        
         <Route path="/airlines" component={Airlines} />
+        <Route path="/statistics" component={MessagesNumber} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />
         <Route path="/auth2" component={Auth2} />
@@ -100,7 +101,8 @@ function App() {
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />            
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
+        <Route path="/statistics" component={MessagesNumber} />          
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
         <Route path="/user" component={User} />  
@@ -126,7 +128,8 @@ function App() {
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />            
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} /> 
+        <Route path="/statistics" component={MessagesNumber} />           
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
         {/* <Route path="/user" component={User} />  

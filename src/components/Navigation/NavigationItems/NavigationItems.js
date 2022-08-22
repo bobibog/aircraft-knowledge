@@ -27,6 +27,8 @@ const navigationItems = ( props ) => (
 
         {props.isAuthenticated ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
+        {props.isAuthenticated ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
+
         {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         
         
