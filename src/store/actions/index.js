@@ -105,3 +105,7 @@ export {
 export{
     statisticsMessagesNumber
 } from './statistics'
+
+export{
+    statisticsDirectionalRanges
+}from './directionalRanges'
