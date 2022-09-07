@@ -24,6 +24,7 @@ import typeCodeReducer from './store/reducers/typeCode';
 import currentLocationReducer from './store/reducers/currentLocation';
 import acarsDecoderReducer from './store/reducers/acarsDecoder';
 import statisticsReducer from './store/reducers/statistics';
+import directionalRangesReducer from './store/reducers/directionalRanges';
 
 
 let composeEnhancers = null;
@@ -46,7 +47,8 @@ const rootReducer = combineReducers({
   typeCode: typeCodeReducer,
   currentLocation: currentLocationReducer,
   acarsDecoder: acarsDecoderReducer,
-  statistics: statisticsReducer
+  statistics: statisticsReducer,
+  directionalRanges: directionalRangesReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
