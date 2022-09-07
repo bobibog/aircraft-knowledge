@@ -29,7 +29,7 @@
         "leaflet-rotatedmarker": "^0.2.0",
         "lodash": "^4.17.21",
         "mapbox-gl": "^2.6.1",
-        "moment": "^2.29.1",
+        "moment": "^2.29.4",
         "plotly.js-dist-min": "^2.14.0",
         "prop-types": "^15.7.2",
         "react": "^16.14.0",
