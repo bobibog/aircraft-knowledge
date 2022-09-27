@@ -276,11 +276,10 @@ const MessagesNumber = (props) =>{
         <ResponsiveContainer width={2480} height={2480} style={{display: 'flex', alignItems:'center', justifyContent: 'center', margineTop: '2420px'}}>      
         <RadarChart cx={820} cy={780} outerRadius={720} data={data1} >
           <PolarGrid  />          
-          <PolarAngleAxis tick={props => renderPolarAngleAxis(props)} />
-            
+          <PolarAngleAxis tick={props => renderPolarAngleAxis(props)} />            
           
         
-          <PolarRadiusAxis angle={45} domain={[0, 300]} label='nmi' tick={ { fill: 'red', fontSize: 14, fontFamily:'Verdana' }} />
+          <PolarRadiusAxis angle={45} domain={[0, 400]} label='nmi' tick={ { fill: 'red', fontSize: 14, fontFamily:'Verdana' }} />
           <Radar name="Directional Range [nmi]" dataKey="distance" stroke="#8884d8" fill="red" fillOpacity={0.6} dot={<Dot r={2} fill="red"></Dot>} width={450} height={450} />
           <LabelList angle={20} 
                      offset={30}
