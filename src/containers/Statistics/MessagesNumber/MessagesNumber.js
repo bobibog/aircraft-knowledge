@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useState, useContext, useCallback, useEffect, useRef } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import classes from './MessagesNumber.module.css';
@@ -8,19 +8,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from '../../../components/UI/Spinner/Spinner';
-import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, LabelList, Dot} from 'recharts';
+import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, LabelList, Dot, Text, XAxis} from 'recharts';
 // import  Radar from 'react-svg-radar-chart';
 //import {radarLinear} from 'chart.js';
 //import {Radar} from 'react-chartjs-2';
 // import { Chart, registerables, Tooltip } from 'chart.js';
 // Chart.register(...registerables);
 // import { IgrLegendModule, IgrDataChartCoreModule, IgrDataChartPolarModule, IgrDataChartPolarCoreModule, IgrDataChartInteractivityModule } from 'igniteui-react-charts';
-// import { IgrLegend, IgrDataChart, IgrNumericAngleAxis, IgrNumericRadiusAxis, IgrPolarAreaSeries } from 'igniteui-react-charts';
-import Plotly from 'plotly.js-dist-min'
+// import { IgrLegend, IgrDataChart, IgrNumericAngleAxis, IgrNumericRadiusAxis, IgrPolarAreaSeries, IgrPolarSplineAreaSeries } from 'igniteui-react-charts';
+import Plotly from 'plotly.js-dist-min';
+import { yearsToMonths } from 'date-fns';
+//import Plot from '../../../components/Plotly/Plotly';
+//import { MDBChart, MDBCol } from 'mdb-react-ui-kit';
 
+// const mods = [
+//     IgrLegendModule,
+//     IgrDataChartCoreModule,
+//     IgrDataChartPolarModule,
+//     IgrDataChartPolarCoreModule,
+//     IgrDataChartInteractivityModule
+// ];
+// mods.forEach((m) => m.register());
 
 const MessagesNumber = (props) =>{
     
+    //const ref = useRef(null);
+
     const dispatch = useDispatch();    
     const[timeMin, settimeMin] = useState('');
     const[timeMax, settimeMax] = useState('');
@@ -103,7 +116,7 @@ const MessagesNumber = (props) =>{
         setDirectionalRangesResult(directionalRangesStorages);
         setAngles(directionalRangesResult ? directionalRangesResult.map(a => a.angle) : '');
         setDistances(directionalRangesResult ? directionalRangesResult.map(a => a.distance) : '');
-       
+        //const el2 = ref.current;
     }, [messagesNumber, directionalRangesStorages, directionalRangesResult])
     
       
@@ -187,25 +200,59 @@ const MessagesNumber = (props) =>{
     }      
         
     var data = [];
-    
+    var object = {};
+
     if(angles != null && distances != null){
-        for(var i = 0; i < angles.length; i++){
-            var object = {
-                angle: angles[i],
-                distance: parseFloat(distances[i]).toFixed(2)
+        for(var i = 0; i < 359; i++){
+            if(angles[i] != null){
+                object = {
+                    angle: angles[i],
+                    distance: parseFloat(distances[i]).toFixed(2)
+                }
             }
+            else{
+                object = {
+                    angle: null,
+                    distance: null
+                }
+            }         
+            
             data.push(object);
-        }        
+        }    
+        object.cursor = [0, 90, 180, 270]; 
+        data.push(object);   
     }
 
-    var _ = require('lodash');
+   var _ = require('lodash');
    var data1 = _.sortBy(data, 'angle', function(n){return Math.sin(n)});
+   var data2 = [{"angle":0}, {"angle":90}, {"angle":180}, {"angle": 270}];
     
-    //const data1 = JSON.stringify(data, undefined, 2);
-    //console.log("DATA =>" + data);  
+    const data4 = JSON.stringify(data, undefined, 2);
+    console.log("DATA =>" + data);  
+    
+    function renderPolarAngleAxis({ payload, x, y, cx, cy, ...rest }) {
+        return (
+          <Text
+            {...rest}
+            verticalAnchor="right"
+            y={y + (y - cy) / 28}
+            x={x + (x - cx) / 28}
+            angle={45}
+            fontSize={10}
+            fill= 'blue'
+            fontWeight="bold"
+            fontFamily="Serif"
+          >
+            {payload.value}
+          </Text>
+        );
+      }
+
     
     
     let result = <Spinner />
+
+    
 
     if(!messagesNumber && !loading){
         result = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>Please insert search parameters to start search</p>;
@@ -214,6 +261,7 @@ const MessagesNumber = (props) =>{
         result = <textarea value={messagesNumber != null ? messagesNumberResult : ''} rows ={7} className={classes.resultBox} />
     }
 
+   
     let result1 = <Spinner />
 
     if(!directionalRangesStorages && !loading1){
@@ -222,12 +270,18 @@ const MessagesNumber = (props) =>{
     }
     if(directionalRangesStorages && !loading1){
         
-        result1 = <ResponsiveContainer width={2260} height={2260} style={{display: 'flex', alignItems:'center', justifyContent: 'center', margineTop: '1590px'}}>
-        <RadarChart cx={850} cy={780} outerRadius={750} data={data1} >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="angle" label="angle °"/>
-          <PolarRadiusAxis angle={45} domain={[0, 400]} label="km" />
-          <Radar name="Directional Range [km]" dataKey="distance" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} dot={<Dot r={2} fill="black"></Dot>} width={450} height={450} />
+        result1 =  
+        
+        
+        <ResponsiveContainer width={2480} height={2480} style={{display: 'flex', alignItems:'center', justifyContent: 'center', margineTop: '2420px'}}>      
+        <RadarChart cx={820} cy={780} outerRadius={720} data={data1} >
+          <PolarGrid  />          
+          <PolarAngleAxis tick={props => renderPolarAngleAxis(props)} />
+            
+          
+        
+          <PolarRadiusAxis angle={45} domain={[0, 300]} label='nmi' tick={ { fill: 'red', fontSize: 14, fontFamily:'Verdana' }} />
+          <Radar name="Directional Range [nmi]" dataKey="distance" stroke="#8884d8" fill="red" fillOpacity={0.6} dot={<Dot r={2} fill="red"></Dot>} width={450} height={450} />
           <LabelList angle={20} 
                      offset={30}
                      dataKey="Count"
@@ -235,7 +289,6 @@ const MessagesNumber = (props) =>{
           />
         </RadarChart>        
       </ResponsiveContainer>
-
                
     }
     
@@ -307,10 +360,8 @@ const MessagesNumber = (props) =>{
                 <div className="form-group">
                     <label className={classes.resultLabel}><u>RESULTS: </u></label>
                     <br></br>
-                    {/* {result} */}
-                    {result}
-                    
-                                
+                                      
+                    {result}        
                     
                 </div>
             </div>
@@ -387,13 +438,9 @@ const MessagesNumber = (props) =>{
                     </div>
                 </div>
                 <div className="form-group">
-                    <label className={classes.resultLabel}><u>RADAR CHART: </u></label>
+                    <label className={classes.resultLabel}><u>POLAR CHART: </u></label>
                     <br></br>
-                    
-                    {result1}
-                    
-                                
-                    
+                    {result1}                  
                 </div>
             </div>
         </>
