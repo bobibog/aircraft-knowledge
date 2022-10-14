@@ -44,6 +44,8 @@ const MessagesNumber = (props) =>{
     
     const[feedingTimes, setFeedingTimes] = useState([]);
     const[idleTimes, setIdleTimes] = useState([]);
+    const[idle, setIdle] = useState([]);
+    const[total, setTotal] = useState([]);
     const[station, setStation] = useState([]);
     const[percentage, setPercentage] = useState([]);
 
@@ -123,7 +125,8 @@ const MessagesNumber = (props) =>{
         settimeMin2('');
         settimeMax2('');
         setStationId2('');
-               
+        setStation('');
+        setPercentage(''); 
     }
 
     const onSubmit=()=>{
@@ -153,7 +156,8 @@ const MessagesNumber = (props) =>{
         setAngles(directionalRangesResult ? directionalRangesResult.map(a => a.angle) : '');
         setDistances(directionalRangesResult ? directionalRangesResult.map(a => a.distance) : '');
         setFeedingTimes(feedingTimeDtosResult ? feedingTimeDtosResult.map(a => a.feedingTime) : '');
-        setIdleTimes(feedingTimeDtosResult ? feedingTimeDtosResult.map(a => a.idleTime) : '');
+        setIdle(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.idleTime) : '');
+        setTotal(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.totalEngagement) : '');
         setStation(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.stationId) : '');
         setPercentage(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a =>a.feedingPercentage) : '');
         
@@ -170,7 +174,7 @@ const MessagesNumber = (props) =>{
     );
     
     const onFeedingTime = useCallback(
-        () => dispatch(actions.feedingTimeData(timeMin1, timeMax1, stationId1), [dispatch, timeMin1, timeMax1, stationId1])
+        () => dispatch(actions.feedingTimeData(timeMin2, timeMax2, stationId2), [dispatch, timeMin2, timeMax2, stationId2])
     );
 
     const onFeedingPercentage = useCallback(
@@ -203,6 +207,18 @@ const MessagesNumber = (props) =>{
     var monthMax = timeMax1.slice(5, 7);    
     var yearMax = timeMax1.slice(0, 4);   
 
+    // 2
+    var hoursMin = timeMin2.slice(11, 13);    
+    var minutesMin = timeMin2.slice(14, 16);   
+    var dayMin = timeMin2.slice(8, 10);    
+    var monthMin = timeMin2.slice(5, 7);    
+    var yearMin = timeMin2.slice(0, 4);
+
+    var hoursMax = timeMax2.slice(11, 13);    
+    var minutesMax = timeMax2.slice(14, 16);   
+    var dayMax = timeMax2.slice(8, 10);    
+    var monthMax = timeMax2.slice(5, 7);    
+    var yearMax = timeMax2.slice(0, 4);
 
     const dateValidation1 = () =>{
         const dateFromErr = {};        
@@ -544,7 +560,7 @@ const MessagesNumber = (props) =>{
         >
         <p>Station = {station}</p>
         <p>Feeding [%] = {percentage*100}</p>
-        <p>Idle [%] = {100-percentage*100}</p>
+        <p>Idle [%] = {idle/total*100}</p>
         {/* <Chart options={options} type="bar" width={500} height={320} /> */}
         <HSBar
             //showTextDown
@@ -762,7 +778,9 @@ const MessagesNumber = (props) =>{
                 <div className={classes.btnContainer}>
                     <div className={classes.button}>
                         <button    type="submit" onClick={onSubmit2}  >SEARCH</button>
-                        
+                        <ReactTooltip id="registerTip" place="top" effect="solid">
+                            Double click Please
+                        </ReactTooltip>
                     </div>
                     <div className={classes.button}>
                         <button  type="submit" className="btn btn-warning" onClick={onReset2} >RESET</button>
