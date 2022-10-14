@@ -129,6 +129,8 @@ const MessagesNumber = (props) =>{
         setPercentage(''); 
         setIdle('');
         setTotal('');
+        setFeedingTimes('');
+        setIdleTimes('');
     }
 
     const onSubmit=()=>{
@@ -780,7 +782,7 @@ const MessagesNumber = (props) =>{
                 </form>
                 <div className={classes.btnContainer}>
                     <div className={classes.button}>
-                        <button    type="submit" onClick={onSubmit2}  >SEARCH</button>
+                        <button    type="submit" onClick={onSubmit2}  >Double click to SEARCH</button>
                         <ReactTooltip id="registerTip" place="top" effect="solid">
                             Double click Please
                         </ReactTooltip>
