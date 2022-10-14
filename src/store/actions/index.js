@@ -109,3 +109,11 @@ export{
 export{
     statisticsDirectionalRanges
 }from './directionalRanges'
+
+export{
+    feedingTimeData
+}from './feedingTime'
+
+export{
+    feedingPercentageData
+}from './feedingPercentage'
