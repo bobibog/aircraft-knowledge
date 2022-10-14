@@ -25,6 +25,8 @@ import currentLocationReducer from './store/reducers/currentLocation';
 import acarsDecoderReducer from './store/reducers/acarsDecoder';
 import statisticsReducer from './store/reducers/statistics';
 import directionalRangesReducer from './store/reducers/directionalRanges';
+import feedingTimeReducer from './store/reducers/feedingTime';
+import feedingPercentageReducer from './store/reducers/feedingPercentage';
 
 
 let composeEnhancers = null;
@@ -48,7 +50,9 @@ const rootReducer = combineReducers({
   currentLocation: currentLocationReducer,
   acarsDecoder: acarsDecoderReducer,
   statistics: statisticsReducer,
-  directionalRanges: directionalRangesReducer
+  directionalRanges: directionalRangesReducer,
+  feedingTime: feedingTimeReducer,
+  feedingPercentage: feedingPercentageReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
