@@ -127,6 +127,8 @@ const MessagesNumber = (props) =>{
         setStationId2('');
         setStation('');
         setPercentage(''); 
+        setIdle('');
+        setTotal('');
     }
 
     const onSubmit=()=>{
@@ -783,6 +785,7 @@ const MessagesNumber = (props) =>{
                             Double click Please
                         </ReactTooltip>
                     </div>
+                    
                     <div className={classes.button}>
                         <button  type="submit" className="btn btn-warning" onClick={onReset2} >RESET</button>
                        
