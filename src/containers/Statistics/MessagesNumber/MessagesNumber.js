@@ -80,9 +80,9 @@ const MessagesNumber = (props) =>{
     // if(directionalRangesStorages != null){
     //     console.log("Directional Angles "+ directionalRangesStorages.map(a => a.angle));
     // }
-    if(feedingWorkPercentageDtos != null){
-        console.log("Station ID = "+ percentage);        
-    }
+    // if(feedingWorkPercentageDtos != null){
+    //     console.log("Station ID = "+ percentage);        
+    // }
 
     
     const loading = useSelector(state => {
@@ -156,6 +156,7 @@ const MessagesNumber = (props) =>{
         setAngles(directionalRangesResult ? directionalRangesResult.map(a => a.angle) : '');
         setDistances(directionalRangesResult ? directionalRangesResult.map(a => a.distance) : '');
         setFeedingTimes(feedingTimeDtosResult ? feedingTimeDtosResult.map(a => a.feedingTime) : '');
+        setIdleTimes(feedingTimeDtosResult ? feedingTimeDtosResult.map(a => a.idleTime) : '');
         setIdle(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.idleTime) : '');
         setTotal(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.totalEngagement) : '');
         setStation(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.stationId) : '');
@@ -163,7 +164,7 @@ const MessagesNumber = (props) =>{
         
     }, [messagesNumber, directionalRangesStorages, directionalRangesResult, feedingTimeDtos, feedingTimeDtosResult, feedingWorkPercentageDtosResult, feedingWorkPercentageDtos])
     
-    console.log("Percentage => " + percentage);
+    //console.log("Percentage => " + percentage);
 
     const onStatisticsMessagesNumber = useCallback(
         () => dispatch(actions.statisticsMessagesNumber(timeMin, timeMax, stationId), [dispatch, timeMin, timeMax, stationId])
