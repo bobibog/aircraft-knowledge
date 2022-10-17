@@ -25,8 +25,10 @@ const Decoding = props => {
         });  
 
         const[messageToPresent, setMessageToPresent] = useState(decodedMessage);
+
+        const data44 = JSON.stringify(messageToPresent, undefined, 2);
         
-        //console.log("Dekodirana poruka:"+decodedMessage);
+        console.log("Dekodirana poruka:"+data44);
                
         
         const authContext = useContext(AuthContext);
