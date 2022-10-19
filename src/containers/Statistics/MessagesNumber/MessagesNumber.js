@@ -13,9 +13,10 @@ import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsiv
 import HSBar from "react-horizontal-stacked-bar-chart";
 // import { StackedBarChart, IChartDataPoint, IChartProps } from '@fluentui/react-charting';
 // import { DefaultPalette } from '@fluentui/react/lib/Styling';
-import Chart from 'react-apexcharts'
-
-
+import Chart from 'react-apexcharts';
+import Table from 'react-bootstrap/Table';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import * as ReactBootstrap from 'react-bootstrap';
 
 
 const MessagesNumber = (props) =>{
@@ -73,7 +74,22 @@ const MessagesNumber = (props) =>{
 
     const[feedingWorkPercentageDtosResult, setFeedingWorkPercentageDtos] = useState(feedingWorkPercentageDtos);
 
-           
+    const dataPercentages = JSON.stringify(feedingWorkPercentageDtos, undefined, 2);    
+    
+    //console.log("Feeding Percentages =" + dataPercentages);
+
+    const percentages = (percentage, index) => {
+        return(
+            <tr key = {index}>
+                <td>{percentage.stationId}</td>
+                <td>{(percentage.feedingTime / 3600).toFixed(2)}</td>
+                <td>{(percentage.idleTime / 3600).toFixed(2) }</td>
+                <td>{(percentage.totalEngagement / 3600).toFixed(2)}</td>
+                <td>{(percentage.feedingPercentage * 100).toFixed(2)}</td>
+            </tr>
+        )
+    }
+
     // if(messagesNumberResult != null){
     //     console.log("Poruke "+messagesNumberResult);
     // }
@@ -130,7 +146,9 @@ const MessagesNumber = (props) =>{
         setIdle('');
         setTotal('');
         setFeedingTimes('');
-        setIdleTimes('');
+        setIdleTimes('');        
+        setFeedingWorkPercentageDtos('');
+
     }
 
     const onSubmit=()=>{
@@ -147,7 +165,7 @@ const MessagesNumber = (props) =>{
         onFeedingTime();   
         setFeedingTimeDtosResult(feedingTimeDtos);         
         onFeedingPercentage();   
-        setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);     
+        // setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);     
         
     }  
 
@@ -165,7 +183,7 @@ const MessagesNumber = (props) =>{
         setTotal(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.totalEngagement) : '');
         setStation(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a => a.stationId) : '');
         setPercentage(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a =>a.feedingPercentage) : '');
-        
+        setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);
     }, [messagesNumber, directionalRangesStorages, directionalRangesResult, feedingTimeDtos, feedingTimeDtosResult, feedingWorkPercentageDtosResult, feedingWorkPercentageDtos])
     
     //console.log("Percentage => " + percentage);
@@ -563,16 +581,26 @@ const MessagesNumber = (props) =>{
             border: "1px solid black"
           }}
         >
-        <p>Station = {station}</p>
-        <p>Feeding [%] = {percentage*100}</p>
-        <p>Idle [%] = {idle/total*100}</p>
-        {/* <Chart options={options} type="bar" width={500} height={320} /> */}
-        <HSBar
+        <ReactBootstrap.Table striped bordered hover>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Feeding Time [h]</th>
+                <th>Idle Time [h]</th>
+                <th>Total Engagement [h]</th>
+                <th>Feeding Percentage [%]</th>            
+            </tr>
+        </thead>
+        <tbody>
+           {feedingWorkPercentageDtos.map(percentages)}
+        </tbody>
+        </ReactBootstrap.Table>
+        {/* <HSBar
             //showTextDown
             id="hsbarExample"
             data={dataFeeding}
             onClick={e => console.log(e.bar)}
-          />
+          /> */}
         </div>;
         
     }
@@ -782,7 +810,7 @@ const MessagesNumber = (props) =>{
                 </form>
                 <div className={classes.btnContainer}>
                     <div className={classes.button}>
-                        <button    type="submit" onClick={onSubmit2}  >Double click to SEARCH</button>
+                        <button    type="submit" onClick={onSubmit2}  >SEARCH</button>
                         <ReactTooltip id="registerTip" place="top" effect="solid">
                             Double click Please
                         </ReactTooltip>
