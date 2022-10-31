@@ -85,7 +85,7 @@ const MessagesNumber = (props) =>{
                 <td>{(percentage.feedingTime / 3600).toFixed(2)}</td>
                 <td>{(percentage.idleTime / 3600).toFixed(2) }</td>
                 <td>{(percentage.totalEngagement / 3600).toFixed(2)}</td>
-                <td>{(percentage.feedingPercentage * 100).toFixed(2)}</td>
+                <td>{(percentage.feedingPercentage).toFixed(2)}</td>
             </tr>
         )
     }
@@ -576,7 +576,8 @@ const MessagesNumber = (props) =>{
         <div
           style={{
             width: "auto",
-            marginLeft: "10%",
+            marginLeft: "auto",
+            marginRight: "auto",
             padding: "10px",
             border: "1px solid black"
           }}
@@ -822,7 +823,7 @@ const MessagesNumber = (props) =>{
                     </div>
                 </div>
                 <div className="form-group">
-                    <label className={classes.resultLabel}><u>HORIZONTAL BAR CHART: </u></label>
+                    <label className={classes.resultLabel}><u>STATISTICS TABLE: </u></label>
                     <br></br>
                     {result2}                  
                 </div>

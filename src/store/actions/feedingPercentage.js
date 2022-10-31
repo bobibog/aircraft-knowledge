@@ -36,7 +36,7 @@ export const feedingPercentageData = (timeMin2, timeMax2, stationId2) => {
         
         let queryString =  query;            
             
-        axios.get(`/FeederStatistics/FeedingPercentage?`+ queryString)
+        axios.get(`/FeederStatistics/FeedingPercentageDirect?`+ queryString)
             .then(response => {                
                 dispatch(feedingWorkPercentageDtosSuccess(response.data['feedingWorkPercentageDtos']))   
                 // var json = JSON.stringify(response.data, undefined, 2);

@@ -81,5 +81,8 @@
         "not dead",
         "not op_mini all"
     ],
-    "proxy": "http://localhost:3000"
+    "proxy": "http://localhost:3000",
+    "devDependencies": {
+        "http-proxy-middleware": "^2.0.6"
+    }
 }
