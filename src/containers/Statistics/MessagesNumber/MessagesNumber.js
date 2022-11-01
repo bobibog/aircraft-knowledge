@@ -543,7 +543,7 @@ const MessagesNumber = (props) =>{
         
         result2 = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>Please insert search parameters to see receivers feeding time in Horizontal Bar Graph</p>;
     }
-    if(feedingTimeDtos && feedingWorkPercentageDtos && !loading2 && !loading3){
+    if(feedingWorkPercentageDtos && !loading2 && !loading3){
         
          result2 = 
         //     <HSBar
