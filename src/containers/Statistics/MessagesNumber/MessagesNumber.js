@@ -162,7 +162,7 @@ const MessagesNumber = (props) =>{
     }   
 
     const onSubmit2=()=>{        
-        onFeedingTime();   
+        //onFeedingTime();   
         setFeedingTimeDtosResult(feedingTimeDtos);         
         onFeedingPercentage();   
         // setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);     
