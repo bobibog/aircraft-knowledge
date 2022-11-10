@@ -27,6 +27,7 @@ import statisticsReducer from './store/reducers/statistics';
 import directionalRangesReducer from './store/reducers/directionalRanges';
 import feedingTimeReducer from './store/reducers/feedingTime';
 import feedingPercentageReducer from './store/reducers/feedingPercentage';
+import feedingPercentagePerMessageTypeReducer from './store/reducers/feedingPercentagePerMessageType';
 
 
 let composeEnhancers = null;
@@ -52,7 +53,8 @@ const rootReducer = combineReducers({
   statistics: statisticsReducer,
   directionalRanges: directionalRangesReducer,
   feedingTime: feedingTimeReducer,
-  feedingPercentage: feedingPercentageReducer
+  feedingPercentage: feedingPercentageReducer,
+  feedingPercentagePerMessageType: feedingPercentagePerMessageTypeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

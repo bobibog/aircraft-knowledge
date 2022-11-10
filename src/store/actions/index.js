@@ -117,3 +117,7 @@ export{
 export{
     feedingPercentageData
 }from './feedingPercentage'
+
+export{
+    feedingPercentagePerTypeData
+}from './feedingPercentagePerMessageType'

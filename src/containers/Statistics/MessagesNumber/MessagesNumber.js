@@ -39,16 +39,24 @@ const MessagesNumber = (props) =>{
     const[timeMax2, settimeMax2] = useState('');
     const[stationId2, setStationId2] = useState('');
 
+    const[timeMin3, settimeMin3] = useState('');
+    const[timeMax3, settimeMax3] = useState('');
+    const[stationId3, setStationId3] = useState('');
+
     const[angles, setAngles] = useState([]);
     const[distances, setDistances] = useState([]);
     const[newArray, setNewArray] = useState([]);     
     
     const[feedingTimes, setFeedingTimes] = useState([]);
+    const[feedingADSB, setFeedingADSB] = useState([]);
+    const[feedingACARS, setFeedingACARS] = useState([]);
+    const[feedingVDLM2, setFeedingVDLM2] = useState([]);
     const[idleTimes, setIdleTimes] = useState([]);
     const[idle, setIdle] = useState([]);
     const[total, setTotal] = useState([]);
     const[station, setStation] = useState([]);
     const[percentage, setPercentage] = useState([]);
+    const[percentageADSB, setPercentageADSB] = useState([]);
 
     const messagesNumber = useSelector(state => {
         return state.statistics.messagesNumber;
@@ -66,6 +74,10 @@ const MessagesNumber = (props) =>{
         return state.feedingPercentage.feedingWorkPercentageDtos;
     })
 
+    const feedingPercentagePerMessageType = useSelector(state => {
+        return state.feedingPercentagePerMessageType.feedingPercentagePerMessageType;
+    })
+
     const[messagesNumberResult, setMessagesNumberResult] = useState(messagesNumber);
 
     const[directionalRangesResult, setDirectionalRangesResult] = useState(directionalRangesStorages);
@@ -74,9 +86,13 @@ const MessagesNumber = (props) =>{
 
     const[feedingWorkPercentageDtosResult, setFeedingWorkPercentageDtos] = useState(feedingWorkPercentageDtos);
 
-    const dataPercentages = JSON.stringify(feedingWorkPercentageDtos, undefined, 2);    
-    
-    //console.log("Feeding Percentages =" + dataPercentages);
+    const dataPercentages = JSON.stringify(feedingWorkPercentageDtos, undefined, 2);     
+
+    const[feedingPercentagePerMessageTypeResult, setFeedingPercentagePerMessageTypeResult] = useState(feedingPercentagePerMessageType);
+
+    const dataFeedingPercentagesPerMessageType = JSON.stringify(feedingPercentagePerMessageType, undefined, 2);
+        
+    //console.log("Feeding Percentages Per Message Type =" + dataFeedingPercentagesPerMessageType);
 
     const percentages = (percentage, index) => {
         return(
@@ -90,17 +106,25 @@ const MessagesNumber = (props) =>{
         )
     }
 
-    // if(messagesNumberResult != null){
-    //     console.log("Poruke "+messagesNumberResult);
-    // }
-    // if(directionalRangesStorages != null){
-    //     console.log("Directional Angles "+ directionalRangesStorages.map(a => a.angle));
-    // }
-    // if(feedingWorkPercentageDtos != null){
-    //     console.log("Station ID = "+ percentage);        
-    // }
+    const percentagesPerType = (object, index) => {
+        return(
+            <tr key = {index}>
+                <td>{object.stationId}</td>
+                <td>{(object.feedingTime / 3600).toFixed(2)}</td>
+                <td>{(object.idleTime / 3600).toFixed(2) }</td>
+                <td>{(object.totalEngagement / 3600).toFixed(2)}</td>
+                <td>{(object.feedingPercentage).toFixed(2)}</td>
+                <td>{(object.feedingTimeADSB / 3600).toFixed(2)}</td>
+                <td>{(object.feedingPercentageADSB).toFixed(2)}</td>
+                <td>{(object.feedingTimeACARS / 3600).toFixed(2)}</td>
+                <td>{(object.feedingPercentageACARS).toFixed(2)}</td>
+                <td>{(object.feedingTimeVDLM2 / 3600).toFixed(2)}</td>
+                <td>{(object.feedingPercentageVDLM2).toFixed(2)}</td>
+            </tr>
+        )
+    }
 
-    
+       
     const loading = useSelector(state => {
         return state.statistics.statisticsLoading;
     });
@@ -117,9 +141,11 @@ const MessagesNumber = (props) =>{
         return state.feedingPercentage.feedingWorkPercentageDtosLoading;
     })
 
-    // if(messagesNumber != null){
-    //     console.log("Messages:"+messagesNumber);
-    // }
+    const loading4 = useSelector(state => {
+        return state.feedingPercentagePerMessageType.feedingPercentagePerMessageTypeLoading;
+    })
+
+    
 
     const onReset =()=>{
         settimeMin('');
@@ -151,6 +177,8 @@ const MessagesNumber = (props) =>{
 
     }
 
+    
+
     const onSubmit=()=>{
         onStatisticsMessagesNumber();
         setMessagesNumberResult(messagesNumber);        
@@ -165,8 +193,13 @@ const MessagesNumber = (props) =>{
         //onFeedingTime();   
         setFeedingTimeDtosResult(feedingTimeDtos);         
         onFeedingPercentage();   
-        // setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);     
+        //setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);     
         
+    }  
+
+    const onSubmit3=()=>{           
+        setFeedingPercentagePerMessageTypeResult(feedingPercentagePerMessageType);         
+        onFeedingPercentagePerMessageType();                 
     }  
 
   
@@ -203,6 +236,8 @@ const MessagesNumber = (props) =>{
     const onFeedingPercentage = useCallback(
         () => dispatch(actions.feedingPercentageData(timeMin2, timeMax2, stationId2), [dispatch, timeMin2, timeMax2, stationId2])
     );
+
+    const onFeedingPercentagePerMessageType = useCallback(() => dispatch(actions.feedingPercentagePerTypeData(timeMin3, timeMax3, stationId3), [dispatch, timeMin3, timeMax3, stationId3]));
 
 
     var hoursMin = timeMin.slice(11, 13);    
@@ -243,6 +278,19 @@ const MessagesNumber = (props) =>{
     var monthMax = timeMax2.slice(5, 7);    
     var yearMax = timeMax2.slice(0, 4);
 
+    // 3
+    var hoursMin = timeMin3.slice(11, 13);    
+    var minutesMin = timeMin3.slice(14, 16);   
+    var dayMin = timeMin3.slice(8, 10);    
+    var monthMin = timeMin3.slice(5, 7);    
+    var yearMin = timeMin3.slice(0, 4);
+
+    var hoursMax = timeMax3.slice(11, 13);    
+    var minutesMax = timeMax3.slice(14, 16);   
+    var dayMax = timeMax3.slice(8, 10);    
+    var monthMax = timeMax3.slice(5, 7);    
+    var yearMax = timeMax3.slice(0, 4);
+
     const dateValidation1 = () =>{
         const dateFromErr = {};        
         let isValid1 = true;
@@ -267,7 +315,20 @@ const MessagesNumber = (props) =>{
         }         
         setDateToErr(dateToErr);
         return isValid2;
-    } 
+    }
+    
+    const dateValidation3 = () =>{
+        
+        const dateToErr = {};
+        let isValid3 = true;
+
+        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' || minutesMax=='' ){
+            dateToErr.dateToInvalid = "Please enter complete date &   time or use DatePicker ↑";
+            isValid3 = false;
+        }         
+        setDateToErr(dateToErr);
+        return isValid3;
+    }
     
     const onBlur1 =(e)=>{
         e.preventDefault();
@@ -277,6 +338,11 @@ const MessagesNumber = (props) =>{
         e.preventDefault();
         const isValid2 = dateValidation2();
     }  
+    const onBlur3 =(e)=>{
+        e.preventDefault();
+        const isValid2 = dateValidation3();
+    }  
+
 
     const timeMinInputConfig = {
         type:'datetime-local',
@@ -376,49 +442,10 @@ const MessagesNumber = (props) =>{
             feedingData.push(feedingDataObject);                           
         }                    
         
-    //    feedingData = [
-    //     {
-    //         name: 'Feeding Time',
-    //         data: feedingArray
-    //     },
-    //     {
-    //         name: 'Idle Time',
-    //         data: idleArray
-    //     }
-    //    ]
+    
 
         
-    }
-
-    // if(feedingTimes != null && idleTimes != null){
-    //     for(var i = 0; i < feedingTimes.length +idleTimes.length; i++){
-    //         if(feedingTimes[i] != null){
-    //             objectFeeding = {
-    //                 name: "FEEDING",
-    //                 data: feedingTimes[i]                    
-                    
-    //             }
-
-    //             dataFeeding.push(objectFeeding);
-    //         }
-    //         if(idleTimes[i] != null){
-    //             objectFeeding = {
-    //                 name: "IDLE",
-    //                 data: idleTimes[i]           
-                    
-    //             }
-
-    //             dataFeeding.push(objectFeeding);
-    //         }              
-    //     }        
-    // }
-    // const data45 = JSON.stringify(dataFeeding, undefined, 2);
-    // console.log("Data for diagram = "+ data45);
-
-    // sum = feedingSum + idleSum;
-
-    // feedingPercentage = feedingSum/sum *100;
-    // idlePercentage = idleSum / sum *100;
+    }    
 
     const data44 = JSON.stringify(feedingData, undefined, 2);
     //console.log("FeedingData = "+data44);
@@ -539,40 +566,13 @@ const MessagesNumber = (props) =>{
 
     let result2 = <Spinner />
 
-    if(!feedingTimeDtos && !feedingWorkPercentageDtos && !loading2 && !loading3){
+    if(!feedingTimeDtos && !feedingWorkPercentageDtos && !loading3){
         
-        result2 = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>Please insert search parameters to see receivers feeding time in Horizontal Bar Graph</p>;
+        result2 = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>Please insert search parameters to see receivers feeding time</p>;
     }
-    if(feedingWorkPercentageDtos && !loading2 && !loading3){
+    if(feedingWorkPercentageDtos  && !loading3){
         
          result2 = 
-        //     <HSBar
-        //     height={50}
-        //     showTextIn
-        //     // showTextUp
-        //     //showTextDown
-        //     outlineWidth= {0.5}
-        //     outlineColor= "black"
-        //     id="new_id"
-        //     fontColor="rgb(11, 11, 69)"
-        //     data={dataFeeding}            
-        //     onClick={e => console.log(e.bar)}
-        // />;
-        // <div
-        //   style={{
-        //     width: "auto",
-        //     marginLeft: "10%",
-        //     padding: "10px",
-        //     border: "1px solid black"
-        //   }}
-        // >
-        //   <HSBar
-        //     //showTextDown
-        //     id="hsbarExample"
-        //     data={dataFeeding}
-        //     onClick={e => console.log(e.bar)}
-        //   />
-        // </div>;
         <div
           style={{
             width: "auto",
@@ -596,14 +596,131 @@ const MessagesNumber = (props) =>{
            {feedingWorkPercentageDtos.map(percentages)}
         </tbody>
         </ReactBootstrap.Table>
-        {/* <HSBar
-            //showTextDown
-            id="hsbarExample"
-            data={dataFeeding}
-            onClick={e => console.log(e.bar)}
-          /> */}
+        
         </div>;
         
+    }
+//     if(feedingWorkPercentageDtos && !loading3 && !timeMin2){
+        
+//         result2 = 
+//        <div
+//          style={{
+//            width: "auto",
+//            marginLeft: "auto",
+//            marginRight: "auto",
+//            padding: "10px",
+//            border: "1px solid black"
+//          }}
+//        >
+//        <ReactBootstrap.Table striped bordered hover>
+//        <thead>
+//            <tr>
+//                <th>Station</th>
+//                <th>Feeding Time [h]</th>
+//                <th>Idle Time [h]</th>
+//                <th>Total Engagement [h]</th>
+//                <th>Feeding Percentage [%]</th>            
+//            </tr>
+//        </thead>
+//        <tbody>
+//           {/* {feedingWorkPercentageDtos.map(percentages)} */}
+//        </tbody>
+//        </ReactBootstrap.Table>
+       
+//        </div>;
+       
+//    }
+
+    let result3 = <Spinner />
+
+    if(!feedingPercentagePerMessageType && !loading4){
+        
+        result3 = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>Please insert search parameters to see receivers feeding time per message type</p>;
+    }
+    if(feedingPercentagePerMessageType && !loading4){
+        
+         result3 = 
+        <div
+          style={{
+            width: "auto",
+            marginLeft: "auto",
+            marginRight: "auto",
+            padding: "10px",
+            border: "1px solid black"
+          }}
+        >
+        <ReactBootstrap.Table striped bordered hover>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Feeding Time [h]</th>
+                <th>Idle Time [h]</th>
+                <th>Total Engagement [h]</th>
+                <th>Feeding Percentage [%]</th>      
+                <th>Feeding Time ADSB [h]</th>    
+                <th>Feeding Percentage ADSB [%]</th>
+                <th>Feeding Time ACARS [h]</th>    
+                <th>Feeding Percentage ACARS [%]</th>
+                <th>Feeding Time VDLM2 [h]</th>    
+                <th>Feeding Percentage VDLM2 [%]</th>  
+            </tr>
+        </thead>
+        <tbody>
+           {feedingPercentagePerMessageType.map(percentagesPerType)}
+        </tbody>
+        </ReactBootstrap.Table>
+        
+        </div>;
+        
+    }
+    if(feedingPercentagePerMessageType && !loading4 && !timeMin3){
+        
+        result3 = 
+       <div
+         style={{
+           width: "auto",
+           marginLeft: "auto",
+           marginRight: "auto",
+           padding: "10px",
+           border: "1px solid black"
+         }}
+       >
+       <ReactBootstrap.Table striped bordered hover>
+       <thead>
+           <tr>
+               <th>Station</th>
+               <th>Feeding Time [h]</th>
+               <th>Idle Time [h]</th>
+               <th>Total Engagement [h]</th>
+               <th>Feeding Percentage [%]</th>      
+               <th>Feeding Time ADSB [h]</th>    
+               <th>Feeding Percentage ADSB [%]</th>
+               <th>Feeding Time ACARS [h]</th>    
+               <th>Feeding Percentage ACARS [%]</th>
+               <th>Feeding Time VDLM2 [h]</th>    
+               <th>Feeding Percentage VDLM2 [%]</th>  
+           </tr>
+       </thead>
+       <tbody>
+          {/* {feedingPercentagePerMessageType.map(percentagesPerType)} */}
+       </tbody>
+       </ReactBootstrap.Table>
+       
+       </div>;
+       
+   }
+
+    const onReset3 =()=>{
+        settimeMin3('');
+        settimeMax3('');
+        setStationId3('');        
+        setPercentage(''); 
+        setIdle('');
+        setTotal('');
+        setFeedingTimes('');
+        setIdleTimes('');        
+        //setFeedingWorkPercentageDtos('');
+        //setFeedingPercentagePerMessageTypeResult([]);              
     }
     
     return (
@@ -757,7 +874,7 @@ const MessagesNumber = (props) =>{
                     {result1}                  
                 </div>
             </div>
-            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            {/* <hr style={{width:"100%", size:"3", color:"black"}}></hr>
             <h5>Feeding time per receiver</h5>
             <div className={classes.container}>         
                 <form className={classes.form} >
@@ -823,9 +940,81 @@ const MessagesNumber = (props) =>{
                     </div>
                 </div>
                 <div className="form-group">
-                    <label className={classes.resultLabel}><u>STATISTICS TABLE: </u></label>
+                    <label className={classes.resultLabel}><u>STATISTICS TABLE 1: </u></label>
                     <br></br>
                     {result2}                  
+                </div>
+            </div> */}
+            
+            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            <h5>Feeding time per receiver and message type</h5>
+            <div className={classes.container}>         
+                <form className={classes.form} >
+                    <div className={classes.dateTime}>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    
+                                    <label className={classes.label}>From date and time</label>              
+                                    <Input 
+                                        value={timeMin3}
+                                        // changed={(e)=>settimeMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>(settimeMin3(e.target.value))}                                        
+                                        elementType='input' 
+                                        elementConfig= {timeMinInputConfig} 
+                                        toggle="tooltip"
+                                        placement="right"
+                                        title="FROM DATE & TIME"
+                                        onBlur={onBlur1}                                              
+                                    />
+                                    {Object.keys(dateFromErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateFromErr[key]}</div>
+                                    })}
+                                </InputGroup>
+                                </div>
+                    <div >                        
+                    <div className={classes.dateTime}>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    
+                                    <label className={classes.label}>To date and time</label>                   
+                                    <Input 
+                                        value={timeMax3}
+                                        // changed={(e)=>settimeMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>settimeMax3(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {timeMaxInputConfig}
+                                        toggle="tooltip"
+                                        placement="right"
+                                        title="TO DATE & TIME"
+                                        onBlur={onBlur3}                                              
+                                    />
+                                    {Object.keys(dateToErr).map((key)=>{
+                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateToErr[key]}</div>
+                                    })}
+                                </InputGroup>
+                                </div>
+                    </div>
+                    <div >                        
+                        <input className={classes.input} value={stationId3} onChange={(e)=>setStationId3(e.target.value)} placeholder='Insert Station ID'/>
+                    </div>
+                    
+                    
+                </form>
+                <div className={classes.btnContainer}>
+                    <div className={classes.button}>
+                        <button    type="submit" onClick={onSubmit3}  >SEARCH</button>
+                        <ReactTooltip id="registerTip" place="top" effect="solid">
+                            Double click Please
+                        </ReactTooltip>
+                    </div>
+                    
+                    <div className={classes.button}>
+                        <button  type="submit" className="btn btn-warning" onClick={onReset3} >RESET</button>
+                       
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label className={classes.resultLabel}><u>STATISTICS TABLE: </u></label>
+                    <br></br>
+                    {result3}                  
                 </div>
             </div>
         </>
