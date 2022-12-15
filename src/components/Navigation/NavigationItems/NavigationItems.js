@@ -16,12 +16,12 @@ const navigationItems = ( props ) => (
    
         <ul className={classes.NavigationItems}>
         
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/akrx">ACARS raw</NavigationItem> : null}
+        {/* {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/akrx">ACARS raw</NavigationItem> : null}
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> : null}
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}        
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}  
+        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}   */}
         
         {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
 
@@ -34,11 +34,11 @@ const navigationItems = ( props ) => (
         {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
 
         
-        {props.isAuthenticated ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
+        {(props.isAuthenticated && !props.isCustomer && !props.isRole) ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
-        {props.isAuthenticated ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
+        {(props.isAuthenticated && !props.isCustomer && !props.isRole) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
 
-        {props.isRole ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
+        {(props.isAuthenticated && !props.isCustomer && !props.isParser) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         
         
         {!props.isAuthenticated
