@@ -29,15 +29,15 @@ const navigationItems = ( props ) => (
         {(props.isAuthenticated ) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
               
         {(props.isAuthenticated ) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}       
-         {(props.isAuthenticated && !props.isCustomer) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
-         {(props.isAuthenticated && !props.isCustomer) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
+         {(props.isAuthenticated && (props.isParser || props.isRole)) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
+         {(props.isAuthenticated && (props.isParser || props.isRole)) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
         {(props.isAuthenticated) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}       
 
         {(props.isAuthenticated && props.isParser) ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
         {(props.isAuthenticated && props.isParser && props.isRole && !props.isCustomer) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
 
-        {(props.isAuthenticated && props.isRole) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
+        {(props.isAuthenticated && props.isRole && (!props.isParser || !props.isCustomer)) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         
         
         {!props.isAuthenticated
