@@ -14,30 +14,23 @@ const navigationItems = ( props ) => (
     // console.log("PARSE "+props.isParser),
     // console.log("ROLE "+props.isRole),
    
-        <ul className={classes.NavigationItems}>
-        
-        {/* {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/akrx">ACARS raw</NavigationItem> : null}
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> : null}
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}        
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}   */}
-        
+        <ul className={classes.NavigationItems}>      
+            
         
         {(props.isAuthenticated ) ? <NavigationItem link="/akrx">ACARS raw</NavigationItem> : null}
         {(props.isAuthenticated ) ? <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> : null}
         {(props.isAuthenticated ) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
               
         {(props.isAuthenticated ) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}       
-         {(props.isAuthenticated || props.isParser || props.isRole && !props.isCustomer) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
-         {(props.isAuthenticated || props.isParser || props.isRole && !props.isCustomer) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
+         {(props.isAuthenticated) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : (props.isCustomer ? null : <NavigationItem link="/aircraft">Aircraft</NavigationItem>)}
+         {(props.isAuthenticated ) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : (props.isCustomer ? null : <NavigationItem link="/airlines">Airlines</NavigationItem>)}
         {(props.isAuthenticated) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}       
 
         {(props.isAuthenticated && props.isParser) ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
-        {(props.isAuthenticated && props.isParser && props.isRole && !props.isCustomer) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
+        {(props.isAuthenticated) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : (props.isCustomer ? null : <NavigationItem link="/statistics">Statistics</NavigationItem>)}
 
-        {(props.isAuthenticated && props.isRole && (!props.isParser || !props.isCustomer)) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
+        {(props.isAuthenticated && props.isRole) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         
         
         {!props.isAuthenticated
