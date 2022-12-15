@@ -29,8 +29,8 @@ const navigationItems = ( props ) => (
         {(props.isAuthenticated ) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
               
         {(props.isAuthenticated ) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}       
-         {(props.isAuthenticated || !props.isCustomer) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
-         {(props.isAuthenticated || !props.isCustomer) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
+         {(props.isAuthenticated && !props.isCustomer) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
+         {(props.isAuthenticated && !props.isCustomer) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
         {(props.isAuthenticated) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}       
 
         {(props.isAuthenticated && props.isParser) ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
