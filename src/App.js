@@ -167,7 +167,7 @@ function App() {
     );
   }
   
-  if (isCustomer) {
+  if (isCustomer ) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
