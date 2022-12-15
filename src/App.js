@@ -32,6 +32,7 @@ function App() {
   let isAuthenticated = authContext.user.token !== null;
   let isRole = authContext.user.role == "Admin";
   let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
+  let isCustomer = authContext.user.role == "Customer" && authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
 
   useEffect(() => {
@@ -49,6 +50,30 @@ function App() {
     </Switch>
   );
 
+  if (isAuthenticated && !isCustomer) {
+    routes = (
+      <Switch> 
+        {/* <Route path="/map" component={Map} />        */}
+        <Route path="/openstreetMap" component={OpenstreetMap} />              
+        {/* <Route path="/aircraft/:id" component={Aircrafts} />
+        <Route path="/aircraft" component={AircraftsSearch} /> */}
+        <Route path="/airports/:id" component={Airports} />
+        <Route path="/airports" component={Airports} />
+        {/* <Route path="/flights/:id" component={Flights} />        
+        <Route path="/airlines" component={Airlines} />
+        <Route path="/statistics" component={MessagesNumber} /> */}
+        <Route path="/logout" component={Logout} />
+        <Route path="/auth" component={Auth} />
+        <Route path="/auth2" component={Auth2} />
+        <Route path="/adsb"  component={Adsb} />
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
+        <Route path="/akrx" component={AKRx} />
+        <Redirect from="/" exact to="/akrx" />
+        <Route render={() => <div><h1>Data not found</h1></div>} />
+      </Switch>
+    );
+  }
+  
   if (isAuthenticated && !isParser) {
     routes = (
       <Switch> 
