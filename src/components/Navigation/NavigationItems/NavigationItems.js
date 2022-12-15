@@ -23,7 +23,15 @@ const navigationItems = ( props ) => (
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}
         {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}  
         
-        {(props.isAuthenticated && !props.isParser) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
+
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/akrx">ACARS raw</NavigationItem> : null}
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> : null}
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
+              
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}       
+        
+        {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
 
         {props.isAuthenticated ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
