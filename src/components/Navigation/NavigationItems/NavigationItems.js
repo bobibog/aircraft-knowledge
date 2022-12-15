@@ -22,16 +22,16 @@ const navigationItems = ( props ) => (
         {(props.isAuthenticated ) ? <NavigationItem link="/adsb">ADSB messages</NavigationItem> : null}
               
         {(props.isAuthenticated ) ? <NavigationItem link="/airports">Airports</NavigationItem> : null}       
-         {(props.isAuthenticated) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
-         {(props.isCustomer) ? null : <NavigationItem link="/aircraft">Aircraft</NavigationItem>}
-         {(props.isAuthenticated ) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
-         {(props.isCustomer) ? null : <NavigationItem link="/airlines">Airlines</NavigationItem>}
+         {(props.isAuthenticated || props.isParser || props.isRole && !props.isCustomer) ? <NavigationItem link="/aircraft">Aircraft</NavigationItem> : null}
+        
+         {(props.isAuthenticated || props.isParser || props.isRole && !props.isCustomer ) ? <NavigationItem link="/airlines">Airlines</NavigationItem> : null}
+        
         {(props.isAuthenticated) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}       
 
         {(props.isAuthenticated && props.isParser) ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
-        {(props.isAuthenticated) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
-        {(props.isCustomer) ? null : <NavigationItem link="/statistics">Statistics</NavigationItem>}
+        {(props.isParser || props.isRole || props.isAuthenticated) ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
+        
         {(props.isAuthenticated && props.isRole) ? <NavigationItem link="/administrator">Administrator</NavigationItem> : null}
         
         
