@@ -10,9 +10,9 @@ const navigationItems = ( props ) => (
     
     
     
-    console.log("AUTH "+props.isAuthenticated),
-    console.log("PARSE "+props.isParser),
-    console.log("ROLE "+props.isRole),
+    // console.log("AUTH "+props.isAuthenticated),
+    // console.log("PARSE "+props.isParser),
+    // console.log("ROLE "+props.isRole),
    
         <ul className={classes.NavigationItems}>
         
@@ -33,6 +33,7 @@ const navigationItems = ( props ) => (
         
         {(props.isAuthenticated && props.isCustomer && !props.isParser && !props.isRole) ? <NavigationItem link="/openstreetMap">Map</NavigationItem> : null}
 
+        
         {props.isAuthenticated ? <NavigationItem link="/decoding">Decoder</NavigationItem> : null}
 
         {props.isAuthenticated ? <NavigationItem link="/statistics">Statistics</NavigationItem> : null}
