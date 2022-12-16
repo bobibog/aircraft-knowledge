@@ -30,9 +30,9 @@ function App() {
   const authContext = useContext(AuthContext);
   const authCheckState = authContext.authenticationCheckState;
   let isAuthenticated = authContext.user.token !== null;
-  let isRole = authContext.user.role == "Admin";
-  let isParser = authContext.user.role == "Parser";
-  let isCustomer = authContext.user.role == "Customer";
+  let isRole = authContext.user.role == "Admin" ;
+  let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
+  let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
 
   useEffect(() => {
