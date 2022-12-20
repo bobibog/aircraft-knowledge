@@ -14,6 +14,8 @@ const NavigationItems = ( props ) => {
     let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
     let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
 
+    //console.log("Korisnik = "+authContext.user.company);
+
     useEffect(() => {
         authCheckState();
       }, [authCheckState]);
@@ -39,7 +41,7 @@ const NavigationItems = ( props ) => {
         }
         if(isParser){
             return(<ul className={classes.NavigationItems}>
-                <NavigationItem link="/akrx">ACARS raw</NavigationItem>
+                <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
                 <NavigationItem link="/adsb">ADSB messages</NavigationItem>
                 <NavigationItem link="/airports">Airports</NavigationItem>
@@ -53,7 +55,7 @@ const NavigationItems = ( props ) => {
         }
         if(isRole){
             return(<ul className={classes.NavigationItems}>
-                <NavigationItem link="/akrx">ACARS raw</NavigationItem>
+                <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
                 <NavigationItem link="/adsb">ADSB messages</NavigationItem>
                 <NavigationItem link="/airports">Airports</NavigationItem>
@@ -68,7 +70,7 @@ const NavigationItems = ( props ) => {
         }
         else{
             return(<ul className={classes.NavigationItems}>
-                <NavigationItem link="/akrx">ACARS raw</NavigationItem>
+                <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
                 <NavigationItem link="/adsb">ADSB messages</NavigationItem>
                 <NavigationItem link="/airports">Airports</NavigationItem>

@@ -25,6 +25,7 @@ import ConfirmEmail from './containers/Auth/ConfirmEmail';
 import Parser from './containers/Parser/Parser';
 import Decoding from './containers/Parser/ParserFunctions/Decoding/Decoding';
 import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumber';
+import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -34,6 +35,9 @@ function App() {
   let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
   let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
+  // let isCompany = authContext.user.company;
+
+  // console.log("Comp ="+isCompany);
 
   useEffect(() => {
     authCheckState();
@@ -66,8 +70,8 @@ function App() {
         <Route path="/auth2" component={Auth2} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
-        <Route path="/akrx" component={AKRx} />
-        <Redirect from="/" exact to="/akrx" />
+        <Route path="/akrxAll" component={AkrxMessageAll} />
+        <Redirect from="/" exact to="/akrxAll" />
         <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
     );
@@ -90,8 +94,8 @@ function App() {
         <Route path="/auth2" component={Auth2} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
-        <Route path="/akrx" component={AKRx} />
-        <Redirect from="/" exact to="/akrx" />
+        <Route path="/akrxAll" component={AkrxMessageAll} />
+        <Redirect from="/" exact to="/akrxAll" />
         <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
     );
@@ -122,7 +126,7 @@ function App() {
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />
-        <Route path="/akrx" component={AKRx} />
+        <Route path="/akrxAll" component={AkrxMessageAll} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
@@ -149,7 +153,7 @@ function App() {
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />
-        <Route path="/akrx" component={AKRx} />
+        <Route path="/akrxAll" component={AkrxMessageAll} />
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} /> 

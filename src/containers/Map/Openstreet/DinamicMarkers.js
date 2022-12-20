@@ -381,7 +381,7 @@ const DinamicMarkers = (props) => {
     return (
         <div>
             {marker}
-            {marker3}
+            {/* {marker3} */}
         </div>
     )
 }
