@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import Input from '../../UI/Input/Input';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchAKRxElement.module.css';
@@ -15,9 +15,16 @@ import SearchByColumn from '../SearchByColumn/SearchByColumn';
 import {FcSearch} from 'react-icons/fc';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {AuthContext} from '../../../context/auth-context';
 
 
 const  SearchAKRxElement = (props) => {
+
+    // const authContext = useContext(AuthContext);
+    // const authCheckState = authContext.authenticationCheckState;
+    // let isCompany = authContext.user.company;
+
+    // console.log("Company= "+isCompany);
 
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
@@ -52,7 +59,9 @@ const  SearchAKRxElement = (props) => {
     const[lonMax, setLonMax]=useState('');    
     const[toAddr, setToAddr]=useState('');
     const[type, setType]=useState('');
+    // const[company, setCompany] = useState('');
 
+    // setCompany(isCompany);
 
     // DATE-TIME input VALIDATION
     const[dateFromErr, setDateFromErr] = useState({});
@@ -313,6 +322,7 @@ const  SearchAKRxElement = (props) => {
             if (ref.current && !ref.current.contains(event.target)) {
                 toggleDropdown();
             }
+            // authCheckState();
           }
           // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);

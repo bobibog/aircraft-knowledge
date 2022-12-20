@@ -16,6 +16,7 @@ import aircraftReducer from './store/reducers/aircraft';
 import airportReducer from './store/reducers/airport';
 import flightReducer from './store/reducers/flight';
 import acarsMessageReducer from './store/reducers/acarsMessage';
+import acarsMessageAllReducer from './store/reducers/acarsMessageAll';
 import userReducer from './store/reducers/user';
 import adsbMessageReducer from './store/reducers/adsbMessage';
 import acarsWithExtDataReducer from './store/reducers/acarsWithExtData';
@@ -54,7 +55,8 @@ const rootReducer = combineReducers({
   directionalRanges: directionalRangesReducer,
   feedingTime: feedingTimeReducer,
   feedingPercentage: feedingPercentageReducer,
-  feedingPercentagePerMessageType: feedingPercentagePerMessageTypeReducer
+  feedingPercentagePerMessageType: feedingPercentagePerMessageTypeReducer,
+  acarsMessageAll: acarsMessageAllReducer,
 });
 
 const store = createStore(rootReducer, composeEnhancers(

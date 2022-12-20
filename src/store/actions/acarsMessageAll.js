@@ -3,49 +3,49 @@ import axios from '../../axios-azure';
 import {generatePath} from 'react-router';
 import {moment} from 'moment';
 
-export const setAkrxOffsetLimit = (offset, limit) => {
+export const setAkrxOffsetLimitAll = (offset, limit) => {
     return {
-        type: actionTypes.SET_AKRX_OFFSET_LIMIT,
+        type: actionTypes.SET_AKRX_OFFSET_LIMIT_ALL,
         offset: offset,
         limit: limit
     }
 };
 
-export const setAkrxPage = (page) => {
+export const setAkrxPageAll = (page) => {
     return {
-        type: actionTypes.SET_AKRX_PAGE,
+        type: actionTypes.SET_AKRX_PAGE_ALL,
         page: page
     }
 };
 
-export const fetchAkrxSuccess = (acarsMessages, acarsMessagesCount) => {
+export const fetchAkrxSuccessAll = (acarsMessages, acarsMessagesCount) => {
     return {
-        type: actionTypes.FETCH_AKRX_SUCCESS,
+        type: actionTypes.FETCH_AKRX_SUCCESS_ALL,
         acarsMessages: acarsMessages,
         acarsMessagesCount: acarsMessagesCount
     }
 };
 
-export const fetchAkrxFail = (error) => {
+export const fetchAkrxFailAll = (error) => {
     return {
-        type: actionTypes.FETCH_AKRX_FAIL,
+        type: actionTypes.FETCH_AKRX_FAIL_ALL,
         error: error
     }
 };
 
-export const fetchAkrxStart = () => {
+export const fetchAkrxStartAll = () => {
     return {
-        type: actionTypes.FETCH_AKRX_START
+        type: actionTypes.FETCH_AKRX_START_ALL
     }
 };
 
 
-export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
+export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company) => {
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type) => {
     return dispatch => {
-        dispatch(fetchAkrxStart());       
+        dispatch(fetchAkrxStartAll());       
         
         // Converting Local in UTC
         var acarsMINUtc="";
@@ -92,8 +92,7 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         query.append('lonMin',lonMin);
         query.append('lonMax', lonMax);        
         query.append('toAddr', toAddr);
-        query.append('type',type);
-        query.append('company',company);
+        query.append('type',type);        
         query.append('offset', offset);
         query.append('limit', limit);     
 
@@ -101,12 +100,12 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
             ? query
             : '';            
             
-        axios.get(`/AcarsMessage?`+ queryString)
+        axios.get(`/AcarsMessage/allUsers?`+ queryString)
             .then(response => {                
-                dispatch(fetchAkrxSuccess(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
+                dispatch(fetchAkrxSuccessAll(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
             })
             .catch(error => {
-                dispatch(fetchAkrxFail(error));                                
+                dispatch(fetchAkrxFailAll(error));                                
             }    
         );        
     }

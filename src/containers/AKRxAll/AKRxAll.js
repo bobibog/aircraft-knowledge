@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useCallback, useRef, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-//import axiosFirebase from '../../axios-firebase';
 import axios from '../../axios-local';
-//import axios from '../../axios-azure';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import {akrxHeader} from '../../shared/staticData';
@@ -11,35 +9,32 @@ import * as actions from '../../store/actions/index';
 import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/SearchAKRxElement';
 import {AuthContext} from '../../context/auth-context';
 import {UserContext} from '../../context/user-context';
-
-//import TableAKRx from '../../components/UI/Table/TableAKRx';
-//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRxCustomSide';
 import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRx';
 
-const Akrx = props => {
-    const authContext = useContext(AuthContext);
-    const authCheckState = authContext.authenticationCheckState;    
-    let isCompany = authContext.user.company;
+const AkrxAll = props => {
+    // const authContext = useContext(AuthContext);
+    // const authCheckState = authContext.authenticationCheckState;    
+    // let isCompany = authContext.user.company;
     
     const acarsMessages = useSelector(state => {
-        return state.acarsMessage.acarsMessages;
+        return state.acarsMessageAll.acarsMessages;
     });
 
     
     const acarsMessagesCount = useSelector(state => {
-        return state.acarsMessage.acarsMessagesCount;
+        return state.acarsMessageAll.acarsMessagesCount;
     });
     const loading = useSelector(state => {
-        return state.acarsMessage.acarsMessagesLoading;
+        return state.acarsMessageAll.acarsMessagesLoading;
     });
     const offset = useSelector(state => {
-        return state.acarsMessage.acarsMessagesOffset;
+        return state.acarsMessageAll.acarsMessagesOffset;
     });
     const limit = useSelector(state => {
-        return state.acarsMessage.acarsMessagesLimit;
+        return state.acarsMessageAll.acarsMessagesLimit;
     });
     const page = useSelector(state => {
-        return state.acarsMessage.acarsMessagesPage;
+        return state.acarsMessageAll.acarsMessagesPage;
     });   
            
     const[timestampMin, setTimestampMin] = useState('');
@@ -74,23 +69,20 @@ const Akrx = props => {
     const[lonMin, setLonMin]=useState('');
     const[lonMax, setLonMax]=useState('');    
     const[toAddr, setToAddr]=useState('');
-    const[type, setType]=useState('');
-    const[company, setCompany] = useState(isCompany);
-    //setCompany((isCompany == 'Sundair' || isCompany == 'Fly Air41 Airways') ? isCompany : '');
+    const[type, setType]=useState('');   
 
-    console.log(company);
-
+    
     const dispatch = useDispatch();
     
     const onFetchAkrx = useCallback(
-        () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
+        () => dispatch(actions.fetchAkrxAll(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company))
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type))
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company]
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type]
     );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
@@ -108,7 +100,7 @@ const Akrx = props => {
     const submitSearchHandler = (timestampMin, timestampMax,
         stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
         flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company) => {  
+        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type) => {  
         onSetAkrxOffsetLimit(0, limit);
         onSetAkrxPage(0);
         setTimestampMin(timestampMin);
@@ -143,8 +135,7 @@ const Akrx = props => {
         setLonMin(lonMin);
         setLonMax(lonMax);        
         setToAddr(toAddr);
-        setType(type);
-        //setCompany(company);
+        setType(type);        
     };
     
     
@@ -188,11 +179,8 @@ const Akrx = props => {
     };    
        
     useEffect(() => { 
-        onFetchAkrx();
-        authCheckState();     
-        setCompany(isCompany? isCompany : '');
-         
-    }, [onFetchAkrx,authCheckState]); 
+        onFetchAkrx();                 
+    }, [onFetchAkrx]); 
     
         
     const akrxPageHeader =
@@ -255,4 +243,4 @@ const Akrx = props => {
     );
 };
 
-export default withErrorHandler(Akrx, axios);
+export default withErrorHandler(AkrxAll, axios);

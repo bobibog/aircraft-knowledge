@@ -9,9 +9,11 @@ const initialUser = {
     username: null,
     password: null,
     role: null,
+    company: null,
     token: null,
     terms: null
 };
+
 
 export const AuthContext = React.createContext({
     user: {...initialUser},
@@ -23,6 +25,7 @@ export const AuthContext = React.createContext({
     authenticationCheckState: () => {}    
 });
 
+
 const AuthContextProvider = props => {
     const [authUser, setAuthUser] = useState({...initialUser});
     const [authError, setAuthError] = useState(null);
@@ -33,8 +36,8 @@ const AuthContextProvider = props => {
         setAuthLoading(true);
     };
 
-    const authSuccess = (userToken, userId, userRole, userTerms) => {
-        const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms};
+    const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
+        const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
         setAuthUser(user);
         setAuthError(null);
         setAuthLoading(false);
@@ -52,6 +55,7 @@ const AuthContextProvider = props => {
         localStorage.removeItem('userId');
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
+        localStorage.removeItem('company');
         setAuthUser(initialUser);
         //redirect = <Redirect to="/auth" />
     };
@@ -64,13 +68,14 @@ const AuthContextProvider = props => {
 
     //const expiresInSeconds = 29000;
 
-    const auth = (username, password, role, terms, isRegistration) => {
+    const auth = (username, password, role, terms, company, isRegistration) => {
         authStart();
         const authData = {
             username: username,
             password: password,
             role: role,
-            terms: terms
+            terms: terms,
+            company: company
         };
         let url = '/user/register';
         if (!isRegistration) {
@@ -86,7 +91,8 @@ const AuthContextProvider = props => {
                         localStorage.setItem('userId', r.data.id);
                         localStorage.setItem('role', r.data.role);
                         localStorage.setItem('terms', r.data.terms);
-                        authSuccess(token, r.data.id, r.data.role, r.data.terms);
+                        localStorage.setItem('company', r.data.company)
+                        authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
                         alert('Nice to see you again '+r.data.userName);
                     });
                 
@@ -122,13 +128,14 @@ const AuthContextProvider = props => {
              const token = localStorage.getItem('token');
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
+             const company = localStorage.getItem('company');
              if (!token) {
                  logout();
                 
              } else{   
                   
                 const userId = localStorage.getItem('userId');
-                authSuccess(token, userId, role, terms);
+                authSuccess(token, userId, role, terms, company);
                      
                   
              }
@@ -144,7 +151,8 @@ const AuthContextProvider = props => {
                     password: authUser.password,
                     role: authUser.role,
                     terms: authUser.terms,
-                    token: authUser.token
+                    token: authUser.token,
+                    company: authUser.company
                 },
                 error: authError,
                 loading: authLoading,
