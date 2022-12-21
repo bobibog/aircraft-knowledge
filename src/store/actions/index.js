@@ -94,6 +94,12 @@ export {
     setAcarsWithExtDataPage 
 } from './acarsWithExtData';
 
+export {    
+    fetchAcarsWithExtDataCompany,
+    setAcarsWithExtDataOffsetLimitCompany,
+    setAcarsWithExtDataPageCompany 
+} from './acarsWithExtDataCompany';
+
 export {
     fetchAircraftTypes
 } from './aircraftType'
