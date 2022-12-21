@@ -76,9 +76,14 @@ const Akrx = props => {
     const[toAddr, setToAddr]=useState('');
     const[type, setType]=useState('');
     const[company, setCompany] = useState(isCompany);
-    //setCompany((isCompany == 'Sundair' || isCompany == 'Fly Air41 Airways') ? isCompany : '');
+    const[refresh, setRefresh] = useState(0);
+               
+    // const [, updateState] = useState();
+    // const forceUpdate = useCallback(() => updateState({}), []);
 
-    console.log(company);
+    console.log(company);    
+
+    //window.location.reload(false);
 
     const dispatch = useDispatch();
     
@@ -186,15 +191,21 @@ const Akrx = props => {
         setType("");    
         setAllOption(0);    
     };    
+
+    
        
     useEffect(() => { 
         onFetchAkrx();
-        authCheckState();     
-        setCompany(isCompany? isCompany : '');
-         
-    }, [onFetchAkrx,authCheckState]); 
-    
+        authCheckState();
         
+        setCompany(isCompany ? isCompany : '');
+        setTimeout(()=>{
+            setRefresh(1);       
+        }, 3000);     
+        
+    }, [onFetchAkrx,authCheckState, setCompany, refresh]);     
+    
+
     const akrxPageHeader =
         <CardsInBox
             // headerText="ACARS Messages"
@@ -245,11 +256,13 @@ const Akrx = props => {
     return (
         <div style={{marginTop:'-2px'}}>                       
             {akrxPageHeader}             
+            
             <SearchAKRxElement
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 
                 allChanger={allChanger}                     
-            />                                     
+            />  
+                                             
             {akrxTable}                       
         </div>        
     );
