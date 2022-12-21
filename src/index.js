@@ -29,6 +29,7 @@ import directionalRangesReducer from './store/reducers/directionalRanges';
 import feedingTimeReducer from './store/reducers/feedingTime';
 import feedingPercentageReducer from './store/reducers/feedingPercentage';
 import feedingPercentagePerMessageTypeReducer from './store/reducers/feedingPercentagePerMessageType';
+import acarsWithExtDataCompanyReducer from './store/reducers/acarsWithExtDataCompany';
 
 
 let composeEnhancers = null;
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   feedingPercentage: feedingPercentageReducer,
   feedingPercentagePerMessageType: feedingPercentagePerMessageTypeReducer,
   acarsMessageAll: acarsMessageAllReducer,
+  acarsWithExtDataCompany: acarsWithExtDataCompanyReducer,
 });
 
 const store = createStore(rootReducer, composeEnhancers(

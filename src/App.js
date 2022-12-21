@@ -26,6 +26,7 @@ import Parser from './containers/Parser/Parser';
 import Decoding from './containers/Parser/ParserFunctions/Decoding/Decoding';
 import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumber';
 import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
+import AcarsWithExtDataCompany from './containers/AcarsWithExtDataCompany/AcarsWithExtDataCompany';
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -180,7 +181,7 @@ function App() {
         <Route path="/airports" component={Airports} />       
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsb"  component={Adsb} />       
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />        
+        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />        
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />        
         <Redirect from="/" exact to="/akrx" />

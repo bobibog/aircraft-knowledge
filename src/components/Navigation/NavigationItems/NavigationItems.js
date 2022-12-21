@@ -32,7 +32,7 @@ const NavigationItems = ( props ) => {
         if(isCustomer){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
-                <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
+                <NavigationItem link="/acarsWithExtDataCompany">ACARS per Aircraft</NavigationItem>
                 <NavigationItem link="/adsb">ADSB messages</NavigationItem>
                 <NavigationItem link="/airports">Airports</NavigationItem>            
                 <NavigationItem link="/openstreetMap">Map</NavigationItem>   

@@ -85,8 +85,8 @@ const AkrxAll = props => {
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type]
     );    
     
-    const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
-    const onSetAkrxPage = (page) => dispatch(actions.setAkrxPage(page));    
+    const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimitAll(offset, limit));    
+    const onSetAkrxPage = (page) => dispatch(actions.setAkrxPageAll(page));    
      
 
     const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        

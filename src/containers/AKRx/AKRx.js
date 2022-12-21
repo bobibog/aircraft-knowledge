@@ -24,7 +24,6 @@ const Akrx = props => {
     const acarsMessages = useSelector(state => {
         return state.acarsMessage.acarsMessages;
     });
-
     
     const acarsMessagesCount = useSelector(state => {
         return state.acarsMessage.acarsMessagesCount;
