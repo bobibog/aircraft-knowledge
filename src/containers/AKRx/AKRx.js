@@ -10,7 +10,6 @@ import CardsInBox from '../../components/UI/CardsInBox/CardsInBox';
 import * as actions from '../../store/actions/index';
 import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/SearchAKRxElement';
 import {AuthContext} from '../../context/auth-context';
-import {UserContext} from '../../context/user-context';
 
 //import TableAKRx from '../../components/UI/Table/TableAKRx';
 //import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRxCustomSide';
