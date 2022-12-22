@@ -35,7 +35,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/acarsWithExtDataCompany">ACARS per Aircraft</NavigationItem>
                 <NavigationItem link="/adsbCompany">ADSB messages</NavigationItem>
                 <NavigationItem link="/airports">Airports</NavigationItem>            
-                <NavigationItem link="/openstreetMap">Map</NavigationItem>   
+                <NavigationItem link="/openstreetMapCompany">Map</NavigationItem>   
                 <NavigationItem link="/logout">Log out</NavigationItem>         
             </ul>)
         }
