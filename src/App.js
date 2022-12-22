@@ -28,6 +28,7 @@ import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumbe
 import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
 import AcarsWithExtDataCompany from './containers/AcarsWithExtDataCompany/AcarsWithExtDataCompany';
 import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
+import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -177,7 +178,7 @@ function App() {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
-        <Route path="/openstreetMap" component={OpenstreetMap} />        
+        <Route path="/openstreetMapCompany" component={OpenstreetMapCompany} />        
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />       
         <Route path="/akrx" component={AKRx} />

@@ -125,7 +125,7 @@ const DinamicMarkers = (props) => {
     })
     
     
-    console.log('OPNSKY='+openSkys);
+    //console.log('OPNSKY='+openSkys);
 
     const loading = useSelector(state => {
         return state.currentLocation.currentLocationLoading;

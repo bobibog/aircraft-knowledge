@@ -119,6 +119,10 @@ export {
     fetchOpenSkyCurrentLocations
 } from './currentLocation'
 
+export {
+    fetchCurrentLocationsCompany    
+} from './currentLocationCompany'
+
 export{
     statisticsMessagesNumber
 } from './statistics'
