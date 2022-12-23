@@ -114,56 +114,23 @@
     border: 1px solid #0062cc;
 }
 
-@media only screen and (max-width: 1390px) {
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
+@media only screen and (max-width: 1582px) {
     .card {
-        width: 450px;
-        border-radius: 0px 0px 0px 0px;
+        padding-left: 2px;
+        opacity: 0.99;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-right: 2px;
+        width: 200px;
+        border-radius: 5px 5px 0px 0px;
     }
-    .buttonBox {
-        width: 250px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
-    }
-}
-
-@media only screen and (max-width: 908px) {
     .bar {
-        margin-right: -95px;
+        margin-right: -70px;
     }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 450px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
+    .inputGroup {
+        margin-right: 12px;
+        width: 200px;
+        font-size: 5px !important;
     }
     .dropdownShow {
         background-color: #0062cc;
@@ -171,36 +138,29 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 800px;
+        width: 1250px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
     }
 }
 
-@media only screen and (max-width: 864px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
+@media only screen and (max-width: 1200px) {
+    .card {
+        padding-left: 2px;
+        opacity: 0.99;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-right: 2px;
+        width: 200px;
+        border-radius: 5px 5px 0px 0px;
     }
     .bar {
-        margin-right: -95px;
+        margin-right: -70px;
     }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
+    .inputGroup {
+        margin-right: 12px;
+        width: 200px;
     }
     .dropdownShow {
         background-color: #0062cc;
@@ -208,118 +168,7 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 640px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-}
-
-@media only screen and (max-width: 785px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
-    }
-    .bar {
-        margin-right: -75px;
-    }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 310px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .dropdownShow {
-        background-color: #0062cc;
-        padding-bottom: 15px;
-        margin-top: -12px;
-        margin-bottom: -7px;
-        border-radius: 0 5px 5px 5px;
-        width: 580px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-}
-
-@media only screen and (max-width: 785px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
-    }
-    .bar {
-        margin-right: -75px;
-    }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .dropdownShow {
-        background-color: #0062cc;
-        padding-bottom: 15px;
-        margin-top: -12px;
-        margin-bottom: -7px;
-        border-radius: 0 5px 5px 5px;
-        width: 370px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-}
-
-@media only screen and (max-width: 785px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
-    }
-    .bar {
-        margin-right: -75px;
-    }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .dropdownShow {
-        background-color: #0062cc;
-        padding-bottom: 15px;
-        margin-top: -12px;
-        margin-bottom: -7px;
-        border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 560px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -327,28 +176,22 @@
 }
 
 @media only screen and (max-width: 650px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 4;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
+    .card {
+        padding-left: 2px;
+        opacity: 0.99;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-right: 2px;
+        width: 200px;
+        border-radius: 5px 5px 0px 0px;
     }
     .bar {
-        margin-right: -75px;
+        margin-right: -70px;
     }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
+    .inputGroup {
+        margin-right: 12px;
+        width: 200px;
+        font: 100 !important;
     }
     .dropdownShow {
         background-color: #0062cc;
@@ -356,81 +199,30 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 360px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-    }
-}
-
-@media only screen and (max-width: 550px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 200;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 10px;
-        margin-top: -2px;
-    }
-    .bar {
-        margin-right: -75px;
-    }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
-    }
-    .dropdownShow {
-        background-color: #0062cc;
-        padding-bottom: 15px;
-        margin-top: -12px;
-        margin-bottom: -7px;
-        border-radius: 0 5px 5px 5px;
-        width: 370px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-    .dateTime {
-        font-size: 14.5px;
-        width: 100%;
-    }
-    .span2 {
-        height: 38px;
     }
 }
 
 @media only screen and (max-width: 450px) {
-    .Drop {
-        position: absolute;
-        opacity: 0.92;
-        z-index: 5;
-        white-space: normal;
-        word-break: break-all;
-        margin-left: 5px;
-        margin-top: -2px;
+    .card {
+        padding-left: 2px;
+        opacity: 0.99;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-right: 2px;
+        width: 250px;
+        border-radius: 5px 5px 0px 0px;
     }
     .bar {
-        margin-right: -75px;
+        margin-right: -70px;
     }
-    .container {
-        padding-left: 5px;
-        padding-right: 20px;
-        height: auto;
-        padding-bottom: 20px;
-        height: 45px;
-        z-index: 12;
-    }
-    .card {
-        width: 350px;
-        border-radius: 0px 0px 0px 0px;
+    .inputGroup {
+        margin-right: 12px;
+        width: 250px;
+        font-size: xx-small;
     }
     .dropdownShow {
         background-color: #0062cc;
@@ -438,10 +230,20 @@
         margin-top: -12px;
         margin-bottom: -7px;
         border-radius: 0 5px 5px 5px;
-        width: 370px;
+        width: 260px;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+    }
+    .existsBtn {
+        font-size: 3px;
+        height: 39.5px;
+        margin-top: 7.5px;
+        margin-left: -51px;
+        background-color: yellow;
+        color: #0062cc;
+        width: 52px;
+        border: 1px solid #0062cc;
     }
 }
 
