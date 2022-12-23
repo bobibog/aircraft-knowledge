@@ -329,7 +329,7 @@ const TableCustom = (props) => {
                                 </TableFooter>                       
                                 
                             </Table>
-                            : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no results for your search. Please reset Your search or enter new search term.</p></div>
+                            : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>No more data. Please back to previous page or enter new search term in the Filter.</p></div>
                         }
                     </TableContainer>
                 </Paper>

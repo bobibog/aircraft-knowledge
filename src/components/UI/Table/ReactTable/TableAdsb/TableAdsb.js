@@ -470,6 +470,11 @@ const Styles = styled.div`
                 width: 100%;
                 
             }
+
+            .td{
+              height:35px !important;
+            }
+
             .tbody,           
             {
                 display: block;                
@@ -505,6 +510,7 @@ const Styles = styled.div`
                 padding-left: 3%;
                 content-align: center;
                 height: 100%;
+               
                 
               :nth-child(1){          
                 width:550px !important;
@@ -1089,7 +1095,7 @@ const TableAdsb = (props) => {
         </table>
         
         </>
-        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no results for your search. Please reset Your search or enter new search term.</p></div>}
+        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>No more data. Please back to previous page or enter new search term in the Filter.</p></div>}
         <div className="pagginationBox">
             
             {/* <span>
