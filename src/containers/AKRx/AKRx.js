@@ -199,7 +199,7 @@ const Akrx = props => {
         setCompany(isCompany ? isCompany : '');
         setTimeout(()=>{
             setRefresh(1);       
-        }, 3500);     
+        }, 2500);     
         
     }, [onFetchAkrx,authCheckState, setCompany, refresh]);     
     
