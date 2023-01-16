@@ -38,7 +38,7 @@ export const fetchCurrentLocationsCompany = (lat1, lat2, lon1, lon2, company) =>
                                  
         let queryString = query;
          
-            axios.get(`/CurrentLocation/company?`+queryString)
+            axios.get(`/CurrentLocation?`+queryString)
                 .then(response => {                
                     dispatch(fetchCurrentLocationSuccessCompany(response.data['currentLocations']))                 
                 })

@@ -224,7 +224,7 @@ const DinamicMarkers = (props) => {
         { 
             onFetchCurrentLocations();     
             //onFetchCurrentLocations2();         
-            onFetchOpenSkyCurrentLocations();
+            //onFetchOpenSkyCurrentLocations();
 
         }, 5000);
         return () => clearInterval(interval);         
