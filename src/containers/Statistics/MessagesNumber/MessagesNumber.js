@@ -17,6 +17,7 @@ import Chart from 'react-apexcharts';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
+import DateTimePicker from 'react-datetime-picker';
 
 
 const MessagesNumber = (props) =>{
@@ -111,8 +112,10 @@ const MessagesNumber = (props) =>{
             <tr key = {index}>
                 <td>{object.stationId}</td>
                 <td>{(object.feedingTime / 3600).toFixed(2)}</td>
-                <td>{(object.idleTime / 3600).toFixed(2) }</td>
-                <td>{(object.totalEngagement / 3600).toFixed(2)}</td>
+                {/* <td>{(object.feedMinutes).toFixed(2)}</td> */}
+                {/* <td>{(object.idleTime / 3600).toFixed(2) }</td> */}
+                {/* <td>{((hoursMax-hourMin)*60-object.feedMinute).toFixed(2) }</td> */}
+                {/* <td>{(object.totalEngagement / 3600).toFixed(2)}</td> */}
                 <td>{(object.feedingPercentage).toFixed(2)}</td>
                 <td>{(object.feedingTimeADSB / 3600).toFixed(2)}</td>
                 <td>{(object.feedingPercentageADSB).toFixed(2)}</td>
@@ -145,6 +148,7 @@ const MessagesNumber = (props) =>{
         return state.feedingPercentagePerMessageType.feedingPercentagePerMessageTypeLoading;
     })
 
+    const [value, onChange] = useState(new Date());
     
 
     const onReset =()=>{
@@ -241,20 +245,20 @@ const MessagesNumber = (props) =>{
 
 
     var hoursMin = timeMin.slice(11, 13);    
-    var minutesMin = timeMin.slice(14, 16);   
+    // var minutesMin = timeMin.slice(14, 16);   
     var dayMin = timeMin.slice(8, 10);    
     var monthMin = timeMin.slice(5, 7);    
     var yearMin = timeMin.slice(0, 4);
 
     var hoursMax = timeMax.slice(11, 13);    
-    var minutesMax = timeMax.slice(14, 16);   
+    // var minutesMax = timeMax.slice(14, 16);   
     var dayMax = timeMax.slice(8, 10);    
     var monthMax = timeMax.slice(5, 7);    
     var yearMax = timeMax.slice(0, 4);
 
     // 1
     var hoursMin = timeMin1.slice(11, 13);    
-    var minutesMin = timeMin1.slice(14, 16);   
+    // var minutesMin = timeMin1.slice(14, 16);   
     var dayMin = timeMin1.slice(8, 10);    
     var monthMin = timeMin1.slice(5, 7);    
     var yearMin = timeMin1.slice(0, 4);
@@ -280,13 +284,13 @@ const MessagesNumber = (props) =>{
 
     // 3
     var hoursMin = timeMin3.slice(11, 13);    
-    var minutesMin = timeMin3.slice(14, 16);   
+    // var minutesMin = timeMin3.slice(14, 16);   
     var dayMin = timeMin3.slice(8, 10);    
     var monthMin = timeMin3.slice(5, 7);    
     var yearMin = timeMin3.slice(0, 4);
 
     var hoursMax = timeMax3.slice(11, 13);    
-    var minutesMax = timeMax3.slice(14, 16);   
+    // var minutesMax = timeMax3.slice(14, 16);   
     var dayMax = timeMax3.slice(8, 10);    
     var monthMax = timeMax3.slice(5, 7);    
     var yearMax = timeMax3.slice(0, 4);
@@ -295,7 +299,7 @@ const MessagesNumber = (props) =>{
         const dateFromErr = {};        
         let isValid1 = true;
 
-        if(yearMin=='' || monthMin=='' || dayMin=='' || hoursMin=='' || minutesMin=='' ){
+        if(yearMin=='' || monthMin=='' || dayMin=='' || hoursMin==''  ){
             dateFromErr.dateFromInvalid = "Please enter complete date &   time or use DatePicker ↑";
             isValid1 = false;
         } 
@@ -309,7 +313,7 @@ const MessagesNumber = (props) =>{
         const dateToErr = {};
         let isValid2 = true;
 
-        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' || minutesMax=='' ){
+        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' ){
             dateToErr.dateToInvalid = "Please enter complete date &   time or use DatePicker ↑";
             isValid2 = false;
         }         
@@ -322,7 +326,7 @@ const MessagesNumber = (props) =>{
         const dateToErr = {};
         let isValid3 = true;
 
-        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' || minutesMax=='' ){
+        if(yearMax=='' || monthMax=='' || dayMax=='' || hoursMax=='' ){
             dateToErr.dateToInvalid = "Please enter complete date &   time or use DatePicker ↑";
             isValid3 = false;
         }         
@@ -345,8 +349,11 @@ const MessagesNumber = (props) =>{
 
 
     const timeMinInputConfig = {
-        type:'datetime-local',
-        placeholder:'From:'
+        type:'datetime-local',        
+        placeholder:'From:',
+        //step: 3600
+        //format: "dd:MM:yyyy hh",
+        //pattern:"[0-9]{2}-[0-9]{2}-[0-9]{4}T[0-9]{2}"
     }
     const timeMaxInputConfig = {
         type:'datetime-local',
@@ -654,8 +661,8 @@ const MessagesNumber = (props) =>{
             <tr>
                 <th>Station</th>
                 <th>Feeding Time [h]</th>
-                <th>Idle Time [h]</th>
-                <th>Total Engagement [h]</th>
+                {/* <th>Idle Time [h]</th> */}
+                {/* <th>Total Engagement [h]</th> */}
                 <th>Feeding Percentage [%]</th>      
                 <th>Feeding Time ADSB [h]</th>    
                 <th>Feeding Percentage ADSB [%]</th>
@@ -738,12 +745,17 @@ const MessagesNumber = (props) =>{
                                         // changed={(e)=>settimeMin(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>(settimeMin(e.target.value))}                                        
                                         elementType='input' 
-                                        elementConfig= {timeMinInputConfig} 
+                                        elementConfig= {timeMinInputConfig}                                         
                                         toggle="tooltip"
                                         placement="right"
                                         title="FROM DATE & TIME"
                                         onBlur={onBlur1}                                              
                                     />
+                                    {/* <DateTimePicker 
+                                        //value={timeMin}
+                                        onChange= {onChange}
+                                        format = "dd-MMM-yy hh:mm a"
+                                    /> */}
                                     {Object.keys(dateFromErr).map((key)=>{
                                         return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateFromErr[key]}</div>
                                     })}
