@@ -30,9 +30,9 @@ export const feedingPercentagePerTypeData = (timeMin3, timeMax3, stationId3) => 
         dispatch(feedingPercentagePerMessageTypeStart());       
         
         const query = new URLSearchParams();
-        query.append('timeMin3', timeMin3);
-        query.append('timeMax3', timeMax3);
-        query.append('stationId3', stationId3);
+        query.append('timeMin', timeMin3);
+        query.append('timeMax', timeMax3);
+        query.append('stationId', stationId3);
         
         let queryString =  query;            
             
