@@ -18,7 +18,7 @@ const Airlines = props => {
     const airlines = useSelector(state => {
         return state.airline.airlines;
     });
-    console.log(airlines);
+    //console.log(airlines);
 
     const airlinesCount = useSelector(state => {
         return state.airline.airlinesCount;

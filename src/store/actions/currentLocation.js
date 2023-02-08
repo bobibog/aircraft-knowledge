@@ -78,7 +78,8 @@ export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
          
             axios.get(`/CurrentLocation?`+queryString)
                 .then(response => {                
-                    dispatch(fetchCurrentLocationSuccess(response.data['currentLocations']))                 
+                    dispatch(fetchCurrentLocationSuccess(response.data['currentLocations']))           
+                    console.log("STANJE= "+ response.data)       
                 })
                 .catch(error => {
                     dispatch(fetchCurrentLocationFail(error));                                
