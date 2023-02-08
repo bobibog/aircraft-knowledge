@@ -111,17 +111,17 @@ const MessagesNumber = (props) =>{
         return(
             <tr key = {index}>
                 <td>{object.stationId}</td>
-                <td>{(object.feedingTime / 3600).toFixed(2)}</td>
+                <td>{(object.feedingTime ).toFixed(2)}</td>
                 {/* <td>{(object.feedMinutes).toFixed(2)}</td> */}
                 {/* <td>{(object.idleTime / 3600).toFixed(2) }</td> */}
                 {/* <td>{((hoursMax-hourMin)*60-object.feedMinute).toFixed(2) }</td> */}
                 {/* <td>{(object.totalEngagement / 3600).toFixed(2)}</td> */}
                 <td>{(object.feedingPercentage).toFixed(2)}</td>
-                <td>{(object.feedingTimeADSB / 3600).toFixed(2)}</td>
+                <td>{(object.feedingTimeADSB).toFixed(2)}</td>
                 <td>{(object.feedingPercentageADSB).toFixed(2)}</td>
-                <td>{(object.feedingTimeACARS / 3600).toFixed(2)}</td>
+                <td>{(object.feedingTimeACARS).toFixed(2)}</td>
                 <td>{(object.feedingPercentageACARS).toFixed(2)}</td>
-                <td>{(object.feedingTimeVDLM2 / 3600).toFixed(2)}</td>
+                <td>{(object.feedingTimeVDLM2).toFixed(2)}</td>
                 <td>{(object.feedingPercentageVDLM2).toFixed(2)}</td>
             </tr>
         )
@@ -660,15 +660,15 @@ const MessagesNumber = (props) =>{
         <thead>
             <tr>
                 <th>Station</th>
-                <th>Feeding Time [h]</th>
+                <th>Feeding Time [min]</th>
                 {/* <th>Idle Time [h]</th> */}
                 {/* <th>Total Engagement [h]</th> */}
                 <th>Feeding Percentage [%]</th>      
-                <th>Feeding Time ADSB [h]</th>    
+                <th>Feeding Time ADSB [min]</th>    
                 <th>Feeding Percentage ADSB [%]</th>
-                <th>Feeding Time ACARS [h]</th>    
+                <th>Feeding Time ACARS [min]</th>    
                 <th>Feeding Percentage ACARS [%]</th>
-                <th>Feeding Time VDLM2 [h]</th>    
+                <th>Feeding Time VDLM2 [min]</th>    
                 <th>Feeding Percentage VDLM2 [%]</th>  
             </tr>
         </thead>
