@@ -142,3 +142,7 @@ export{
 export{
     feedingPercentagePerTypeData
 }from './feedingPercentagePerMessageType'
+
+export{
+    getStationData
+}from './stationLastSeen'

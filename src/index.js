@@ -32,6 +32,7 @@ import feedingPercentagePerMessageTypeReducer from './store/reducers/feedingPerc
 import acarsWithExtDataCompanyReducer from './store/reducers/acarsWithExtDataCompany';
 import adsbMessageCompanyReducer from './store/reducers/adsbMessageCompany';
 import currentLocationCompanyReducer from './store/reducers/currentLocationCompany';
+import stationLastSeenReducer from './store/reducers/stationLastSeen';
 
 
 let composeEnhancers = null;
@@ -62,7 +63,8 @@ const rootReducer = combineReducers({
   acarsMessageAll: acarsMessageAllReducer,
   acarsWithExtDataCompany: acarsWithExtDataCompanyReducer,
   adsbMessageCompany: adsbMessageCompanyReducer,
-  currentLocationCompany: currentLocationCompanyReducer
+  currentLocationCompany: currentLocationCompanyReducer,
+  stationLastSeen: stationLastSeenReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
