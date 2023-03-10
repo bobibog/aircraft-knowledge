@@ -79,6 +79,10 @@ const MessagesNumber = (props) =>{
         return state.feedingPercentagePerMessageType.feedingPercentagePerMessageType;
     })
 
+    const stationData = useSelector(state => {
+        return state.stationLastSeen.stationData;
+    })
+
     const[messagesNumberResult, setMessagesNumberResult] = useState(messagesNumber);
 
     const[directionalRangesResult, setDirectionalRangesResult] = useState(directionalRangesStorages);
@@ -92,6 +96,8 @@ const MessagesNumber = (props) =>{
     const[feedingPercentagePerMessageTypeResult, setFeedingPercentagePerMessageTypeResult] = useState(feedingPercentagePerMessageType);
 
     const dataFeedingPercentagesPerMessageType = JSON.stringify(feedingPercentagePerMessageType, undefined, 2);
+
+    const[stationRecord, setStationRecord] = useState(stationData);
         
     //console.log("Feeding Percentages Per Message Type =" + dataFeedingPercentagesPerMessageType);
 
@@ -117,12 +123,30 @@ const MessagesNumber = (props) =>{
                 {/* <td>{((hoursMax-hourMin)*60-object.feedMinute).toFixed(2) }</td> */}
                 {/* <td>{(object.totalEngagement / 3600).toFixed(2)}</td> */}
                 <td>{(object.feedingPercentage).toFixed(2)}</td>
-                <td>{(object.feedingTimeADSB).toFixed(2)}</td>
+                <td>{(object.feedingTimeADSB).toFixed(0)}</td>
                 <td>{(object.feedingPercentageADSB).toFixed(2)}</td>
-                <td>{(object.feedingTimeACARS).toFixed(2)}</td>
+                <td>{(object.feedingTimeACARS).toFixed(0)}</td>
                 <td>{(object.feedingPercentageACARS).toFixed(2)}</td>
-                <td>{(object.feedingTimeVDLM2).toFixed(2)}</td>
+                <td>{(object.feedingTimeVDLM2).toFixed(0)}</td>
                 <td>{(object.feedingPercentageVDLM2).toFixed(2)}</td>
+            </tr>
+        )
+    }
+
+    const stationDataParsed = (object, index) => {
+        return(
+            <tr key = {index}>
+                <td>{object.stationId}</td>
+                <td>{object.latitude}</td>
+                <td>{object.longitude}</td>
+                <td>{object.city}</td>
+                <td>{object.country}</td>
+                <td>{object.locationAddress}</td>
+                <td>{object.lastActiveTime}</td>
+                <td>{object.feederName}</td>
+                <td>{object.feederEmail}</td>
+                <td>{object.feederPhone}</td>
+                <td>{object.description}</td>
             </tr>
         )
     }
@@ -146,6 +170,10 @@ const MessagesNumber = (props) =>{
 
     const loading4 = useSelector(state => {
         return state.feedingPercentagePerMessageType.feedingPercentagePerMessageTypeLoading;
+    })
+    
+    const loading5 = useSelector(state => {
+        return state.stationLastSeen.stationDataLoading;
     })
 
     const [value, onChange] = useState(new Date());
@@ -179,9 +207,7 @@ const MessagesNumber = (props) =>{
         setIdleTimes('');        
         setFeedingWorkPercentageDtos('');
 
-    }
-
-    
+    }    
 
     const onSubmit=()=>{
         onStatisticsMessagesNumber();
@@ -222,8 +248,17 @@ const MessagesNumber = (props) =>{
         setPercentage(feedingWorkPercentageDtosResult ? feedingWorkPercentageDtosResult.map(a =>a.feedingPercentage) : '');
         setFeedingWorkPercentageDtos(feedingWorkPercentageDtos);
     }, [messagesNumber, directionalRangesStorages, directionalRangesResult, feedingTimeDtos, feedingTimeDtosResult, feedingWorkPercentageDtosResult, feedingWorkPercentageDtos])
+
+    useEffect(() =>{
+        onStationData();
+    }, [])
+
+    if(stationData != null)
+    {
+        console.log("Station Data = "+stationData);
+    }
     
-    //console.log("Percentage => " + percentage);
+    console.log("Percentage => " + percentage);
 
     const onStatisticsMessagesNumber = useCallback(
         () => dispatch(actions.statisticsMessagesNumber(timeMin, timeMax, stationId), [dispatch, timeMin, timeMax, stationId])
@@ -242,6 +277,8 @@ const MessagesNumber = (props) =>{
     );
 
     const onFeedingPercentagePerMessageType = useCallback(() => dispatch(actions.feedingPercentagePerTypeData(timeMin3, timeMax3, stationId3), [dispatch, timeMin3, timeMax3, stationId3]));
+
+    const onStationData = useCallback(() => dispatch(actions.getStationData(), [dispatch]));
 
 
     var hoursMin = timeMin.slice(11, 13);    
@@ -717,6 +754,46 @@ const MessagesNumber = (props) =>{
        
    }
 
+   let result4 = <Spinner />
+
+   if(!stationData && !loading5)
+   {
+    result4 = <p style={{ textAlign: 'center', color:'red', marginTop:'15px' }}>There is no data. Please load the page once again.</p>;
+   }
+   if(stationData && !loading5){
+    result4 = <div
+    style={{
+      width: "auto",
+      marginLeft: "auto",
+      marginRight: "auto",
+      padding: "10px",
+      border: "1px solid black"
+    }}
+  >
+  <ReactBootstrap.Table striped bordered hover>
+  <thead>
+      <tr>
+          <th>Station</th>
+          <th>Latitude</th>         
+          <th>Longitude</th>      
+          <th>City</th>    
+          <th>Country</th>
+          <th>Location Address</th>    
+          <th>Last Time Seen</th>
+          <th>Feeder Name</th>  
+          <th>Feeder Email</th>            
+          <th>Feeder Phone</th>  
+          <th>Description</th>  
+      </tr>
+  </thead>
+  <tbody>
+     {stationData.map(stationDataParsed)}
+  </tbody>
+  </ReactBootstrap.Table>
+  
+  </div>;
+   }
+
     const onReset3 =()=>{
         settimeMin3('');
         settimeMax3('');
@@ -1028,6 +1105,12 @@ const MessagesNumber = (props) =>{
                     <br></br>
                     {result3}                  
                 </div>
+            </div>
+            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            <h5>STATION DATA</h5>
+            <div className={classes.container}>
+            <br></br>
+                    {result4}
             </div>
         </>
        
