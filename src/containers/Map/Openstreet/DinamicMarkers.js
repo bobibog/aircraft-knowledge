@@ -269,8 +269,7 @@ const DinamicMarkers = (props) => {
                     click: () => {
                     setIcao(currentLocation.icao)
                     },
-                }}
-                
+                }}                
             >            
                 
                 <Popup className={classes.popupContainer}>
@@ -283,7 +282,7 @@ const DinamicMarkers = (props) => {
                 </Popup>
             </RotatedMarker>
             
-      ))
+        ))
     }
 
     // OpenSky Markeri

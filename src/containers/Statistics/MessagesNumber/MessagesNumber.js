@@ -142,7 +142,7 @@ const MessagesNumber = (props) =>{
                 <td>{object.city}</td>
                 <td>{object.country}</td>
                 <td>{object.locationAddress}</td>
-                <td style={{width:'120px'}}>{object.lastActiveTime != null ? (object.lastActiveTime).slice(0,10)+' '+(object.lastActiveTime).slice(12,19) : 'Inactive'}</td>
+                <td style={{width:'120px'}}>{object.lastActiveTime != null ? (object.lastActiveTime).slice(0,10)+' '+(object.lastActiveTime).slice(11,19) : 'Inactive'}</td>
                 <td>{object.feederName}</td>
                 <td>{object.feederEmail}</td>
                 <td>{object.feederPhone}</td>
