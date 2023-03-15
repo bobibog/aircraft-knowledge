@@ -4,6 +4,7 @@ import axios from '../../../axios-local';
 import * as actions from '../../../store/actions/index';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import {Marker, Popup} from 'react-leaflet';
+import{DriftMarker} from 'leaflet-drift-marker';
 import classes from './OpenstreetMap.module.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -40,7 +41,7 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
           }
         }}
         {...props}
-        
+        // tracksViewChanges={false}
       >
         {children}
       </Marker>
@@ -144,8 +145,19 @@ const DinamicMarkers = (props) => {
     })
 
     const[previousAngle, setPreviousAngle]= useState(0);
-
+    const[latPrev, setLatPrev] = useState();
+    const[lonPrev, setLonPrev] = useState();
+    const[anglePrev, setAnglePrev] = useState();
+    const[idPrev, setIdPrev] = useState();
     const[icao, setIcao] = useState('');
+
+    const[state, setState] = useState(currentLocations != null ? currentLocations : null);
+
+    
+    if(latPrev != null){
+      console.log("LatPrev = "+ latPrev);
+    }
+    
     //const[registration, setRegistration] = useState('');
     let registration = '';
 
@@ -155,45 +167,7 @@ const DinamicMarkers = (props) => {
          //console.log("A="+ registration);
        } 
     
-    
-    //console.log("AircraftJSON="+aircraftJson);
-    
-    
-    
-    //Creating HUB Connection
-    //const hubConnection = new signalR.HubConnectionBuilder().withUrl("/CurrentLocation").build();
-
-    //hubConnection.start();
-
-    //const [connection, setConnection] = useState(null); 
-    
-
-//    var latitude1 = 0;
-//    var latitude2 = 0;
-//    var longitude1 = 0;
-//    var longitude2 = 0;
-//    var key = "";
-  
-
-//     if(currentLocations!=null){
-        
-//         var latitude1 = currentLocations.map((currentLocation)=>(currentLocation.lat ? currentLocation.lat : 0) );
-//         console.log("Sirina = "+latitude1);
-//         //var latitude2= currentLocations.map((currentLocation, i=1)=>(currentLocation.lat ? currentLocation[i-1].lat : 0));
-//         var longitude1 = currentLocations.map((currentLocation)=>(currentLocation.lon ? currentLocation.lon : 0));
-//         console.log("Duzina = "+ longitude1);
-//         //var longitude2= currentLocations.map((currentLocation, i=1)=>(currentLocation.lon ? currentLocation[i-1].lon : 0));
-//         var key = currentLocations.map((currentLocation)=>(currentLocation.id ? currentLocation.id : ""))
-//         console.log("Kljuc = "+key);    
-    
-//     }     
-//       var latitude2 = usePreviousValue(typeof latitude1!== 'undefined' ? latitude1 : 0);
-//       console.log("Lat2 = "+latitude2);    
-    
-//       var longitude2 = usePreviousValue(typeof longitude1!== 'undefined' ? longitude1 : 0);
-//       console.log("Lon2 = "+longitude2);   
-    
-        
+           
     const dispatch = useDispatch();
 
     const onFetchCurrentLocations = useCallback(
@@ -224,12 +198,28 @@ const DinamicMarkers = (props) => {
         { 
             onFetchCurrentLocations();     
             //onFetchCurrentLocations2();         
-            //onFetchOpenSkyCurrentLocations();
+            //onFetchOpenSkyCurrentLocations();  
+            
+            // setLat(currentLocations != null ? currentLocations.map(a => (a.lat != null ? (a.icao == icaoPrev ? a.lat : null) : null)) : null);
+            // setLon(currentLocations != null ? currentLocations.map(a => (a.lon != null ? (a.icao == icaoPrev ? a.lon : null) : null)) : null);
+            // setAngle(currentLocations != null ? currentLocations.map(a => (a.angle != null ? (a.icao == icaoPrev ? a.angle : null) : null)) : null);
+            // setId(currentLocations != null ? currentLocations.map(a => (a.id != null ? a.id : '')) : '');
+            // setIcao(currentLocations != null ? currentLocations.map(a => (a.icao != null ? a.icao : '')) : '');
 
-        }, 5000);
+            // setLatPrev(currentLocations != null ? currentLocations.map(a => (a.lat != null ? a.lat : null)): null);
+            // setLonPrev(currentLocations != null ? currentLocations.map(a => (a.lon != null ? a.lon : null)): null);
+            // setAnglePrev(currentLocations != null ? currentLocations.map(a => (a.angle != null ? a.angle : null)) : null);
+            // setIdPrev(currentLocations != null ? currentLocations.map(a => (a.id != null ? a.id : '')) : '');
+            // setIcao(currentLocations != null ? currentLocations.map(a => (a.icao != null ? a.icao : '')) : '');       
+            
+            setState(currentLocations ? currentLocations : null);
+
+        }, 6000);
         return () => clearInterval(interval);         
-    }, [props.lat1, props.lat2, props.lon1, props.lon2, props.alt1, props.alt2]);
+    }, [props.lat1 || props.lon1 || props.alt1 ||  props.alt2 ]);
 
+    
+ 
     useEffect(()=>{
       onFetchAircraftRegistration();
     },[icao]);
@@ -249,41 +239,191 @@ const DinamicMarkers = (props) => {
     let marker2 = <Spinner />
     let marker3 = <Spinner />
 
-    if(currentLocations && !loading){
-        
-        marker = currentLocations.map((currentLocation)=>(
-                        
-            <RotatedMarker 
+         
+    
+      marker = 
+      currentLocations != null ? (currentLocations != state ? currentLocations.map((currentLocation) => (
+        <RotatedMarker 
                 key={currentLocation.id}
                 icon={customIcon}
                 position={[                    
                     
-                    currentLocation.lat ? currentLocation.lat : 0,
-                    currentLocation.lon ? currentLocation.lon : 0
+                  currentLocation.lat ? currentLocation.lat : 0,
+                  currentLocation.lon ? currentLocation.lon : 0
                 ]}               
-                
+                duration={2000}
                 //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
                 rotationAngle = {currentLocation.angle}
                 rotationOrigin= 'center center'
                 eventHandlers={{
                     click: () => {
-                    setIcao(currentLocation.icao)
+                      setIcao(currentLocation.icao)
                     },
                 }}                
             >            
                 
                 <Popup className={classes.popupContainer}>
                     <div className={classes.popup}>
-                        ICAO = {currentLocation.icao}                         
-                        <br/>
-                       {/* Registration = {aircraftJson.registration} */}
+                        ICAO = {currentLocation.icao}                      
                     </div>
                     
                 </Popup>
             </RotatedMarker>
+      )) : state != null ? state.map(a => (
+        <RotatedMarker 
+                key={a.id}
+                icon={customIcon}
+                position={[        
+                  a.lat,
+                  a.lon
+                ]}               
+                
+                //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+                rotationAngle = {a.angle}
+                rotationOrigin= 'center center'
+                eventHandlers={{
+                    click: () => {
+                      setIcao(a.icao)
+                    },
+                }}                
+        >            
+                
+                <Popup className={classes.popupContainer}>
+                    <div className={classes.popup}>
+                        ICAO = {a.icao}                      
+                    </div>                    
+                </Popup>
+        </RotatedMarker>
+      )) : null) :
+    
+    
+      state != null ? state.map(a => (
+        <RotatedMarker 
+                key={a.id}
+                icon={customIcon}
+                position={[        
+                  a.lat,
+                  a.lon
+                ]}               
+                
+                //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+                rotationAngle = {a.angle}
+                rotationOrigin= 'center center'
+                eventHandlers={{
+                    click: () => {
+                      setIcao(a.icao)
+                    },
+                }}                
+        >            
+                
+                <Popup className={classes.popupContainer}>
+                    <div className={classes.popup}>
+                        ICAO = {a.icao}                      
+                    </div>                    
+                </Popup>
+        </RotatedMarker>
+      )) : null
+    
+    
+      // marker = currentLocations != null ? currentLocations.map((currentLocation) => (
+      //   <RotatedMarker 
+      //           key={currentLocation.id}
+      //           icon={customIcon}
+      //           position={[                    
+                    
+      //             currentLocation.lat ? currentLocation.lat : 0,
+      //             currentLocation.lon ? currentLocation.lon : 0
+      //           ]}               
+                
+      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+      //           rotationAngle = {currentLocation.angle}
+      //           rotationOrigin= 'center center'
+      //           eventHandlers={{
+      //               click: () => {
+      //                 setIcao(currentLocation.icao)
+      //               },
+      //           }}                
+      //       >            
+                
+      //           <Popup className={classes.popupContainer}>
+      //               <div className={classes.popup}>
+      //                   ICAO = {currentLocation.icao}                      
+      //               </div>
+                    
+      //           </Popup>
+      //       </RotatedMarker>
+      // )) 
+      // :
+      // state.map(a => (
+      //   <RotatedMarker 
+      //           key={idPrev}
+      //           icon={customIcon}
+      //           position={[        
+      //             a.lat,
+      //             a.lon
+      //           ]}               
+                
+      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+      //           rotationAngle = {a.angle}
+      //           rotationOrigin= 'center center'
+      //           eventHandlers={{
+      //               click: () => {
+      //                 setIcao(a.icao)
+      //               },
+      //           }}                
+      //   >            
+                
+      //           <Popup className={classes.popupContainer}>
+      //               <div className={classes.popup}>
+      //                   ICAO = {a.icao}                      
+      //               </div>                    
+      //           </Popup>
+      //   </RotatedMarker>
+      // ))
+    
+
+
+
+   
+    
+
+      //:
+    //}
+    
+    // if(!currentLocations && !loading){
+     
+                      
+        // <RotatedMarker 
+        //     key={idPrev}
+        //     icon={customIcon}
+        //     position={[                    
+                
+        //         latPrev ? latPrev : 0,
+        //         lonPrev ? lonPrev : 0
+        //     ]}               
             
-        ))
-    }
+        //     //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+        //     rotationAngle = {anglePrev}
+        //     rotationOrigin= 'center center'
+        //     eventHandlers={{
+        //         click: () => {
+        //         //setIcao(currentLocation.icao)
+        //         },
+        //     }}                
+        // >            
+            
+        //     <Popup className={classes.popupContainer}>
+        //         <div className={classes.popup}>
+        //             {/* ICAO = {currentLocation.icao}                          */}
+        //             <br/>
+        //            {/* Registration = {aircraftJson.registration} */}
+        //         </div>
+                
+        //     </Popup>
+        // </RotatedMarker>
+        
+      
+    //}
 
     // OpenSky Markeri
     // if(states && !loadingStates){  
@@ -337,50 +477,50 @@ const DinamicMarkers = (props) => {
     
 
     // OpenSky - our API
-    if(openSkys && !loadingOpenSkyAPI){
+  //   if(openSkys && !loadingOpenSkyAPI){
         
-      marker3 = openSkys.map((openSky)=>(
+  //     marker3 = openSkys.map((openSky)=>(
                       
-          <RotatedMarkerOpenSkyOurAPI 
-              key={openSky.id}
-              icon={openSkyIcon}
-              position={[                    
+  //         <RotatedMarkerOpenSkyOurAPI 
+  //             key={openSky.id}
+  //             icon={openSkyIcon}
+  //             position={[                    
                 
-                openSky.latitude != null ? openSky.latitude : 0,
-                openSky.longitude != null ? openSky.longitude : 0                 
+  //               openSky.latitude != null ? openSky.latitude : 0,
+  //               openSky.longitude != null ? openSky.longitude : 0                 
                   
-              ]}               
+  //             ]}               
               
-              //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-              rotationAngle = {openSky.true_track}
-              rotationOrigin= 'center center'
-              eventHandlers={{
-                  click: () => {
-                  setIcao(openSky.icao24)
-                  },
-              }}
+  //             //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
+  //             rotationAngle = {openSky.true_track}
+  //             rotationOrigin= 'center center'
+  //             eventHandlers={{
+  //                 click: () => {
+  //                 setIcao(openSky.icao24)
+  //                 },
+  //             }}
               
-          >            
+  //         >            
               
-              <Popup className={classes.popupContainer}>
-                  <div className={classes.popup}>
-                      ICAO = {openSky.icao24}                         
-                      <br/>
-                      Callsign = {openSky.callsign}
-                      <br/>
-                      Altitude = {openSky.baro_altitude} m
-                  </div>
+  //             <Popup className={classes.popupContainer}>
+  //                 <div className={classes.popup}>
+  //                     ICAO = {openSky.icao24}                         
+  //                     <br/>
+  //                     Callsign = {openSky.callsign}
+  //                     <br/>
+  //                     Altitude = {openSky.baro_altitude} m
+  //                 </div>
                   
-              </Popup>
-          </RotatedMarkerOpenSkyOurAPI>
+  //             </Popup>
+  //         </RotatedMarkerOpenSkyOurAPI>
           
-    ))
-  }
+  //   ))
+  // }
 
     return (
         <div>
             {marker}
-            {marker3}
+            {/* {marker3} */}
         </div>
     )
 }
