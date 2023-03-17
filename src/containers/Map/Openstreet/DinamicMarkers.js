@@ -395,7 +395,7 @@ const DinamicMarkers = (props) => {
             ]}
             rotationAngle = {currentLocation.angle}
             // time in ms that marker will take to reach its destination
-            duration={2000}
+            duration={50}
             icon={customIcon} >
             <Popup className={classes.popupContainer}>
                       <div className={classes.popup}>
