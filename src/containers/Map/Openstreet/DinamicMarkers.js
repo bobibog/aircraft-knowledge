@@ -19,7 +19,7 @@ import _ from 'lodash';
 import { isEmpty, isEqual, xorWith } from 'lodash';
 import ReactLeafletDriftMarker from "react-leaflet-drift-marker";
 
-
+const MOVE_DURATION = 5000;
 
 
 const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
@@ -150,9 +150,10 @@ const DinamicMarkers = (props) => {
     })
    
     const[icao, setIcao] = useState('');
-
+    const[requestInProgress, setRequestInProgress] = useState(false);
+    const [planes, setPlanes] = useState([])
     const previousState = useRef([]);
-
+    const [time, setTime] = useState(0)
     
     const isArrayEqual = (x, y) => isEmpty(xorWith(x, y, isEqual));
 
@@ -205,21 +206,29 @@ const DinamicMarkers = (props) => {
   },[currentLocations])
 
     useEffect(() => { 
-        const interval = setInterval(()=>
-        { 
-            onFetchCurrentLocations();     
+        // const interval = setInterval(()=>
+        // { 
+            if(!loading){
+              onFetchCurrentLocations();  
+            }
+               
             //onFetchCurrentLocations2();         
             //onFetchOpenSkyCurrentLocations();        
             
             // setState(currentLocations != null ? _.cloneDeep(currentLocations) : null);
             // positionsArray.push(state ? state : null);
 
-        }, 6000);
-        return () => clearInterval(interval);         
-    }, [props.lat1 || props.lon1 || props.alt1 ||  props.alt2 ]);
+        // }, 6000);
+        //return () => clearInterval(interval);         
+    }, [time, props.lat1 || props.lon1 || props.alt1 ||  props.alt2 ]);
 
-    
- 
+   
+
+  
+  useEffect(() => {
+    return startPlanesMovement();
+  }, []);
+
     useEffect(()=>{
       onFetchAircraftRegistration();
     },[icao]);
@@ -239,148 +248,18 @@ const DinamicMarkers = (props) => {
     let marker2 = <Spinner />
     let marker3 = <Spinner />
 
-         
+
+    const startPlanesMovement = () => {
+      const timer = window.setInterval(() => {
+          if(!requestInProgress){
+              setTime(prevTime => prevTime + 1);
+          }            
+      }, MOVE_DURATION - 500);
+      return () => {
+          window.clearInterval(timer);
+      };
+    }    
     
-      // marker =      
-
-      // currentLocations != null && previousState.current != null ? (isArrayEqual(currentLocations, previousState.current) ? currentLocations.map((currentLocation) => (
-      //   <RotatedMarker 
-      //           key={currentLocation.id}
-      //           icon={customIcon}
-      //           position={[                    
-                    
-      //             currentLocation.lat ? currentLocation.lat : 0,
-      //             currentLocation.lon ? currentLocation.lon : 0
-      //           ]}               
-      //           duration={2000}
-      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-      //           rotationAngle = {currentLocation.angle}
-      //           rotationOrigin= 'center center'
-      //           eventHandlers={{
-      //               click: () => {
-      //                 setIcao(currentLocation.icao)
-      //               },
-      //           }}                
-      //       >            
-                
-      //           <Popup className={classes.popupContainer}>
-      //               <div className={classes.popup}>
-      //                   ICAO = {currentLocation.icao}                      
-      //               </div>
-                    
-      //           </Popup>
-      //       </RotatedMarker>
-      // )) : previousState.current != null ? previousState.current.map(a => (
-      //   <RotatedMarker 
-      //           key={a.id}
-      //           icon={customIcon}
-      //           position={[        
-      //             a.lat,
-      //             a.lon
-      //           ]}               
-                
-      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-      //           rotationAngle = {a.angle}
-      //           rotationOrigin= 'center center'
-      //           eventHandlers={{
-      //               click: () => {
-      //                 setIcao(a.icao)
-      //               },
-      //           }}                
-      //   >            
-                
-      //           <Popup className={classes.popupContainer}>
-      //               <div className={classes.popup}>
-      //                   ICAO = {a.icao}                      
-      //               </div>                    
-      //           </Popup>
-      //   </RotatedMarker>
-      // )) : null) :   
-    
-      // previousState.current != null ? previousState.current.map(a => (
-      //   <RotatedMarker 
-      //           key={a.id}
-      //           icon={customIcon}
-      //           position={[        
-      //             a.lat,
-      //             a.lon
-      //           ]}               
-                
-      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-      //           rotationAngle = {a.angle}
-      //           rotationOrigin= 'center center'
-      //           eventHandlers={{
-      //               click: () => {
-      //                 setIcao(a.icao)
-      //               },
-      //           }}                
-      //   >            
-                
-      //           <Popup className={classes.popupContainer}>
-      //               <div className={classes.popup}>
-      //                   ICAO = {a.icao}                      
-      //               </div>                    
-      //           </Popup>
-      //   </RotatedMarker>
-      // )) : null
-
-
-
-      // marker =      
-
-      // currentLocations != null && previousState.current != null ? currentLocations.map((currentLocation) => (
-      //   <RotatedMarker 
-      //           key={currentLocation.id}
-      //           icon={customIcon}
-      //           position={[                    
-                    
-      //             currentLocation.lat ? currentLocation.lat : previousState.current.lat,
-      //             currentLocation.lon ? currentLocation.lon : previousState.current.lon
-      //           ]}               
-      //           duration={2000}
-      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-      //           rotationAngle = {currentLocation.angle ? currentLocation.angle : previousState.current.angle}
-      //           rotationOrigin= 'center center'
-      //           eventHandlers={{
-      //               click: () => {
-      //                 setIcao(currentLocation.icao)
-      //               },
-      //           }}                
-      //       >            
-                
-      //           <Popup className={classes.popupContainer}>
-      //               <div className={classes.popup}>
-      //                   ICAO = {currentLocation.icao}                      
-      //               </div>
-                    
-      //           </Popup>
-      //       </RotatedMarker>
-      // )) : previousState.current != null ? previousState.current.map(a => (
-      //   <RotatedMarker 
-      //           key={a.id}
-      //           icon={customIcon}
-      //           position={[        
-      //             a.lat,
-      //             a.lon
-      //           ]}               
-                
-      //           //rotationAngle = {currentLocation.angle != null ? currentLocation.angle : previousAngle}
-      //           rotationAngle = {a.angle}
-      //           rotationOrigin= 'center center'
-      //           eventHandlers={{
-      //               click: () => {
-      //                 setIcao(a.icao)
-      //               },
-      //           }}                
-      //   >            
-                
-      //           <Popup className={classes.popupContainer}>
-      //               <div className={classes.popup}>
-      //                   ICAO = {a.icao}                      
-      //               </div>                    
-      //           </Popup>
-      //   </RotatedMarker>
-      // )) : null
       
 
       if(currentLocations != null){
