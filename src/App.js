@@ -41,6 +41,7 @@ function App() {
   // let isCompany = authContext.user.company;
 
   // console.log("Comp ="+isCompany);
+  //console.log(`Dev: ${process.env.REACT_APP_URL_API_DEV}. Prod: ${process.env.REACT_APP_URL_API_PROD}.`);
 
   useEffect(() => {
     authCheckState();

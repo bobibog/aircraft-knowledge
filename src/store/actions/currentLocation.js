@@ -76,7 +76,8 @@ export const fetchCurrentLocations = (lat1, lat2, lon1, lon2) => {
                                  
         let queryString = query;
          
-            axios.get(`/CurrentLocation?`+queryString)
+            // axios.get(`/CurrentLocation?`+queryString)
+            axios.get(`/CurrentLocation/GetCurrentLocation2?`+queryString)
                 .then(response => {                
                     dispatch(fetchCurrentLocationSuccess(response.data['currentLocations']))           
                     //console.log("STANJE= "+ response.data)       

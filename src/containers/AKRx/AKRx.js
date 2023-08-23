@@ -79,7 +79,8 @@ const Akrx = props => {
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
 
-    console.log(company);    
+    //console.log(company);  
+    //console.log(`Dev: ${process.env.REACT_APP_URL_API_DEV}. Prod: ${process.env.REACT_APP_URL_API_PROD}.`);  
 
     //window.location.reload(false);
 
