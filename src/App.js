@@ -38,13 +38,23 @@ function App() {
   let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
   let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
-  // let isCompany = authContext.user.company;
+  let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
+  
+  // if(isAuthenticated){
+  //   console.log("Autentifikovan je "+isAuthenticated);
+  // }
+  
+  // if(isAirExplore){
+  //   console.log("Comp ="+isAirExplore);
+  // }
 
-  // console.log("Comp ="+isCompany);
+
+
+   
 
   useEffect(() => {
     authCheckState();
-  }, [authCheckState]);
+  }, [authCheckState, isAuthenticated]);
 
   let routes = (
     <Switch>                  
@@ -57,7 +67,7 @@ function App() {
     </Switch>
   );
 
-  if (isAuthenticated && !isCustomer) {
+  if (isAuthenticated && !isCustomer && !isAirExplore) {
     routes = (
       <Switch> 
         <Route path="/openstreetMap" component={OpenstreetMap} />              
@@ -80,7 +90,7 @@ function App() {
     );
   }
   
-  if (isAuthenticated && !isParser) {
+  if (isAuthenticated && !isParser && !isCustomer && !isAirExplore) {
     routes = (
       <Switch> 
         {/* <Route path="/map" component={Map} />        */}
@@ -146,7 +156,7 @@ function App() {
     );
   }
 
-  if (isParser && isAuthenticated) {
+  if (isParser && isAuthenticated && !isAirExplore) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -174,7 +184,7 @@ function App() {
     );
   }
   
-  if (isCustomer ) {
+  if (isCustomer && isAuthenticated && !isAirExplore) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -186,6 +196,25 @@ function App() {
         <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />        
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />        
+        <Redirect from="/" exact to="/akrx" />
+        <Route render={() => <div><h1>Data not found</h1></div>} />
+      </Switch>
+    );
+  }
+
+  if (isAirExplore) {
+    routes = (
+      <Switch>  
+        {/* <Route path="/map" component={Map} /> */}
+        {/* <Route path="/openstreetMapCompany" component={OpenstreetMapCompany} />         */}
+        {/* <Route path="/airports/:id" component={Airports} />
+        <Route path="/airports" component={Airports} />        */}
+        <Route path="/akrx" component={AKRx} />
+        <Route path="/adsbCompany"  component={AdsbCompany} />
+        {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
+        
+        <Route path="/auth" component={Auth} />
+        <Route path="/logout" component={Logout} />        
         <Redirect from="/" exact to="/akrx" />
         <Route render={() => <div><h1>Data not found</h1></div>} />
       </Switch>
