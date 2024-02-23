@@ -39,7 +39,33 @@ const Akrx = props => {
     const page = useSelector(state => {
         return state.acarsMessage.acarsMessagesPage;
     });   
-           
+         
+    const [nowDateTime, setNowDateTime] = useState(new Date());
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 360 * 60 * 60 * 1000));
+
+    useEffect(() => {
+        // Update the state variables with the current and 24 hours before date and time
+        const interval = setInterval(() => {
+          setNowDateTime(new Date());
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 360 * 60 * 60 * 1000));
+        }, 1000); // Update every second
+    
+        // Clean up interval on component unmount
+        return () => clearInterval(interval);
+      }, []);
+    
+      // Function to format date to yyyy-MM-dd HH:mm:ss format
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      };
+
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
     const[stationId, setStationId] = useState('');
@@ -59,8 +85,8 @@ const Akrx = props => {
     const[msgno, setMsgno] = useState('');
     const[text, setText] = useState('');
     const[end, setEnd] = useState('');
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');    
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));    
     const[altMin, setAltMin]=useState('');
     const[altMax, setAltMax]=useState('');
     const[dsta, setDsta]=useState('');
@@ -79,7 +105,7 @@ const Akrx = props => {
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
 
-    console.log(company);    
+    // console.log(company);    
 
     //window.location.reload(false);
 

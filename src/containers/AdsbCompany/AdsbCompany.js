@@ -36,8 +36,34 @@ const AdsbCompany = props => {
         return state.adsbMessageCompany.adsbMessagesPage;
     });   
        
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const [nowDateTime, setNowDateTime] = useState(new Date());
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 72 * 60 * 60 * 1000));
+
+    useEffect(() => {
+        // Update the state variables with the current and 24 hours before date and time
+        const interval = setInterval(() => {
+          setNowDateTime(new Date());
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 72 * 60 * 60 * 1000));
+        }, 1000); // Update every second
+    
+        // Clean up interval on component unmount
+        return () => clearInterval(interval);
+      }, []);
+    
+      // Function to format date to yyyy-MM-dd HH:mm:ss format
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      };
+
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
     const[address, setAddress]=useState('');
     const[address2, setAddress2]=useState(false);
     const[addressType, setAddressType]=useState('');
@@ -153,6 +179,7 @@ const AdsbCompany = props => {
     const[type2, setType2]=useState(false);
     const[company, setCompany] = useState(isCompany);
     const[refresh, setRefresh] = useState(0);
+    
 
     const dispatch = useDispatch();
     
@@ -171,7 +198,7 @@ const AdsbCompany = props => {
             report, report2, sl, sl2,  squawk, squawk2, stationId, stationId2, tFlag, tFlag2,
             timestampMin, timestampMax, timestamp2, type, type2, um, um2, verticalRateMin,
             verticalRateMax, verticalRate2, verticalRateSrc, verticalRateSrc2, verticalStatus, verticalStatus2, vs, vs2,
-            acarsMessageDateTimeMin, acarsMessageDateTimeMax, commBBds, commBBds2,
+            acarsMessageDateTimeMin, acarsMessageDateTimeMax , commBBds, commBBds2,
             modeA, modeA2,  modeAIdent, modeAIdent2, modeC, modeC2, company))
         , [dispatch, offset, limit, address, address2,
             addressType, addressType2, aircraftType, aircraftType2,  airspeedMin, airspeedMax,
@@ -187,7 +214,7 @@ const AdsbCompany = props => {
             report, report2, sl, sl2,  squawk, squawk2, stationId, stationId2, tFlag, tFlag2,
             timestampMin, timestampMax, timestamp2, type, type2, um, um2, verticalRateMin,
             verticalRateMax, verticalRate2, verticalRateSrc, verticalRateSrc2, verticalStatus, verticalStatus2, vs, vs2,
-            acarsMessageDateTimeMin, acarsMessageDateTimeMax, commBBds, commBBds2,
+            acarsMessageDateTimeMin , acarsMessageDateTimeMax , commBBds, commBBds2,
             modeA, modeA2,  modeAIdent, modeAIdent2, modeC, modeC2, company]
     );    
     
