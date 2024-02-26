@@ -13,15 +13,16 @@ function replacer(key, value) {
 export const COLUMNS = [
     {
         Header: "UTC Date/Time",
-        accessor: "acarsMessageDateTime", 
+        accessor: "adsbDateTime", 
         // Local Date Time       
         //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
         //UTC
-        Cell: ({ value }) => { return JSON.stringify(value, null, 2).replace(/T/g, ' ').substring(1,20)}
+       Cell: ({ value }) => { return JSON.stringify(value, null, 2).replace(/T/g, ' ').substring(1,20)}
     },
     {
         Header: "Address",
         accessor: "address"
+        
     },
     {
         Header: "Address Type",

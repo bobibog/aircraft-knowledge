@@ -13,7 +13,7 @@ const NavigationItems = ( props ) => {
     let isRole = authContext.user.role == "Admin" ;
     let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
     let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
-
+    let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
     //console.log("Korisnik = "+authContext.user.company);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const NavigationItems = ( props ) => {
         )
     }
     if(isAuthenticated){
-        if(isCustomer){
+        if(isCustomer && !isAirExplore){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtDataCompany">ACARS per Aircraft</NavigationItem>
@@ -39,7 +39,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>         
             </ul>)
         }
-        if(isParser){
+        if(isParser && !isAirExplore){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -53,7 +53,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>        
             </ul>)
         }
-        if(isRole){
+        if(isRole && !isAirExplore){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -68,16 +68,25 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>        
             </ul>)
         }
+        if(isAirExplore && !isRole && !isParser){
+            return(<ul className={classes.NavigationItems}>
+                <NavigationItem link="/akrx">ACARS raw</NavigationItem>
+                {/* <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> */}
+                <NavigationItem link="/adsbCompany">ADSB messages</NavigationItem>
+                {/* <NavigationItem link="/airports">Airports</NavigationItem>
+                <NavigationItem link="/aircraft">Aircraft</NavigationItem>
+                <NavigationItem link="/airlines">Airlines</NavigationItem> */}
+                {/* <NavigationItem link="/openstreetMap">Map</NavigationItem>  */}
+                {/* <NavigationItem link="/statistics">Statistics</NavigationItem> */}
+                {/* <NavigationItem link="/decoding">Decoder</NavigationItem>    */}
+                {/* <NavigationItem link="/administrator">Administrator</NavigationItem> */}
+                <NavigationItem link="/logout">Log out</NavigationItem>        
+            </ul>)
+        }
         else{
             return(<ul className={classes.NavigationItems}>
-                <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
-                <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
-                <NavigationItem link="/adsb">ADSB messages</NavigationItem>
-                <NavigationItem link="/airports">Airports</NavigationItem>
-                <NavigationItem link="/aircraft">Aircraft</NavigationItem>
-                <NavigationItem link="/airlines">Airlines</NavigationItem>
-                <NavigationItem link="/openstreetMap">Map</NavigationItem>                 
-                <NavigationItem link="/logout">Log out</NavigationItem>        
+                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>               
+                <NavigationItem link="/logout">Log out</NavigationItem>   
             </ul>) 
         }
               
