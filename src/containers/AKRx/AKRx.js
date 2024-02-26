@@ -105,7 +105,7 @@ const Akrx = props => {
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
 
-    // console.log(company);    
+
 
     //window.location.reload(false);
 

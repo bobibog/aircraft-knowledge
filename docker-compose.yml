@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  aircraftknowledge: 
+    image: bobibog/aircraftknowledge
+    container_name: aircraftknowledge
+    ports:
+      - 5010:80
+      - 5011:443
+    networks:
+      - frontend-network
+    # env_file:
+    #   - ./aircraft_knowledge.env_file
+networks:
+  frontend-network:
+    external: true

@@ -17,7 +17,7 @@ import Chart from 'react-apexcharts';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
-import DateTimePicker from 'react-datetime-picker';
+//import DateTimePicker from 'react-datetime-picker';
 
 
 const MessagesNumber = (props) =>{

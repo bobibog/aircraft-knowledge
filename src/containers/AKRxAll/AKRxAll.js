@@ -69,7 +69,9 @@ const AkrxAll = props => {
     const[lonMin, setLonMin]=useState('');
     const[lonMax, setLonMax]=useState('');    
     const[toAddr, setToAddr]=useState('');
-    const[type, setType]=useState('');   
+    const[type, setType]=useState('');  
+    
+    //console.log(`Dev: ${process.env.REACT_APP_URL_API_DEV}. Prod: ${process.env.REACT_APP_URL_API_PROD}.`);
 
     
     const dispatch = useDispatch();
