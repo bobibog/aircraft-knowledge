@@ -39,18 +39,9 @@ function App() {
   let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
   let isNotTermed = authContext.user.terms!==1;
   let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
+  let isFlyAir41 = authContext.user.company == "Fly Air41 Airways"&& authContext.user.token !== null;
+  let isCompany = authContext.user.company != null && authContext.user.token !== null;
   
-  // if(isAuthenticated){
-  //   console.log("Autentifikovan je "+isAuthenticated);
-  // }
-  
-  // if(isAirExplore){
-  //   console.log("Comp ="+isAirExplore);
-  // }
-
-
-
-
 
   useEffect(() => {
     authCheckState();
@@ -67,7 +58,7 @@ function App() {
     </Switch>
   );
 
-  if (isAuthenticated && !isCustomer && !isAirExplore) {
+  if (isAuthenticated && !isCustomer && !isCompany) {
     routes = (
       <Switch> 
         <Route path="/openstreetMap" component={OpenstreetMap} />              
@@ -90,7 +81,7 @@ function App() {
     );
   }
   
-  if (isAuthenticated && !isParser && !isCustomer && !isAirExplore) {
+  if (isAuthenticated && !isParser && !isCustomer && !isCompany) {
     routes = (
       <Switch> 
         {/* <Route path="/map" component={Map} />        */}
@@ -156,7 +147,7 @@ function App() {
     );
   }
 
-  if (isParser && isAuthenticated && !isAirExplore) {
+  if (isParser && isAuthenticated && !isCompany) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -184,7 +175,7 @@ function App() {
     );
   }
   
-  if (isCustomer && isAuthenticated && !isAirExplore) {
+  if (isCustomer && isAuthenticated && !isCompany) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -193,7 +184,7 @@ function App() {
         <Route path="/airports" component={Airports} />       
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsbCompany"  component={AdsbCompany} />       
-        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />        
+        {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />        
         <Redirect from="/" exact to="/akrx" />
@@ -202,7 +193,7 @@ function App() {
     );
   }
 
-  if (isAirExplore) {
+  if (isCompany) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -210,8 +201,7 @@ function App() {
         {/* <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />        */}
         <Route path="/akrx" component={AKRx} />
-        <Route path="/adsbCompany"  component={AdsbCompany} />
-        {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
+        <Route path="/adsbCompany"  component={AdsbCompany} />        
         <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />  
         <Route path="/auth" component={Auth} />
         <Route path="/logout" component={Logout} />        

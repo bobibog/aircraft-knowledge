@@ -14,6 +14,7 @@ const NavigationItems = ( props ) => {
     let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
     let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
     let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
+    let isCompany = authContext.user.company != null && authContext.user.token !== null; 
     //console.log("Korisnik = "+authContext.user.company);
 
     useEffect(() => {
@@ -29,7 +30,7 @@ const NavigationItems = ( props ) => {
         )
     }
     if(isAuthenticated){
-        if(isCustomer && !isAirExplore){
+        if(isCustomer && !isCompany){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtDataCompany">ACARS per Aircraft</NavigationItem>
@@ -39,7 +40,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>         
             </ul>)
         }
-        if(isParser && !isAirExplore){
+        if(isParser && !isCompany){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -53,7 +54,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>        
             </ul>)
         }
-        if(isRole && !isAirExplore){
+        if(isRole && !isCompany){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -68,7 +69,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/logout">Log out</NavigationItem>        
             </ul>)
         }
-        if(isAirExplore && !isRole && !isParser){
+        if(isCompany && !isRole && !isParser){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
                 {/* <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> */}

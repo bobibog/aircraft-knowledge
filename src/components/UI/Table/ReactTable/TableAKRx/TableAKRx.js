@@ -780,13 +780,24 @@ const TableAKRx = (props) => {
     
         const exportToCSV = (csvData, fileName) => {
     
-            const ws = XLSX.utils.json_to_sheet(csvData);
+            // const ws = XLSX.utils.json_to_sheet(csvData);
     
+            // const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    
+            // const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    
+            // const data = new Blob([excelBuffer], {type: fileType});
+            const filteredData = csvData.map(({ acarsDateTime, tail, flight, text, freq, timestamp, stationId, channel, level, error, 
+                mode, label, blockId, ack, msgno, end, alt, dsta, icao, isOnground, isResponse, lat, lon, toAddr, type}) => ({ 'UTC Date/Time':acarsDateTime, 'Tail':tail, 'Flight':flight, 'Text':text, 'Frequency':freq, 'Timestamp':timestamp, 'Station ID':stationId, 'Channel':channel, 'Level':level, 'Error':error, 
+                    'Mode':mode, 'Label':label, 'Block ID':blockId, 'Ack':ack, 'Mesage Num.':msgno, 'End':end, 'Altitude':alt, 'Destination Airport':dsta, 'Icao':icao, 'Is on Ground':isOnground, 'Is Response':isResponse, 'Latitude':lat, 'Longitude':lon, 'To Addr':toAddr, 'Message Type':type }));
+    
+            const ws = XLSX.utils.json_to_sheet(filteredData);
+            
             const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    
+            
             const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    
-            const data = new Blob([excelBuffer], {type: fileType});
+            
+            const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
     
             FileSaver.saveAs(data, fileName + fileExtension);
         }

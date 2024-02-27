@@ -12,7 +12,7 @@ import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/
 import {AuthContext} from '../../context/auth-context';
 
 //import TableAKRx from '../../components/UI/Table/TableAKRx';
-//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRxCustomSide';
+//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKisCompanyuseRxCustomSide';
 import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRx';
 
 const Akrx = props => {
@@ -159,8 +159,8 @@ const Akrx = props => {
         setMsgno(msgno);
         setText(text);
         setEnd(end);
-        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);       
+        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin ? acarsMessageDateTimeMin : formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax ? acarsMessageDateTimeMax : formatDate(nowDateTime));       
         setAltMin(altMin);
         setAltMax(altMax);
         setDsta(dsta);
