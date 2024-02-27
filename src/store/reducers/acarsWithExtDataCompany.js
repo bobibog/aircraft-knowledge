@@ -4,8 +4,8 @@ import {updateObject} from '../../shared/utility';
 
 
 const initialState = {
-    acarsWithExtData: null,
-    acarsWithExtDataCount: null,
+    acarsPerAircraftMessages: null,
+    acarsPerAircraftMessagesCount: null,
     acarsWithExtDataLoading: false,
     acarsWithExtDataOffset: 0,
     acarsWithExtDataLimit: rowsPerPageDefault,     
@@ -30,8 +30,8 @@ const fetchAcarsWithExtDataStartCompany = (state, action) => {
 };
 const fetchAcarsWithExtDataSuccessCompany = (state, action) => {
     return updateObject(state, {
-        acarsWithExtData: action.acarsWithExtData,
-        acarsWithExtDataCount: action.acarsWithExtDataCount,
+        acarsPerAircraftMessages: action.acarsPerAircraftMessages,
+        acarsPerAircraftMessagesCount: action.acarsPerAircraftMessagesCount,
         acarsWithExtDataLoading: false
     });
 };

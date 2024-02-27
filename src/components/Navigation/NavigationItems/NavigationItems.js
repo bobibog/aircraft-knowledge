@@ -73,6 +73,7 @@ const NavigationItems = ( props ) => {
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
                 {/* <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem> */}
                 <NavigationItem link="/adsbCompany">ADSB messages</NavigationItem>
+                <NavigationItem link="/acarsWithExtDataCompany">ACARS per aircraft</NavigationItem>
                 {/* <NavigationItem link="/airports">Airports</NavigationItem>
                 <NavigationItem link="/aircraft">Aircraft</NavigationItem>
                 <NavigationItem link="/airlines">Airlines</NavigationItem> */}
@@ -85,7 +86,8 @@ const NavigationItems = ( props ) => {
         }
         else{
             return(<ul className={classes.NavigationItems}>
-                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>               
+                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>  
+                 <NavigationItem link="/acarsWithExtDataCompany">ACARS per aircraft</NavigationItem>             
                 <NavigationItem link="/logout">Log out</NavigationItem>   
             </ul>) 
         }

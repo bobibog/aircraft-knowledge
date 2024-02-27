@@ -199,8 +199,8 @@ const Akrx = props => {
         setMsgno("");
         setText("");
         setEnd("");
-        setAcarsMessageDateTimeMin("");
-        setAcarsMessageDateTimeMax("");       
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));       
         setAltMin("");
         setAltMax("");
         setDsta("");

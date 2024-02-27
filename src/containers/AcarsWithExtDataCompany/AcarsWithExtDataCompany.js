@@ -19,11 +19,11 @@ const AcarsWithExtDataCompany = props => {
     let isCompany = authContext.user.company;
     
     const acarsWithExtData = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtData;
+        return state.acarsWithExtDataCompany.acarsPerAircraftMessages;
     });        
     
     const acarsWithExtDataCount = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtDataCount;
+        return state.acarsWithExtDataCompany.acarsPerAircraftMessagesCount;
     });
 
     const loading = useSelector(state => {
@@ -39,8 +39,34 @@ const AcarsWithExtDataCompany = props => {
         return state.acarsWithExtDataCompany.acarsWithExtDataPage;
     });   
        
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const [nowDateTime, setNowDateTime] = useState(new Date());
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 360 * 60 * 60 * 1000));
+
+    useEffect(() => {
+        // Update the state variables with the current and 24 hours before date and time
+        const interval = setInterval(() => {
+          setNowDateTime(new Date());
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 360 * 60 * 60 * 1000));
+        }, 1000); // Update every second
+    
+        // Clean up interval on component unmount
+        return () => clearInterval(interval);
+      }, []);
+    
+      // Function to format date to yyyy-MM-dd HH:mm:ss format
+      const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      };
+
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
     const[tail, setTail]= useState('');
     const[flight, setFlight]=useState('');
     const[text, setText]=useState('');
@@ -48,17 +74,11 @@ const AcarsWithExtDataCompany = props => {
     const[label, setLabel]= useState('');
     const[blockId, setBlockId] = useState('');
     const[msgno, setMsgno]= useState('');
-    const[dsta, setDsta]= useState('');
-    const[airlineName, setAirlineName]= useState('');
-    const[airlineIata, setAirlineIATA] = useState('');
-    const[airlineIcao, setAirlineICAO] = useState('');
-    const[operatorName, setOperatorName] = useState('');
-    const[operatorIata, setOperatorIata] = useState('');
-    const[operatorIcao, setOperatorIcao] = useState('');
+    const[dsta, setDsta]= useState('');    
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');
-    const[aggregatedText, setAggregatedText] = useState('');
+    const[modeS, setModeS] = useState('');
     const[company, setCompany] = useState(isCompany);
     const[refresh, setRefresh] = useState(0);
 
@@ -66,12 +86,12 @@ const AcarsWithExtDataCompany = props => {
     const dispatch = useDispatch();
     
     const onFetchAcarsWithExtData = useCallback(
-        () => dispatch(actions.fetchAcarsWithExtDataCompany(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
-            tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText, company ))
-        , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
-            tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode , aggregatedText, company]
+        () => dispatch(actions.fetchAcarsWithExtDataCompany(offset,  limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
+            , aircraftType, typeCode, modeS, company ))
+        , [dispatch, offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
+            , aircraftType, typeCode, modeS, company]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimitCompany(offset, limit));    
@@ -87,8 +107,8 @@ const AcarsWithExtDataCompany = props => {
        
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
-        tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText) => {  
+        tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
+        , aircraftType, typeCode, modeS) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
@@ -100,25 +120,19 @@ const AcarsWithExtDataCompany = props => {
         setLabel(label);
         setBlockId(blockId);
         setMsgno(msgno);
-        setDsta(dsta);
-        setAirlineName(airlineName);
-        setAirlineIATA(airlineIata);
-        setAirlineICAO(airlineIcao);
-        setOperatorName(operatorName);
-        setOperatorIata(operatorIata);
-        setOperatorIcao(operatorIcao);
+        setDsta(dsta);        
         setSerialNumber(serialNumber);        
         setAircraftType(aircraftType);
         setTypeCode(typeCode);
-        setAggregatedText(aggregatedText);
+        setModeS(modeS);
     };
     
     
     const resetSearchHandler = () => {
         onSetAcarsWithExtDataOffsetLimit(0, 10);
         onSetAcarsWithExtDataPage(0);
-        setAcarsMessageDateTimeMin('');
-        setAcarsMessageDateTimeMax('');
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));
         setTail('');
         setFlight('');
         setText('');
@@ -126,18 +140,11 @@ const AcarsWithExtDataCompany = props => {
         setLabel('');
         setBlockId('');
         setMsgno('');
-        setDsta('');
-        setAirlineName('');
-        setAirlineIATA('');
-        setAirlineICAO('');
-        setOperatorName('');
-        setOperatorIata('');
-        setOperatorIcao('');
+        setDsta('');        
         setSerialNumber('');        
         setAircraftType('');
         setTypeCode('');   
-        setAggregatedText('');   
-        
+        setModeS('');        
         setAllOption(0);    
     };    
        

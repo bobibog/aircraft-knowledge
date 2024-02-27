@@ -482,8 +482,8 @@ const AdsbCompany = props => {
         setVerticalStatus2(false);
         setVs('');
         setVs2(false);
-        setAcarsMessageDateTimeMin('');
-        setAcarsMessageDateTimeMax('');    
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));    
         setAllOption(0);    
     };    
        

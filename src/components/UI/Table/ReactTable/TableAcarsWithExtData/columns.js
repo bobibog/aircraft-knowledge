@@ -22,7 +22,7 @@ function replacer1(key, value) {
 export const COLUMNS = [
     {
         Header: "UTC Date/Time",
-        accessor: "acarsMessageDateTime", 
+        accessor: "acarsDateTime", 
         // Local Date Time       
         //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
         //UTC
@@ -43,12 +43,12 @@ export const COLUMNS = [
         //Cell: ({ value }) => { return String.raw`${value}` }
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
-    {
-        Header: "Aggregated Text",
-        accessor: "aggregatedText",
-        Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
+    // {
+    //     Header: "Aggregated Text",
+    //     accessor: "aggregatedText",
+    //     Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
           
-    },
+    // },
     {
         Header: "Mode",
         accessor: "mode"
@@ -71,28 +71,28 @@ export const COLUMNS = [
     },   
     {
         Header:"Airline Name",
-        accessor:"airline.airlineName"
+        accessor:"airlineName"
     },  
     {
         Header:"Airline IATA",
-        accessor:"airline.iata"
+        accessor:"iata"
     },
-    {
-        Header:"Airline ICAO",
-        accessor:"airline.icao"
-    },    
-    {
-        Header:"Operator Name",
-        accessor:"operator.airlineName"
-    },
-    {
-        Header:"Operator IATA",
-        accessor:"operator.iata"
-    },
-    {
-        Header:"Operator ICAO",
-        accessor:"operator.icao"
-    },
+    // {
+    //     Header:"Airline ICAO",
+    //     accessor:"airline.icao"
+    // },    
+    // {
+    //     Header:"Operator Name",
+    //     accessor:"operator.airlineName"
+    // },
+    // {
+    //     Header:"Operator IATA",
+    //     accessor:"operator.iata"
+    // },
+    // {
+    //     Header:"Operator ICAO",
+    //     accessor:"operator.icao"
+    // },
     {
         Header:"Aircraft Type",
         accessor:"aircraftType"

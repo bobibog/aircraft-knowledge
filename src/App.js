@@ -212,7 +212,7 @@ function App() {
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsbCompany"  component={AdsbCompany} />
         {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
-        
+        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />  
         <Route path="/auth" component={Auth} />
         <Route path="/logout" component={Logout} />        
         <Redirect from="/" exact to="/akrx" />
