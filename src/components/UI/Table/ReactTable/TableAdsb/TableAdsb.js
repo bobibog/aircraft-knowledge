@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
 import { COLUMNS } from './columns';
 import {RiArrowLeftSLine} from 'react-icons/ri';
@@ -877,22 +877,22 @@ const getStyles = (props, align = 'left') => [
   },
 ]
 
-const IndeterminateCheckbox = React.forwardRef(
-    ({ indeterminate, ...rest }, ref) => {
-      const defaultRef = React.useRef()
-      const resolvedRef = ref || defaultRef
+// const IndeterminateCheckbox = React.forwardRef(
+//     ({ indeterminate, ...rest }, ref) => {
+//       const defaultRef = React.useRef()
+//       const resolvedRef = ref || defaultRef
   
-      React.useEffect(() => {
-        resolvedRef.current.indeterminate = indeterminate
-      }, [resolvedRef, indeterminate])
+//       React.useEffect(() => {
+//         resolvedRef.current.indeterminate = indeterminate
+//       }, [resolvedRef, indeterminate])
   
-      return (
-        <>
-          <input type="checkbox" ref={resolvedRef} {...rest} />
-        </>
-      )
-    }
-  );
+//       return (
+//         <>
+//           <input type="checkbox" ref={resolvedRef} {...rest} />
+//         </>
+//       )
+//     }
+//   );
 
 const TableAdsb = (props) => {
     
@@ -910,9 +910,25 @@ const TableAdsb = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
-    const columns = useMemo(()=> COLUMNS, []);    
-    
-    const data = useMemo(()=> props.data, []);    
+    //const columns = useMemo(()=> COLUMNS, []);        
+    // const data = useMemo(()=> props.data, []);    
+
+    //!!! NOVI PRISTUP, BEZ MEMORISANJA 
+    const [columns, setColumns] = useState(COLUMNS);
+
+    // Update columns when COLUMNS changes
+    useEffect(() => {
+      setColumns(COLUMNS);
+    }, [COLUMNS]);
+
+    const [data, setData] = useState(props.data);
+
+    // Update data when props.data changes
+    useEffect(() => {
+      setData(props.data);
+    }, [props.data]);
+
+
     const [pageInd, setPage] = useState(props.currPage);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
     const [rowClose, setRowClose] = useState(false);
@@ -993,18 +1009,18 @@ const TableAdsb = (props) => {
     
         const fileExtension = '.xlsx';   
     
-        const exportToCSV = (csvData, fileName) => {
+        // const exportToCSV = (csvData, fileName) => {
     
-            const ws = XLSX.utils.json_to_sheet(csvData);
+        //     const ws = XLSX.utils.json_to_sheet(csvData);
     
-            const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+        //     const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
     
-            const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        //     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     
-            const data = new Blob([excelBuffer], {type: fileType});
+        //     const data = new Blob([excelBuffer], {type: fileType});
     
-            FileSaver.saveAs(data, fileName + fileExtension);
-        }
+        //     FileSaver.saveAs(data, fileName + fileExtension);
+        // }
     
 
     return (
@@ -1108,7 +1124,7 @@ const TableAdsb = (props) => {
             Rows per page:{'  '}
             <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
-                    [10, 25, 50, 100, 1000].map(pageSize => (                       
+                    [10, 25, 50, 100].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
                                 {pageSize}
                             </option>            
@@ -1140,5 +1156,7 @@ const TableAdsb = (props) => {
 
 export default TableAdsb;
 
-// https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
-// 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>
+// // https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
+// // 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>
+
+
