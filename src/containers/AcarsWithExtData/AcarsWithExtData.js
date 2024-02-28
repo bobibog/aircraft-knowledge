@@ -34,9 +34,35 @@ const AcarsWithExtData = props => {
     const page = useSelector(state => {
         return state.acarsWithExtData.acarsWithExtDataPage;
     });   
+
+    const [nowDateTime, setNowDateTime] = useState(new Date());
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 2 * 60 * 60 * 1000));
+
+    useEffect(() => {
+        // Update the state variables with the current and 24 hours before date and time
+        const interval = setInterval(() => {
+          setNowDateTime(new Date());
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 2 * 60 * 60 * 1000));
+        }, 1000); // Update every second
+    
+        // Clean up interval on component unmount
+        return () => clearInterval(interval);
+      }, []);
+
+    // Function to format date to yyyy-MM-dd HH:mm:ss format
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      };
        
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
     const[tail, setTail]= useState('');
     const[flight, setFlight]=useState('');
     const[text, setText]=useState('');
@@ -85,8 +111,8 @@ const AcarsWithExtData = props => {
         serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
-        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);
+        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin ? acarsMessageDateTimeMin : formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax ? acarsMessageDateTimeMax : formatDate(nowDateTime));   
         setTail(tail);
         setFlight(flight);
         setText(text);
@@ -111,8 +137,8 @@ const AcarsWithExtData = props => {
     const resetSearchHandler = () => {
         onSetAcarsWithExtDataOffsetLimit(0, 10);
         onSetAcarsWithExtDataPage(0);
-        setAcarsMessageDateTimeMin('');
-        setAcarsMessageDateTimeMax('');
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));
         setTail('');
         setFlight('');
         setText('');
@@ -162,7 +188,7 @@ const AcarsWithExtData = props => {
       
     let acarsWithExtDataTable = <Spinner />;
     if (!acarsWithExtData && !loading  ) {
-        acarsWithExtDataTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read Adsb messages from the server!</p>;
+        acarsWithExtDataTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read Acars messages from the server!</p>;
     }
     
     if (acarsWithExtData && !loading ) {

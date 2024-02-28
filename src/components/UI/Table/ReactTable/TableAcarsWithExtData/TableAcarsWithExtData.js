@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
 import { COLUMNS } from './columns';
 import {RiArrowLeftSLine} from 'react-icons/ri';
@@ -675,9 +675,26 @@ const TableAcarsWithExtData = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
-    const columns = useMemo(()=> COLUMNS, []);    
+    // const columns = useMemo(()=> COLUMNS, []);      
+    // const data = useMemo(()=> props.data, []);    
+
+     //!!! NOVI PRISTUP, BEZ MEMORISANJA 
+     const [columns, setColumns] = useState(COLUMNS);
+
+     // Update columns when COLUMNS changes
+     useEffect(() => {
+       setColumns(COLUMNS);
+     }, [COLUMNS]);
+ 
+     const [data, setData] = useState(props.data);
+ 
+     // Update data when props.data changes
+     useEffect(() => {
+       setData(props.data);
+     }, [props.data]);
+ 
     
-    const data = useMemo(()=> props.data, []);    
+    
     const [pageInd, setPage] = useState(props.currPage);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
     const [rowClose, setRowClose] = useState(false);
@@ -860,7 +877,7 @@ const TableAcarsWithExtData = (props) => {
         </table>
         
         </>
-        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for previous day or entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
+        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
         <div className="pagginationBox">
             
             {/* <span>
