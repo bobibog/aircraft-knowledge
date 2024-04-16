@@ -41,13 +41,13 @@ const Akrx = props => {
     });   
          
     const [nowDateTime, setNowDateTime] = useState(new Date());
-    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 360 * 60 * 60 * 1000));
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 24 * 60 * 60 * 1000));
 
     useEffect(() => {
         // Update the state variables with the current and 24 hours before date and time
         const interval = setInterval(() => {
           setNowDateTime(new Date());
-          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 360 * 60 * 60 * 1000));
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 24 * 60 * 60 * 1000));
         }, 1000); // Update every second
     
         // Clean up interval on component unmount
