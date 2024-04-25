@@ -14,9 +14,7 @@ import Clock from '../../components/Clock/Clock';
 const AcarsWithExtData = props => {
     const acarsWithExtData = useSelector(state => {
         return state.acarsWithExtData.acarsWithExtData;
-    });    
-
-    
+    }); 
     
     const acarsWithExtDataCount = useSelector(state => {
         return state.acarsWithExtData.acarsWithExtDataCount;

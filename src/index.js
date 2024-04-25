@@ -33,7 +33,7 @@ import acarsWithExtDataCompanyReducer from './store/reducers/acarsWithExtDataCom
 import adsbMessageCompanyReducer from './store/reducers/adsbMessageCompany';
 import currentLocationCompanyReducer from './store/reducers/currentLocationCompany';
 import stationLastSeenReducer from './store/reducers/stationLastSeen';
-
+import stationStatusReducer from './store/reducers/stationStatus';
 
 let composeEnhancers = null;
 if (process.env.NODE_ENV === 'development') {
@@ -64,7 +64,8 @@ const rootReducer = combineReducers({
   acarsWithExtDataCompany: acarsWithExtDataCompanyReducer,
   adsbMessageCompany: adsbMessageCompanyReducer,
   currentLocationCompany: currentLocationCompanyReducer,
-  stationLastSeen: stationLastSeenReducer
+  stationLastSeen: stationLastSeenReducer,
+  stationStatus: stationStatusReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
