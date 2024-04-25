@@ -258,10 +258,7 @@ const  SearchStationStatus = (props) => {
                                         elementType='input' 
                                         elementConfig= {msgTypeInputConfig}                                               
                                     />
-                                </InputGroup>
-                                
-                                                                                  
-                                                                                                               
+                                </InputGroup>                                                               
                             </div>
                             <div className={classes.buttonBox}>
                                 <ButtonBordered                                    
