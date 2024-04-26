@@ -256,7 +256,11 @@ const AkrxAll = props => {
             allOption={allOption}                     
         />;
         
-    }      
+    }   
+    
+    if(acarsMessagesCount){
+        console.log("ACARS count = "+acarsMessagesCount);
+    }
     
     return (
         <div style={{marginTop:'-2px'}}>                       

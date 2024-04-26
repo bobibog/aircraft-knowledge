@@ -171,7 +171,6 @@ const MessagesNumber = (props) =>{
 
     // ↑ STATION STATUS
 
-    
 
     const[messagesNumberResult, setMessagesNumberResult] = useState(messagesNumber);
 
@@ -879,11 +878,7 @@ const MessagesNumber = (props) =>{
                                         title="FROM DATE & TIME"
                                         onBlur={onBlur1}                                              
                                     />
-                                    {/* <DateTimePicker 
-                                        //value={timeMin}
-                                        onChange= {onChange}
-                                        format = "dd-MMM-yy hh:mm a"
-                                    /> */}
+                                    
                                     {Object.keys(dateFromErr).map((key)=>{
                                         return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateFromErr[key]}</div>
                                     })}
@@ -919,9 +914,7 @@ const MessagesNumber = (props) =>{
                 <div className={classes.btnContainer}>
                     <div className={classes.button}>
                         <button    type="submit" onClick={onSubmit}  >SEARCH</button>
-                        {/* <ReactTooltip id="registerTip" place="top" effect="solid">
-                            Double click Please
-                        </ReactTooltip> */}
+                       
                     </div>
                     <div className={classes.button}>
                         <button  type="submit" className="btn btn-warning" onClick={onReset} >RESET</button>
@@ -942,11 +935,7 @@ const MessagesNumber = (props) =>{
                 <form className={classes.form} >
                     <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    {/* <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  */}
+                                    
                                     <label className={classes.label}>From date and time</label>              
                                     <Input 
                                         value={timeMin1}
@@ -967,11 +956,7 @@ const MessagesNumber = (props) =>{
                     <div >                        
                     <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    {/* <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> */}
+                                    
                                     <label className={classes.label}>To date and time</label>                   
                                     <Input 
                                         value={timeMax1}
@@ -1014,78 +999,7 @@ const MessagesNumber = (props) =>{
                     {result1}                  
                 </div>
             </div>
-            {/* <hr style={{width:"100%", size:"3", color:"black"}}></hr>
-            <h5>Feeding time per receiver</h5>
-            <div className={classes.container}>         
-                <form className={classes.form} >
-                    <div className={classes.dateTime}>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    
-                                    <label className={classes.label}>From date and time</label>              
-                                    <Input 
-                                        value={timeMin2}
-                                        // changed={(e)=>settimeMin(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>(settimeMin2(e.target.value))}                                        
-                                        elementType='input' 
-                                        elementConfig= {timeMinInputConfig} 
-                                        toggle="tooltip"
-                                        placement="right"
-                                        title="FROM DATE & TIME"
-                                        onBlur={onBlur1}                                              
-                                    />
-                                    {Object.keys(dateFromErr).map((key)=>{
-                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateFromErr[key]}</div>
-                                    })}
-                                </InputGroup>
-                                </div>
-                    <div >                        
-                    <div className={classes.dateTime}>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    
-                                    <label className={classes.label}>To date and time</label>                   
-                                    <Input 
-                                        value={timeMax2}
-                                        // changed={(e)=>settimeMax(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>settimeMax2(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {timeMaxInputConfig}
-                                        toggle="tooltip"
-                                        placement="right"
-                                        title="TO DATE & TIME"
-                                        onBlur={onBlur2}                                              
-                                    />
-                                    {Object.keys(dateToErr).map((key)=>{
-                                        return <div style={{color:'yellow', fontSize:'small', fontWeight:'bold', paddingLeft:'15px', paddingRight: '7px', width:'220px', wordWrap:'break-word', textAlign:'right'}}>{dateToErr[key]}</div>
-                                    })}
-                                </InputGroup>
-                                </div>
-                    </div>
-                    <div >                        
-                        <input className={classes.input} value={stationId2} onChange={(e)=>setStationId2(e.target.value)} placeholder='Insert Station ID'/>
-                    </div>
-                    
-                    
-                </form>
-                <div className={classes.btnContainer}>
-                    <div className={classes.button}>
-                        <button    type="submit" onClick={onSubmit2}  >SEARCH</button>
-                        <ReactTooltip id="registerTip" place="top" effect="solid">
-                            Double click Please
-                        </ReactTooltip>
-                    </div>
-                    
-                    <div className={classes.button}>
-                        <button  type="submit" className="btn btn-warning" onClick={onReset2} >RESET</button>
-                       
-                    </div>
-                </div>
-                <div className="form-group">
-                    <label className={classes.resultLabel}><u>STATISTICS TABLE 1: </u></label>
-                    <br></br>
-                    {result2}                  
-                </div>
-            </div> */}
-            
+                        
             <hr style={{width:"100%", size:"3", color:"black"}}></hr>
             <h5>Feeding time per receiver and message type</h5>
             <div className={classes.container}>         
@@ -1167,7 +1081,7 @@ const MessagesNumber = (props) =>{
             <h5>STATIONS STATUS</h5>
             <div className={classes.container}>
             <br></br>
-                <div>
+                <div >
                     <SearchStationStatus 
                          clickedSearch={submitSearchHandler}                               
                         clickedReset={resetSearchHandler} 
