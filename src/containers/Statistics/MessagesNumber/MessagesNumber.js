@@ -157,8 +157,6 @@ const MessagesNumber = (props) =>{
     }
     
     if (stationStatus && !loadingStationStatus ) {
-          
-        
         stationStatusTable =  <StationStatusTable
             data={stationStatus}
             rowsPerPageDef={limitStationStatus}            

@@ -144,12 +144,7 @@ const  SearchStationStatus = (props) => {
       const wrapperRef = useRef(null);
       useOutsideAlerter(wrapperRef);
 
-      // /
-
     const changer=0;
-    
-   
-
     const onSerach = (e) =>{
         props.clickedSearch(start, end, statId, msgType);
         setFilter('a');
@@ -253,7 +248,6 @@ const  SearchStationStatus = (props) => {
                                     </InputGroup.Prepend>                   
                                     <Input
                                         value={msgType}
-                                        // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
                                         changed={(e)=>setMsgType(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {msgTypeInputConfig}                                               
@@ -263,18 +257,16 @@ const  SearchStationStatus = (props) => {
                             <div className={classes.buttonBox}>
                                 <ButtonBordered                                    
                                     clicked={onSerach}
-                                    btnType="Success"
-                                                                                                                                                           
+                                    btnType="Success"                                                      
                                 >SEARCH</ButtonBordered>
+                                
                                 <ButtonBordered                                    
                                     clicked={onReset}
-                                    btnType="Secondary"
-                                     
+                                    btnType="Secondary"                                     
                                 >RESET</ButtonBordered>
                             </div>
                         </div>
                         </div>
-                        
                     </div> 
                 </div>          
             </DropdownButton>
