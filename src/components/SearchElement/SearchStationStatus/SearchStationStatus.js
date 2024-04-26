@@ -14,7 +14,6 @@ import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
 const  SearchStationStatus = (props) => {
-
            
     const[start, setStart] = useState('');
     const[end, setEnd] = useState('');
@@ -22,7 +21,6 @@ const  SearchStationStatus = (props) => {
     const[msgType, setMsgType] = useState('');
     
     const dispatch = useDispatch();
-   
 
     // Disable Input
     const [disabled, setDisabled] = useState(false);
@@ -42,7 +40,6 @@ const  SearchStationStatus = (props) => {
     var dayMax = end.slice(8, 10);    
     var monthMax = end.slice(5, 7);    
     var yearMax = end.slice(0, 4);
-    
 
     const onBlur1 =(e)=>{
         e.preventDefault();
@@ -87,8 +84,6 @@ const  SearchStationStatus = (props) => {
         setMsgType('');
         props.clickedReset();
     };   
-
-     
        
     const acarsMessageDateTimeMinInputConfig = {
         type:'datetime-local',
@@ -166,7 +161,6 @@ const  SearchStationStatus = (props) => {
             setDropStatus(1);
             return dropStatus; 
         }
-             
     };
 
     return (
