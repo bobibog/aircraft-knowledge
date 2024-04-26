@@ -361,8 +361,8 @@ const AdsbCompany = props => {
         setVerticalStatus2(verticalStatus2);
         setVs(vs);
         setVs2(vs2);
-        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);  
+        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin ? acarsMessageDateTimeMin : formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax ? acarsMessageDateTimeMax : formatDate(nowDateTime));  
     };
     
     
@@ -482,8 +482,8 @@ const AdsbCompany = props => {
         setVerticalStatus2(false);
         setVs('');
         setVs2(false);
-        setAcarsMessageDateTimeMin('');
-        setAcarsMessageDateTimeMax('');    
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));    
         setAllOption(0);    
     };    
        

@@ -23,11 +23,11 @@ export const fetchAcarsWithExtDataStartCompany = () => {
     }
 };
 
-export const fetchAcarsWithExtDataSuccessCompany = (acarsWithExtData, acarsWithExtDataCount) => {
+export const fetchAcarsWithExtDataSuccessCompany = (acarsPerAircraftMessages, acarsPerAircraftMessagesCount) => {
     return {
         type: actionTypes.FETCH_ACARSWITHEXTDATA_SUCCESS_COMPANY,
-        acarsWithExtData: acarsWithExtData,
-        acarsWithExtDataCount: acarsWithExtDataCount
+        acarsPerAircraftMessages: acarsPerAircraftMessages,
+        acarsPerAircraftMessagesCount: acarsPerAircraftMessagesCount
     }
 };
 
@@ -41,9 +41,9 @@ export const fetchAcarsWithExtDataFailCompany = (error) => {
 
 
 
-export const fetchAcarsWithExtDataCompany = (offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
-    tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-    serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText, company                            
+export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+    tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
+    , aircraftType, typeCode, modeS, company                            
     ) => {
     return dispatch => {
         dispatch(fetchAcarsWithExtDataStartCompany());                      
@@ -60,18 +60,11 @@ export const fetchAcarsWithExtDataCompany = (offset, limit, acarsMessageDateTime
         query.append('label', label);
         query.append('blockId', blockId);
         query.append('msgno', msgno);
-        query.append('dsta', dsta);
-        query.append('airlineName', airlineName);
-        query.append('airlineIata', airlineIata);
-        query.append('airlineIcao', airlineIcao);
-        query.append('operatorName', operatorName);
-        query.append('operatorIata', operatorIata);
-        query.append('operatorIcao', operatorIcao);
-        query.append('operatorIcao', operatorIcao);
+        query.append('dsta', dsta);        
         query.append('serialNumber', serialNumber);        
         query.append('aircraftType', aircraftType);
-        query.append('typeCode', typeCode);
-        query.append('aggregatedText', aggregatedText);
+        query.append('typeCode', typeCode);   
+        query.append('modeS', modeS);       
         query.append('company', company);
 
         let queryString = limit !== "-1"            
@@ -82,7 +75,7 @@ export const fetchAcarsWithExtDataCompany = (offset, limit, acarsMessageDateTime
             
         axios.get(url+ queryString)
             .then(response => {                
-                dispatch(fetchAcarsWithExtDataSuccessCompany(response.data['acarsWithExtData'], response.data['acarsWithExtDataCount']))                 
+                dispatch(fetchAcarsWithExtDataSuccessCompany(response.data['acarsPerAircraftMessages'], response.data['acarsPerAircraftMessagesCount']))                 
             })
             .catch(error => {
                 dispatch(fetchAcarsWithExtDataFailCompany(error));                                

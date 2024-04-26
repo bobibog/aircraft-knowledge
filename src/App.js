@@ -35,22 +35,13 @@ function App() {
   const authCheckState = authContext.authenticationCheckState;
   let isAuthenticated = authContext.user.token !== null;
   let isRole = authContext.user.role == "Admin" ;
-  let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
-  let isCustomer = authContext.user.role == "Customer"&& authContext.user.token !== null;
+  let isParser = authContext.user.role == "Parser" ;
+  let isCustomer = authContext.user.role == "Customer";
   let isNotTermed = authContext.user.terms!==1;
   let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
+  let isFlyAir41 = authContext.user.company == "Fly Air41 Airways"&& authContext.user.token !== null;
+  let isCompany = authContext.user.company != null ;
   
-  // if(isAuthenticated){
-  //   console.log("Autentifikovan je "+isAuthenticated);
-  // }
-  
-  // if(isAirExplore){
-  //   console.log("Comp ="+isAirExplore);
-  // }
-
-
-
-   
 
   useEffect(() => {
     authCheckState();
@@ -67,69 +58,69 @@ function App() {
     </Switch>
   );
 
-  if (isAuthenticated && !isCustomer && !isAirExplore) {
-    routes = (
-      <Switch> 
-        <Route path="/openstreetMap" component={OpenstreetMap} />              
-        <Route path="/aircraft/:id" component={Aircrafts} />
-        <Route path="/aircraft" component={AircraftsSearch} />
-        <Route path="/airports/:id" component={Airports} />
-        <Route path="/airports" component={Airports} />
-        <Route path="/flights/:id" component={Flights} />        
-        <Route path="/airlines" component={Airlines} />
-        <Route path="/statistics" component={MessagesNumber} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/auth" component={Auth} />
-        <Route path="/auth2" component={Auth2} />
-        <Route path="/adsb"  component={Adsb} />
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
-        <Route path="/akrxAll" component={AkrxMessageAll} />
-        <Redirect from="/" exact to="/akrxAll" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
-      </Switch>
-    );
-  }
-  
-  if (isAuthenticated && !isParser && !isCustomer && !isAirExplore) {
-    routes = (
-      <Switch> 
-        {/* <Route path="/map" component={Map} />        */}
-        <Route path="/openstreetMap" component={OpenstreetMap} />              
-        <Route path="/aircraft/:id" component={Aircrafts} />
-        <Route path="/aircraft" component={AircraftsSearch} />
-        <Route path="/airports/:id" component={Airports} />
-        <Route path="/airports" component={Airports} />
-        <Route path="/flights/:id" component={Flights} />        
-        <Route path="/airlines" component={Airlines} />
-        <Route path="/statistics" component={MessagesNumber} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/auth" component={Auth} />
-        <Route path="/auth2" component={Auth2} />
-        <Route path="/adsb"  component={Adsb} />
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
-        <Route path="/akrxAll" component={AkrxMessageAll} />
-        <Redirect from="/" exact to="/akrxAll" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
-      </Switch>
-    );
-  }
-
-  
-  
-  // if(!isAuthenticated){
+  // if (isAuthenticated && !isCustomer && !isCompany) {
   //   routes = (
-  //     <Switch>        
+  //     <Switch> 
+  //       <Route path="/openstreetMap" component={OpenstreetMap} />              
+  //       <Route path="/aircraft/:id" component={Aircrafts} />
+  //       <Route path="/aircraft" component={AircraftsSearch} />
+  //       <Route path="/airports/:id" component={Airports} />
+  //       <Route path="/airports" component={Airports} />
+  //       <Route path="/flights/:id" component={Flights} />        
+  //       <Route path="/airlines" component={Airlines} />
+  //       <Route path="/statistics" component={MessagesNumber} />
+  //       <Route path="/logout" component={Logout} />
   //       <Route path="/auth" component={Auth} />
-  //       <Redirect from="/aircraft" to="/auth" />        
-  //       <Redirect from="/airports" to="/auth" />                
-  //       <Redirect from="/airlines" to="/auth" />                
-  //       <Redirect from="/akrx" to="/auth" />
-  //       <Redirect from="/" exact to="/auth" />                    
+  //       <Route path="/auth2" component={Auth2} />
+  //       <Route path="/adsb"  component={Adsb} />
+  //       <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
+  //       <Route path="/akrxAll" component={AkrxMessageAll} />
+  //       <Redirect from="/" exact to="/akrxAll" />
+  //       <Route render={() => <div><h1>Data not found</h1></div>} />
   //     </Switch>
   //   );
-  // }  
+  // }
+  
+  // if (isAuthenticated && !isParser && !isCustomer && !isCompany) {
+  //   routes = (
+  //     <Switch> 
+  //       {/* <Route path="/map" component={Map} />        */}
+  //       <Route path="/openstreetMap" component={OpenstreetMap} />              
+  //       <Route path="/aircraft/:id" component={Aircrafts} />
+  //       <Route path="/aircraft" component={AircraftsSearch} />
+  //       <Route path="/airports/:id" component={Airports} />
+  //       <Route path="/airports" component={Airports} />
+  //       <Route path="/flights/:id" component={Flights} />        
+  //       <Route path="/airlines" component={Airlines} />
+  //       <Route path="/statistics" component={MessagesNumber} />
+  //       <Route path="/logout" component={Logout} />
+  //       <Route path="/auth" component={Auth} />
+  //       <Route path="/auth2" component={Auth2} />
+  //       <Route path="/adsb"  component={Adsb} />
+  //       <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
+  //       <Route path="/akrxAll" component={AkrxMessageAll} />
+  //       <Redirect from="/" exact to="/akrxAll" />
+  //       <Route render={() => <div><h1>Data not found</h1></div>} />
+  //     </Switch>
+  //   );
+  // }
 
-  if (isRole) {
+  
+  
+  if(!isAuthenticated){
+    routes = (
+      <Switch>        
+        <Route path="/auth" component={Auth} />
+        <Redirect from="/aircraft" to="/auth" />        
+        <Redirect from="/airports" to="/auth" />                
+        <Redirect from="/airlines" to="/auth" />                
+        <Redirect from="/akrx" to="/auth" />
+        <Redirect from="/" exact to="/auth" />                    
+      </Switch>
+    );
+  }  
+
+  if (isRole && isAuthenticated) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -151,12 +142,12 @@ function App() {
         <Route path={"/updateUser/:id"} component={UpdateUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
+        <Route render={() => <div><h1>Data not found administrator</h1></div>} />
       </Switch>
     );
   }
 
-  if (isParser && isAuthenticated && !isAirExplore) {
+  if (isParser && isAuthenticated) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -179,12 +170,12 @@ function App() {
         <Route path="/decoding" component={Decoding} />
         <Route path="/parser" component={Parser} />    
         <Redirect from="/" exact to="/parser" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
+        <Route render={() => <div><h1>Data not found parser</h1></div>} />
       </Switch>
     );
   }
   
-  if (isCustomer && isAuthenticated && !isAirExplore) {
+  if (isCustomer && isAuthenticated && !isCompany && !isParser && !isRole) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -193,16 +184,16 @@ function App() {
         <Route path="/airports" component={Airports} />       
         <Route path="/akrx" component={AKRx} />
         <Route path="/adsbCompany"  component={AdsbCompany} />       
-        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />        
+        {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} />        
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
+        <Route render={() => <div><h1>Data not found customer</h1></div>} />
       </Switch>
     );
   }
 
-  if (isAirExplore) {
+  if (isCompany && isAuthenticated && !isRole && !isParser) {
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -210,13 +201,12 @@ function App() {
         {/* <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />        */}
         <Route path="/akrx" component={AKRx} />
-        <Route path="/adsbCompany"  component={AdsbCompany} />
-        {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
-        
+        <Route path="/adsbCompany"  component={AdsbCompany} />        
+        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />  
         <Route path="/auth" component={Auth} />
         <Route path="/logout" component={Logout} />        
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <div><h1>Data not found</h1></div>} />
+        <Route render={() => <div><h1>Data not found company</h1></div>} />
       </Switch>
     );
   }

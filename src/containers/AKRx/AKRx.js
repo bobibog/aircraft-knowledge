@@ -12,7 +12,7 @@ import SearchAKRxElement from '../../components/SearchElement/SearchAKRxElement/
 import {AuthContext} from '../../context/auth-context';
 
 //import TableAKRx from '../../components/UI/Table/TableAKRx';
-//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRxCustomSide';
+//import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKisCompanyuseRxCustomSide';
 import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRx';
 
 const Akrx = props => {
@@ -41,13 +41,13 @@ const Akrx = props => {
     });   
          
     const [nowDateTime, setNowDateTime] = useState(new Date());
-    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 360 * 60 * 60 * 1000));
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 24 * 60 * 60 * 1000));
 
     useEffect(() => {
         // Update the state variables with the current and 24 hours before date and time
         const interval = setInterval(() => {
           setNowDateTime(new Date());
-          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 360 * 60 * 60 * 1000));
+          setTwentyFourHoursAgoDateTime(new Date(Date.now() - 24 * 60 * 60 * 1000));
         }, 1000); // Update every second
     
         // Clean up interval on component unmount
@@ -105,7 +105,7 @@ const Akrx = props => {
     // const [, updateState] = useState();
     // const forceUpdate = useCallback(() => updateState({}), []);
 
-    // console.log(company);    
+
 
     //window.location.reload(false);
 
@@ -159,8 +159,8 @@ const Akrx = props => {
         setMsgno(msgno);
         setText(text);
         setEnd(end);
-        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
-        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);       
+        setAcarsMessageDateTimeMin(acarsMessageDateTimeMin ? acarsMessageDateTimeMin : formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(acarsMessageDateTimeMax ? acarsMessageDateTimeMax : formatDate(nowDateTime));       
         setAltMin(altMin);
         setAltMax(altMax);
         setDsta(dsta);
@@ -199,8 +199,8 @@ const Akrx = props => {
         setMsgno("");
         setText("");
         setEnd("");
-        setAcarsMessageDateTimeMin("");
-        setAcarsMessageDateTimeMax("");       
+        setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
+        setAcarsMessageDateTimeMax(formatDate(nowDateTime));       
         setAltMin("");
         setAltMax("");
         setDsta("");

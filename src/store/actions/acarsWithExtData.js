@@ -81,7 +81,7 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
             
         axios.get(url+ queryString)
             .then(response => {                
-                dispatch(fetchAcarsWithExtDataSuccess(response.data['acarsWithExtData'], response.data['acarsWithExtDataCount']))                 
+                dispatch(fetchAcarsWithExtDataSuccess(response.data['acarsPerAircraftMessages'], response.data['acarsPerAircraftMessagesCount']))                 
             })
             .catch(error => {
                 dispatch(fetchAcarsWithExtDataFail(error));                                

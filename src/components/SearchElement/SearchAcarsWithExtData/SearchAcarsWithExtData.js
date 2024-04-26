@@ -31,9 +31,7 @@ const  SearchAcarsWithExtData = (props) => {
     const[valueName, setValueName] = useState(null);
     const[valueIATA, setValueIATA] = useState(null);
     const[valueICAO, setValueICAO] = useState(null);
-    const[valueOperatorName, setValueOperatorName] = useState(null);
-    const[valueOperatorIATA, setValueOperatorIATA] = useState(null);
-    const[valueOperatorICAO, setValueOperatorICAO] = useState(null);
+    
     const[valueAircraftTypeFull, setValueAircraftTypeFull] = useState(null);
     const[valueTypeCode, setValueTypeCode] = useState(null);
 
@@ -47,49 +45,44 @@ const  SearchAcarsWithExtData = (props) => {
     const[blockId, setBlockId] = useState('');
     const[msgno, setMsgno]= useState('');
     const[dsta, setDsta]= useState('');
-    const[airlineName, setAirlineName]= useState('');
-    const[airlineIata, setAirlineIATA] = useState('');
-    const[airlineIcao, setAirlineICAO] = useState('');
-    const[operatorName, setOperatorName] = useState('');
-    const[operatorIata, setOperatorIata] = useState('');
-    const[operatorIcao, setOperatorIcao] = useState('');
+    
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');   
-    const[aggregatedText, setAggregatedText] = useState(''); 
+    const[modeS, setModeS] = useState(''); 
     
 
     const dispatch = useDispatch();
 
-    const onFetchAirlineName = useCallback(
-        () => dispatch(actions.fetchAirlineNameList(airlineName))
-        , [dispatch, airlineName ]
-    );
+    // const onFetchAirlineName = useCallback(
+    //     () => dispatch(actions.fetchAirlineNameList(airlineName))
+    //     , [dispatch, airlineName ]
+    // );
 
-    const onFetchAirlineIATA = useCallback(
-        () => dispatch(actions.fetchAirlineIATAList(airlineIata))
-        , [dispatch, airlineIata ]
-    );
+    // const onFetchAirlineIATA = useCallback(
+    //     () => dispatch(actions.fetchAirlineIATAList(airlineIata))
+    //     , [dispatch, airlineIata ]
+    // );
 
-    const onFetchAirlineICAO = useCallback(
-        () => dispatch(actions.fetchAirlineICAOList(airlineIcao))
-        , [dispatch, airlineIcao ]
-    );
+    // const onFetchAirlineICAO = useCallback(
+    //     () => dispatch(actions.fetchAirlineICAOList(airlineIcao))
+    //     , [dispatch, airlineIcao ]
+    // );
 
-    const onFetchOperatorName = useCallback(
-        () => dispatch(actions.fetchOperatorNameList(operatorName))
-        , [dispatch, operatorName ]
-    );
+    // const onFetchOperatorName = useCallback(
+    //     () => dispatch(actions.fetchOperatorNameList(operatorName))
+    //     , [dispatch, operatorName ]
+    // );
 
-    const onFetchOperatorIATA = useCallback(
-        () => dispatch(actions.fetchOperatorIATAList(operatorIata))
-        , [dispatch, operatorIata ]
-    );
+    // const onFetchOperatorIATA = useCallback(
+    //     () => dispatch(actions.fetchOperatorIATAList(operatorIata))
+    //     , [dispatch, operatorIata ]
+    // );
 
-    const onFetchOperatorICAO = useCallback(
-        () => dispatch(actions.fetchOperatorICAOList(operatorIcao))
-        , [dispatch, operatorIcao ]
-    );
+    // const onFetchOperatorICAO = useCallback(
+    //     () => dispatch(actions.fetchOperatorICAOList(operatorIcao))
+    //     , [dispatch, operatorIcao ]
+    // );
     
     const onFetchAircraftType = useCallback(
         () => dispatch(actions.fetchAircraftTypes(aircraftType))
@@ -102,32 +95,32 @@ const  SearchAcarsWithExtData = (props) => {
     );
 
 
-    useEffect(()=>{ 
-        const timer = setTimeout(() => {
+    // useEffect(()=>{ 
+    //     const timer = setTimeout(() => {
                         
-            onFetchAirlineName();
+    //         // onFetchAirlineName();
              
-            if(airlineIata!=''){
-                onFetchAirlineIATA();
-            }           
-            if(airlineIcao!=''){
-                onFetchAirlineICAO();
-            }
-            if(operatorName!= ''){
-                onFetchOperatorName();
-            }
-            if(operatorIata!=''){
-                onFetchOperatorIATA();
-            }
-            if(operatorIcao!=''){
-               onFetchOperatorICAO(); 
-            }            
+    //         // if(airlineIata!=''){
+    //         //     onFetchAirlineIATA();
+    //         // }           
+    //         // if(airlineIcao!=''){
+    //         //     onFetchAirlineICAO();
+    //         // }
+    //         // if(operatorName!= ''){
+    //         //     onFetchOperatorName();
+    //         // }
+    //         // if(operatorIata!=''){
+    //         //     onFetchOperatorIATA();
+    //         // }
+    //         // if(operatorIcao!=''){
+    //         //    onFetchOperatorICAO(); 
+    //         // }            
                                    
         
-        }, 300);
-        return () => clearTimeout(timer);
+    //     }, 300);
+    //     return () => clearTimeout(timer);
 
-    }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
+    // }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
     
 
     useEffect(()=>{
@@ -205,22 +198,22 @@ const  SearchAcarsWithExtData = (props) => {
         setBlockId('');
         setMsgno('');
         setDsta('');
-        setAirlineName('');
-        setAirlineIATA('');
-        setAirlineICAO('');
-        setOperatorName('');
-        setOperatorIata('');
-        setOperatorIcao('');
+        //setAirlineName('');
+        //setAirlineIATA('');
+        //setAirlineICAO('');
+        //setOperatorName('');
+        //setOperatorIata('');
+        //setOperatorIcao('');
         setSerialNumber('');        
         setAircraftType('');
         setTypeCode(''); 
-        setAggregatedText('');
+        //setAggregatedText('');
         setValueName(null);
         setValueIATA(null);
         setValueICAO(null);
-        setValueOperatorName(null);
-        setValueOperatorIATA(null);
-        setValueOperatorICAO(null);
+        //setValueOperatorName(null);
+        //setValueOperatorIATA(null);
+        //setValueOperatorICAO(null);
         setValueAircraftTypeFull(null);
         setValueTypeCode(null);
         
@@ -230,11 +223,11 @@ const  SearchAcarsWithExtData = (props) => {
         props.clickedReset();        
     };    
 
-    const disabler = () =>{
-        if(airlineName!= null){
-            setDisabled(true);
-        }
-    }
+    // const disabler = () =>{
+    //     if(airlineName!= null){
+    //         setDisabled(true);
+    //     }
+    // }
 
     // DROPDOWN MENUS
     let dropAirlineName = '';
@@ -248,35 +241,35 @@ const  SearchAcarsWithExtData = (props) => {
 
     const onDropNameChange = (e) =>{
         setValueName(e);       
-        setAirlineName(e.airlineName);
+        //setAirlineName(e.airlineName);
         //disabler();                     
     }
     const onDropIATAChange = (e) =>{
         setValueIATA(e);       
-        setAirlineIATA(e.iata);
+        //setAirlineIATA(e.iata);
         //disabler();                     
     }
     const onDropICAOChange = (e) =>{
         setValueICAO(e);       
-        setAirlineICAO(e.icao);
+        //setAirlineICAO(e.icao);
         //disabler();                     
     }
 
-    const onDropOperatorNameChange = (e) =>{
-        setValueOperatorName(e);       
-        setOperatorName(e.airlineName);
-        //disabler();                     
-    }
-    const onDropOperatorIATAChange = (e) =>{
-        setValueOperatorIATA(e);       
-        setOperatorIata(e.iata);
-        //disabler();                     
-    }
-    const onDropOperatorICAOChange = (e) =>{
-        setValueOperatorICAO(e);       
-        setOperatorIcao(e.icao);
-        //disabler();                     
-    }
+    // const onDropOperatorNameChange = (e) =>{
+    //     setValueOperatorName(e);       
+    //     //setOperatorName(e.airlineName);
+    //     //disabler();                     
+    // }
+    // const onDropOperatorIATAChange = (e) =>{
+    //     setValueOperatorIATA(e);       
+    //     //setOperatorIata(e.iata);
+    //     //disabler();                     
+    // }
+    // const onDropOperatorICAOChange = (e) =>{
+    //     setValueOperatorICAO(e);       
+    //     setOperatorIcao(e.icao);
+    //     //disabler();                     
+    // }
     const onDropAircraftTypeFullhange = (e) =>{
         setValueAircraftTypeFull(e);       
         setAircraftType(e.aircraftType);
@@ -289,42 +282,42 @@ const  SearchAcarsWithExtData = (props) => {
     }
 
     // DELETING VALUE BY BACKSPACE
-    const deletingAirlineName=(e)=>{
-        if (e.keyCode === 8) {
-            setValueName('');
-            setAirlineName('');
-        }
-    }
-    const deletingAirlineIATA=(e)=>{
-        if (e.keyCode === 8) {
-            setValueIATA('');
-            setAirlineIATA('');
-        }
-    }
-    const deletingAirlineICAO=(e)=>{
-        if (e.keyCode === 8) {
-            setValueICAO('');
-            setAirlineICAO('');
-        }
-    }
-    const deletingOperatorName=(e)=>{
-        if (e.keyCode === 8) {
-            setValueOperatorName('');
-            setOperatorName('');
-        }
-    }
-    const deletingOperatorIATA=(e)=>{
-        if (e.keyCode === 8) {
-            setValueOperatorIATA('');
-            setOperatorIata('');
-        }
-    }
-    const deletingOperatorICAO=(e)=>{
-        if (e.keyCode === 8) {
-            setValueOperatorICAO('');
-            setOperatorIcao('');
-        }
-    }
+    // const deletingAirlineName=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueName('');
+    //         setAirlineName('');
+    //     }
+    // }
+    // const deletingAirlineIATA=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueIATA('');
+    //         setAirlineIATA('');
+    //     }
+    // }
+    // const deletingAirlineICAO=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueICAO('');
+    //         setAirlineICAO('');
+    //     }
+    // }
+    // const deletingOperatorName=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueOperatorName('');
+    //         setOperatorName('');
+    //     }
+    // }
+    // const deletingOperatorIATA=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueOperatorIATA('');
+    //         setOperatorIata('');
+    //     }
+    // }
+    // const deletingOperatorICAO=(e)=>{
+    //     if (e.keyCode === 8) {
+    //         setValueOperatorICAO('');
+    //         setOperatorIcao('');
+    //     }
+    // }
     const deletingAircraftType=(e)=>{
         if (e.keyCode === 8) {
             setValueAircraftTypeFull('');
@@ -358,7 +351,7 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropNameChange} 
             descriptor='airlineName' 
             characterLimit = {2} 
-            onKeyDown={deletingAirlineName} 
+            //onKeyDown={deletingAirlineName} 
             dropChanger={dropStatus}                                             
         />;
     }
@@ -374,7 +367,7 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropIATAChange} 
             descriptor='iata'  
             characterLimit = {0}  
-            onKeyDown={deletingAirlineIATA} 
+            //onKeyDown={deletingAirlineIATA} 
             dropChanger={dropStatus}                                             
         />;
     }
@@ -388,7 +381,7 @@ const  SearchAcarsWithExtData = (props) => {
             onChange={onDropICAOChange} 
             descriptor='icao'
             characterLimit = {1}  
-            onKeyDown={deletingAirlineICAO}
+            //onKeyDown={deletingAirlineICAO}
             dropChanger={dropStatus}                                                
         />;
     }
@@ -399,11 +392,11 @@ const  SearchAcarsWithExtData = (props) => {
         dropOperatorName = <Dropdown
         prompt= 'Operator Name'            
         options={airlineNameList}              
-        value={valueOperatorName}   
-        onChange={onDropOperatorNameChange} 
+        //value={valueOperatorName}   
+        //onChange={onDropOperatorNameChange} 
         descriptor='airlineName' 
         characterLimit = {2}   
-        onKeyDown={deletingOperatorName}  
+        //onKeyDown={deletingOperatorName}  
         dropChanger={dropStatus}                                            
         />;
     }
@@ -413,28 +406,28 @@ const  SearchAcarsWithExtData = (props) => {
         dropOperatorIATA = <Dropdown
             prompt= 'Operator IATA'            
             options={airlineNameList}              
-            value={valueOperatorIATA}   
-            onChange={onDropOperatorIATAChange} 
+            //value={valueOperatorIATA}   
+            //onChange={onDropOperatorIATAChange} 
             descriptor='iata'  
             characterLimit = {0} 
-            onKeyDown={deletingOperatorIATA}
+            //onKeyDown={deletingOperatorIATA}
             dropChanger={dropStatus}                                               
         />;
     }
     // Dropdown Operator ICAO
-    if(airlineNameList != null)
-    {
-        dropOperatorICAO = <Dropdown
-            prompt= 'Operator ICAO'            
-            options={airlineNameList}              
-            value={valueOperatorICAO}   
-            onChange={onDropOperatorICAOChange} 
-            descriptor='icao'
-            characterLimit = {1} 
-            onKeyDown ={deletingOperatorICAO} 
-            dropChanger={dropStatus}                                                
-        />;
-    }
+    // if(airlineNameList != null)
+    // {
+    //     dropOperatorICAO = <Dropdown
+    //         prompt= 'Operator ICAO'            
+    //         options={airlineNameList}              
+    //         //value={valueOperatorICAO}   
+    //         //onChange={onDropOperatorICAOChange} 
+    //         descriptor='icao'
+    //         characterLimit = {1} 
+    //         onKeyDown ={deletingOperatorICAO} 
+    //         dropChanger={dropStatus}                                                
+    //     />;
+    // }
 
     // Dropdown Aircraft Type Full
     if(aircraftTypeList != null)
@@ -507,30 +500,30 @@ const  SearchAcarsWithExtData = (props) => {
         type:'text',
         placeholder:'Destination Airport'
     }
-    const airlineInputConfig = {
-        type:'text',
-        placeholder:'Airline Name',        
-    }
-    const airlineIataInputConfig = {
-        type:'text',
-        placeholder:'Airline IATA',        
-    }
-    const airlineIcaoInputConfig = {
-        type:'text',
-        placeholder:'Airline ICAO',        
-    }
-    const operartorNameInputConfig = {
-        type:'text',
-        placeholder:'Operator Name',        
-    }
-    const operartorIataInputConfig = {
-        type:'text',
-        placeholder:'Operator IATA',        
-    }
-    const operartorIcaoInputConfig = {
-        type:'text',
-        placeholder:'Operator ICAO',        
-    }
+    // const airlineInputConfig = {
+    //     type:'text',
+    //     placeholder:'Airline Name',        
+    // }
+    // const airlineIataInputConfig = {
+    //     type:'text',
+    //     placeholder:'Airline IATA',        
+    // }
+    // const airlineIcaoInputConfig = {
+    //     type:'text',
+    //     placeholder:'Airline ICAO',        
+    // }
+    // const operartorNameInputConfig = {
+    //     type:'text',
+    //     placeholder:'Operator Name',        
+    // }
+    // const operartorIataInputConfig = {
+    //     type:'text',
+    //     placeholder:'Operator IATA',        
+    // }
+    // const operartorIcaoInputConfig = {
+    //     type:'text',
+    //     placeholder:'Operator ICAO',        
+    // }
     const aircraftTypeInputConfig = {
         type:'text',
         placeholder:'Aircraft Type',        
@@ -544,11 +537,11 @@ const  SearchAcarsWithExtData = (props) => {
         placeholder:'Type Code',
         //disabled: disabled        
     }
-    const aggregatedTextInputConfig = {
-        type:'text',
-        placeholder:'Aggregated Text',
+    // const aggregatedTextInputConfig = {
+    //     type:'text',
+    //     placeholder:'Aggregated Text',
              
-    }    
+    // }    
     
     // Changing Dropdown Button title according to event (search or reset click)
     const[filter, setFilter] = useState('');
@@ -593,9 +586,9 @@ const  SearchAcarsWithExtData = (props) => {
    
 
     const onSerach = (e) =>{
-        props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, tail,  flight, text, 
-            mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText);
+        props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
+            , aircraftType, typeCode, modeS);
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -735,7 +728,17 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {labelInputConfig}                     
                                     />
                                 </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm">
+                                                                                  
+                                                                                                               
+                            </div>
+                            
+                        </div>
+                        </div>
+                        {/* 2. column */}
+                        <div className={classes.bar}>    
+                        <div className="col-sm-3">                
+                            <div className={classes.card}>   
+                            <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
@@ -773,28 +776,21 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementType='input' 
                                         elementConfig= {dstaIdInputConfig}                     
                                     />
-                                </InputGroup>                                                     
-                                                                                                               
-                            </div>
-                            
-                        </div>
-                        </div>
-                        {/* 2. column */}
-                        <div className={classes.bar}>    
-                        <div className="col-sm-3">                
-                            <div className={classes.card}>                               
-                                <InputGroup className="mb-3 input-group-sm">
+                                </InputGroup>   
+
+
+                                {/* <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    <Input
                                         value={airlineName}                                        
                                         changed={(e)=>setAirlineName(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {airlineInputConfig}                                               
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropAirlineName}
                                     </div>                           
@@ -805,12 +801,12 @@ const  SearchAcarsWithExtData = (props) => {
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    <Input
                                         value={airlineIata}                                        
                                         changed={(e)=>setAirlineIATA(e.target.value)}
                                         elementType='input' 
                                         elementConfig= {airlineIataInputConfig}                                               
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropAirlineIATA}
                                     </div>
@@ -821,12 +817,12 @@ const  SearchAcarsWithExtData = (props) => {
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input 
+                                    <Input 
                                         value={airlineIcao}                                        
                                         changed={(e)=>setAirlineICAO(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {airlineIcaoInputConfig}                     
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropAirlineICAO}
                                     </div>
@@ -837,48 +833,48 @@ const  SearchAcarsWithExtData = (props) => {
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    <Input
                                         value={operatorName}                                        
                                         changed={(e)=> setOperatorName(e.target.value)}                                                                             
                                         elementType='input' 
                                         elementConfig= {operartorNameInputConfig}                                                                                                               
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropOperatorName}
                                     </div>
-                                </InputGroup>                               
-                                <InputGroup className="mb-3 input-group-sm">
+                                </InputGroup>                                */}
+                                {/* <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input 
+                                    <Input 
                                         value={operatorIata}                                        
                                         changed={(e)=>setOperatorIata(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {operartorIataInputConfig}                     
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropOperatorIATA}
                                     </div>
-                                </InputGroup>                               
-                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                </InputGroup>                                */}
+                                {/* <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    <Input
                                         value={operatorIcao}                                        
                                         changed={(e)=> setOperatorIcao(e.target.value)}                                                                             
                                         elementType='input' 
                                         elementConfig= {operartorIcaoInputConfig}                                                                                                               
-                                    /> */}
+                                    />
                                     <div className={classes.dropDownList}>
                                         {dropOperatorICAO}
                                     </div>
-                                </InputGroup>
+                                </InputGroup> */}
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -924,7 +920,7 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {serialNumberInputConfig}                                                                                                               
                                     />
                                 </InputGroup>
-                                <InputGroup className="mb-3 input-group-sm" size="sm">
+                                {/* <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
@@ -936,7 +932,7 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementType='input' 
                                         elementConfig= {aggregatedTextInputConfig}                                                                                                           
                                     />
-                                </InputGroup>
+                                </InputGroup> */}
                                                                                             
                             </div>
                             <div className={classes.buttonBox}>

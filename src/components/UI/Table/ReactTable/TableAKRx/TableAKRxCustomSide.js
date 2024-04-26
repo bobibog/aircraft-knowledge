@@ -112,7 +112,8 @@ const TableAKRx = (props) => {
             </tbody>
         </table>
         
-        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for previous day or entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
+        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for 
+        entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
         <div id="pagginationBox">
             <span>
                 Page{'  '}

@@ -22,6 +22,7 @@ export const COLUMNS = [
     {
         Header: "Address",
         accessor: "address"
+        
     },
     {
         Header: "Address Type",

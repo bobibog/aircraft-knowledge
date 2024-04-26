@@ -1,11 +1,11 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTable, useSortBy, usePagination, useResizeColumns, useFlexLayout, useRowSelect, } from 'react-table';
 import { COLUMNS } from './columns';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {FiSkipForward} from 'react-icons/fi';
 import {FiSkipBack} from 'react-icons/fi';
-import {CheckBox} from '../../../CheckBox/CheckBox';
+import {CheckBox} from '../../../../components/UI/CheckBox/CheckBox';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import * as FileSaver from 'file-saver';
@@ -20,15 +20,21 @@ const Styles = styled.div`
   ${'' /* These styles are suggested for the table fill all available space in its containing element */}
   display: block;
   ${'' /* These styles are required for a horizontaly scrollable table overflow */}
-  overflow: auto;    
+  overflow: auto;
+
+    
 
   .table {
-    border-spacing: 0;     
+    border-spacing: 0; 
+    ${'' /* font-family: monospace;
+    white-space: pre;    */}
+    ${'' /* font-family: Arial Unicode MS, Arial, verdana; */}
     font-family: monospace;
     border-collapse: collapse;
     width: auto;
     font-size: 14px;
-    margin-top: -78px;    
+    margin-top: -78px;
+    ${'' /* z-index: 12;      */}
     position: relative;
     
     .thead {
@@ -81,93 +87,112 @@ const Styles = styled.div`
       padding: 12px;
       width: 180px;      
       display: inline-block;
-      word-wrap: break-word;     
-      
+      word-wrap: break-word;
 
       :last-child {
         border-right: 0;        
       }   
 
       :nth-child(2){          
-        width:100px !important;
+        width:170px !important;
         word-break: break-word;             
       }
       :nth-child(3){          
-        width:80px !important;
+        width:70px !important;
         word-break: break-word;             
       }
       :nth-child(4){          
-        width:420px !important;
+        width:80px !important;
         word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
       }
       :nth-child(5){          
-        width:420px !important;
-        word-break: break-word !important; 
-        font-family: monospace;          
-        white-space: pre-wrap;               
+        width:100px !important;
+        word-break: break-word;             
       }
       :nth-child(6){          
         width:100px !important;
         word-break: break-word;             
       }
       :nth-child(7){          
-        width:100px !important;
-        word-break: break-word;             
+        width:90px !important;
+        word-break: break-word;                     
       }
       :nth-child(8){          
         width:90px !important;
         word-break: break-word;                     
       }
       :nth-child(9){          
-        width:90px !important;
+        width:60px !important;
         word-break: break-word;                     
       }
       :nth-child(10){          
-        width:150px !important;
+        width:60px !important;
         word-break: break-word;                     
       }
       :nth-child(11){          
-        width:120px !important;
+        width:80px !important;
         word-break: break-word;                     
       }
       :nth-child(12){          
-        width:110px !important;
+        width:80px !important;
         word-break: break-word;                     
       }
       :nth-child(13){          
-        width:60px !important;
+        width:100px !important;
         word-break: break-word;                     
       }
       :nth-child(14){          
-        width:150px !important;
+        width:50px !important;
         word-break: break-word;                     
       }
-      
       :nth-child(15){          
         width:120px !important;
         word-break: break-word;                     
-       }
+      }
       :nth-child(16){          
+        width:50px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(17){          
         width:100px !important;
         word-break: break-word;                     
-       }
-       :nth-child(17){          
+      }
+      :nth-child(18){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(19){          
+        width:100px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(20){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(21){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
+      :nth-child(22){          
         width:160px !important;
         word-break: break-word;                     
-       }
-       :nth-child(18){          
-        width:60px !important;
+      }
+      :nth-child(23){          
+        width:170px !important;
         word-break: break-word;                     
-       }
-       :nth-child(19){          
-        width:60px !important;
+      }
+      :nth-child(24){          
+        width:80px !important;
         word-break: break-word;                     
-       }
-       
-       
+      }
+      :nth-child(25){          
+        width:120px !important;
+        word-break: break-word;                     
+      }
       
+
       .resizer {
         right: 0;
         background: #80dfff;
@@ -187,25 +212,25 @@ const Styles = styled.div`
 
     @media only screen and (max-height: 1440px) {
         .tbody {
-            height: 1140px;
+            height: 1125px;
         }
     }
 
     @media only screen and (max-height: 1180px) {
         .tbody {
-            height: 875px;
+            height: 860px;
         }
     }
 
     @media only screen and (max-height: 1080px) {
         .tbody {
-            height: 775px;
+            height: 760px;
         }
     }
 
     @media only screen and (max-height: 1000px) {
         .tbody {
-            height: 675px;
+            height: 660px;
         }
     }
 
@@ -223,11 +248,11 @@ const Styles = styled.div`
 }
 
 .pagginationBox {
-    margin-top: 12px;
     width: 450px;
     position: absolute;
     right: 2px;
     height: 55px;
+    margin-top: 12px;
 }
 
 .button {
@@ -239,7 +264,6 @@ const Styles = styled.div`
     width: 50px;
     margin-right: -12px;
     margin-left: 2px;
-    
 }
 
 .select {
@@ -250,16 +274,18 @@ const Styles = styled.div`
 .boxCheck {
     display: grid;
     grid-template-columns: 50% 50%;
-    width: 400px;    
+    width: 350px;
+    /* flex-wrap: wrap; */
     background-color: cornflowerblue;
     margin-top: -8px;
     margin-bottom: -8px;
     border-radius: 2px;
 }
 
-.boxCheck>* {    
+.boxCheck>* {
+    /* flex: 1 1 5%; */
     border: 1px solid #007bff;
-    padding-left: -5px;
+    padding: 5px;
     text-align: left;
     color: white;
     z-index: 3;
@@ -307,10 +333,9 @@ const Styles = styled.div`
             margin-top: 8px;
             margin-bottom: 45px;
             z-index:7;
-            ${'' /* width:450px;                       */}
+            width:220px;                      
             align-content: left;  
-            height:1540px; 
-            margin-left: -89px;                                  
+            height:1540px;                          
         } 
         .func2>* {
             flex: 1 1 5rem;            
@@ -332,7 +357,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1470px;
+            margin-top: -1480px;
             border-top: 1px solid black;
 
             .tr, .td{
@@ -343,6 +368,7 @@ const Styles = styled.div`
                 width: 100%;
                 
             }
+
             .td{
               height:35px !important;
             }
@@ -356,15 +382,11 @@ const Styles = styled.div`
                 text-align: right;               
                 align-self: auto;                 
                 align-items: flex-end;
-                overflow-y: scroll;
+                overflow-y: hidden;
                 overflow-x: hidden;
                 height:100%;
                
             } 
-
-            .td::before{
-              height: 100%;
-            }
 
             .tr {
               :last-child {
@@ -378,106 +400,100 @@ const Styles = styled.div`
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 9%;
-                padding-right: 0.5%;
+                padding-left: 8%;
                 content-align: center;
-                height: 100%;
-
-             :nth-child(1){          
-                width:550px !important;
-                word-break: break-word;             
-              }   
-            :nth-child(2){          
-                width:550px !important;
-                word-break: break-word;             
-            }             
-              
-              :nth-child(3){          
-                width:550px !important;
-                word-break: break-word;             
-              }
-              :nth-child(4){          
-                width:550px !important;
-                word-break: break-word !important; 
-                font-family: monospace;          
-                white-space: pre-wrap;               
-              }
-              :nth-child(5){          
-                width:550px !important;
-                word-break: break-word;             
-              }
-              :nth-child(6){          
-                width:550px !important;
-                word-break: break-word;             
-              }
-              :nth-child(7){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(8){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(9){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(10){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(11){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(12){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(13){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(14){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(15){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(16){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(17){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(18){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(19){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(20){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(21){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(22){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
-              :nth-child(23){          
-                width:550px !important;
-                word-break: break-word;                     
-              }
+                :nth-child(2){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(3){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(4){          
+                    width:550px !important;
+                    word-break: break-word;                  
+                }
+                :nth-child(5){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(6){          
+                    width:550px !important;
+                    word-break: break-word;             
+                }
+                :nth-child(7){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(8){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(9){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(10){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(11){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(12){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(13){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(14){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(15){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(16){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(17){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(19){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(20){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(21){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(22){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(23){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(24){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
+                :nth-child(25){          
+                    width:550px !important;
+                    word-break: break-word;                     
+                }
             }
 
             
@@ -513,19 +529,20 @@ const Styles = styled.div`
                 z-index: 1;
                 position: relative;
                 border: 0;
-                width:250px;                
+                width:350px;                
             }           
         }
         
 
         .excelBtn {
             position: absolute;                   
-            left: 25px;
-            margin-top:45px;            
+            left: 22px;
+            margin-top:55px;
+            margin-bottom:-1365px;
             z-index:7;
         } 
         .drop{
-            ${'' /* position: absolute;  
+            ${'' /* position: relative;  
             left: -25px;
             z-index:7;
             height: 1400px; 
@@ -533,27 +550,18 @@ const Styles = styled.div`
             display: none;
         }
         .boxCheck {
-            display: grid;
-            grid-template-columns: 100%;            
+            ${'' /* display: grid;
+            grid-template-columns: 100%;
+            width: 162px;
             border-radius: 5px;    
-            z-index: 7; 
-            height:100%; 
-            width: 200px !important;
-            marginTop: -4px; 
-            margin-left: 0px;             
+            z-index:7; 
+            height:1400px;              */}
+            display: none;
         }
-        .boxCheck>* {    
-            border: 1px solid #007bff;   
-            border-left: 0px solid #007bff;         
-            text-align: left;
-            color: white;
-            z-index: 7;  
-            margin-left:-7px;          
-        }
-        
         .dropContainer{
-            height: 150%;
-            z-index:7;
+            ${'' /* height: 150%;
+            z-index:7; */}
+            display: none;
         }
         
 }
@@ -564,20 +572,6 @@ const Styles = styled.div`
         position: absolute;
         left: 2px;
         height: 55px;
-    }
-    .func2 {          
-            
-            margin-left: -114px;                                  
-    } 
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-    .excelBtn {
-            position: absolute;                   
-            left: 25px;
-            margin-top:45px;            
-            z-index:7;
     }
 }
 
@@ -591,37 +585,25 @@ const Styles = styled.div`
         
     }
     .excelBtn {
-            position: absolute;                   
-            left: 25px;
-            margin-top:45px;            
-            z-index:7;
+        position: relative;        
+        padding-left: -25px;        
+       
     } 
     .drop{
         position: relative;        
         left: -25px;        
     }
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
 }
 
 @media only screen and (max-width: 305px) {
     .excelBtn {
-            position: absolute;                   
-            left: 25px;
-            margin-top:45px;            
-            z-index:7;
+        position: relative;                   
+        left: -25px;       
     } 
     .drop{
-        ${'' /* position: relative;       
-        left:-25px; */}
-        display: none;
+        position: relative;       
+        left:-25px;
     }   
-    .tbody{
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
 }  
 
     
@@ -659,7 +641,7 @@ const IndeterminateCheckbox = React.forwardRef(
     }
   );
 
-const TableAcarsWithExtData = (props) => {
+const StationStatusTable = (props) => {
     
     //+RESIZE
     const defaultColumn = React.useMemo(
@@ -675,26 +657,9 @@ const TableAcarsWithExtData = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
-    // const columns = useMemo(()=> COLUMNS, []);      
-    // const data = useMemo(()=> props.data, []);    
-
-     //!!! NOVI PRISTUP, BEZ MEMORISANJA 
-     const [columns, setColumns] = useState(COLUMNS);
-
-     // Update columns when COLUMNS changes
-     useEffect(() => {
-       setColumns(COLUMNS);
-     }, [COLUMNS]);
- 
-     const [data, setData] = useState(props.data);
- 
-     // Update data when props.data changes
-     useEffect(() => {
-       setData(props.data);
-     }, [props.data]);
- 
+    const columns = useMemo(()=> COLUMNS, []);    
     
-    
+    const data = useMemo(()=> props.data, []);    
     const [pageInd, setPage] = useState(props.currPage);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
     const [rowClose, setRowClose] = useState(false);
@@ -775,15 +740,17 @@ const TableAcarsWithExtData = (props) => {
     
         const fileExtension = '.xlsx';   
     
-        const exportToCSV = (csvData, fileName) => {
+        const exportToCSV = (csvData, fileName) => {    
+            
+            const filteredData = csvData.map(({createdOn, timestamp, stationId, msgType, acarsAppVersionMajor, acarsAppVersionMinor, acarsAppVersionBuild, vdlm2AppVersionMajor, vdlm2AppVersionMinor, vdlm2AppVersionBuild, adsbAppVersionMajor, adsbAppVersionMinor, adsbAppVersionBuild, gnssAppVersionMajor, gnssAppVersionMinor, gnssAppVersionBuild, mqttAppVersionMajor, mqttAppVersionMinor, mqttAppVersionBuild, locationAppVersionMajor, locationAppVersionMinor, locationAppVersionBuild, mainSystemVersionMajor, mainSystemVersionMinor, mainSystemVersionBuild, fotaServiceVersionMajor, fotaServiceVersionMinor, fotaServiceVersionBuild, appImageVersionMajor, appImageVersionMinor, appImageVersionBuild, hwRevisionMajor, hwRevisionBuild, statsStartTimestamp, statsEndTimestamp, acarsMsgStats, vdlm2MsgStats, adsbMsgStats, framesStats, ramUsage, cpuTemperature, wifiBitrate, wifiSignalLevel, wifiLinkQuality}) => ({ createdOn, timestamp, stationId, msgType, acarsAppVersionMajor, acarsAppVersionMinor, acarsAppVersionBuild, vdlm2AppVersionMajor, vdlm2AppVersionMinor, vdlm2AppVersionBuild, adsbAppVersionMajor, adsbAppVersionMinor, adsbAppVersionBuild, gnssAppVersionMajor, gnssAppVersionMinor, gnssAppVersionBuild, mqttAppVersionMajor, mqttAppVersionMinor, mqttAppVersionBuild, locationAppVersionMajor, locationAppVersionMinor, locationAppVersionBuild, mainSystemVersionMajor, mainSystemVersionMinor, mainSystemVersionBuild, fotaServiceVersionMajor, fotaServiceVersionMinor, fotaServiceVersionBuild, appImageVersionMajor, appImageVersionMinor, appImageVersionBuild, hwRevisionMajor, hwRevisionBuild, statsStartTimestamp, statsEndTimestamp, acarsMsgStats, vdlm2MsgStats, adsbMsgStats, framesStats, ramUsage, cpuTemperature, wifiBitrate, wifiSignalLevel, wifiLinkQuality }));
     
-            const ws = XLSX.utils.json_to_sheet(csvData);
-    
+            const ws = XLSX.utils.json_to_sheet(filteredData);
+            
             const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    
+            
             const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    
-            const data = new Blob([excelBuffer], {type: fileType});
+            
+            const data = new Blob([excelBuffer], { type: 'application/octet-stream' });
     
             FileSaver.saveAs(data, fileName + fileExtension);
         }
@@ -794,14 +761,8 @@ const TableAcarsWithExtData = (props) => {
               
             <div className="func2" >
                 <div className= "excelBtn">
-                    <ReactHTMLTableToExcel 
-                        className="btn btn-info"
-                        table="emp-table"
-                        filename="AKRx Messages"
-                        sheet="Sheet"
-                        buttonText="Export to Excel"                                            
-                    />                
-                    {/* <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AdsbMesages")}>Export to Excel</button> */}
+                    
+                    <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"StationStatus")}>Export to Excel</button>
                 </div>
                 <div >
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
@@ -877,7 +838,7 @@ const TableAcarsWithExtData = (props) => {
         </table>
         
         </>
-        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
+        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for previous day or entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
         <div className="pagginationBox">
             
             {/* <span>
@@ -890,7 +851,7 @@ const TableAcarsWithExtData = (props) => {
             Rows per page:{'  '}
             <select className="select" value={pageSize} onChange={e => setPageSize(Number(e.target.value), handleChangeRowsPerPage(e))}>
                 {
-                    [10, 25, 50, 100, 1000, 10000].map(pageSize => (                       
+                    [10, 25, 50, 100, 1000].map(pageSize => (                       
                             <option key={pageSize} value={pageSize}>
                                 {pageSize}
                             </option>            
@@ -913,14 +874,12 @@ const TableAcarsWithExtData = (props) => {
             <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, 0))} disabled={!canPreviousPage}><FiSkipBack/></button>
             <button className="button" onClick={(e) => previousPage(handleChangePage(e, pageIndex-1))} disabled={!canPreviousPage} ><RiArrowLeftSLine /></button>
             <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
-            {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
+            <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button>
         </div>
         
     </Styles>
     )
 };
 
-export default TableAcarsWithExtData;
+export default StationStatusTable;
 
-// https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/full-width-resizable-table?file=/src/App.js:4242-4247
-// 331 col - <th {...column.getHeaderProps(column.getSortByToggleProps(), headerProps)} className='th'>

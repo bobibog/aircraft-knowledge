@@ -593,6 +593,26 @@ const  SearchAdsbElement = (props) => {
         placeholder:'Vs'
     }      
     
+    const handleChangeYearMax = (e) => {
+        const inputValue = e.target.value;
+        // Check if the input is a valid date-time format
+        // Assuming YYYY-MM-DDTHH:MM format for datetime-local input
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(inputValue)) {
+            setAcarsMessageDateTimeMax(inputValue);
+        }
+        // If not a valid format, do not update the state
+    }
+
+    const handleChangeYearMin= (e) => {
+        const inputValue = e.target.value;
+        // Check if the input is a valid date-time format
+        // Assuming YYYY-MM-DDTHH:MM format for datetime-local input
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(inputValue)) {
+            setAcarsMessageDateTimeMin(inputValue);
+        }
+        // If not a valid format, do not update the state
+    }
+
     const acarsMessageDateTimeMinInputConfig = {
         type:'datetime-local',
         placeholder:'From:'
@@ -674,11 +694,6 @@ const  SearchAdsbElement = (props) => {
             {/* <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} onMouseLeave={(e)=> toggleDropdown()}> */}
             <DropdownButton title={title} className={classes.Drop} show={showDropdown} onToggle={(e) => open()} ref={wrapperRef} >
                 <div className={classes.dropdownShow}>
-                    <div className="row"> 
-                        {/* 1. kolona */}
-                        <div className={classes.bar}>          
-                        <div className="col-sm-3" id="bar">                        
-                            <div className={classes.card} >
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
@@ -690,7 +705,7 @@ const  SearchAdsbElement = (props) => {
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>(setAcarsMessageDateTimeMin(e.target.value))}                                        
+                                        changed={handleChangeYearMin}                                        
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMinInputConfig} 
                                         toggle="tooltip"
@@ -714,7 +729,7 @@ const  SearchAdsbElement = (props) => {
                                     <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
-                                        changed={(e)=>setAcarsMessageDateTimeMax(e.target.value)}
+                                        changed={handleChangeYearMax}
                                         elementType='input' 
                                         elementConfig= {acarsMessageDateTimeMaxInputConfig}
                                         toggle="tooltip"
@@ -727,6 +742,13 @@ const  SearchAdsbElement = (props) => {
                                     })}
                                 </InputGroup>
                                 </div>
+                    <div className="row"> 
+                        {/* 1. kolona */}
+                        <div className={classes.bar}>          
+                        <div className="col-sm-3" id="bar">                        
+                            <div className={classes.card} >
+                                
+                                
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>

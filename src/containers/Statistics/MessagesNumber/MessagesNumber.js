@@ -17,7 +17,8 @@ import Chart from 'react-apexcharts';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
-import DateTimePicker from 'react-datetime-picker';
+import StationStatusTable from './StationStatusTable/StationStatusTable';
+import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
 
 
 const MessagesNumber = (props) =>{
@@ -82,6 +83,95 @@ const MessagesNumber = (props) =>{
     const stationData = useSelector(state => {
         return state.stationLastSeen.stationData;
     })
+
+    // STATION STATUS
+    const[start, setStart] = useState('');
+    const[end, setEnd] = useState('');
+    const[statId, setStatId] = useState('');
+    const[msgType, setMsgType] = useState('');
+
+    const stationStatus = useSelector(state => {
+        return state.stationStatus.stationStatus;
+    });
+
+    const stationStatusCount = useSelector(state => {
+        return state.stationStatus.stationStatusCount;
+    });
+
+    const loadingStationStatus = useSelector(state => {
+        return state.stationStatus.stationStatusLoading;
+    });
+    const offsetStationStatus = useSelector(state => {
+        return state.stationStatus.stationStatusOffset;
+    });
+    const limitStationStatus = useSelector(state => {
+        return state.stationStatus.stationStatusLimit;
+    });
+    const pageStationStatus = useSelector(state => {
+        return state.stationStatus.stationStatusPage;
+    });    
+        
+    const onFetchStationStatus = useCallback(
+        () => dispatch(actions.fetchStationStatus(offsetStationStatus, limitStationStatus, start, end, statId, msgType ))
+        , [dispatch, offsetStationStatus, limitStationStatus, start, end, statId, msgType]
+    );    
+
+    const onSetStationStatusOffsetLimit = (offsetStationStatus, limitStationStatus) => dispatch(actions.setStationStatusOffsetLimit(offsetStationStatus, limitStationStatus));    
+    
+    const onSetStationStatusPage = (pageStationStatus) => dispatch(actions.setStationStatusPage(pageStationStatus)); 
+
+    const changeOffsetOrLimitHandler = (tableOffset, tableLimit) => {        
+        onSetStationStatusOffsetLimit(tableOffset, tableLimit);   
+    };
+    const setStationStatusPageHandler = pageStationStatus => {                
+        onSetStationStatusPage(pageStationStatus);
+    };   
+    
+    // FILTERING/SEARCHING
+    const submitSearchHandler = (start, end, statId, msgType) => {  
+        onSetStationStatusOffsetLimit(0, limitStationStatus);
+        onSetStationStatusPage(0);
+        setStart(start);
+        setEnd(end);
+        setStatId(statId);
+        setMsgType(msgType);
+    };
+    
+    
+    const resetSearchHandler = () => {
+        onSetStationStatusOffsetLimit(0, 10);
+        onSetStationStatusPage(0);
+        setStart('');
+        setEnd('');
+        setStatId('');
+        setMsgType('');
+    };    
+
+    useEffect(() => {
+        onFetchStationStatus();
+    }, [onFetchStationStatus])
+
+    let stationStatusTable = <Spinner />;
+    if (!stationStatus && !loadingStationStatus  ) {
+        stationStatusTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read StationStation table from the server!</p>;
+    }
+    
+    if (stationStatus && !loadingStationStatus ) {
+        stationStatusTable =  <StationStatusTable
+            data={stationStatus}
+            rowsPerPageDef={limitStationStatus}            
+            totalDataCount={stationStatusCount}
+            currPage={pageStationStatus}
+            changeOffsetOrLimit={changeOffsetOrLimitHandler}
+            setPageStore={setStationStatusPageHandler}   
+            //allOption={allOption}                     
+        />;
+        
+    }      
+
+    // ↑ STATION STATUS
+
+    
 
     const[messagesNumberResult, setMessagesNumberResult] = useState(messagesNumber);
 
@@ -232,7 +322,6 @@ const MessagesNumber = (props) =>{
         onFeedingPercentagePerMessageType();                 
     }  
 
-  
     
     useEffect(() => {
         setMessagesNumberResult(messagesNumber);
@@ -253,13 +342,7 @@ const MessagesNumber = (props) =>{
         onStationData();
     }, [])
 
-    if(stationData != null)
-    {
-        console.log("Station Data = "+stationData);
-    }
-    
-    console.log("Percentage => " + percentage);
-
+       
     const onStatisticsMessagesNumber = useCallback(
         () => dispatch(actions.statisticsMessagesNumber(timeMin, timeMax, stationId), [dispatch, timeMin, timeMax, stationId])
     );
@@ -279,7 +362,7 @@ const MessagesNumber = (props) =>{
     const onFeedingPercentagePerMessageType = useCallback(() => dispatch(actions.feedingPercentagePerTypeData(timeMin3, timeMax3, stationId3), [dispatch, timeMin3, timeMax3, stationId3]));
 
     const onStationData = useCallback(() => dispatch(actions.getStationData(), [dispatch]));
-
+    
 
     var hoursMin = timeMin.slice(11, 13);    
     // var minutesMin = timeMin.slice(14, 16);   
@@ -486,9 +569,6 @@ const MessagesNumber = (props) =>{
             feedingData.push(feedingDataObject);                           
         }                    
         
-    
-
-        
     }    
 
     const data44 = JSON.stringify(feedingData, undefined, 2);
@@ -644,36 +724,7 @@ const MessagesNumber = (props) =>{
         </div>;
         
     }
-//     if(feedingWorkPercentageDtos && !loading3 && !timeMin2){
-        
-//         result2 = 
-//        <div
-//          style={{
-//            width: "auto",
-//            marginLeft: "auto",
-//            marginRight: "auto",
-//            padding: "10px",
-//            border: "1px solid black"
-//          }}
-//        >
-//        <ReactBootstrap.Table striped bordered hover>
-//        <thead>
-//            <tr>
-//                <th>Station</th>
-//                <th>Feeding Time [h]</th>
-//                <th>Idle Time [h]</th>
-//                <th>Total Engagement [h]</th>
-//                <th>Feeding Percentage [%]</th>            
-//            </tr>
-//        </thead>
-//        <tbody>
-//           {/* {feedingWorkPercentageDtos.map(percentages)} */}
-//        </tbody>
-//        </ReactBootstrap.Table>
-       
-//        </div>;
-       
-//    }
+
 
     let result3 = <Spinner />
 
@@ -1111,6 +1162,20 @@ const MessagesNumber = (props) =>{
             <div className={classes.container}>
             <br></br>
                     {result4}
+            </div>
+            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            <h5>STATIONS STATUS</h5>
+            <div className={classes.container}>
+            <br></br>
+                <div>
+                    <SearchStationStatus 
+                         clickedSearch={submitSearchHandler}                               
+                        clickedReset={resetSearchHandler} 
+                        //allChanger={allChanger}  
+                    />
+                    {stationStatusTable}
+                </div>
+                    
             </div>
         </>
        
