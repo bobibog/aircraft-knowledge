@@ -255,17 +255,17 @@ const  SearchAKRxElement = (props) => {
     }
     const icaoInputConfig = {
         type:'text',
-        min:0,
+        // min:0,
         placeholder:'Icao'
     }
     const isOnGroundInputConfig = {
-        type:'number',
-        min:0,
+        type:'text',
+        // min:0,
         placeholder:'Is on Ground'
     }
     const isResponseInputConfig = {
-        type:'number',
-        min:0,
+        type:'text',
+        // min:0,
         placeholder:'Is Response'
     }
     const latMinInputConfig = {
@@ -290,8 +290,8 @@ const  SearchAKRxElement = (props) => {
     }
     
     const toAddrInputConfig = {
-        type:'number',
-        min:0,
+        type:'text',
+        // min:0,
         placeholder:'To Address'
     }
     const typeInputConfig = {
