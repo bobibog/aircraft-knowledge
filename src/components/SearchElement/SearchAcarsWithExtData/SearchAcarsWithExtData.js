@@ -45,6 +45,13 @@ const  SearchAcarsWithExtData = (props) => {
     const[blockId, setBlockId] = useState('');
     const[msgno, setMsgno]= useState('');
     const[dsta, setDsta]= useState('');
+    const[airlineIata, setAirlineIata] = useState('');
+    const[airlineIcao, setAirlineIcao] = useState('');
+    const[airlineName, setAirlineName] = useState('');
+    const[operatorName, setOperatorName] = useState('');
+    const[operatorIata, setOperatorIata] = useState('');
+    const[operatorIcao, setOperatorIcao] = useState('');
+    const[aggregatedText , setAggegatedText] = useState('');
     
     const[serialNumber, setSerialNumber] = useState('');    
     const[aircraftType, setAircraftType] = useState('');
@@ -587,8 +594,8 @@ const  SearchAcarsWithExtData = (props) => {
 
     const onSerach = (e) =>{
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
-            tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS);
+            tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText);
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
