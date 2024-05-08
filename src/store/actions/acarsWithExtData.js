@@ -64,14 +64,13 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
         query.append('airlineName', airlineName);
         query.append('airlineIata', airlineIata);
         query.append('airlineIcao', airlineIcao);
-        query.append('operatorName', operatorName);
-        query.append('operatorIata', operatorIata);
-        query.append('operatorIcao', operatorIcao);
-        query.append('operatorIcao', operatorIcao);
+        query.append('operatorName', operatorName != null ? operatorName : '');
+        query.append('operatorIata', operatorIata != null ? operatorIata : '');
+        query.append('operatorIcao', operatorIcao != null ? operatorIcao : '');  
         query.append('serialNumber', serialNumber);        
-        query.append('aircraftType', aircraftType);
-        query.append('typeCode', typeCode);
-        query.append('aggregatedText', aggregatedText);
+        query.append('aircraftType', aircraftType != null ? aircraftType : '');
+        query.append('typeCode', typeCode != null ? typeCode : '');
+        query.append('aggregatedText', aggregatedText != null ? aggregatedText : '');
 
         let queryString = limit !== "-1"            
             ? query
