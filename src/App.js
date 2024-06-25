@@ -41,6 +41,7 @@ function App() {
   let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
   let isFlyAir41 = authContext.user.company == "Fly Air41 Airways"&& authContext.user.token !== null;
   let isCompany = authContext.user.company != null ;
+  //dummy comment to trigger commit
   
 
   useEffect(() => {
