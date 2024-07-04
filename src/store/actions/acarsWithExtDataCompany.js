@@ -44,7 +44,7 @@ export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTime
     , aircraftType, typeCode, modeS, company,
     
     ////////
-    aggrStatus,consensusStatus
+    aggrStatus,consensusStatus,parsedText,consensusResult
     ////////
 
     ) => {
@@ -70,9 +70,15 @@ export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTime
         query.append('modeS', modeS);       
         query.append('company', company);
 
+        
+        //Error: response status is 500 https://api-dev.aviolog.com/api/v1/AcarsMessage/acarsWithExtDataCompany
+
+        query.append('parsedText',parsedText);
+        query.append('consensusResult',consensusResult);
+
         ///////////
-        query.append('',aggrStatus);
-        query.append('',consensusStatus);
+        query.append('aggregationStatus',aggrStatus);
+        query.append('consensusStatus',consensusStatus);
         ///////////
 
         let queryString = limit !== "-1"            

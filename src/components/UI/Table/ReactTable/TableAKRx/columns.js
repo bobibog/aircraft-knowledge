@@ -139,19 +139,19 @@ export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju i
     ////////////////////////////////////////
     {
         Header:"Aggregation Status",
-        accessor: ""
+        accessor: "aggregationStatus"
     },
     {
         Header:"Parsed Text",
-        accessor: ""
+        accessor: "parsedText"
     },
     {
         Header:"Consensus Status",
-        accessor: ""
+        accessor: "consensusStatus"
     },
     {
         Header:"Consensus Result",
-        accessor: ""
+        accessor: "consensusResult"
     }
     ////////////////////////////////////////
     

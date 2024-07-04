@@ -65,9 +65,12 @@ const AcarsWithExtDataCompany = props => {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       };
       
+
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
+    const[parsedText, setParsedText]=useState('');
     const[consensusStatus, setConsensusStatus]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
@@ -90,18 +93,19 @@ const AcarsWithExtDataCompany = props => {
 
     const dispatch = useDispatch();
     
+    {/*--*/}
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtDataCompany(offset,  limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
             , aircraftType, typeCode, modeS, company,
         
-            aggrStatus,consensusStatus))
+            aggrStatus,consensusStatus,parsedText,consensusResult))//
         
         , [dispatch, offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
             , aircraftType, typeCode, modeS, company,
             
-            aggrStatus,consensusStatus]
+            aggrStatus,consensusStatus]//
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimitCompany(offset, limit));    

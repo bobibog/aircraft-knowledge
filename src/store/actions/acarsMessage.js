@@ -39,14 +39,14 @@ export const fetchAkrxStart = () => {
     }
 };
 
-
+            //funkcija i za inicijalni fetch svih kolona i za search po nekim
 export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
     isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
     
     ////////
-    aggrStatus,consensusStatus
+    aggrStatus,consensusStatus,parsedText,consensusResult
     ////////
 
     ) => {
@@ -108,15 +108,22 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         query.append('lonMax', lonMax);        
         query.append('toAddr', toAddr);
         query.append('type',type);
-        query.append('company',company);
+        query.append('company',company);//company ne postoji odnosno ne menja se iz search a ipak je u query pa cemo dodati i parsedText i consensusResult iako ne searchujemo po njima odnosno ovde su i search i ne search kolone
         query.append('offset', offset);
         query.append('limit', limit);
         
-        /////////////////
-        query.append('',aggrStatus);
-        query.append('',consensusStatus);
-        /////////////////
+        query.append('parsedText',parsedText);//naziv za consensusResult(Status) je isti tako da cemo staviti i za parsedText a parsedText ne postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
+        query.append('consensusResult',consensusResult);//postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
 
+        /////////////////
+        query.append('aggregationStatus',aggrStatus);//naziv za consensusResult(Status) je isti tako da cemo staviti i za aggregationStatus a aggregationStatus ne postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
+        query.append('consensusStatus',consensusStatus);//postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
+        /////////////////
+        //razlika izmedju search i ne search kolona je ako je vrednost kolone '' onda su sve njene vrednosti a ako je !== '' onda je konkretna
+        //odnosno ako je '' onda ce njena vrednost biti uzeta uvek(bilo koja) ako postoji
+
+        //ako je '' onda je cela tabela a ako je query onda je search
+        //odnosno necemo resetovati vrednosti kolona za search
         let queryString = limit !== "-1"            
             ? query
             : '';            

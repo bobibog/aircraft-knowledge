@@ -73,7 +73,9 @@ const Akrx = props => {
     
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
+    const[parsedText, setParsedText]=useState('');
     const[consensusStatus, setConsensusStatus]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
 
     const[timestampMin, setTimestampMin] = useState('');
@@ -109,7 +111,10 @@ const Akrx = props => {
     const[lonMax, setLonMax]=useState('');    
     const[toAddr, setToAddr]=useState('');
     const[type, setType]=useState('');
+
     const[company, setCompany] = useState(isCompany);
+
+
     const[refresh, setRefresh] = useState(0);
                
     // const [, updateState] = useState();
@@ -131,22 +136,25 @@ const Akrx = props => {
     //u prenesenom znacenju ako je promenjen props koji je parent state onda ce se desiti oba rerendera, a ako se promeni props koji nije deo parent state onda ce se desiti samo child rerender
 
     //useMemo je kesiranje za promenjljive a useCallback za funkcije da se pri rerender ne kreiraju ponovo(menja referenca) vec jedino ako watchujemo neku promenjljivu a u kombinaciji sa useEffect znaci da se  
+    {/*--*/}
     const onFetchAkrx = useCallback(
 
         //funkcija za kesiranje koja se fakticki poziva sa onFetchAkrx()
+                                        //celokupne kolone tabele
         () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,//company ne postoji(zakomentarisano) u search a ovde postoji u onFetchAkrx sto znaci da se koristi za tabelu ali ne i za filter ali se ranije koristilo i za filter
             
-            aggrStatus,consensusStatus))
+            aggrStatus,consensusStatus,parsedText,consensusResult))//i search i nesearch kolone
         
         //watch svih promenjljivih i dispatch funkcije a koristimo ih u funkciji koju kesiramo sto znaci da ce se opet rekreirati funkcija koju kesiramo 
         //posto kesiramo celu funkciju ne znaci nam nista sto su ovi parametri deo state jer su zbog kesiranja fakticki predefinisani
+        //samo kolone koje mogu biti search parametri odnosno koje su u SearchAKRxElement
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,//ovde nam ni ne treba company jer ne postoji u SearchAKRxElement
         
             aggrStatus,consensusStatus]
     );    
@@ -168,7 +176,7 @@ const Akrx = props => {
         flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
         isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
         
-        aggrStatus,consensusStatus) => {//bio company parametar koji se ni ne prosledjuje iz child  
+        aggrStatus,consensusStatus,company) => {//company parametar se ni ne prosledjuje iz child jer je zakomentarisan odnsono ne postoji
         
         onSetAkrxOffsetLimit(0, limit);
         onSetAkrxPage(0);
@@ -205,7 +213,7 @@ const Akrx = props => {
         setLonMax(lonMax);        
         setToAddr(toAddr);
         setType(type);
-        //setCompany(company);
+        //setCompany(company);//zakomentarisan u search a i ovde iako postoji kao kolona
 
         ///////////////
         setAggrStatus(aggrStatus);
@@ -261,6 +269,8 @@ const Akrx = props => {
 
     
        
+    //flow je promeni se watch parametar iz useCallBack je kada se promeni u child(search) onda se i u parent promene te kolone pa se rekreira useCallBack(onFetchAkrx) metoda pa se zbog watcha nad onFetchAkrx u useEffect pozove onFetchAkrx
+    //sto znaci da se onFetchAkrx zove inicijalno pri mountu i pri svakoj promeni kolona koje su u SearchAKRxElement sto znaci da u onFetchAkrx moramo imati sve kolone(i search i ne search)
     useEffect(() => { 
         onFetchAkrx();
         authCheckState();

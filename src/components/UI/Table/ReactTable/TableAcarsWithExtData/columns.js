@@ -153,19 +153,19 @@ export const COLUMNS = [
     ////////////////////////////////////////
     {
         Header:"Aggregation Status",
-        accessor: ""
+        accessor: "aggregationStatus"
     },
     {
         Header:"Parsed Text",
-        accessor: ""
+        accessor: "parsedText"
     },
     {
         Header:"Consensus Status",
-        accessor: ""
+        accessor: "consensusStatus"
     },
     {
         Header:"Consensus Result",
-        accessor: ""
+        accessor: "consensusResult"
     }
     ////////////////////////////////////////
 ]

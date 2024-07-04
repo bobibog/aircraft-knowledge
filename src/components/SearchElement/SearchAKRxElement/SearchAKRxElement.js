@@ -375,7 +375,7 @@ const  SearchAKRxElement = (props) => {
             aggrStatus,consensusStatus);
         
         
-        setFilter('a');
+        setFilter('a'); 
         toggleDropdown();
         props.allChanger(changer);
     };
