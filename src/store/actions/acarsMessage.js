@@ -122,9 +122,11 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         //razlika izmedju search i ne search kolona je ako je vrednost kolone '' onda su sve njene vrednosti a ako je !== '' onda je konkretna
         //odnosno ako je '' onda ce njena vrednost biti uzeta uvek(bilo koja) ako postoji
 
-        //ako je '' onda je cela tabela a ako je query onda je search
+        //ako je '' za query onda je cela tabela a ako je min jednom !== '' onda je search query
         //odnosno necemo resetovati vrednosti kolona za search
-        let queryString = limit !== "-1"            
+        
+                                //zapravo znaci ako postoji min 1 search kolona koja nije ''  
+        let queryString = limit === "-1"           
             ? query
             : '';            
             

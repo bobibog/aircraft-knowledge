@@ -81,7 +81,7 @@ export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTime
         query.append('consensusStatus',consensusStatus);
         ///////////
 
-        let queryString = limit !== "-1"            
+        let queryString = limit === "-1"            
             ? query
             : '';
             

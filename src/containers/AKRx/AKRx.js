@@ -310,6 +310,9 @@ const Akrx = props => {
     }
     
     if (acarsMessages && !loading ) {
+
+        console.log(acarsMessages)//[]
+
         // akrxTable = <TableAKRx 
         //     data={acarsMessages}
         //     header={akrxHeader}            
@@ -322,7 +325,9 @@ const Akrx = props => {
 
         {/*--*/}
         akrxTable =  <TableAKRx
-            data={acarsMessages}
+            
+            data={acarsMessages}//
+
             rowsPerPageDef={limit}            
             totalDataCount={acarsMessagesCount}
             currPage={page}
