@@ -109,6 +109,7 @@ function App() {
   
   
   if(!isAuthenticated){
+    console.log("da1")
     routes = (
       <Switch>        
         <Route path="/auth" component={Auth} />
@@ -122,6 +123,7 @@ function App() {
   }  
 
   if (isRole && isAuthenticated) {
+    console.log("da2")
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -131,10 +133,10 @@ function App() {
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />
-        <Route path="/akrxAll" component={AkrxMessageAll} />
+        <Route path="/akrxAll" component={AkrxMessageAll} />{/*--*/}
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />  
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*--*/}  
         <Route path="/statistics" component={MessagesNumber} />          
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
@@ -149,6 +151,7 @@ function App() {
   }
 
   if (isParser && isAuthenticated) {
+    console.log("da3")
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -158,10 +161,10 @@ function App() {
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />
         <Route path="/flights/:id" component={Flights} />
-        <Route path="/akrxAll" component={AkrxMessageAll} />
+        <Route path="/akrxAll" component={AkrxMessageAll} />{/*--*/}
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
-        <Route path="/acarsWithExtData"  component={AcarsWithExtData} /> 
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*--*/} 
         <Route path="/statistics" component={MessagesNumber} />           
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
@@ -177,13 +180,14 @@ function App() {
   }
   
   if (isCustomer && isAuthenticated && !isCompany && !isParser && !isRole) {
+    console.log("da4")
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
         <Route path="/openstreetMapCompany" component={OpenstreetMapCompany} />        
         <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />       
-        <Route path="/akrx" component={AKRx} />
+        <Route path="/akrx" component={AKRx} />{/*--*/}
         <Route path="/adsbCompany"  component={AdsbCompany} />       
         {/* <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />         */}
         <Route path="/logout" component={Logout} />
@@ -194,18 +198,35 @@ function App() {
     );
   }
 
+  //i container i tabela su wrapperi odnosno apstrakcije odnosno apstrakcija u apstrakciji
+
+  //ACARS raw
+  //container
+  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\containers\AKRx
+  //tabela
+  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\components\UI\Table\ReactTable\TableAKRx
+
+  //ACARS per Aircraft  
+  //containter
+  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\containers\AcarsWithExtDataCompany
+  //tabela
+  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\components\UI\Table\ReactTable\TableAcarsWithExtData
+
   if (isCompany && isAuthenticated && !isRole && !isParser) {
+    console.log("da5");{/*--*/}
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
         {/* <Route path="/openstreetMapCompany" component={OpenstreetMapCompany} />         */}
         {/* <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />        */}
-        <Route path="/akrx" component={AKRx} />
+
+        <Route path="/akrx" component={AKRx} />{/*--*/}
         <Route path="/adsbCompany"  component={AdsbCompany} />        
-        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />  
+        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />{/*--*/}
         <Route path="/auth" component={Auth} />
-        <Route path="/logout" component={Logout} />        
+        <Route path="/logout" component={Logout} />
+                
         <Redirect from="/" exact to="/akrx" />
         <Route render={() => <div><h1>Data not found company</h1></div>} />
       </Switch>

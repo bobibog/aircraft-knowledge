@@ -13,7 +13,7 @@ import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
 
-const  SearchAcarsWithExtData = (props) => {
+const SearchAcarsWithExtData = (props) => {
 
     const airlineNameList = useSelector(state => {
         return state.airline.airlines;
@@ -58,6 +58,11 @@ const  SearchAcarsWithExtData = (props) => {
     const[typeCode, setTypeCode] = useState('');   
     const[modeS, setModeS] = useState(''); 
     
+
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+    const[consensusStatus, setConsensusStatus]=useState('');
+    /////////////////////////////
 
     const dispatch = useDispatch();
 
@@ -224,7 +229,11 @@ const  SearchAcarsWithExtData = (props) => {
         setValueAircraftTypeFull(null);
         setValueTypeCode(null);
         
-
+        ///////////////
+        setAggrStatus("")
+        setConsensusStatus("")
+        ///////////////
+        
         setDateFromErr({});
         setDateToErr({});
         props.clickedReset();        
@@ -465,8 +474,17 @@ const  SearchAcarsWithExtData = (props) => {
             dropChanger={dropStatus}                                       
         />;
     }
-   
-       
+    //kao props za filter
+    const aggrInputConfig = {
+        type:'text',
+        placeholder:'Aggregation Status'
+    }
+    const consensInputConfig = {
+        type:'text',
+        placeholder:'Consensus Status'
+    }   
+    ////////////////////////
+
     const acarsMessageDateTimeMinInputConfig = {
         type:'datetime-local',
         placeholder:'From:'
@@ -593,9 +611,15 @@ const  SearchAcarsWithExtData = (props) => {
    
 
     const onSerach = (e) =>{
+            //parent metoda
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText);
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText,
+        
+            aggrStatus,
+            consensusStatus
+        );
+        
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -667,6 +691,7 @@ const  SearchAcarsWithExtData = (props) => {
                                     })}
                                 </InputGroup>
                                 </div>
+
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -680,6 +705,41 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {tailInputConfig}                                               
                                     />
                                 </InputGroup>
+
+                                {/*///////////////////////////////////////////////*/}
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggrStatus}       
+                                                    //pri kucanju menjamo dinamicki                                 
+                                        changed={(e)=>setAggrStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={consensusStatus}                                      
+                                        changed={(e)=>setConsensusStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                {/*///////////////////////////////////////////////*/}
+
+
+
+
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>

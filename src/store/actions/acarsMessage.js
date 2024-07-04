@@ -17,7 +17,7 @@ export const setAkrxPage = (page) => {
         page: page
     }
 };
-
+                                //akciji se prosledjuju podaci koje cemo wrapovati u objekat i kojim zelimo da azuriramo state i ne moraju svi da se proslede iz state
 export const fetchAkrxSuccess = (acarsMessages, acarsMessagesCount) => {
     return {
         type: actionTypes.FETCH_AKRX_SUCCESS,
@@ -43,7 +43,22 @@ export const fetchAkrxStart = () => {
 export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company) => {
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
+    
+    ////////
+    aggrStatus,consensusStatus
+    ////////
+
+    ) => {
+    
+    // => ({}) == => {return {}}
+
+            //vracamo thunk funkciju umesto obicnog objekta a onda ce je redux thunk middleware dobiti pre redux reducera
+            //kada dodje do middleware onda on zove thunk funkciju koja sadrzi asinhrone pozive a u njoj mozemo nakon njihovog izvrsenja da zovemo obicne redux akcije 
+
+           //moze i sa parametrom getState odnosno (dispatch, getState)
+  
+        
     return dispatch => {
         dispatch(fetchAkrxStart());       
         
@@ -95,14 +110,20 @@ export const fetchAkrx = (offset, limit, timestampMin, timestampMax,
         query.append('type',type);
         query.append('company',company);
         query.append('offset', offset);
-        query.append('limit', limit);     
+        query.append('limit', limit);
+        
+        /////////////////
+        query.append('',aggrStatus);
+        query.append('',consensusStatus);
+        /////////////////
 
         let queryString = limit !== "-1"            
             ? query
             : '';            
             
         axios.get(`/AcarsMessage?`+ queryString)
-            .then(response => {                
+            .then(response => { 
+                        //sada dispatchujemo obicne akcije da wrapujemo rezultat async poziva u objekat za azuriranje state koji ide u reducere odnosno konkretnog reducera                    
                 dispatch(fetchAkrxSuccess(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
             })
             .catch(error => {

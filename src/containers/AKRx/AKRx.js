@@ -15,11 +15,14 @@ import {AuthContext} from '../../context/auth-context';
 //import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKisCompanyuseRxCustomSide';
 import TableAKRx from '../../components/UI/Table/ReactTable/TableAKRx/TableAKRx';
 
+
+//wraper za tabelu TableAKRx
 const Akrx = props => {
     const authContext = useContext(AuthContext);
     const authCheckState = authContext.authenticationCheckState;    
     let isCompany = authContext.user.company;
     
+    //za referenciranje globalnog stanja(promenjljivih) iz redux store
     const acarsMessages = useSelector(state => {
         return state.acarsMessage.acarsMessages;
     });
@@ -39,7 +42,8 @@ const Akrx = props => {
     const page = useSelector(state => {
         return state.acarsMessage.acarsMessagesPage;
     });   
-         
+    ////////////////////////////////////////////////////// 
+
     const [nowDateTime, setNowDateTime] = useState(new Date());
     const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 24 * 60 * 60 * 1000));
 
@@ -65,6 +69,12 @@ const Akrx = props => {
         
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       };
+
+    
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+    const[consensusStatus, setConsensusStatus]=useState('');
+    /////////////////////////////
 
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
@@ -109,17 +119,36 @@ const Akrx = props => {
 
     //window.location.reload(false);
 
+    //za menjanje globalnog stanja iz redux store tako sto mu prosledjujemo wraper funkciju koja vraca objekat akcije     
     const dispatch = useDispatch();
     
+    //cak iako se rerenderuje parent zbog promene to ne znaci da ce se rerenderovati njegov child osim ako se prosledjeni prop promenio(bar 1) 
+    //ako se menja state1 onda se trigeruje rerender a state1 se menja referenca na novi objekat nakon rerender ali state2 nece menjati referencu pri ponovnom rerender jer se nije menjao
+    //ako se menjaju obicne promenjljive to ne utice na rerender
+    //komponenta se u celosti rerenderuje samo ako se promeni state podatak(promenjljiva ili funkcija) a pri rerender obicne promenjljive se ponovo kreiraju i samo promenjene iz state 
+    //mozemo watchovati funkciju ili promenjljivu a u oba slucaja je po referenci, a promena znaci promena reference pri ponovnom kreiranju ili dinamickom menjaju reference
+    //za rerender komponente je bitna promena vrednosti samo ako je deo njenog state a za rerender childa je bitna promena u vrednosti nezavisno da li je deo parent state jer se prosledjuje dinamicki i posmatra kao  neki state
+    //u prenesenom znacenju ako je promenjen props koji je parent state onda ce se desiti oba rerendera, a ako se promeni props koji nije deo parent state onda ce se desiti samo child rerender
+
+    //useMemo je kesiranje za promenjljive a useCallback za funkcije da se pri rerender ne kreiraju ponovo(menja referenca) vec jedino ako watchujemo neku promenjljivu a u kombinaciji sa useEffect znaci da se  
     const onFetchAkrx = useCallback(
+
+        //funkcija za kesiranje koja se fakticki poziva sa onFetchAkrx()
         () => dispatch(actions.fetchAkrx(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company))
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
+            
+            aggrStatus,consensusStatus))
+        
+        //watch svih promenjljivih i dispatch funkcije a koristimo ih u funkciji koju kesiramo sto znaci da ce se opet rekreirati funkcija koju kesiramo 
+        //posto kesiramo celu funkciju ne znaci nam nista sto su ovi parametri deo state jer su zbog kesiranja fakticki predefinisani
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company]
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
+        
+            aggrStatus,consensusStatus]
     );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));    
@@ -137,7 +166,10 @@ const Akrx = props => {
     const submitSearchHandler = (timestampMin, timestampMax,
         stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
         flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company) => {  
+        isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
+        
+        aggrStatus,consensusStatus) => {//bio company parametar koji se ni ne prosledjuje iz child  
+        
         onSetAkrxOffsetLimit(0, limit);
         onSetAkrxPage(0);
         setTimestampMin(timestampMin);
@@ -174,6 +206,11 @@ const Akrx = props => {
         setToAddr(toAddr);
         setType(type);
         //setCompany(company);
+
+        ///////////////
+        setAggrStatus(aggrStatus);
+        setConsensusStatus(consensusStatus);
+        ///////////////
     };
     
     
@@ -214,6 +251,12 @@ const Akrx = props => {
         setToAddr("");
         setType("");    
         setAllOption(0);    
+
+        
+        ///////////////
+        setAggrStatus('');
+        setConsensusStatus('');
+        ///////////////
     };    
 
     
@@ -249,6 +292,8 @@ const Akrx = props => {
     
     //console.log(acarsMessages);
       
+    //zapamcen react element(za virtuelni dom) za slucaj njegovog ponavljanja ili dinamickog menjanja ili kondicionog renderovanja sa drugim elementom
+    //ovde nam sluzi kao defaultni render za tabelu koji cemo menjati
     let akrxTable = <Spinner />;
     if (!acarsMessages && !loading  ) {
         akrxTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read AKRX messages from the server!</p>;
@@ -265,6 +310,7 @@ const Akrx = props => {
         //     currPage={page}                      
         // /> ;  
 
+        {/*--*/}
         akrxTable =  <TableAKRx
             data={acarsMessages}
             rowsPerPageDef={limit}            
@@ -279,8 +325,12 @@ const Akrx = props => {
     
     return (
         <div style={{marginTop:'-2px'}}>                       
+            
+            
             {akrxPageHeader}             
             
+            {/*--*/}
+            {/*zapravo filter*/}
             <SearchAKRxElement
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 

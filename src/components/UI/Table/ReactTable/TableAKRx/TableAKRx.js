@@ -647,7 +647,7 @@ const IndeterminateCheckbox = React.forwardRef(
       )
     }
   );
-
+                    //ne dekomponujemo
 const TableAKRx = (props) => {
     
     //+RESIZE
@@ -664,6 +664,9 @@ const TableAKRx = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
+    //useMemo koristimo za skupe racune koje necemo ponovo da racunamo zbog nebitnih drugih malih promena pri rerender
+    //prosledjujemo funkciju koja vraca podatak koji se izracunava i niz zavisnosti koje se watchuju radi ponovnog izracunavanja inace ako se ne promene te zavisnosti bice ignorisana pri rerenderu ali idalje zapamcen podatak po referenci
+    //posto nismo prosledili niz zavisnosti to znaci da ce se samo pri inicijalnom rerenderu ponovo racunati odnosno mount ali ne i remountu, a to vazi i za useEffect
     const columns = useMemo(()=> COLUMNS, []);    
     
     const data = useMemo(()=> props.data, []);    
@@ -688,9 +691,11 @@ const TableAKRx = (props) => {
         setPage(0);        
         props.changeOffsetOrLimit(0, event.target.value);        
     };    
+
+    //prosledjujemo columns u reactov useTable hook
         
     //Destructuring properties and methods from tableInstance to enable easy table creation
-    const { 
+    const { //propertiji koje vraca useTable hook
         getTableProps, 
         getTableBodyProps, 
         headerGroups, 
@@ -818,6 +823,9 @@ const TableAKRx = (props) => {
                     <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button>
                 </div>
                 <div >
+
+
+                    {/*show cols*/}
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
                         <div className="boxCheck">                    
                             <div style={{paddingLeft:'18px'}}>

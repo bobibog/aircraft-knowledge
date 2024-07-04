@@ -64,6 +64,11 @@ const AcarsWithExtDataCompany = props => {
         
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       };
+      
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+    const[consensusStatus, setConsensusStatus]=useState('');
+    /////////////////////////////
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
@@ -88,10 +93,15 @@ const AcarsWithExtDataCompany = props => {
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtDataCompany(offset,  limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company ))
+            , aircraftType, typeCode, modeS, company,
+        
+            aggrStatus,consensusStatus))
+        
         , [dispatch, offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company]
+            , aircraftType, typeCode, modeS, company,
+            
+            aggrStatus,consensusStatus]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimitCompany(offset, limit));    
@@ -108,7 +118,11 @@ const AcarsWithExtDataCompany = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-        , aircraftType, typeCode, modeS) => {  
+        , aircraftType, typeCode, modeS,
+    
+        aggrStatus,consensusStatus
+        
+        ) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
@@ -125,6 +139,12 @@ const AcarsWithExtDataCompany = props => {
         setAircraftType(aircraftType);
         setTypeCode(typeCode);
         setModeS(modeS);
+
+        
+        ///////////////
+        setAggrStatus(aggrStatus);
+        setConsensusStatus(consensusStatus);
+        ///////////////
     };
     
     
@@ -146,6 +166,12 @@ const AcarsWithExtDataCompany = props => {
         setTypeCode('');   
         setModeS('');        
         setAllOption(0);    
+
+        
+        ///////////////
+        setAggrStatus('');
+        setConsensusStatus('');
+        ///////////////
     };    
        
     useEffect(() => { 
@@ -185,7 +211,7 @@ const AcarsWithExtDataCompany = props => {
     
     if (acarsWithExtData && !loading ) {
           
-        
+        {/*--*/}
         acarsWithExtDataTable =  <TableAcarsWithExtData
             data={acarsWithExtData}
             rowsPerPageDef={limit}            
@@ -199,7 +225,9 @@ const AcarsWithExtDataCompany = props => {
     }      
     
     return (
-        <div style={{marginTop:'-2px'}}>             
+        <div style={{marginTop:'-2px'}}>
+
+            {/*--*/}             
             <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 

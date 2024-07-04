@@ -19,14 +19,18 @@ function replacer(key, value) {
 //     return value
 //   }
 
-export const COLUMNS = [
+export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju imati ocekivane nazive atributa koje ce useTable koristiti
     {
-        Header: "UTC Date/Time",
+        Header: "UTC Date/Time",//naziv kolone
         //accessor: "acarsMessageDateTime", 
         accessor: "acarsDateTime", 
+        //Header i accessor su medjusobno nezavisni
+        
         // Local Date Time       
         //Cell: ({ value }) => { return format(new Date(value), "dd/MM/yyyy HH:mm:ss")}
         //UTC
+
+        //Cell je zapamcena funkcija koja se koristi za renderovanje same celije kolone odnosno podatak koji vrati ce biti u jsx(td) tabele
         Cell: ({ value }) => { return JSON.stringify(value, null, 2).replace(/T/g, ' ').substring(1,20)}
     },
     {
@@ -129,6 +133,27 @@ export const COLUMNS = [
     {
         Header:"Message Type",
         accessor: "type"
+    },
+
+
+    ////////////////////////////////////////
+    {
+        Header:"Aggregation Status",
+        accessor: ""
+    },
+    {
+        Header:"Parsed Text",
+        accessor: ""
+    },
+    {
+        Header:"Consensus Status",
+        accessor: ""
+    },
+    {
+        Header:"Consensus Result",
+        accessor: ""
     }
+    ////////////////////////////////////////
+    
 
 ]

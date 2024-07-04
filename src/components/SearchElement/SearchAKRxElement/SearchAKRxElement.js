@@ -26,6 +26,7 @@ const  SearchAKRxElement = (props) => {
 
     // console.log("Company= "+isCompany);
 
+    //identicna search polja su i u parentu odnosno u AKRx.js a preko onSearch iz parenta ih prosledjujemo parentu
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
     const[stationId, setStationId] = useState('');
@@ -59,6 +60,13 @@ const  SearchAKRxElement = (props) => {
     const[lonMax, setLonMax]=useState('');    
     const[toAddr, setToAddr]=useState('');
     const[type, setType]=useState('');
+
+
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+    const[consensusStatus, setConsensusStatus]=useState('');
+    /////////////////////////////
+
     // const[company, setCompany] = useState('');
 
     // setCompany(isCompany);
@@ -115,6 +123,7 @@ const  SearchAKRxElement = (props) => {
         return isValid2;
     }    
 
+    //isto definisana postoji i u parent
     const resetSearchHandler = () => {        
         setTimestampMin("");
         setTimestampMax("");
@@ -150,10 +159,26 @@ const  SearchAKRxElement = (props) => {
         setToAddr("");
         setType("");
         
+        ///////////////
+        setAggrStatus("")
+        setConsensusStatus("")
+        ///////////////
+        
         setDateFromErr({});
         setDateToErr({});
-        props.clickedReset();        
+        props.clickedReset();//resetujemo i u parentu filter kolone        
     };    
+
+    ////////////////////////    
+    const aggrInputConfig = {
+        type:'text',
+        placeholder:'Aggregation Status'
+    }
+    const consensInputConfig = {
+        type:'text',
+        placeholder:'Consensus Status'
+    }   
+    ////////////////////////
 
     const timeStampMinInputConfig = {
         type:'text',
@@ -339,11 +364,17 @@ const  SearchAKRxElement = (props) => {
 
     const changer=0;
 
+    
+    //prosledjujemo parentu iste filter kolone, a nakon sto se proslede posto parent ima kesiranu fetch funkciju sa tim parametriam koje watchuje onda ce se ponovo odraditi fetch
     const onSerach = (e) =>{
         props.clickedSearch(timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type);
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
+            
+            aggrStatus,consensusStatus);
+        
+        
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -412,6 +443,8 @@ const  SearchAKRxElement = (props) => {
                                     })}
                                 </InputGroup>
                                 </div>
+                                
+                                
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -426,6 +459,40 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {tailInputConfig}                                               
                                     />
                                 </InputGroup>
+
+                                
+                                
+                                {/*///////////////////////////////////////////////*/}
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggrStatus}                                        
+                                        changed={(e)=>setAggrStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={consensusStatus}                                      
+                                        changed={(e)=>setConsensusStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                {/*///////////////////////////////////////////////*/}
+
+
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -870,6 +937,7 @@ const  SearchAKRxElement = (props) => {
                                                                                                                
                             </div>
                             <div className={classes.buttonBox}>
+                                {/*--*/}
                                 <ButtonBordered 
                                     // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
                                     //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
@@ -880,6 +948,8 @@ const  SearchAKRxElement = (props) => {
                                     //mouseLeave={(e)=>toggleDropdown()} 
                                     //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
                                 >SEARCH</ButtonBordered>
+                                
+                                {/*--*/}
                                 <ButtonBordered
                                     //clicked={resetSearchHandler}
                                     clicked={onReset}
