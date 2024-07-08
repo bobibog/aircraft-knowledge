@@ -41,6 +41,12 @@ const AkrxAll = props => {
     const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 2 * 60 * 60 * 1000));
 
     useEffect(() => {
+        // if(acarsMessagesCount){
+        //     console.log("ACARS count = "+acarsMessagesCount);
+        // }
+        
+        //console.log("ACARS count = "+acarsMessagesCount);
+        
         // Update the state variables with the current and 24 hours before date and time
         const interval = setInterval(() => {
           setNowDateTime(new Date());
@@ -258,9 +264,9 @@ const AkrxAll = props => {
         
     }   
     
-    if(acarsMessagesCount){
-        console.log("ACARS count = "+acarsMessagesCount);
-    }
+    // if(acarsMessagesCount){
+    //     console.log("ACARS count = "+acarsMessagesCount);
+    // }
     
     return (
         <div style={{marginTop:'-2px'}}>                       
