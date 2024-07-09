@@ -56,8 +56,8 @@ const Auth = props => {
     
     const[accept, setAccept] = useState(0);
     
-    const authContext = useContext(AuthContext);
-    let isAuthenticated = authContext.user.token !== null;    
+    const authContext = useContext(AuthContext);//
+    let isAuthenticated = authContext.user.token !== null;//
     
     const inputChangedHandler = ( event, controlName ) => {
         const updatedControls = updateObject( authForm, {
@@ -149,11 +149,19 @@ const Auth = props => {
     }
 
     let authRedirect = null;
+
+
     if ( isAuthenticated ) {
-        authRedirect = <Redirect to={authContext.authRedirectPath} />
+        //ulazi
+        console.log("e1")               //vrednost od authRedirectPath je bila undefined
+        authRedirect = <Redirect to={authContext.authRedirectPath} />//redirect na "/"
     }
+
+    //gde poslednje udje tu vrednost ce imati
     if(isAuthenticated && isTermed!=1){
-        authRedirect = <Redirect to="/auth2"/>
+        //ulazi
+        console.log("e2")//
+        authRedirect = <Redirect to="/auth2"/>//aktivirace
     }
     if(isRole=='Admin')
     {
@@ -164,7 +172,7 @@ const Auth = props => {
         authRedirect = <Redirect to="/parser"/>
     }
     if(isAuthenticated && isTermed== 1 && isRole!='Admin' && isRole != 'Parser' )
-    {
+    {   
         authRedirect = <Redirect to="/akrx"/>
     }
     

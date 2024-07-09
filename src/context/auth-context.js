@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 
 //dummy
 
+
+    //kao state iz kog biramo sta cemo exposovati
 const initialUser = {
     id: null,
     username: null,
@@ -21,7 +23,7 @@ export const AuthContext = React.createContext({
     user: {...initialUser},
     error: null,
     loading: false,
-    authRedirectPath: "/",
+    authRedirectPath: "/",//
     authenticate: (username, password, isRegistration) => {},
     logoutUser: () => {},
     authenticationCheckState: () => {}    
@@ -33,6 +35,8 @@ const AuthContextProvider = props => {
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
 
+    const [authRedirectPath,setAuthRedirectPath] = useState("/")//
+
     const authStart = () => {
         setAuthError(null);
         setAuthLoading(true);
@@ -40,6 +44,7 @@ const AuthContextProvider = props => {
 
     const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
         const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
+        
         setAuthUser(user);
         setAuthError(null);
         setAuthLoading(false);
@@ -132,7 +137,7 @@ const AuthContextProvider = props => {
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
              if (!token) {
-                 logout();
+                 logout();//):
                 
              } else{   
                   
@@ -145,7 +150,10 @@ const AuthContextProvider = props => {
     
 
     return (
+
         <AuthContext.Provider
+            
+            //exposing
             value={{
                 user: {
                     id: authUser.id,
@@ -156,6 +164,9 @@ const AuthContextProvider = props => {
                     token: authUser.token,
                     company: authUser.company
                 },
+
+                authRedirectPath: authRedirectPath,//dodajemo u context
+
                 error: authError,
                 loading: authLoading,
                 authenticate: auth,

@@ -1,6 +1,15 @@
 import { formatMs } from "@material-ui/core";
 
+
+//inicijalno bilo
+//deo 1)
 export const rowsPerPageDefault = 10;
+
+//deo 2)
+//export const rowsPerPageDefault = "-1";
+
+//deo 3)
+//export const rowsPerPageDefault = "-1";//u submitSearchHandler(onSetAkrxOffsetLimit(0,10)) i resetSearchHanlder(onSetAkrxOffsetLimit(0, "-1")) iz AKRx smo promenili(predefinisali)
 
 export const airlineHeader = [
     {

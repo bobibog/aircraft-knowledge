@@ -27,6 +27,7 @@ const  SearchAKRxElement = (props) => {
     // console.log("Company= "+isCompany);
 
     //identicna search polja su i u parentu odnosno u AKRx.js a preko onSearch iz parenta ih prosledjujemo parentu
+    //jer su filter kolone podskup postojecih kolona tako da ne moraju biti sva iz AKRx u Search(filter)
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
     const[stationId, setStationId] = useState('');
@@ -364,7 +365,7 @@ const  SearchAKRxElement = (props) => {
 
     const changer=0;
 
-    
+    //podskup kolona iz AKRx.js jer je filter
     //prosledjujemo parentu iste filter kolone, a nakon sto se proslede posto parent ima kesiranu fetch funkciju sa tim parametriam koje watchuje onda ce se ponovo odraditi fetch
     const onSerach = (e) =>{
         props.clickedSearch(timestampMin, timestampMax,

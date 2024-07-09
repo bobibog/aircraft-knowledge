@@ -29,12 +29,17 @@ const AcarsWithExtDataCompany = props => {
     const loading = useSelector(state => {
         return state.acarsWithExtDataCompany.acarsWithExtDataLoading;
     });
+
+
+    /////////////
     const offset = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtDataOffset;
+        return state.acarsWithExtDataCompany.acarsWithExtDataOffset;//poseban offset u odnosu na AKRx
     });
     const limit = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtDataLimit;
+        return state.acarsWithExtDataCompany.acarsWithExtDataLimit;//poseban limit u ondosu na AKRx
     });
+    //////////////
+    
     const page = useSelector(state => {
         return state.acarsWithExtDataCompany.acarsWithExtDataPage;
     });   
@@ -127,8 +132,12 @@ const AcarsWithExtDataCompany = props => {
         aggrStatus,consensusStatus
         
         ) => {  
+        
         onSetAcarsWithExtDataOffsetLimit(0, limit);
+        //onSetAcarsWithExtDataOffsetLimit(0, 10);//ukljucujemo limit
+
         onSetAcarsWithExtDataPage(0);
+        
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
         setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);
         setTail(tail);
@@ -153,8 +162,12 @@ const AcarsWithExtDataCompany = props => {
     
     
     const resetSearchHandler = () => {
+        
+        //onSetAcarsWithExtDataOffsetLimit(0, "-1");//iskljucen na "-1"
         onSetAcarsWithExtDataOffsetLimit(0, 10);
+        
         onSetAcarsWithExtDataPage(0);
+        
         setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
         setAcarsMessageDateTimeMax(formatDate(nowDateTime));
         setTail('');

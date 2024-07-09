@@ -677,6 +677,7 @@ const TableAKRx = (props) => {
         setRowClose(false);
     }
     
+    ///////////////////////////////////
     const handleChangePage = (event, newPage) => {
         props.setPageStore(newPage);
         setPage(newPage);
@@ -684,6 +685,8 @@ const TableAKRx = (props) => {
         let newOffset = newPage * rowsPerPage;
         props.changeOffsetOrLimit(newOffset, rowsPerPage);
     };
+    ///////////////////////////////////
+
     const handleChangeRowsPerPage = (event) => {
         let changedRowsPerPage = parseInt(event.target.value, 10)
         setRowsPerPage(changedRowsPerPage);
@@ -942,6 +945,7 @@ const TableAKRx = (props) => {
             <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
             {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
         </div>
+        
         
     </Styles>
     )

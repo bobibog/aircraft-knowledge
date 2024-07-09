@@ -31,9 +31,13 @@ import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
 import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
 
 function App() {
+
+  //////////////////////////////
   const authContext = useContext(AuthContext);
   const authCheckState = authContext.authenticationCheckState;
-  let isAuthenticated = authContext.user.token !== null;
+  let isAuthenticated = authContext.user.token !== null;//
+  //////////////////////////////
+  
   let isRole = authContext.user.role == "Admin" ;
   let isParser = authContext.user.role == "Parser" ;
   let isCustomer = authContext.user.role == "Customer";
@@ -48,13 +52,20 @@ function App() {
     authCheckState();
   }, [authCheckState, isAuthenticated]);
 
+
+  //defaultni bezuslovni
   let routes = (
-    <Switch>                  
+    <Switch>    
+      
+      {console.log("da0")}              
+      
+      
       <Route path="/logout" component={Logout} /> 
       <Route path="/auth" component={Auth} />       
       <Redirect from="/logout" to="/auth" />      
-      <Redirect from="/" exact to="/auth" />
+      <Redirect from="/" exact to="/auth" />{/*--*/}
       <Route path="/confirmemail" component={ConfirmEmail} />
+
       <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
     </Switch>
   );
@@ -107,12 +118,16 @@ function App() {
   // }
 
   
-  
+  //ulazi
   if(!isAuthenticated){
     console.log("da1")
     routes = (
       <Switch>        
         <Route path="/auth" component={Auth} />
+
+        {/*u Redirect to se stavlja url za Route koji vraca component*/}
+        {/*Route je 1:1 a Redirect N:1*/}
+        {/*switch se aktivira samo jednom za prvi koji se naidje ili default na kraju*/}
         <Redirect from="/aircraft" to="/auth" />        
         <Redirect from="/airports" to="/auth" />                
         <Redirect from="/airlines" to="/auth" />                
@@ -212,6 +227,9 @@ function App() {
   //tabela
   //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\components\UI\Table\ReactTable\TableAcarsWithExtData
 
+
+
+  //ulazi
   if (isCompany && isAuthenticated && !isRole && !isParser) {
     console.log("da5");{/*--*/}
     routes = (
@@ -224,19 +242,26 @@ function App() {
         <Route path="/akrx" component={AKRx} />{/*--*/}
         <Route path="/adsbCompany"  component={AdsbCompany} />        
         <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />{/*--*/}
+        
         <Route path="/auth" component={Auth} />
+        
         <Route path="/logout" component={Logout} />
                 
         <Redirect from="/" exact to="/akrx" />
-        <Route render={() => <div><h1>Data not found company</h1></div>} />
+        
+        
+          {/*defaultni render i direktno renderujemo kao return od anonimne komponente*/}
+          {/*mora se aktivirati ako se ni jedan Route ili Redirect prethodno ne aktivira*/} 
+        <Route render={() => <div><h1>Data not found company</h1></div>} />{/*slalo se company=Aviolog i znalo se unapred da nece vratiti nista u response cim je ovde definisano "Data not..." a bez company oce*/}
       </Switch>
     );
   }
   
+  
   return (    
     <div className="App">    
       <Layout>
-        {routes}
+        {routes}{/*koji god da je poslednji u koji se udje renderovace se a onda ce se gledati url da bi se vratila u njemu definisana komponenta*/}
       </Layout>
     </div>
   );
