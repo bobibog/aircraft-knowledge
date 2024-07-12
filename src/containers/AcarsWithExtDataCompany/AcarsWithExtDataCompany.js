@@ -71,12 +71,6 @@ const AcarsWithExtDataCompany = props => {
       };
       
 
-    /////////////////////////////
-    const[aggrStatus, setAggrStatus]=useState('');
-    const[parsedText, setParsedText]=useState('');
-    const[consensusStatus, setConsensusStatus]=useState('');
-    const[consensusResult, setConsensusResult]=useState('');
-    /////////////////////////////
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
@@ -92,6 +86,7 @@ const AcarsWithExtDataCompany = props => {
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');
     const[modeS, setModeS] = useState('');
+
     const[company, setCompany] = useState(isCompany);
     const[refresh, setRefresh] = useState(0);
 
@@ -102,15 +97,11 @@ const AcarsWithExtDataCompany = props => {
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtDataCompany(offset,  limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company,
-        
-            aggrStatus,consensusStatus,parsedText,consensusResult))//
+            , aircraftType, typeCode, modeS, company))//
         
         , [dispatch, offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company,
-            
-            aggrStatus,consensusStatus]//
+            , aircraftType, typeCode, modeS, company]//
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimitCompany(offset, limit));    
@@ -127,10 +118,7 @@ const AcarsWithExtDataCompany = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-        , aircraftType, typeCode, modeS,
-    
-        aggrStatus,consensusStatus
-        
+        , aircraftType, typeCode, modeS
         ) => {  
         
         onSetAcarsWithExtDataOffsetLimit(0, limit);
@@ -152,12 +140,6 @@ const AcarsWithExtDataCompany = props => {
         setAircraftType(aircraftType);
         setTypeCode(typeCode);
         setModeS(modeS);
-
-        
-        ///////////////
-        setAggrStatus(aggrStatus);
-        setConsensusStatus(consensusStatus);
-        ///////////////
     };
     
     
@@ -184,11 +166,6 @@ const AcarsWithExtDataCompany = props => {
         setModeS('');        
         setAllOption(0);    
 
-        
-        ///////////////
-        setAggrStatus('');
-        setConsensusStatus('');
-        ///////////////
     };    
        
     useEffect(() => { 
@@ -228,7 +205,7 @@ const AcarsWithExtDataCompany = props => {
     
     if (acarsWithExtData && !loading ) {
           
-        {/*--*/}
+                                     {/*--*/}
         acarsWithExtDataTable =  <TableAcarsWithExtData
             data={acarsWithExtData}
             rowsPerPageDef={limit}            
@@ -244,7 +221,7 @@ const AcarsWithExtDataCompany = props => {
     return (
         <div style={{marginTop:'-2px'}}>
 
-            {/*--*/}             
+                {/*--*/}             
             <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 

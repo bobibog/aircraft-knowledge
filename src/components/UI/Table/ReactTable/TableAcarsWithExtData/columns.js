@@ -152,16 +152,16 @@ export const COLUMNS = [
 
     ////////////////////////////////////////
     {
+        Header:"Consensus Status",
+        accessor: "consensusStatus"
+    },
+    {
         Header:"Aggregation Status",
         accessor: "aggregationStatus"
     },
     {
         Header:"Parsed Text",
-        accessor: "parsedText"
-    },
-    {
-        Header:"Consensus Status",
-        accessor: "consensusStatus"
+        accessor: "aggregatedText"//zapravo parsedText
     },
     {
         Header:"Consensus Result",

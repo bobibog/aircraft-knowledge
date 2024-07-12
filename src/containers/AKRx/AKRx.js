@@ -79,13 +79,6 @@ const Akrx = props => {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       };
 
-    
-    /////////////////////////////
-    const[aggrStatus, setAggrStatus]=useState('');
-    const[parsedText, setParsedText]=useState('');
-    const[consensusStatus, setConsensusStatus]=useState('');
-    const[consensusResult, setConsensusResult]=useState('');
-    /////////////////////////////
 
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
@@ -121,6 +114,7 @@ const Akrx = props => {
     const[toAddr, setToAddr]=useState('');
     const[type, setType]=useState('');
 
+        //nije kolona vec flag
     const[company, setCompany] = useState(isCompany);
 
 
@@ -149,17 +143,28 @@ const Akrx = props => {
     const onFetchAkrx = useCallback(
 
         //funkcija za kesiranje koja se fakticki poziva sa onFetchAkrx()
-                                        //celokupne kolone tabele
+                                        //celokupne kolone tabele koje su zapravo samo filter kolone sa backend
                                         //offset i limit nisu deo kolona ali mogu biti prosledjeni kao parametri rute
 
-                                              //            //
+            /////////////////////////////////////////////////////////////////////////////////
+            //!!!
+            //postoje privatne kolone koje su uvek null i uvek se vracaju nezavisno da li se filtrira po njima ili ne ili se filtrira po drugima odnosno ne znamo da li su filtrirajuce jer su uvek null(mozda su privatne,mozda nemaju vrednost ali svakako mora ako su filtrirajuce da se vrati [] pri nepostojecoj vrednosti)
+            //postoje nefilter kolone npr error za koje zasigurno ne utice filter i uvek se vraca
+            //postoje filter kolone koje uticu na njihovu promenu na backend i pri ne postojanju vracaju [] a nefilter pri nepostojanju ne vracaju [] vec su uvek null, a samo je pitanje za filter kolone da li ako nam ne trebaju ih saljemo sa '' ili ih uopste ne saljemo odnosno ako je channel === bez slanja channel onda mozemo da je ne saljemo
+            //svakako se vrsi filtriranje na backend na kome postoje filter,nefilter,privatne kolone,null kolone
+            //takodje vracaju se sve kolone u objektu pri bilo kom query tako da za query radimo samo po filter kolonama jer za nefilter kolonu ne moramo slati nista i vratice se a za filter samo ako je channel= === bez slanja channel onda mozemo da je ne saljemo
+            //svaka kolona na frontu se mora proveriti da li je filter ili ne
+            //samo podskup filter kolona je u search a u tabeli ne moraju biti samo filter kolone
+            /////////////////////////////////////////////////////////////////////////////////
+
+            //U OVOJ FUNKCIJI SU SAMO KOLONE KOJE MOZE DA FILTRIRA BACKEND!!!(jer se nefilter i private svakako vracaju) ali nece sve filter kolone biti iskoriscene na frontu za filter(search) vec samo njihov podskup a taj podskup je u watch, a za ostale po kojima ne searchujemo saljemo ''(ili ih ni ne saljemo)
+                                             //            //
         () => dispatch(actions.fetchAkrx    (offset,        limit,          timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,//company ne postoji(zakomentarisano) u search a ovde postoji u onFetchAkrx sto znaci da se koristi za tabelu ali ne i za filter ali se ranije koristilo i za filter
-            
-            aggrStatus,consensusStatus,parsedText,consensusResult))//i search i nesearch kolone
-        
+            ))
+          
         //watch svih promenjljivih i dispatch funkcije a koristimo ih u funkciji koju kesiramo sto znaci da ce se opet rekreirati funkcija koju kesiramo 
         //posto kesiramo celu funkciju ne znaci nam nista sto su ovi parametri deo state jer su zbog kesiranja fakticki predefinisani odnosno selectivan rerender
         //samo kolone koje mogu biti search parametri odnosno koje su u SearchAKRxElement
@@ -169,8 +174,7 @@ const Akrx = props => {
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,//ovde nam ni ne treba company jer ne postoji u SearchAKRxElement
-        
-            aggrStatus,consensusStatus]
+        ]
     );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimit(offset, limit));//istovremeno ih setujemo
@@ -193,8 +197,7 @@ const Akrx = props => {
         stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
         flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
         isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
-        
-        aggrStatus,consensusStatus,company) => {//company parametar se ni ne prosledjuje iz child jer je zakomentarisan odnosno ne postoji
+        company) => {//company parametar se ni ne prosledjuje iz child jer je zakomentarisan odnosno ne postoji
         
 
         //bilo je da ostaje limit=10 odnosno ukljucivanje
@@ -239,10 +242,6 @@ const Akrx = props => {
         setType(type);
         //setCompany(company);//zakomentarisan u search a i ovde iako postoji kao kolona
 
-        ///////////////
-        setAggrStatus(aggrStatus);
-        setConsensusStatus(consensusStatus);
-        ///////////////
     };
     
  
@@ -291,12 +290,6 @@ const Akrx = props => {
         setToAddr("");
         setType("");    
         setAllOption(0);    
-
-        
-        ///////////////
-        setAggrStatus('');
-        setConsensusStatus('');
-        ///////////////
     };    
 
     

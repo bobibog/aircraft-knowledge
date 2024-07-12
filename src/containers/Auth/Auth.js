@@ -157,11 +157,12 @@ const Auth = props => {
         authRedirect = <Redirect to={authContext.authRedirectPath} />//redirect na "/"
     }
 
-    //gde poslednje udje tu vrednost ce imati
+    //gde poslednje udje tu vrednost ce imati authRedirect
     if(isAuthenticated && isTermed!=1){
         //ulazi
         console.log("e2")//
-        authRedirect = <Redirect to="/auth2"/>//aktivirace
+        //return (<div>bla</div>);
+        authRedirect = <Redirect to="/auth2"/>
     }
     if(isRole=='Admin')
     {
@@ -182,7 +183,7 @@ const Auth = props => {
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
             </Modal> 
-            {authRedirect}
+            {authRedirect}{/*--*/}
             {errorMessage}
             <form onSubmit={submitHandler}>            
                 {form}

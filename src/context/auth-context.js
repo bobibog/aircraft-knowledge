@@ -75,6 +75,7 @@ const AuthContextProvider = props => {
 
     //const expiresInSeconds = 29000;
 
+    //login
     const auth = (username, password, role, terms, company, isRegistration) => {
         authStart();
         const authData = {
@@ -131,6 +132,8 @@ const AuthContextProvider = props => {
     //     }
     // }, [checkAuthTimeout]);
 
+
+    //kljucno za automatski login sa postojecim tokenom
     const authCheckState = useCallback(() => {
              const token = localStorage.getItem('token');
              const role = localStorage.getItem('role');
@@ -171,7 +174,7 @@ const AuthContextProvider = props => {
                 loading: authLoading,
                 authenticate: auth,
                 logoutUser: logout,
-                authenticationCheckState: authCheckState
+                authenticationCheckState: authCheckState//
             }}
         >
             {props.children}

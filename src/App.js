@@ -29,6 +29,7 @@ import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
 import AcarsWithExtDataCompany from './containers/AcarsWithExtDataCompany/AcarsWithExtDataCompany';
 import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
 import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
+import AKRxAll from './containers/AKRxAll/AKRxAll';
 
 function App() {
 
@@ -49,12 +50,13 @@ function App() {
   
 
   useEffect(() => {
-    authCheckState();
+    authCheckState();//kljucno za automatski login sa postojecim tokenom
   }, [authCheckState, isAuthenticated]);
 
 
   //defaultni bezuslovni
   let routes = (
+    
     <Switch>    
       
       {console.log("da0")}              
@@ -63,7 +65,9 @@ function App() {
       <Route path="/logout" component={Logout} /> 
       <Route path="/auth" component={Auth} />       
       <Redirect from="/logout" to="/auth" />      
-      <Redirect from="/" exact to="/auth" />{/*--*/}
+      
+      <Redirect from="/" exact to="/auth" />{/*aktivira*/}
+
       <Route path="/confirmemail" component={ConfirmEmail} />
 
       <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
@@ -119,11 +123,12 @@ function App() {
 
   
   //ulazi
-  if(!isAuthenticated){
+  if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
     console.log("da1")
     routes = (
-      <Switch>        
-        <Route path="/auth" component={Auth} />
+      <Switch>
+
+       <Route path="/auth" component={Auth} />{/*--*/}
 
         {/*u Redirect to se stavlja url za Route koji vraca component*/}
         {/*Route je 1:1 a Redirect N:1*/}
@@ -132,7 +137,9 @@ function App() {
         <Redirect from="/airports" to="/auth" />                
         <Redirect from="/airlines" to="/auth" />                
         <Redirect from="/akrx" to="/auth" />
-        <Redirect from="/" exact to="/auth" />                    
+        
+        <Redirect from="/" exact to="/auth" />{/*--*/}
+        
       </Switch>
     );
   }  
@@ -239,20 +246,23 @@ function App() {
         {/* <Route path="/airports/:id" component={Airports} />
         <Route path="/airports" component={Airports} />        */}
 
-        <Route path="/akrx" component={AKRx} />{/*--*/}
+                
+        <Route path="/akrxAll" component={AKRxAll} />{/*<Route path="/akrx" component={AKRx} />*/}
         <Route path="/adsbCompany"  component={AdsbCompany} />        
-        <Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />{/*--*/}
+        <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*<Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />*/}
         
         <Route path="/auth" component={Auth} />
         
+      
+
         <Route path="/logout" component={Logout} />
                 
-        <Redirect from="/" exact to="/akrx" />
+        <Redirect from="/" exact to="/akrxAll" />{/*<Redirect from="/" exact to="/akrxAll" odnosno vraca nas na akrxAll Route u ovom Switch koji je prethodno definisan/>*/}
         
         
-          {/*defaultni render i direktno renderujemo kao return od anonimne komponente*/}
+          {/*pri defaultnom renderu vratice se return anonimne komponente*/}
           {/*mora se aktivirati ako se ni jedan Route ili Redirect prethodno ne aktivira*/} 
-        <Route render={() => <div><h1>Data not found company</h1></div>} />{/*slalo se company=Aviolog i znalo se unapred da nece vratiti nista u response cim je ovde definisano "Data not..." a bez company oce*/}
+        <Route render={() => <div><h1>Data not found</h1></div>} />{/*slalo se company=Aviolog i znalo se unapred da nece vratiti nista u response cim je ovde definisano "Data not..." a bez company oce*/}
       </Switch>
     );
   }
@@ -261,7 +271,7 @@ function App() {
   return (    
     <div className="App">    
       <Layout>
-        {routes}{/*koji god da je poslednji u koji se udje renderovace se a onda ce se gledati url da bi se vratila u njemu definisana komponenta*/}
+        {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde*/}
       </Layout>
     </div>
   );

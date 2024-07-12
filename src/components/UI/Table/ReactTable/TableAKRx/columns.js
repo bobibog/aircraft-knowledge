@@ -138,17 +138,21 @@ export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju i
 
     ////////////////////////////////////////
     {
-        Header:"Aggregation Status",
-        accessor: "aggregationStatus"
-    },
-    {
-        Header:"Parsed Text",
-        accessor: "parsedText"
-    },
-    {
         Header:"Consensus Status",
         accessor: "consensusStatus"
     },
+    {
+        Header:"Aggregation Status",
+        accessor: "aggregationStatus"
+    },
+    ////////////////////////////////////////
+
+    //ove kolone nam trebaju za prikaz u tabeli iako ne filtriramo po njima pa ce se uzeti bilo koja vrednost od njih nakon filtera po drugim kolonama
+    {
+        Header:"Parsed Text",
+        accessor: "aggregatedText"//bilo parsedText
+    },
+    
     {
         Header:"Consensus Result",
         accessor: "consensusResult"

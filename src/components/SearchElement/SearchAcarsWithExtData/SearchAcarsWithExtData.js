@@ -61,6 +61,8 @@ const SearchAcarsWithExtData = (props) => {
 
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
+
+    //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage/acarsWithExtData kao i channel
     const[consensusStatus, setConsensusStatus]=useState('');
     /////////////////////////////
 
@@ -614,11 +616,9 @@ const SearchAcarsWithExtData = (props) => {
             //parent metoda
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText,
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,//aggregatedText,//ne filtriramo po aggregatedText
         
-            aggrStatus,
-            consensusStatus
-        );
+            aggrStatus,consensusStatus);
         
         setFilter('a');
         toggleDropdown();

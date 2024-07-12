@@ -85,13 +85,7 @@ export const fetchAkrxStart = () => {
 export const fetchAkrx = (          offset, limit,            timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company,
-    
-    ////////
-    aggrStatus,consensusStatus,parsedText,consensusResult
-    ////////
-
-    ) => {
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, company) => {
     
     // => ({}) == => {return {}}
 
@@ -119,13 +113,13 @@ export const fetchAkrx = (          offset, limit,            timestampMin, time
                   
         const query = new URLSearchParams();//query.append('timestampMin', '1') znaci timestampMin=1 a ako uradimo jos jednom .append onda se dodaje & automatski
             
-        query.append('timestampMin', timestampMin);
+        query.append('timestampMin', timestampMin);//nije deo objekta ali jeste tabele
         query.append('timestampMax', timestampMax);
         query.append('stationId', stationId);
         query.append('channel', channel);
         query.append('freqMin', freqMin);
         query.append('freqMax', freqMax);
-        query.append('levelMin', levelMin);
+        query.append('levelMin', levelMin);//nije deo objekta ali jeste tabele
         query.append('levelMax', levelMax);
         query.append('errorMin', errorMin);
         query.append('errorMax', errorMax);
@@ -138,15 +132,15 @@ export const fetchAkrx = (          offset, limit,            timestampMin, time
         query.append('msgno', msgno);
         query.append('text', text);
         query.append('end', end);
-        query.append('acarsMessageDateTimeMin', acarsMessageDateTimeMin);
+        query.append('acarsMessageDateTimeMin', acarsMessageDateTimeMin);//nije deo objekta ali saljemo vrednost za filter 
         query.append('acarsMessageDateTimeMax', acarsMessageDateTimeMax);        
-        query.append('altMin', altMin);
+        query.append('altMin', altMin);//nije deo objekta ali jeste tabele
         query.append('altMax', altMax);
         query.append('dsta', dsta);
         query.append('icao', icao);
         query.append('isOnground', isOnground);
         query.append('isResponse',isResponse);
-        query.append('latMin', latMin);
+        query.append('latMin', latMin);//nije deo objekta ali saljemo vrednost za filter 
         query.append('latMax', latMax);
         query.append('lonMin',lonMin);
         query.append('lonMax', lonMax);        
@@ -160,14 +154,7 @@ export const fetchAkrx = (          offset, limit,            timestampMin, time
         query.append('offset', offset);//0 inicijalno
         query.append('limit', limit);//10 inicijalno
         
-        query.append('parsedText',parsedText);//naziv za consensusResult(Status) je isti tako da cemo staviti i za parsedText a parsedText ne postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
-        query.append('consensusResult',consensusResult);//postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
 
-        /////////////////
-        query.append('aggregationStatus',aggrStatus);//naziv za consensusResult(Status) je isti tako da cemo staviti i za aggregationStatus a aggregationStatus ne postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
-        query.append('consensusStatus',consensusStatus);//postoji u https://api-dev.aviolog.com/api/v1/AcarsMessage
-        /////////////////
-   
         console.log("da6")
 
         //deo 1) 
@@ -213,7 +200,6 @@ export const fetchAkrx = (          offset, limit,            timestampMin, time
 ///////////////////////////////////////////////
 
 -da bi uopste queryString radio potrebno je zakomenentarisati company jer vrednost company=Aviolog ne postoji na backend
--ako 
 
 1) slucaj
 
