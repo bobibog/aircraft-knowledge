@@ -35,9 +35,11 @@ function App() {
 
   //////////////////////////////
   const authContext = useContext(AuthContext);
-  const authCheckState = authContext.authenticationCheckState;
-  let isAuthenticated = authContext.user.token !== null;//
+  const authCheckState = authContext.authenticationCheckState;//
+  let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
   //////////////////////////////
+
+  console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je false a menja se iz authCheckState koji je i u App i u NavigationItems!
   
   let isRole = authContext.user.role == "Admin" ;
   let isParser = authContext.user.role == "Parser" ;
@@ -57,17 +59,18 @@ function App() {
   //defaultni bezuslovni
   let routes = (
     
+    //MATCHOVANJE U SWITCH URLA SA ROUTE ILI REDIRECT KRECE TEK KADA SE MOUNTUJE APP
+    //kada se mountuje App pokrenuce iz useEffect authCheckState koji je kesiran po referenci za proveru tokena i takodje ce krenuti za renderovanjem u child matchovane komponente iz switch sa trenutnim url na kom je App a to ce biti Auth u da1
     <Switch>    
       
-      {console.log("da0")}              
-      
-      
+      {console.log("da0")}                    
+      {/*Swtichevi koji nam trebaju se aktiviraju da1 i da5 a za da5 ako smo ulogovani prethodno odnosno postoje autentifikacijski podaci u localStorage*/}
+      {/*u nasem slucaju ovaj switch se ne renderuje a u slucaju da imamo ispod samo Switcheve if(isAuthenticated) i if(!isAuthenticated) onda je ovaj beskoristan*/}
+
       <Route path="/logout" component={Logout} /> 
       <Route path="/auth" component={Auth} />       
       <Redirect from="/logout" to="/auth" />      
-      
-      <Redirect from="/" exact to="/auth" />{/*aktivira*/}
-
+      <Redirect from="/" exact to="/auth" />
       <Route path="/confirmemail" component={ConfirmEmail} />
 
       <Route render={() => <div><h1>Please Log In</h1><br/><h4>(You cannot access the content because you accidentally logged out)</h4></div>} />
@@ -123,12 +126,17 @@ function App() {
 
   
   //ulazi
+  //OVO JE GLAVNI DEO JER CE BITI isAuthenticated==false IAKO POSTOJE PODACI U LOCALSTORAGE
+  //authCheckState za ucitavanje podataka iz localstorage se zove iz App i NavigationItems
+  //da1 je zapravo defaultni samo za neuatentifikovanog(koji nikada ne moze biti autentifikovan odnosno anonimnog) a da5 za neautentifikovanog sa mogucnoscu autentifikacije
+
   if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
     console.log("da1")
     routes = (
       <Switch>
 
-       <Route path="/auth" component={Auth} />{/*--*/}
+        {/*2. vraca se Auth.js za prethodni Redirect jer je isti match putanja iz redirect to i path u ovoj Route i Auth krece da se renderuje u App za login, a za to vreme se izvrsava authCheckState*/}
+        <Route path="/auth" component={Auth} />
 
         {/*u Redirect to se stavlja url za Route koji vraca component*/}
         {/*Route je 1:1 a Redirect N:1*/}
@@ -138,8 +146,10 @@ function App() {
         <Redirect from="/airlines" to="/auth" />                
         <Redirect from="/akrx" to="/auth" />
         
-        <Redirect from="/" exact to="/auth" />{/*--*/}
-        
+        <Redirect from="/" exact to="/auth" />{/*1. aktivira se ovaj Redirect pri startovanju fronta automatski za isAuthenticated==false sto ce uvek biti na pocetku i na toj smo / ruti a ucitan je prethodno Route sa kojim se matchuje*/}
+                                              {/*ako je isAuthenticated==true onda da5 a ako je isAuthenticated==false onda da1*/}
+
+        {/*ne postoji default sto znaci da se nista nece ni aktivirati(renderovati)*/}
       </Switch>
     );
   }  
@@ -237,6 +247,8 @@ function App() {
 
 
   //ulazi
+  //isCompany je neophodan za logovanje odnosno potreban kao deo autentifikacije u localStorage
+  {/*u ovom trenutku se ucitao token odnosno autentifikovani smo i bicemo na auth2 za koju ne postoji match Route tako da se nista nece renderovati*/}
   if (isCompany && isAuthenticated && !isRole && !isParser) {
     console.log("da5");{/*--*/}
     routes = (
@@ -252,8 +264,6 @@ function App() {
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*<Route path="/acarsWithExtDataCompany"  component={AcarsWithExtDataCompany} />*/}
         
         <Route path="/auth" component={Auth} />
-        
-      
 
         <Route path="/logout" component={Logout} />
                 
@@ -261,7 +271,7 @@ function App() {
         
         
           {/*pri defaultnom renderu vratice se return anonimne komponente*/}
-          {/*mora se aktivirati ako se ni jedan Route ili Redirect prethodno ne aktivira*/} 
+          {/*mora se aktivirati ako se ni jedan Route ili Redirect prethodno ne aktivira a to ce biti za nepostojecu rutu odnosno u nasem slucaju kada se desi rerender App zbog promene isAutenticated==true pa rerender Auth pa redirect ka auth2 iz Auth*/} 
         <Route render={() => <div><h1>Data not found</h1></div>} />{/*slalo se company=Aviolog i znalo se unapred da nece vratiti nista u response cim je ovde definisano "Data not..." a bez company oce*/}
       </Switch>
     );

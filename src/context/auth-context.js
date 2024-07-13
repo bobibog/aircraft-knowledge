@@ -31,7 +31,9 @@ export const AuthContext = React.createContext({
 
 
 const AuthContextProvider = props => {
-    const [authUser, setAuthUser] = useState({...initialUser});
+    
+    const [authUser, setAuthUser] = useState({...initialUser});//
+
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
 
@@ -45,7 +47,7 @@ const AuthContextProvider = props => {
     const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
         const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
         
-        setAuthUser(user);
+        setAuthUser(user);//kljucno setovanje za rerender App zbog promene globalnog stanja
         setAuthError(null);
         setAuthLoading(false);
     };
@@ -63,7 +65,8 @@ const AuthContextProvider = props => {
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         localStorage.removeItem('company');
-        setAuthUser(initialUser);
+        
+        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user
         //redirect = <Redirect to="/auth" />
     };
 
@@ -135,10 +138,15 @@ const AuthContextProvider = props => {
 
     //kljucno za automatski login sa postojecim tokenom
     const authCheckState = useCallback(() => {
+
+            //console.log("WIQOIOEWIOWQEIOPEQ")
+
              const token = localStorage.getItem('token');
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
+           
+           
              if (!token) {
                  logout();//):
                 
@@ -160,6 +168,8 @@ const AuthContextProvider = props => {
             value={{
                 user: {
                     id: authUser.id,
+
+                    //POSTO APP KORISTI USER GLOBAL STATE OBJEKAT, STA GOD DA SE U NJEMU MENJA UTICACE NA RERENCER APP!!!
                     username: authUser.username,
                     password: authUser.password,
                     role: authUser.role,

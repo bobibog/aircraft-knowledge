@@ -18,6 +18,8 @@ import * as actions from '../../store/actions/index';
 
 const Auth = props => {
 
+    console.log("AUTH");
+
     //EYE
     const[eyeStatus, setEyeStatus]=useState('password');   
 
@@ -159,11 +161,11 @@ const Auth = props => {
 
     //gde poslednje udje tu vrednost ce imati authRedirect
     if(isAuthenticated && isTermed!=1){
-        //ulazi
-        console.log("e2")//
+        //ulazi na kraju
+        console.log("e2")
         //return (<div>bla</div>);
-        authRedirect = <Redirect to="/auth2"/>
-    }
+        authRedirect = <Redirect to="/auth2"/>//3. ovde se ulazi ako je isAuthenticated==true a to ce se znati nakon izvrsavanja authCheckState
+    }                                         //auth2 znaci da je authCheckState promenio usera(autentifikovao) iz localStorage browsera pa je onda isAuthenticated==true a zbog promene usera koji je deo global state a koristi ga App onda ce se rerenderovati ponovo App pa onda i Auth jer je child pa se u Auth vrsi ovaj redirect ka ruti /auth2 koja ne postoji u da5 aktivnom Switch pa ce tada aktivirati default iz da5 odnosno Auth nece vise postojati u App
     if(isRole=='Admin')
     {
         authRedirect = <Redirect to="/administrator"/>
@@ -183,7 +185,7 @@ const Auth = props => {
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
             </Modal> 
-            {authRedirect}{/*--*/}
+            {authRedirect}{/*postoji samo ako je isAuthenticated==true*/}
             {errorMessage}
             <form onSubmit={submitHandler}>            
                 {form}
