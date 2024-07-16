@@ -45,8 +45,8 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
     tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
     serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,     
     
-    ////////                    //nije deo zadatka
-    aggrStatus,consensusStatus//,aggregatedText                              
+    ////////
+    aggrStatus,consensusStatus,     aggrText,consensusResult                             
     ////////
 
     ) => {
@@ -83,6 +83,10 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
         /////////////////
         query.append('aggregationStatus',aggrStatus);
         query.append('consensusStatus',consensusStatus);
+
+        
+        query.append('aggregatedText',aggrText);
+        query.append('consensusResult',consensusResult);
         /////////////////
    
 

@@ -48,6 +48,16 @@ export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju i
         //Cell: ({ value }) => { return String.raw`${value}` }
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
+    ////////////////////////////////////
+    {
+        Header:"Aggregated Text(Parsed Text)",
+        accessor: "aggregatedText"//bilo parsedText
+    },
+    {
+        Header:"Aggregation Status",
+        accessor: "aggregationStatus"
+    },
+    ////////////////////////////////////
     {
         Header: "Frequency",
         accessor: "freq"
@@ -141,23 +151,12 @@ export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju i
         Header:"Consensus Status",
         accessor: "consensusStatus"
     },
-    {
-        Header:"Aggregation Status",
-        accessor: "aggregationStatus"
-    },
-    ////////////////////////////////////////
-
-    //ove kolone nam trebaju za prikaz u tabeli iako ne filtriramo po njima pa ce se uzeti bilo koja vrednost od njih nakon filtera po drugim kolonama
-    {
-        Header:"Parsed Text",
-        accessor: "aggregatedText"//bilo parsedText
-    },
+ 
     
     {
         Header:"Consensus Result",
         accessor: "consensusResult"
     }
     ////////////////////////////////////////
-    
 
 ]

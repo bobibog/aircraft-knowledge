@@ -86,6 +86,10 @@ const AcarsWithExtData = props => {
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
     const[consensusStatus, setConsensusStatus]=useState('');
+
+    
+    const[aggrText, setAggrText]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
 
     const dispatch = useDispatch();
@@ -95,13 +99,13 @@ const AcarsWithExtData = props => {
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
             serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,
         
-            aggrStatus,consensusStatus//,aggregatedText
+            aggrStatus,consensusStatus,     aggrText,consensusResult
         ))
         , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
             serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode 
         
-            ,aggrStatus,consensusStatus//,aggregatedText
+            ,aggrStatus,consensusStatus,    aggrText,consensusResult
             ]
     );    
     
@@ -121,7 +125,7 @@ const AcarsWithExtData = props => {
         tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
         serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,//ne filtriramo po aggregatedText
     
-        aggrStatus,consensusStatus
+        aggrStatus,consensusStatus,     aggrText,consensusResult
 
         ) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
@@ -152,6 +156,10 @@ const AcarsWithExtData = props => {
         ///////////////
         setAggrStatus(aggrStatus);
         setConsensusStatus(consensusStatus);
+
+        
+        setAggrText(aggrText)
+        setConsensusResult(consensusResult)
         ///////////////
     };
     
@@ -186,6 +194,9 @@ const AcarsWithExtData = props => {
         ///////////////
         setAggrStatus('');
         setConsensusStatus('');
+
+        setAggrText('')
+        setConsensusResult('')
         ///////////////
 
         setAllOption(0);    
@@ -235,7 +246,11 @@ const AcarsWithExtData = props => {
         />;
         
     }      
-    
+    if(acarsWithExtDataCount){
+        console.log("ACARSWITHEXTDATA count = "+acarsWithExtDataCount);
+        console.log("ACARSWITHEXTDATA messages = "+acarsWithExtData)
+    }
+
     return (
         <div style={{marginTop:'-2px'}}>             
             <SearchAcarsWithExtData

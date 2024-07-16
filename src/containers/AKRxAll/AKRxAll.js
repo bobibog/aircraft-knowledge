@@ -70,6 +70,11 @@ const AkrxAll = props => {
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
     const[consensusStatus, setConsensusStatus]=useState('');//
+
+
+    
+    const[aggrText, setAggrText]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
            
     const[timestampMin, setTimestampMin] = useState('');
@@ -122,7 +127,7 @@ const AkrxAll = props => {
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
         
-            aggrStatus,consensusStatus
+            aggrStatus,consensusStatus,     aggrText,consensusResult
         ))
         
                         //      //
@@ -131,7 +136,7 @@ const AkrxAll = props => {
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
     
-            aggrStatus,consensusStatus]
+            aggrStatus,consensusStatus,     aggrText,consensusResult]
         );    
     
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimitAll(offset, limit));    
@@ -151,7 +156,7 @@ const AkrxAll = props => {
         flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
         isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
     
-        aggrStatus,consensusStatus
+        aggrStatus,consensusStatus,     aggrText,consensusResult
         ) => {  
         
         onSetAkrxOffsetLimit(0, limit);
@@ -195,6 +200,9 @@ const AkrxAll = props => {
         ///////////////
         setAggrStatus(aggrStatus);
         setConsensusStatus(consensusStatus);
+
+        setAggrText(aggrText)
+        setConsensusResult(consensusResult)
         ///////////////
     };
     
@@ -244,6 +252,9 @@ const AkrxAll = props => {
         ///////////////
         setAggrStatus('');
         setConsensusStatus('');
+
+        setAggrText('')
+        setConsensusResult('')
         ///////////////
     };    
        
@@ -302,6 +313,7 @@ const AkrxAll = props => {
     
     if(acarsMessagesCount){
         console.log("ACARS count = "+acarsMessagesCount);
+        console.log("ACARS messages = "+acarsMessages)
     }
     
     return (

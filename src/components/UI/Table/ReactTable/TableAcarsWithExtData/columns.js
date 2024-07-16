@@ -43,6 +43,18 @@ export const COLUMNS = [
         //Cell: ({ value }) => { return String.raw`${value}` }
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
+
+    /////////////////////////////////////////////
+    {
+        Header:"Aggregated Text(Parsed Text)",
+        accessor: "aggregatedText"//zapravo parsedText
+    },
+    {
+        Header:"Aggregation Status",
+        accessor: "aggregationStatus"
+    },
+    /////////////////////////////////////////////
+
     // {
     //     Header: "Aggregated Text",
     //     accessor: "aggregatedText",
@@ -154,15 +166,7 @@ export const COLUMNS = [
     {
         Header:"Consensus Status",
         accessor: "consensusStatus"
-    },
-    {
-        Header:"Aggregation Status",
-        accessor: "aggregationStatus"
-    },
-    {
-        Header:"Parsed Text",
-        accessor: "aggregatedText"//zapravo parsedText
-    },
+    },   
     {
         Header:"Consensus Result",
         accessor: "consensusResult"
