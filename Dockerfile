@@ -4,8 +4,8 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-ENV REACT_APP_URL_API_DEV=https://api.aviolog.com/api/v1 \
-    REACT_APP_URL_API_PROD=https://api.aviolog.com/api/v1/
+ENV REACT_APP_URL_API_DEV=https://api-dev.aviolog.com/api/v1 \
+    REACT_APP_URL_API_PROD=https://api-dev.aviolog.com/api/v1/
     # REACT_APP_URL_API_PROD=https://flightsmart.api/api/v1/
 #EXPOSE 3000
 RUN npm run build
