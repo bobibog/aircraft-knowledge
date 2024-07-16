@@ -29,12 +29,17 @@ const AcarsWithExtDataCompany = props => {
     const loading = useSelector(state => {
         return state.acarsWithExtDataCompany.acarsWithExtDataLoading;
     });
+
+
+    /////////////
     const offset = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtDataOffset;
+        return state.acarsWithExtDataCompany.acarsWithExtDataOffset;//poseban offset u odnosu na AKRx
     });
     const limit = useSelector(state => {
-        return state.acarsWithExtDataCompany.acarsWithExtDataLimit;
+        return state.acarsWithExtDataCompany.acarsWithExtDataLimit;//poseban limit u ondosu na AKRx
     });
+    //////////////
+    
     const page = useSelector(state => {
         return state.acarsWithExtDataCompany.acarsWithExtDataPage;
     });   
@@ -64,6 +69,8 @@ const AcarsWithExtDataCompany = props => {
         
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
       };
+      
+
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));
@@ -79,19 +86,22 @@ const AcarsWithExtDataCompany = props => {
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');
     const[modeS, setModeS] = useState('');
+
     const[company, setCompany] = useState(isCompany);
     const[refresh, setRefresh] = useState(0);
 
 
     const dispatch = useDispatch();
     
+    {/*--*/}
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtDataCompany(offset,  limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company ))
+            , aircraftType, typeCode, modeS, company))//
+        
         , [dispatch, offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-            , aircraftType, typeCode, modeS, company]
+            , aircraftType, typeCode, modeS, company]//
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimitCompany(offset, limit));    
@@ -108,9 +118,14 @@ const AcarsWithExtDataCompany = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-        , aircraftType, typeCode, modeS) => {  
+        , aircraftType, typeCode, modeS
+        ) => {  
+        
         onSetAcarsWithExtDataOffsetLimit(0, limit);
+        //onSetAcarsWithExtDataOffsetLimit(0, 10);//ukljucujemo limit
+
         onSetAcarsWithExtDataPage(0);
+        
         setAcarsMessageDateTimeMin(acarsMessageDateTimeMin);
         setAcarsMessageDateTimeMax(acarsMessageDateTimeMax);
         setTail(tail);
@@ -129,8 +144,12 @@ const AcarsWithExtDataCompany = props => {
     
     
     const resetSearchHandler = () => {
+        
+        //onSetAcarsWithExtDataOffsetLimit(0, "-1");//iskljucen na "-1"
         onSetAcarsWithExtDataOffsetLimit(0, 10);
+        
         onSetAcarsWithExtDataPage(0);
+        
         setAcarsMessageDateTimeMin(formatDate(twentyFourHoursAgoDateTime));
         setAcarsMessageDateTimeMax(formatDate(nowDateTime));
         setTail('');
@@ -146,6 +165,7 @@ const AcarsWithExtDataCompany = props => {
         setTypeCode('');   
         setModeS('');        
         setAllOption(0);    
+
     };    
        
     useEffect(() => { 
@@ -185,7 +205,7 @@ const AcarsWithExtDataCompany = props => {
     
     if (acarsWithExtData && !loading ) {
           
-        
+                                     {/*--*/}
         acarsWithExtDataTable =  <TableAcarsWithExtData
             data={acarsWithExtData}
             rowsPerPageDef={limit}            
@@ -199,7 +219,9 @@ const AcarsWithExtDataCompany = props => {
     }      
     
     return (
-        <div style={{marginTop:'-2px'}}>             
+        <div style={{marginTop:'-2px'}}>
+
+                {/*--*/}             
             <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 

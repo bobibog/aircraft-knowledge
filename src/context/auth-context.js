@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 
 //dummy
 
+
+    //kao state iz kog biramo sta cemo exposovati
 const initialUser = {
     id: null,
     username: null,
@@ -21,7 +23,7 @@ export const AuthContext = React.createContext({
     user: {...initialUser},
     error: null,
     loading: false,
-    authRedirectPath: "/",
+    authRedirectPath: "/",//
     authenticate: (username, password, isRegistration) => {},
     logoutUser: () => {},
     authenticationCheckState: () => {}    
@@ -29,9 +31,13 @@ export const AuthContext = React.createContext({
 
 
 const AuthContextProvider = props => {
-    const [authUser, setAuthUser] = useState({...initialUser});
+    
+    const [authUser, setAuthUser] = useState({...initialUser});//
+
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
+
+    const [authRedirectPath,setAuthRedirectPath] = useState("/")//
 
     const authStart = () => {
         setAuthError(null);
@@ -40,7 +46,8 @@ const AuthContextProvider = props => {
 
     const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
         const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
-        setAuthUser(user);
+        
+        setAuthUser(user);//kljucno setovanje za rerender App zbog promene globalnog stanja
         setAuthError(null);
         setAuthLoading(false);
     };
@@ -58,7 +65,8 @@ const AuthContextProvider = props => {
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         localStorage.removeItem('company');
-        setAuthUser(initialUser);
+        
+        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user
         //redirect = <Redirect to="/auth" />
     };
 
@@ -70,6 +78,7 @@ const AuthContextProvider = props => {
 
     //const expiresInSeconds = 29000;
 
+    //login
     const auth = (username, password, role, terms, company, isRegistration) => {
         authStart();
         const authData = {
@@ -126,13 +135,20 @@ const AuthContextProvider = props => {
     //     }
     // }, [checkAuthTimeout]);
 
+
+    //kljucno za automatski login sa postojecim tokenom
     const authCheckState = useCallback(() => {
+
+            //console.log("WIQOIOEWIOWQEIOPEQ")
+
              const token = localStorage.getItem('token');
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
+           
+           
              if (!token) {
-                 logout();
+                 logout();//):
                 
              } else{   
                   
@@ -145,10 +161,15 @@ const AuthContextProvider = props => {
     
 
     return (
+
         <AuthContext.Provider
+            
+            //exposing
             value={{
                 user: {
                     id: authUser.id,
+
+                    //POSTO APP KORISTI USER GLOBAL STATE OBJEKAT, STA GOD DA SE U NJEMU MENJA UTICACE NA RERENCER APP!!!
                     username: authUser.username,
                     password: authUser.password,
                     role: authUser.role,
@@ -156,11 +177,14 @@ const AuthContextProvider = props => {
                     token: authUser.token,
                     company: authUser.company
                 },
+
+                authRedirectPath: authRedirectPath,//dodajemo u context
+
                 error: authError,
                 loading: authLoading,
                 authenticate: auth,
                 logoutUser: logout,
-                authenticationCheckState: authCheckState
+                authenticationCheckState: authCheckState//
             }}
         >
             {props.children}

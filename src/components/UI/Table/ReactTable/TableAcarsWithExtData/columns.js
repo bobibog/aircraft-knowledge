@@ -104,7 +104,7 @@ export const COLUMNS = [
     {
         Header:"Serial Number",
         accessor:"serialNumber"
-    }
+    },
     
     // {
     //     Header:"From airport",
@@ -149,4 +149,23 @@ export const COLUMNS = [
     //     Cell: ({ value }) => { if(value != null){
     //         return moment.utc(value*1000).format('HH:mm')} else return ''} 
     // },
+
+    ////////////////////////////////////////
+    {
+        Header:"Consensus Status",
+        accessor: "consensusStatus"
+    },
+    {
+        Header:"Aggregation Status",
+        accessor: "aggregationStatus"
+    },
+    {
+        Header:"Parsed Text",
+        accessor: "aggregatedText"//zapravo parsedText
+    },
+    {
+        Header:"Consensus Result",
+        accessor: "consensusResult"
+    }
+    ////////////////////////////////////////
 ]

@@ -5,6 +5,16 @@ import {moment} from 'moment';
 
 
 
+//mozemo koristiti i useReducer kao lokalni redux komponente slicno kao setState
+
+//akcije za reduktor(reducer) koji menja globalno stanje u redux
+//dispatch(akcija(...)) -> reducer(state,akcija)
+
+
+//postoji obicna redux akcija koja vraca objekat sa tipom i sinhrono je azuriranje stanja u reduxu
+//postoji redux thunk akcija koja se koristi za ashinrono izvrsavanje pre azuriranja stanja u reduxu
+
+
 const decodingStart = (state, action) => {
     return {
         type: actionTypes.DECODING_START
@@ -30,6 +40,7 @@ const decodingFail = (state, action) => {
     };
 };
 
+//.js je modul a samo ono sto se exportuje(public) moze da se importuje iz njega
 
 export const decodingAkrx = (label, text, isAuthenticated) => {
     return dispatch => {

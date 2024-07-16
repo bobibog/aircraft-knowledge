@@ -678,7 +678,9 @@ const TableAcarsWithExtData = (props) => {
     // const columns = useMemo(()=> COLUMNS, []);      
     // const data = useMemo(()=> props.data, []);    
 
+    //////////////////////////////////////////////
      //!!! NOVI PRISTUP, BEZ MEMORISANJA 
+     //u prevodu umesto useMemo koristimo useEffect sa useState
      const [columns, setColumns] = useState(COLUMNS);
 
      // Update columns when COLUMNS changes
@@ -686,12 +688,14 @@ const TableAcarsWithExtData = (props) => {
        setColumns(COLUMNS);
      }, [COLUMNS]);
  
+
+
      const [data, setData] = useState(props.data);
- 
      // Update data when props.data changes
      useEffect(() => {
        setData(props.data);
      }, [props.data]);
+     //////////////////////////////////////////////
  
     
     

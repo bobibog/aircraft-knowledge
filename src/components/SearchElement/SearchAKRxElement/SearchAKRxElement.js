@@ -26,39 +26,56 @@ const  SearchAKRxElement = (props) => {
 
     // console.log("Company= "+isCompany);
 
+    //identicna search polja su i u parentu odnosno u AKRx.js a preko onSearch iz parenta ih prosledjujemo parentu
+    //jer su filter kolone podskup postojecih kolona tako da ne moraju biti sva iz AKRx u Search(filter)
+    const[stationId, setStationId] = useState('');//number filter kolona(ruta AcarsMessage i AcarsMessage/allUsers) stationId=200 jer vraca [] za nepostojanje njene vrednosti na backend
+   
+   //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage I AcarsMessage/allUsers
+    const[channel, setChannel] = useState('');//number filter kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    
     const[timestampMin, setTimestampMin] = useState('');
     const[timestampMax, setTimestampMax] = useState('');
-    const[stationId, setStationId] = useState('');
-    const[channel, setChannel] = useState('');
     const[freqMin, setFreqMin] = useState('');
     const[freqMax, setFreqMax] = useState('');
     const[levelMin, setLevelMin] = useState('');
     const[levelMax, setLevelMax] = useState('');
     const[errorMin, setErrorMin] = useState('');
     const[errorMax, setErrorMax] = useState('');
-    const[mode, setMode] = useState('');
-    const[label, setLabel] = useState('');
-    const[blockId, setBlockId] = useState('');
-    const[ack, setAck] = useState('');
-    const[tail, setTail] = useState('');
-    const[flight, setFlight] = useState('');
-    const[msgno, setMsgno] = useState('');
-    const[text, setText] = useState('');
-    const[end, setEnd] = useState('');
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');    
-    const[altMin, setAltMin]=useState('');
-    const[altMax, setAltMax]=useState('');
-    const[dsta, setDsta]=useState('');
-    const[icao, setIcao]=useState('');
-    const[isOnground, setIsOnground]=useState('');
-    const[isResponse, setIsResponse]=useState('');
     const[latMin, setLatMin]=useState('');
     const[latMax, setLatMax]=useState('');
     const[lonMin, setLonMin]=useState('');
     const[lonMax, setLonMax]=useState('');    
-    const[toAddr, setToAddr]=useState('');
-    const[type, setType]=useState('');
+    const[altMin, setAltMin]=useState('');
+    const[altMax, setAltMax]=useState('');
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');    
+
+    //nekada iako je filter kolona, prvi request ne uradi filter
+
+    const[mode, setMode] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers) 
+    const[label, setLabel] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers) jer vraca [] za nepostojanje i mora tacno da se sadrzi na backend odnosno da ?label=SA mora biti podskup <= label reci na backend(radimo contains zasigurno jer ne mora SA biti na pocetku ali mora konkatenirano) i ne obrnutno 
+    const[blockId, setBlockId] = useState('');//string kolona koja vraca error 500(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[ack, setAck] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[tail, setTail] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[flight, setFlight] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[msgno, setMsgno] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[text, setText] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[end, setEnd] = useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[dsta, setDsta]=useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[icao, setIcao]=useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[isOnground, setIsOnground]=useState('');//jeste filter number kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[isResponse, setIsResponse]=useState('');//jeste number filter kolona(ruta AcarsMessage) a nije za AcarsMessage/allUsers
+    const[toAddr, setToAddr]=useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+    const[type, setType]=useState('');//jeste filter string kolona(ruta AcarsMessage i AcarsMessage/allUsers)
+
+
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');//string kolona koja nije filter kolona u ruta AcarsMessage a jeste u AcarsMessage/allUsers
+    
+     //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage/allUsers
+    const[consensusStatus, setConsensusStatus]=useState('');//number kolona koja nije filter kolona u ruta AcarsMessage ali jeste u AcarsMessage/allUsers
+    /////////////////////////////
+
     // const[company, setCompany] = useState('');
 
     // setCompany(isCompany);
@@ -115,6 +132,7 @@ const  SearchAKRxElement = (props) => {
         return isValid2;
     }    
 
+    //isto definisana postoji i u parent
     const resetSearchHandler = () => {        
         setTimestampMin("");
         setTimestampMax("");
@@ -150,10 +168,26 @@ const  SearchAKRxElement = (props) => {
         setToAddr("");
         setType("");
         
+        ///////////////
+        setAggrStatus("")
+        setConsensusStatus("")
+        ///////////////
+        
         setDateFromErr({});
         setDateToErr({});
-        props.clickedReset();        
+        props.clickedReset();//resetujemo i u parentu filter kolone        
     };    
+
+    ////////////////////////    
+    const aggrInputConfig = {
+        type:'text',
+        placeholder:'Aggregation Status'
+    }
+    const consensInputConfig = {
+        type:'text',
+        placeholder:'Consensus Status'
+    }   
+    ////////////////////////
 
     const timeStampMinInputConfig = {
         type:'text',
@@ -339,12 +373,18 @@ const  SearchAKRxElement = (props) => {
 
     const changer=0;
 
+    //podskup kolona iz AKRx.js jer je filter
+    //prosledjujemo parentu iste filter kolone, a nakon sto se proslede posto parent ima kesiranu fetch funkciju sa tim parametriam koje watchuje onda ce se ponovo odraditi fetch
     const onSerach = (e) =>{
         props.clickedSearch(timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type);
-        setFilter('a');
+            isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
+            
+            aggrStatus,consensusStatus);
+        
+        
+        setFilter('a'); 
         toggleDropdown();
         props.allChanger(changer);
     };
@@ -412,6 +452,8 @@ const  SearchAKRxElement = (props) => {
                                     })}
                                 </InputGroup>
                                 </div>
+                                
+                                
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -426,6 +468,40 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {tailInputConfig}                                               
                                     />
                                 </InputGroup>
+
+                                
+                                
+                                {/*///////////////////////////////////////////////*/}
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggrStatus}                                        
+                                        changed={(e)=>setAggrStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={consensusStatus}                                      
+                                        changed={(e)=>setConsensusStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                {/*///////////////////////////////////////////////*/}
+
+
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -870,6 +946,7 @@ const  SearchAKRxElement = (props) => {
                                                                                                                
                             </div>
                             <div className={classes.buttonBox}>
+                                {/*--*/}
                                 <ButtonBordered 
                                     // clicked={() => (props.clickedSearch(timestampMin, timestampMax,
                                     //     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
@@ -880,6 +957,8 @@ const  SearchAKRxElement = (props) => {
                                     //mouseLeave={(e)=>toggleDropdown()} 
                                     //onMouseUp={(e)=> props.allChanger(changer)}                                                                                                                        
                                 >SEARCH</ButtonBordered>
+                                
+                                {/*--*/}
                                 <ButtonBordered
                                     //clicked={resetSearchHandler}
                                     clicked={onReset}

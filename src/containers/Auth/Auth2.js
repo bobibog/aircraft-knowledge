@@ -15,6 +15,7 @@ import Greetings from '../../components/Greetings/Greetings';
 
 // class Auth extends Component {
 const Auth2 = props => {
+
 // state = {
 //     controls: {
     const [authForm, setAuthForm] = useState({
