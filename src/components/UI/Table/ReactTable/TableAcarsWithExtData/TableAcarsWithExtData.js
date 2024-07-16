@@ -96,18 +96,22 @@ const Styles = styled.div`
         width:80px !important;
         word-break: break-word;             
       }
+        ${''/*Text*/}        
       :nth-child(4){          
         width:420px !important;
         word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
       }
+         ${''/*Aggregared Text(Parsed Text)*/}
+         ${''/*ima iste parametre kao Text(child4)*/}
       :nth-child(5){          
         width:420px !important;
         word-break: break-word !important; 
         font-family: monospace;          
         white-space: pre-wrap;               
       }
+         ${''/*Aggregation Status*/}
       :nth-child(6){          
         width:100px !important;
         word-break: break-word;             
@@ -332,7 +336,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1470px;
+            margin-top: -1470px; ${''/**/}
             border-top: 1px solid black;
 
             .tr, .td{
@@ -378,10 +382,10 @@ const Styles = styled.div`
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 9%;
-                padding-right: 0.5%;
+                padding-left: 9%; ${''/**/}
+                padding-right: 0.5%; ${''/**/}
                 content-align: center;
-                height: 100%;
+                height: 100%; ${''/**/}
 
              :nth-child(1){          
                 width:550px !important;
@@ -680,7 +684,7 @@ const TableAcarsWithExtData = (props) => {
 
     //////////////////////////////////////////////
      //!!! NOVI PRISTUP, BEZ MEMORISANJA 
-     //u prevodu umesto useMemo koristimo useEffect sa useState
+     //u prevodu umesto useMemo koristimo useEffect(sa watch) i useState
      const [columns, setColumns] = useState(COLUMNS);
 
      // Update columns when COLUMNS changes
@@ -741,7 +745,7 @@ const TableAcarsWithExtData = (props) => {
         getToggleHideAllColumnsProps,
         state: { pageIndex, pageSize },
         
-    } = useTable({
+    } = useTable({//
         columns: columns,        
         data: data,  
         defaultColumn,      
@@ -847,10 +851,19 @@ const TableAcarsWithExtData = (props) => {
                                     <span >
                                         {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
                                     </span> 
+
+                                    {console.log("RESIZEEXTDATA canResize "+column.canResize)}{/*true*/}
+                                    {console.log("RESIZEEXTDATA isResizing "+column.isResizing)}{/*false*/}
+
+                                            {/*--*/}
                                     {column.canResize && (
                                         <div
                                             {...column.getResizerProps()}
+
+                                                        //
                                             className={`resizer ${
+
+                                                                //
                                             column.isResizing ? 'isResizing' : ''
                                             }`}
                                         />

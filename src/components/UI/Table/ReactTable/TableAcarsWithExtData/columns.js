@@ -40,13 +40,14 @@ export const COLUMNS = [
         Header: "Text",
         accessor: "text",
         Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
+        
         //Cell: ({ value }) => { return String.raw`${value}` }
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
 
     /////////////////////////////////////////////
     {
-        Header:"Aggregated Text(Parsed Text)",
+        Header:"Parsed Text",
         accessor: "aggregatedText"//zapravo parsedText
     },
     {
