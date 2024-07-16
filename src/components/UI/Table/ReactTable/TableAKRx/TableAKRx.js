@@ -112,16 +112,25 @@ const Styles = styled.div`
         width:80px !important;
         word-break: break-word;             
       }
+      ${''/*Text*/}
       :nth-child(4){          
         width:420px !important;
         word-break: break-word !important; 
+        
         font-family: monospace;          
         white-space: pre-wrap;               
       }
+         ${''/*Aggregared Text(Parsed Text)*/}
       :nth-child(5){          
-        width:120px !important;
-        word-break: break-word;             
+        width:420px !important;
+        word-break: break-word; ${''/*prelazak reci u novi red bilo na space bilo u sred reci i ne zadrzava >1 space i prelome linija(\n)*/}     
+        ${''
+        /* 
+        font-family: monospace;          
+        white-space: pre-wrap; cuva >1 space i prelome linija(\n) i prelama na space
+        */}
       }
+         ${''/*Aggregation Status*/}
       :nth-child(6){          
         width:160px !important;
         word-break: break-word;             
@@ -364,7 +373,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1480px;
+            margin-top: -1480px;  ${''/**/}
             border-top: 1px solid black;
 
             .tr, .td{
@@ -407,8 +416,10 @@ const Styles = styled.div`
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 8%;
+                padding-left: 8%; ${''/**/}
                 content-align: center;
+
+
                 :nth-child(2){          
                     width:550px !important;
                     word-break: break-word;             
@@ -873,10 +884,19 @@ const TableAKRx = (props) => {
                                     <span >
                                         {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
                                     </span> 
+                                    
+                                    {console.log("RESIZEAKRXALL canResize "+column.canResize)}{/*true*/}
+                                    {console.log("RESIZEAKRXALL isResizing "+column.isResizing)}{/*false*/}
+
+                                            {/*--*/}
                                     {column.canResize && (
                                         <div
                                             {...column.getResizerProps()}
+
+                                                        //
                                             className={`resizer ${
+                                            
+                                                                    //
                                             column.isResizing ? 'isResizing' : ''
                                             }`}
                                         />
