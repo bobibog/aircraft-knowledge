@@ -46,7 +46,7 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
     isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
 
     ////////
-    aggrStatus,consensusStatus
+    aggrStatus,consensusStatus,     aggrText,consensusResult
     ////////
 
     ) => {
@@ -111,6 +111,10 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         /////////////////
         query.append('aggregationStatus',aggrStatus);
         query.append('consensusStatus',consensusStatus);//
+
+        
+        query.append('aggregatedText',aggrText);
+        query.append('consensusResult',consensusResult);
         /////////////////
    
 

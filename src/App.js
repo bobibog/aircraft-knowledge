@@ -248,7 +248,7 @@ function App() {
 
   //ulazi
   //isCompany je neophodan za logovanje odnosno potreban kao deo autentifikacije u localStorage
-  {/*u ovom trenutku se ucitao token odnosno autentifikovani smo i bicemo na auth2 za koju ne postoji match Route tako da se nista nece renderovati*/}
+  {/*u ovom trenutku se ucitao token odnosno autentifikovani smo i bicemo na auth2 za koju ne postoji match Route tako da ce se default renderovati*/}
   if (isCompany && isAuthenticated && !isRole && !isParser) {
     console.log("da5");{/*--*/}
     routes = (

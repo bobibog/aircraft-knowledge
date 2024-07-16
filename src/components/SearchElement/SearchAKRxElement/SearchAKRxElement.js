@@ -74,6 +74,10 @@ const  SearchAKRxElement = (props) => {
     
      //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage/allUsers
     const[consensusStatus, setConsensusStatus]=useState('');//number kolona koja nije filter kolona u ruta AcarsMessage ali jeste u AcarsMessage/allUsers
+    
+    
+    const[aggrText, setAggrText]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
 
     // const[company, setCompany] = useState('');
@@ -171,6 +175,9 @@ const  SearchAKRxElement = (props) => {
         ///////////////
         setAggrStatus("")
         setConsensusStatus("")
+        
+        setAggrText('');
+        setConsensusResult('');
         ///////////////
         
         setDateFromErr({});
@@ -179,13 +186,22 @@ const  SearchAKRxElement = (props) => {
     };    
 
     ////////////////////////    
-    const aggrInputConfig = {
+    const aggrStatusInputConfig = {
         type:'text',
         placeholder:'Aggregation Status'
     }
-    const consensInputConfig = {
+    const consensStatusInputConfig = {
         type:'text',
         placeholder:'Consensus Status'
+    }
+    
+    const aggrTextInputConfig = {
+        type:'text',
+        placeholder:'Aggregated Text'
+    }
+    const consensResultInputConfig = {
+        type:'text',
+        placeholder:'Consensus Result'
     }   
     ////////////////////////
 
@@ -381,7 +397,7 @@ const  SearchAKRxElement = (props) => {
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
             isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type, 
             
-            aggrStatus,consensusStatus);
+            aggrStatus,consensusStatus,     aggrText,consensusResult);
         
         
         setFilter('a'); 
@@ -469,39 +485,6 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
 
-                                
-                                
-                                {/*///////////////////////////////////////////////*/}
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={aggrStatus}                                        
-                                        changed={(e)=>setAggrStatus(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {aggrInputConfig}                                               
-                                    />
-                                </InputGroup>
-
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <Input
-                                        value={consensusStatus}                                      
-                                        changed={(e)=>setConsensusStatus(e.target.value)}
-                                        elementType='input' 
-                                        elementConfig= {consensInputConfig}                                               
-                                    />
-                                </InputGroup>
-                                {/*///////////////////////////////////////////////*/}
-
-
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -530,6 +513,41 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig= {textInputConfig}                                               
                                     />
                                 </InputGroup>
+
+
+                                {/*///////////////////////////////////////////////*/}
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggrText}                                      
+                                        changed={(e)=>setAggrText(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrTextInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={aggrStatus}                                        
+                                        changed={(e)=>setAggrStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrStatusInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                         
+                                {/*///////////////////////////////////////////////*/}
+
                                 <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -943,7 +961,42 @@ const  SearchAKRxElement = (props) => {
                                         elementConfig={typeInputConfig}
                                     />
                                 </InputGroup>                     
-                                                                                                               
+
+                                {/*///////////////////////////////////////////////*/}
+                         
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={consensusStatus}                                      
+                                        changed={(e)=>setConsensusStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensStatusInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Prepend className={classes.inputPrepend}>
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                                
+                                    </InputGroup.Prepend>                   
+                                    <Input
+                                        value={consensusResult}                                      
+                                        changed={(e)=>setConsensusResult(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensResultInputConfig}                                               
+                                    />
+                                </InputGroup>
+                                {/*///////////////////////////////////////////////*/}
+
+
+
+
                             </div>
                             <div className={classes.buttonBox}>
                                 {/*--*/}
