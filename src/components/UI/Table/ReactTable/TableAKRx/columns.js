@@ -50,7 +50,7 @@ export const COLUMNS = [//niz header objekata za useTable hook, i tacno moraju i
     },
     ////////////////////////////////////
     {
-        Header:"Aggregated Text(Parsed Text)",
+        Header:"Parsed Text",
         accessor: "aggregatedText"//bilo parsedText
     },
     {
