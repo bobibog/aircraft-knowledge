@@ -1,10 +1,25 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
 
+/*
+function removeEmptyParams(queryString) {
+    const params = new URLSearchParams(queryString);
+    
+    let keys = [...params.keys()];
 
+    keys.forEach(key => {
+        if (!params.get(key))
+            params.delete(key);//ako nema vrednosti u query odnosno ako je vrednost ''
+    });
+
+    return params.toString();
+}
+*/
+
+//poseban state(offset i limit) azurira u odnosu na setAkrxOffsetLimit iz acarsMessage
 export const setAcarsWithExtDataOffsetLimitCompany = (offset, limit) => {
     return {
-        type: actionTypes.SET_ACARSWITHEXTDATA_OFFSET_LIMIT_COMPANY,
+        type: actionTypes.SET_ACARSWITHEXTDATA_OFFSET_LIMIT_COMPANY,//
         offset: offset,
         limit: limit
     }
@@ -38,19 +53,20 @@ export const fetchAcarsWithExtDataFailCompany = (error) => {
     }
 };
 
-
-
-
-export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
+                                               //      //
+export const fetchAcarsWithExtDataCompany = (offset,  limit     ,acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
     tail, flight, text, mode, label, blockId, msgno, dsta, serialNumber
-    , aircraftType, typeCode, modeS, company                            
-    ) => {
+    , aircraftType, typeCode, modeS, company) => {
     return dispatch => {
         dispatch(fetchAcarsWithExtDataStartCompany());                      
                   
         const query = new URLSearchParams();         
-        query.append('offset', offset);
-        query.append('limit', limit); 
+        
+        
+        query.append('offset', offset);//
+        query.append('limit', limit);// 
+
+
         query.append('acarsMessageDateTimeMin', acarsMessageDateTimeMin);
         query.append('acarsMessageDateTimeMax', acarsMessageDateTimeMax);        
         query.append('tail', tail);
@@ -65,14 +81,34 @@ export const fetchAcarsWithExtDataCompany = (offset,  limit,acarsMessageDateTime
         query.append('aircraftType', aircraftType);
         query.append('typeCode', typeCode);   
         query.append('modeS', modeS);       
-        query.append('company', company);
+                
+        //query.append('company', company);//
 
+        //deo 1) 
         let queryString = limit !== "-1"            
-            ? query
-            : '';
-            
+        ? query
+        : '';
+
+        /*
+        //deo 2) 
+        let queryString = limit !== "-1"            
+        ? query
+        : '';
+        */
+
+        //deo 3)
+        //////////////////////////////////////////////
+        /*
+        let queryString = limit === "-1"
+            ? ''
+            : removeEmptyParams(query.toString()).toString()
+        */
+        //////////////////////////////////////////////
+
+        
+
         let url = '/AcarsMessage/acarsWithExtDataCompany?'
-            
+        
         axios.get(url+ queryString)
             .then(response => {                
                 dispatch(fetchAcarsWithExtDataSuccessCompany(response.data['acarsPerAircraftMessages'], response.data['acarsPerAircraftMessagesCount']))                 

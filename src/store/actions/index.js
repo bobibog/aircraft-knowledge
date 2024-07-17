@@ -1,3 +1,7 @@
+//iz index.js exportujemo funkcije koje nismo prethodno importovali u njega
+//to radimo da bismo ih sve grupisali u index.js pa samo index.js importujemo gde zelimo
+
+
 export {
     fetchAirlines,
     setAirlinesOffsetLimit,

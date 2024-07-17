@@ -82,16 +82,31 @@ const AcarsWithExtData = props => {
     const[typeCode, setTypeCode] = useState('');
     const[aggregatedText, setAggregatedText] = useState('');
 
+    
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+    const[consensusStatus, setConsensusStatus]=useState('');
+
+    
+    const[aggrText, setAggrText]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
+    /////////////////////////////
 
     const dispatch = useDispatch();
     
     const onFetchAcarsWithExtData = useCallback(
         () => dispatch(actions.fetchAcarsWithExtData(offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText ))
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,
+        
+            aggrStatus,consensusStatus,     aggrText,consensusResult
+        ))
         , [dispatch, offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode , aggregatedText]
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode 
+        
+            ,aggrStatus,consensusStatus,    aggrText,consensusResult
+            ]
     );    
     
     const onSetAcarsWithExtDataOffsetLimit = (offset, limit) => dispatch(actions.setAcarsWithExtDataOffsetLimit(offset, limit));    
@@ -108,7 +123,11 @@ const AcarsWithExtData = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText) => {  
+        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,//ne filtriramo po aggregatedText
+    
+        aggrStatus,consensusStatus,     aggrText,consensusResult
+
+        ) => {  
         onSetAcarsWithExtDataOffsetLimit(0, limit);
         onSetAcarsWithExtDataPage(0);
         // setAcarsMessageDateTimeMin(acarsMessageDateTimeMin ? acarsMessageDateTimeMin : formatDate(twentyFourHoursAgoDateTime));
@@ -132,7 +151,16 @@ const AcarsWithExtData = props => {
         setSerialNumber(serialNumber);        
         setAircraftType(aircraftType);
         setTypeCode(typeCode);
-        setAggregatedText(aggregatedText);
+        //setAggregatedText(aggregatedText);
+
+        ///////////////
+        setAggrStatus(aggrStatus);
+        setConsensusStatus(consensusStatus);
+
+        
+        setAggrText(aggrText)
+        setConsensusResult(consensusResult)
+        ///////////////
     };
     
     
@@ -160,8 +188,17 @@ const AcarsWithExtData = props => {
         setSerialNumber('');        
         setAircraftType('');
         setTypeCode('');   
-        setAggregatedText('');   
         
+        //setAggregatedText('');//ne filtriramo po aggregatedText   
+        
+        ///////////////
+        setAggrStatus('');
+        setConsensusStatus('');
+
+        setAggrText('')
+        setConsensusResult('')
+        ///////////////
+
         setAllOption(0);    
     };    
        
@@ -209,7 +246,11 @@ const AcarsWithExtData = props => {
         />;
         
     }      
-    
+    if(acarsWithExtDataCount){
+        console.log("ACARSWITHEXTDATA count = "+acarsWithExtDataCount);
+        console.log("ACARSWITHEXTDATA messages = "+acarsWithExtData)
+    }
+
     return (
         <div style={{marginTop:'-2px'}}>             
             <SearchAcarsWithExtData

@@ -40,9 +40,22 @@ export const COLUMNS = [
         Header: "Text",
         accessor: "text",
         Cell: ({ value }) => { return JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}
+        
         //Cell: ({ value }) => { return String.raw`${value}` }
         //Cell: ({ value }) => { return String.raw`${JSON.stringify(value, replacer, '').replace(/"/g, '').toString()}` }  
     },
+
+    /////////////////////////////////////////////
+    {
+        Header:"Parsed Text",
+        accessor: "aggregatedText"//zapravo parsedText
+    },
+    {
+        Header:"Aggregation Status",
+        accessor: "aggregationStatus"
+    },
+    /////////////////////////////////////////////
+
     // {
     //     Header: "Aggregated Text",
     //     accessor: "aggregatedText",
@@ -104,7 +117,7 @@ export const COLUMNS = [
     {
         Header:"Serial Number",
         accessor:"serialNumber"
-    }
+    },
     
     // {
     //     Header:"From airport",
@@ -149,4 +162,15 @@ export const COLUMNS = [
     //     Cell: ({ value }) => { if(value != null){
     //         return moment.utc(value*1000).format('HH:mm')} else return ''} 
     // },
+
+    ////////////////////////////////////////
+    {
+        Header:"Consensus Status",
+        accessor: "consensusStatus"
+    },   
+    {
+        Header:"Consensus Result",
+        accessor: "consensusResult"
+    }
+    ////////////////////////////////////////
 ]

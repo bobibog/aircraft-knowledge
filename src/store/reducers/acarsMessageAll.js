@@ -8,9 +8,12 @@ const initialState = {
     acarsMessages: null,
     acarsMessagesCount: null,
     acarsMessagesLoading: false,
+
+    ////////////
     acarsMessagesOffset: 0,
-    acarsMessagesLimit: rowsPerPageDefault,     
+    acarsMessagesLimit: rowsPerPageDefault,//inicijalno 10     
     acarsMessagesPage: 0     
+    ////////////
 };
 
 const setAkrxOffsetLimitAll = (state, action) => {

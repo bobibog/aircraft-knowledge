@@ -43,7 +43,15 @@ export const fetchAkrxStartAll = () => {
 export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type) => {
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
+
+    ////////
+    aggrStatus,consensusStatus,     aggrText,consensusResult
+    ////////
+
+    ) => {
+
+
     return dispatch => {
         dispatch(fetchAkrxStartAll());       
         
@@ -63,7 +71,9 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         query.append('timestampMin', timestampMin);
         query.append('timestampMax', timestampMax);
         query.append('stationId', stationId);
-        query.append('channel', channel);
+        
+        query.append('channel', channel);//
+
         query.append('freqMin', freqMin);
         query.append('freqMax', freqMax);
         query.append('levelMin', levelMin);
@@ -93,8 +103,20 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         query.append('lonMax', lonMax);        
         query.append('toAddr', toAddr);
         query.append('type',type);        
+
+        
         query.append('offset', offset);
         query.append('limit', limit);     
+
+        /////////////////
+        query.append('aggregationStatus',aggrStatus);
+        query.append('consensusStatus',consensusStatus);//
+
+        
+        query.append('aggregatedText',aggrText);
+        query.append('consensusResult',consensusResult);
+        /////////////////
+   
 
         let queryString = limit !== "-1"            
             ? query
