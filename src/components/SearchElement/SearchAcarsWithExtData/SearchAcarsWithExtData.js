@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, {useState, useCallback, useEffect, useRef, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Input from '../../UI/Input/Input';
@@ -10,10 +10,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import {AuthContext} from '../../../context/auth-context';
 
 
 
 const SearchAcarsWithExtData = (props) => {
+    const authContext = useContext(AuthContext);
 
     const airlineNameList = useSelector(state => {
         return state.airline.airlines;
@@ -103,8 +105,8 @@ const SearchAcarsWithExtData = (props) => {
     // );
     
     const onFetchAircraftType = useCallback(
-        () => dispatch(actions.fetchAircraftTypes(aircraftType))
-        , [dispatch, aircraftType ]
+        () => dispatch(actions.fetchAircraftTypes(aircraftType, authContext.user.token))
+        , [dispatch, aircraftType, authContext.user.token ]
     );
 
     const onFetchTypeCode = useCallback(
