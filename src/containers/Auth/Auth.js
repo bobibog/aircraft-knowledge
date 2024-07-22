@@ -18,7 +18,7 @@ import * as actions from '../../store/actions/index';
 
 const Auth = props => {
 
-    console.log("AUTH");
+    //console.log("AUTH");
 
     //EYE
     const[eyeStatus, setEyeStatus]=useState('password');   
@@ -98,6 +98,7 @@ const Auth = props => {
 
     const submitHandler = (e) => {
         e.preventDefault();          
+                        //! login
         authContext.authenticate( authForm.username.value, authForm.password.value);                
     };      
     
@@ -164,7 +165,7 @@ const Auth = props => {
         //ulazi na kraju
         console.log("e2")
         //return (<div>bla</div>);
-        authRedirect = <Redirect to="/auth2"/>//3. ovde se ulazi ako je isAuthenticated==true a to ce se znati nakon izvrsavanja authCheckState
+        authRedirect = <Redirect to="/auth2"/>//4-. (Uspeasan automatski Login)ovde se ulazi ako je isAuthenticated==true a to ce se znati nakon izvrsavanja authCheckState
     }                                         //auth2 znaci da je authCheckState promenio usera(autentifikovao) iz localStorage browsera pa je onda isAuthenticated==true a zbog promene usera koji je deo global state a koristi ga App onda ce se rerenderovati ponovo App pa onda i Auth jer je child pa se u Auth vrsi ovaj redirect ka ruti /auth2 koja ne postoji u da5 aktivnom Switch pa ce tada aktivirati default iz da5 odnosno Auth nece vise postojati u App
     if(isRole=='Admin')
     {
@@ -185,12 +186,21 @@ const Auth = props => {
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
             </Modal> 
+
+
             {authRedirect}{/*postoji samo ako je isAuthenticated==true*/}
             {errorMessage}
-            <form onSubmit={submitHandler}>            
+
+            {/*3-. (Neuspesan automatski Login authCheckState nije promenio usera odnosno isAuthenticated==false)*/}
+            {/*4. (Logout)*/}
+
+                                {/*--*/} 
+            <form onSubmit={submitHandler}>          
                 {form}
                 <Button btnType="Success" >LOG IN</Button>
             </form>
+            
+            
             {/* <Button
                 // clicked={switchAuthModeHandler}
                 // btnType="Danger">SWITCH TO {isRegistration ? 'SIGN IN' : 'REGISTER'}

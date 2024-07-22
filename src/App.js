@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -31,28 +31,116 @@ import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
 import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
 import AKRxAll from './containers/AKRxAll/AKRxAll';
 
+
+import instance from './axios-azure'//
+
 function App() {
 
   //////////////////////////////
   const authContext = useContext(AuthContext);
   const authCheckState = authContext.authenticationCheckState;//
-  let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
+  
+  const [shouldLogout,setShouldLogout] = useState(false);//
+  const authExtendTokenExpiration = authContext.authenticationExtendTokenExpiration;//
+  //const user = authContext.user;//ili iz localStorage
+
+  let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku odnosno izlogovani(iako postoji u localStorage) ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
   //////////////////////////////
 
-  console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je false a menja se iz authCheckState koji je i u App i u NavigationItems!
+  console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je isAuthenticated==false a user(authUser) se menja iz authCheckState ako postoji token odnosno iz authSuccess se inicijalnom useru(authUser) dodeljuju parametri iz localStorage browsera
+                                                   //authCheckState se zove iz App i u NavigationItems! 
   
+  //role User
+  //company Aviolog
+
+  //role Parser
+  //company
+
+  
+//pre requesta se automatski poziva middleware
+//globalno definisano
+instance.interceptors.request.use(config =>{
+    const token = localStorage.getItem('token');
+
+          //rute za koje je potreban Authorization odnosno token
+    const protectedRoutes = ['/AircraftTypeFull/GetAircraftTypesFullAll'];
+  
+    let firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'))
+
+    if(!firstLoginReqDateTimeMils){//undefined odnosno nije ulogovan prethodno
+      console.log("NOT LOGGED IN")
+      return config
+    }
+
+    
+    let firstLoginReqDateTimeMilsPlus35 = firstLoginReqDateTimeMils + 35 * 60 * 1000;
+
+                                //min 1               //config.url je trenutna ruta
+    if(token && protectedRoutes.some(protectedUrl => config.url.includes(protectedUrl))) {
+                
+
+        //resetTimeout(2700)
+        
+        if(firstLoginReqDateTimeMilsPlus35 < new Date(Date.now()).getTime()){
+
+          
+          //AKO RADIMO LOGOUT
+          ///////////////////////////////////////////////////////
+          setShouldLogout(true);
+          alert('Token expired, login again');
+          return Promise.reject();
+          
+          //AKO RADIMO EXTEND VALIDNOSTI PREKO RUTE REFRESH-TOKEN
+          //##
+          ///////////////////////////////////////////////////////
+
+          /*
+          let expiresDateTimeISO = new Date(localStorage.getItem('expiresDateTimeISO'));
+          let currDate = new Date();
+
+          currDate.setHours(expiresDateTimeISO.getUTCHours());
+          currDate.setMinutes(expiresDateTimeISO.getUTCMinutes());
+          currDate.setSeconds(expiresDateTimeISO.getUTCSeconds());
+          currDate.setMilliseconds(expiresDateTimeISO.getUTCMilliseconds());
+
+            
+          let currDateISOString = currDate.toISOString();
+            
+          instance.post(`/Account/refresh-token?username=`+localStorage.getItem('username')+"&expires="+currDateISOString,{
+              'refreshToken': localStorage.getItem('refreshToken')//body
+          }).then(response => {   
+            authExtendTokenExpiration(response.data.token,response.data.refreshToken,new Date(response.data.expires).toISOString(),response.data.username,Date.now())
+            config.headers.Authorization = `Bearer ${response.data.token}`;
+            
+            //ponavljanje presretnutog req
+
+          }).catch(error => {//ako ne uspemo da refreshujemo
+            setShouldLogout(true);
+          })    
+          return Promise.reject();
+          */
+
+        }
+    }
+    config.headers.Authorization = `Bearer ${token}`;//ako je jos uvek validan 
+    return config;
+
+},error =>{
+    return Promise.reject(error);
+});
+
   let isRole = authContext.user.role == "Admin" ;
   let isParser = authContext.user.role == "Parser" ;
   let isCustomer = authContext.user.role == "Customer";
   let isNotTermed = authContext.user.terms!==1;
   let isAirExplore = authContext.user.company == "AirExplore"&& authContext.user.token !== null; 
   let isFlyAir41 = authContext.user.company == "Fly Air41 Airways"&& authContext.user.token !== null;
-  let isCompany = authContext.user.company != null ;
+  let isCompany = authContext.user.company != null ;//Aviolog ili bilo sta != null
   //dummy comment to trigger commit
   
 
   useEffect(() => {
-    authCheckState();//kljucno za automatski login sa postojecim tokenom
+    authCheckState();//kljucno za automatski login sa postojecim tokenom iz localStrage jer se inicijalno zove useEffect zbog mountovanja App a posle kada se uradi logout ili ako uspe automatski login jer se tada menja isAuthenticated
   }, [authCheckState, isAuthenticated]);
 
 
@@ -64,8 +152,16 @@ function App() {
     <Switch>    
       
       {console.log("da0")}                    
-      {/*Swtichevi koji nam trebaju se aktiviraju da1 i da5 a za da5 ako smo ulogovani prethodno odnosno postoje autentifikacijski podaci u localStorage*/}
-      {/*u nasem slucaju ovaj switch se ne renderuje a u slucaju da imamo ispod samo Switcheve if(isAuthenticated) i if(!isAuthenticated) onda je ovaj beskoristan*/}
+      {/*Swtichevi koji nam trebaju se aktiviraju da1 i da5*/}
+     
+      {/*da1->da5 ako postoje autentifikacijski podaci u localStorage inace ostaje u da1*/}
+      {/*da1 je zapravo defaultni za neuatentifikovanog sa mogucnoscu autentifikacije a da5 za autentifikovanog nakon da1*/}
+      {/*odnosno bice defaultno u da1 na /auth Auth strani a kada se zavrsi authCheckState ako je isAuthenticated==true onda ce biti u da5 na /auth2, a ako je isAuthenticated==false onda ostaje u da1*/}
+      
+      {/*ako se izlogujemo onda se vracamo u da1 na /auth*/}
+    
+      {/*u ovaj default se ulazi samo ako se ne uspe ni u jedan if da se udje koji sadrzi isAuthenticated dok je true, posto kada je isAuthenticated==false se zasigurno ulazi u da1*/}
+      {/*to se desava ako ne postoje svi parametri u localStorage odnosno postoji min 1 samo da se promeni initialUser*/}
 
       <Route path="/logout" component={Logout} /> 
       <Route path="/auth" component={Auth} />       
@@ -126,18 +222,16 @@ function App() {
 
   
   //ulazi
-  //OVO JE GLAVNI DEO JER CE BITI isAuthenticated==false IAKO POSTOJE PODACI U LOCALSTORAGE
+  //OVO JE GLAVNI DEO ZA AUTOMATSKI LOGIN JER CE BITI isAuthenticated==false IAKO POSTOJE PODACI U LOCALSTORAGE
   //authCheckState za ucitavanje podataka iz localstorage se zove iz App i NavigationItems
-  //da1 je zapravo defaultni samo za neuatentifikovanog(koji nikada ne moze biti autentifikovan odnosno anonimnog) a da5 za neautentifikovanog sa mogucnoscu autentifikacije
-
   if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
     console.log("da1")
     routes = (
       <Switch>
 
-        {/*2. vraca se Auth.js za prethodni Redirect jer je isti match putanja iz redirect to i path u ovoj Route i Auth krece da se renderuje u App za login, a za to vreme se izvrsava authCheckState*/}
+        {/*2-. (automatski Login)vraca se Auth.js za prethodni Redirect jer je isti match putanja iz redirect to i path u ovoj Route i Auth krece da se renderuje u App za login, a za to vreme se izvrsava authCheckState*/}
         <Route path="/auth" component={Auth} />
-
+        
         {/*u Redirect to se stavlja url za Route koji vraca component*/}
         {/*Route je 1:1 a Redirect N:1*/}
         {/*switch se aktivira samo jednom za prvi koji se naidje ili default na kraju*/}
@@ -146,15 +240,18 @@ function App() {
         <Redirect from="/airlines" to="/auth" />                
         <Redirect from="/akrx" to="/auth" />
         
-        <Redirect from="/" exact to="/auth" />{/*1. aktivira se ovaj Redirect pri startovanju fronta automatski za isAuthenticated==false sto ce uvek biti na pocetku i na toj smo / ruti a ucitan je prethodno Route sa kojim se matchuje*/}
-                                              {/*ako je isAuthenticated==true onda da5 a ako je isAuthenticated==false onda da1*/}
+
+        {/*3. (Logout)*/}
+        <Redirect from="/" exact to="/auth" />
+        {/*1-. (automatski Login)aktivira se ovaj Redirect pri startovanju fronta automatski za isAuthenticated==false sto ce uvek biti na pocetku i na toj smo / ruti a ucitan je prethodno Route sa kojim se matchuje*/}
+        {/*ako je isAuthenticated==true onda da5 a ako je isAuthenticated==false onda da1*/}
 
         {/*ne postoji default sto znaci da se nista nece ni aktivirati(renderovati)*/}
       </Switch>
     );
   }  
 
-  if (isRole && isAuthenticated) {
+  if (isRole && isAuthenticated) {//isRole==Admin
     console.log("da2")
     routes = (
       <Switch>  
@@ -183,7 +280,7 @@ function App() {
   }
 
   if (isParser && isAuthenticated) {
-    console.log("da3")
+    console.log("da3")//ako je role=Parser
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -200,13 +297,17 @@ function App() {
         <Route path="/statistics" component={MessagesNumber} />           
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
+      
         {/* <Route path="/user" component={User} />  
         <Route path="/addUser" component={AddUser} />
         <Route path={"/updateUser/:id"} component={UpdateUser} /> */}
         <Route path="/decoding" component={Decoding} />
+
+          
         <Route path="/parser" component={Parser} />    
         <Redirect from="/" exact to="/parser" />
-        <Route render={() => <div><h1>Data not found parser</h1></div>} />
+
+        <Route render={() => <div><h1>Data not found parser</h1></div>} />{/*zbog auth2 koji ne postoji nakon logina*/}
       </Switch>
     );
   }
@@ -230,22 +331,6 @@ function App() {
     );
   }
 
-  //i container i tabela su wrapperi odnosno apstrakcije odnosno apstrakcija u apstrakciji
-
-  //ACARS raw
-  //container
-  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\containers\AKRx
-  //tabela
-  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\components\UI\Table\ReactTable\TableAKRx
-
-  //ACARS per Aircraft  
-  //containter
-  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\containers\AcarsWithExtDataCompany
-  //tabela
-  //VS_Workspace\aircraftknowled3\aircraft-knowledge\src\components\UI\Table\ReactTable\TableAcarsWithExtData
-
-
-
   //ulazi
   //isCompany je neophodan za logovanje odnosno potreban kao deo autentifikacije u localStorage
   {/*u ovom trenutku se ucitao token odnosno autentifikovani smo i bicemo na auth2 za koju ne postoji match Route tako da ce se default renderovati*/}
@@ -265,11 +350,11 @@ function App() {
         
         <Route path="/auth" component={Auth} />
 
-        <Route path="/logout" component={Logout} />
+        <Route path="/logout" component={Logout} />{/*1. (Logout)pozvace se logout() iz Logout pa ce promeniti user(na inicijalni) pa ce se promeniti isAuthenticated na false pa ce se uraditi useEffect i pozvati authCheckState koji ce ponovo uraditi logout() koji nece promeniti stanje i izvrsice se rerender App!!!
                 
         <Redirect from="/" exact to="/akrxAll" />{/*<Redirect from="/" exact to="/akrxAll" odnosno vraca nas na akrxAll Route u ovom Switch koji je prethodno definisan/>*/}
         
-        
+
           {/*pri defaultnom renderu vratice se return anonimne komponente*/}
           {/*mora se aktivirati ako se ni jedan Route ili Redirect prethodno ne aktivira a to ce biti za nepostojecu rutu odnosno u nasem slucaju kada se desi rerender App zbog promene isAutenticated==true pa rerender Auth pa redirect ka auth2 iz Auth*/} 
         <Route render={() => <div><h1>Data not found</h1></div>} />{/*slalo se company=Aviolog i znalo se unapred da nece vratiti nista u response cim je ovde definisano "Data not..." a bez company oce*/}
@@ -281,7 +366,16 @@ function App() {
   return (    
     <div className="App">    
       <Layout>
-        {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde*/}
+        {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde ali taj sacuvan switch je idalje dostupan za Redirect*/}
+       
+        {/*nezavisno od ovog routes switcha sto znaci da bilo koju vec pogodjenu rutu odnosno komponentu moze demountovati i mountovati Logout*/}
+        {shouldLogout ? (
+               <Redirect to="/logout" />//necemo from jer nam je nebitno gde smo trenutno
+            ):(
+              <></>//ne treba nam nista da radi pa je nutralan
+            )}
+
+
       </Layout>
     </div>
   );

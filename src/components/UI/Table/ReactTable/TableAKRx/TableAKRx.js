@@ -80,13 +80,12 @@ const Styles = styled.div`
         } 
     }    
 
-    .th,
-    .td {
+    .th,.td {${''/*elementi klase .th ili .td*/}
       margin: 0;
-      padding: 0.5rem;
+      padding: 0.5rem;${''/**/}
       border-right: 1px solid black;
       border: 1px solid #ddd;
-      padding: 12px;
+      padding: 12px;${''/*opet odnosno override prethodne*/}
       width: 180px;      
       display: inline-block;
       word-wrap: break-word;
@@ -675,11 +674,10 @@ const TableAKRx = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
-    //useMemo koristimo za skupe racune koje necemo ponovo da racunamo zbog nebitnih drugih malih promena pri rerender
-    //prosledjujemo funkciju koja vraca podatak koji se izracunava i niz zavisnosti koje se watchuju radi ponovnog izracunavanja inace ako se ne promene te zavisnosti bice ignorisana pri rerenderu ali idalje zapamcen podatak po referenci
-    //posto nismo prosledili niz zavisnosti to znaci da ce se samo pri inicijalnom rerenderu ponovo racunati odnosno mount ali ne i remountu, a to vazi i za useEffect
+    
     const columns = useMemo(()=> COLUMNS, []);    
     
+
     const data = useMemo(()=> props.data, []);    
     const [pageInd, setPage] = useState(props.currPage);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);

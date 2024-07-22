@@ -688,11 +688,11 @@ const TableAcarsWithExtData = (props) => {
      const [columns, setColumns] = useState(COLUMNS);
 
      // Update columns when COLUMNS changes
-     useEffect(() => {
+     useEffect(() => {                                                                                                                                 
        setColumns(COLUMNS);
-     }, [COLUMNS]);
- 
-
+     }, [COLUMNS]);        
+                           
+                           
 
      const [data, setData] = useState(props.data);
      // Update data when props.data changes

@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
 
 
-
 export const fetchAircraftTypeSuccess = (aircraftTypes) => {
     return {
         type: actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS,
@@ -24,25 +23,39 @@ export const fetchAircraftTypeStart = () => {
 };
 
 
-
-export const fetchAircraftTypes = (aircraftType) => {
+                                                        //,authExtendTokenExpiration
+export const fetchAircraftTypes = (aircraftType,limitTypeMax) => {
+    
     return dispatch => {
-        dispatch(fetchAircraftTypeStart());        
+    
+        dispatch(fetchAircraftTypeStart());//azuriramo podatak u global state kao indikator a neka komponenta koja ga koristi ce reagovati rerenderom        
           
         const query = new URLSearchParams();                        
         query.append('aircraftType', aircraftType);
-          
+        
+        //console.log("Aircraft type: "+aircraftType)
 
-        let queryString = query;            
-            
-        axios.get(`/AircraftTypeFull/GetAircraftTypesFullAll?`+queryString)
-            .then(response => {                
-                dispatch(fetchAircraftTypeSuccess(response.data['aircraftTypes']))                 
-            })
-            .catch(error => {
-                dispatch(fetchAircraftTypeFail(error));                                
-            }    
-        );        
-    }
-};
+        query.append('limit',limitTypeMax)//  
+
+        let queryString = query;                  
+  
+            //browser salje preflight option za cors nezavisno od backenda jer saljemo Authorization u headeru odnosno nestandardni meta
+            axios.get(`/AircraftTypeFull/GetAircraftTypesFullAll?`+queryString
+                /*
+                //ako ne koristimo interseptor odnosno middleware za dodavanje headera
+                ,{headers:{
+                'Authorization': 'Bearer '+localStorage.getItem('token')
+                }}
+                */
+                )
+                .then(response => {                
+                    dispatch(fetchAircraftTypeSuccess(response.data['aircraftTypes']))                 
+                })
+                .catch(error => {
+                    dispatch(fetchAircraftTypeFail(error));                                
+                }    
+            );  
+            }                            
+    }    
+
 

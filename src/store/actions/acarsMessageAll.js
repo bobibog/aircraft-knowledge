@@ -5,7 +5,9 @@ import {moment} from 'moment';
 
 export const setAkrxOffsetLimitAll = (offset, limit) => {
     return {
+        
         type: actionTypes.SET_AKRX_OFFSET_LIMIT_ALL,
+        ////////////////////////////////////
         offset: offset,
         limit: limit
     }
@@ -17,10 +19,11 @@ export const setAkrxPageAll = (page) => {
         page: page
     }
 };
-
+                //2.(DISPATCHED ACTION)
 export const fetchAkrxSuccessAll = (acarsMessages, acarsMessagesCount) => {
     return {
         type: actionTypes.FETCH_AKRX_SUCCESS_ALL,
+        ///////////////////////////////
         acarsMessages: acarsMessages,
         acarsMessagesCount: acarsMessagesCount
     }
@@ -51,10 +54,15 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
 
     ) => {
 
-
+        //vracamo funkciju umesto actionObject
     return dispatch => {
+        
         dispatch(fetchAkrxStartAll());       
         
+
+        console.log("FETCH2") 
+
+
         // Converting Local in UTC
         var acarsMINUtc="";
         if(acarsMessageDateTimeMin!=''){
@@ -123,8 +131,11 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
             : '';            
             
         axios.get(`/AcarsMessage/allUsers?`+ queryString)
-            .then(response => {                
+            .then(response => { 
+
+                                //1.(DISPATCHED ACTION)
                 dispatch(fetchAkrxSuccessAll(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
+            
             })
             .catch(error => {
                 dispatch(fetchAkrxFailAll(error));                                

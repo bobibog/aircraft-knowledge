@@ -12,8 +12,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
+//////////////////////
+//import {AuthContext} from '../../../context/auth-context';
+//import {useContext} from 'react';
+//////////////////////
+
 
 const SearchAcarsWithExtData = (props) => {
+
+
+    //const authContext = useContext(AuthContext);
+    //const authExtendTokenExpiration = authContext.authenticationExtendTokenExpiration;
+
+    ////////////////////////////////
+    //#
+    //useRef za direktno menjanje podatka bez izazivanja rerendera i cuvaju vrednosti nakon rerendera i nestaje nakon unmounta
+    //const isFirstTimeMounting = useRef(2);//
+    //predstavljaju proslo stanje a uvek su predefinisane po vrednosti u setTimeout ondosno njihova naredna promena ne menja proslu vrednost u proslom timeru tako da moramo totalno ukloniti prosli timer
+    const lastFetchTime = useRef(-500);
+    const timeOutRef = useRef(null);
+    ////////////////////////////////
 
     const airlineNameList = useSelector(state => {
         return state.airline.airlines;
@@ -32,8 +50,8 @@ const SearchAcarsWithExtData = (props) => {
     const[valueIATA, setValueIATA] = useState(null);
     const[valueICAO, setValueICAO] = useState(null);
     
-    const[valueAircraftTypeFull, setValueAircraftTypeFull] = useState(null);
-    const[valueTypeCode, setValueTypeCode] = useState(null);
+    const[valueAircraftTypeFull, setValueAircraftTypeFull] = useState(null);//selektovan objekat iz DropDown
+    const[valueTypeCode, setValueTypeCode] = useState(null);//
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
@@ -54,10 +72,17 @@ const SearchAcarsWithExtData = (props) => {
     //const[aggregatedText , setAggegatedText] = useState('');//!
     
     const[serialNumber, setSerialNumber] = useState('');    
+    
+    /////////////////////////
     const[aircraftType, setAircraftType] = useState('');
-    const[typeCode, setTypeCode] = useState('');   
+    const[typeCode, setTypeCode] = useState('');
+    /////////////////////////
+
     const[modeS, setModeS] = useState(''); 
     
+
+    const[typeCodeChange,setTypeCodeChange] = useState('')
+    const[aircraftTypeChange,setAircraftTypeChange] = useState('')
 
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
@@ -102,14 +127,26 @@ const SearchAcarsWithExtData = (props) => {
     //     , [dispatch, operatorIcao ]
     // );
     
+
+    const [limitTypeMax,setLimitTypeMax] = useState(30)
+
+                //!         //pri rerender se obicnoj funkciji uvek menja referenca a state samo ako je promenjena vrednost sa setState 
     const onFetchAircraftType = useCallback(
-        () => dispatch(actions.fetchAircraftTypes(aircraftType))
-        , [dispatch, aircraftType ]
+                            //funkcija akcije ili vraca actionObject ili funkciju(koja u sebi zove dispatcheve)
+                            //ako je actionObject vracen u dispatch onda se prosledjuje svim reducerima
+                            //ako je funkcija vracena u dispatch onda se automatski zove i u nju se moze proslediti dispatch funkcija
+        
+                                                    //(aircraftType)//bilo
+                                                                                //,authExtendTokenExpiration
+        () => dispatch(actions.fetchAircraftTypes(aircraftTypeChange,limitTypeMax))
+        //, [dispatch, aircraftType]//bilo
+        ,[dispatch,aircraftTypeChange,limitTypeMax]
     );
 
-    const onFetchTypeCode = useCallback(
-        () => dispatch(actions.fetchTypeCodes(typeCode))
-        , [dispatch, typeCode ]
+    const onFetchTypeCode = useCallback(        //(typeCode)
+        () => dispatch(actions.fetchTypeCodes(typeCodeChange,limitTypeMax))
+        //, [dispatch, typeCode]
+        ,[dispatch,typeCodeChange,limitTypeMax]
     );
 
 
@@ -141,14 +178,69 @@ const SearchAcarsWithExtData = (props) => {
     // }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
     
 
+    //mozemo u useEffect watch da stavimo funkciju za useCallback ili promenjljivu za useMemo koji imaju svoj watch
+    //tako se pri promeni watch od useMemo ili useCallback ponovo referencira promenjljiva i onda zbog promene reference se aktivira watch od useEffect
     useEffect(()=>{
-        onFetchAircraftType();
+        
+       //da ne bismo fetchovali podatke pri inicijalnom mountu vec kada krene da se kuca min 1 karakter
+       //# 
+       /*if (isFirstTimeMounting.current) {
+            isFirstTimeMounting.current--;
+            return;
+          }
+        */
+
+        //onFetchAircraftType();//posto je aircraftType inicijalno '' nakon mounta pri pozivu onFetchAircraftType ce se fetchovati svi aircraftTypes a pri promeni aircraftType iz filtera pri kucanju karaketera zbog onFetchAircraftType watcha ce se fetchovati konkretan trenutno ukucani aircraftType,isto vazi i za typeCode
+   
+        timerFetchBreak(onFetchAircraftType)//fetch pauza 0.5 sekundi odnosno rec ukljucujuci naredni karakter se fetchuje samo ako je proslo >= 0.5 sekundi a ako se ponovi < 0.5 vise od 2 puta onda fetchujemo samo rec ukljucuju poslednji ukucani karakter jer svakako prikazujemo samo filtiran DropDown za trenutnu rec
     }, [onFetchAircraftType])
 
     useEffect(()=>{
-        onFetchTypeCode();
+
+        //#
+        /*if (isFirstTimeMounting.current) {
+            isFirstTimeMounting.current--;
+            return;
+          }
+        */
+        //onFetchTypeCode();//!
+
+        timerFetchBreak(onFetchTypeCode)
     }, [onFetchTypeCode])
 
+
+    //mozemo gledati kao da izvrsenje onFetchAircraftType traje 0.5
+    const timerFetchBreak = (fetchFun) =>{
+
+        const now = Date.now();//trenutak kada je naredna pozvana
+    
+        //cak i da je inicijalno now==0 aktivirace se
+        if(now - lastFetchTime.current >= 500){//ako je proslo 0.5 sekundi nakon proslog onFetchAircraftType smemo da zovemo ponovo onFetchAircraftType
+          lastFetchTime.current = now;//dodela ovde znaci kada je trenutna pocela sa izvrsenjem
+          fetchFun();
+          
+        //fakticki je nebitno za narednog zakazivanje da li se prethodna izvrsava ili je zakazano da se prethodna izvrsava jer se svakako kreira novi timer
+        //ako se izvrsava onda se kreira timer
+        //ako je zakazano da se izvrsava onda se overiduje novim timerom
+        }else{//ako nije proslo 0.5 sekunde a zelimo ponovo da pozovemo onFetchAircraftType onda zakazujemo pozivanje naredne za razliku do 0.5 trenutne odnosno ako naredni zeli na 0.2 da prekine cekanje trenutne onda naredni ceka 0.3
+          
+          clearTimeout(timeOutRef.current);//pri prekidu prethodnog timeout overidovacemo ga novim
+
+          timeOutRef.current = setTimeout(() =>{
+            lastFetchTime.current = Date.now();//trenutak kada naredna prekida cekanje zavrsetka prosle izmedju (0..0.5] potrebnog cekanja
+            fetchFun();
+          },0.5 - (now - lastFetchTime.current));
+        }
+      };
+      //naredna1 pocela u 0
+      //naredna2 pocela u 0.2, ceka jos 0.5-(0.2-0) odnosno ceka 0.3
+      //naredna3 pocela u 0.3, ceka jos 0.5-(0.3-0.2) odnosno ceka 0.4 sto znaci da ako naredni timer od naredna3 overiduje prethodni od naredna2 malo iznad njegovog pocetka odnosno 0.21 cekace podjednako za prikaz naredna3 a ako ga overiduje pri samom kraju odnosno u 0.5 cekace ceo timeout
+      //formula naredne koja ceka proslu je 0.5-(pocetak nove naredne-pocetak prosle naredne)
+
+
+    useEffect(() =>{
+        return () => clearTimeout(timeOutRef.current);
+    },[]);
 
     // Disable Input
     const [disabled, setDisabled] = useState(false);
@@ -223,8 +315,6 @@ const SearchAcarsWithExtData = (props) => {
         //setOperatorIata('');
         //setOperatorIcao('');
         setSerialNumber('');        
-        setAircraftType('');
-        setTypeCode(''); 
         //setAggregatedText('');
         setValueName(null);
         setValueIATA(null);
@@ -232,9 +322,15 @@ const SearchAcarsWithExtData = (props) => {
         //setValueOperatorName(null);
         //setValueOperatorIATA(null);
         //setValueOperatorICAO(null);
-        setValueAircraftTypeFull(null);
-        setValueTypeCode(null);
         
+
+        ////////////////////////////////
+        setAircraftType('');//
+        setValueAircraftTypeFull(null);//
+        setTypeCode('');//
+        setValueTypeCode(null);//
+        ////////////////////////////////
+
         ///////////////
         setAggrStatus("")
         setConsensusStatus("")
@@ -262,7 +358,8 @@ const SearchAcarsWithExtData = (props) => {
     let dropOperatorIATA= '';
     let dropOperatorICAO = '';
     let dropAircraftTypeFull = '';
-    let dropTypeCode = '';
+    
+    let dropTypeCode = '';//
 
     const onDropNameChange = (e) =>{
         setValueName(e);       
@@ -295,16 +392,53 @@ const SearchAcarsWithExtData = (props) => {
     //     setOperatorIcao(e.icao);
     //     //disabler();                     
     // }
-    const onDropAircraftTypeFullhange = (e) =>{
-        setValueAircraftTypeFull(e);       
-        setAircraftType(e.aircraftType);
+
+
+                                        //e nije event vec trenutno selektovan objekat
+    const onDropAircraftTypeFullChange = (e) =>{
+
+        console.log("onChangeAircraftTypeFull")
+        
+        ///////////
+        //bilo
+        //setValueAircraftTypeFull(e);//pamti selektovan objekat a u DropDown prikazuje full naziv
+        //setAircraftType(e.aircraftType);//pamti full DropDown naziv selektovanog objekta jer smo mogli da ga selektujemo po contains < cele reci pa Search po tom nazivu a konkretnom izboru ne bi imao smisla
+        //**setAircraftType(e);
+        ///////////
+
+        setAircraftTypeChange(e)//za fetch novog pri promeni ukucanog
+
         //disabler();                     
     }
-    const onDropTypeCodeChange = (e) =>{
+    const onDropAircraftTypeFullSelected = (e) =>{
+        console.log("onSelectedAircraftTypeFull")
+        
+        setValueAircraftTypeFull(e);//za promenu u DropDown childu koji koristi valueAircraftTypeFull samo za prikaz vrednosti polja pa ni ne mora biti u Search
+        setAircraftType(e.aircraftType);//za Search selektovanog
+        
+    }
+
+    const onDropTypeCodeChange = (e) =>{//fetch
+        console.log("onChangeTypeCode")
+        
+        ///////////
+        //bilo
+        //setValueTypeCode(e);       
+        //setTypeCode(e.typeCode);
+        ///////////
+
+        setTypeCodeChange(e)
+
+        //disabler();                     
+    }
+    const onDropTypeCodeSelected = (e) =>{
+        console.log("onSelectedTypeCode")
+        
         setValueTypeCode(e);       
         setTypeCode(e.typeCode);
-        //disabler();                     
+        
     }
+
 
     // DELETING VALUE BY BACKSPACE
     // const deletingAirlineName=(e)=>{
@@ -344,19 +478,21 @@ const SearchAcarsWithExtData = (props) => {
     //     }
     // }
     const deletingAircraftType=(e)=>{
+        console.log("KEY DOWN deletingAircraftType")//moze i sa key up ali onda nece moci da se drzi
         if (e.keyCode === 8) {
             setValueAircraftTypeFull('');
             setAircraftType('');
         }
     }
     const deletingTypeCode=(e)=>{
+        console.log("KEY DOWN deletingTypeCode")
         if (e.keyCode === 8) {
             setValueTypeCode('');
             setTypeCode('');
         }
     }
 
-    // Dropdown  Staus 
+    // Dropdown  Status 
     const[dropStatus, setDropStatus]=useState(0);
     function dropChanger(dropStatus){
         if(dropStatus==0){
@@ -460,10 +596,14 @@ const SearchAcarsWithExtData = (props) => {
         dropAircraftTypeFull= <Dropdown
             prompt= 'Aircraft Type'            
             options={aircraftTypeList}              
-            value={valueAircraftTypeFull}   
-            onChange={onDropAircraftTypeFullhange} 
+            
+            value={valueAircraftTypeFull}
+
+            onChange={onDropAircraftTypeFullChange}//
+            onDropSelected={onDropAircraftTypeFullSelected}//
+
             descriptor='aircraftType'
-            characterLimit = {2}   
+            characterLimit = {3}//bilo 2,minimum za prikazivanje options   
             onKeyDown={deletingAircraftType}
             dropChanger={dropStatus}                                             
         />;
@@ -472,13 +612,19 @@ const SearchAcarsWithExtData = (props) => {
     // Dropdown Type Code
     if(typeCodeList != null)
     {
+
         dropTypeCode = <Dropdown
             prompt= 'Type Code'            
-            options={typeCodeList}              
-            value={valueTypeCode}   
-            onChange={onDropTypeCodeChange} 
+            
+            options={typeCodeList}
+
+            value={valueTypeCode} 
+            
+            onChange={onDropTypeCodeChange}//
+            onDropSelected={onDropTypeCodeSelected}//
+
             descriptor='typeCode'
-            characterLimit = {1}  
+            characterLimit = {2}//bilo 1 
             onKeyDown = {deletingTypeCode}   
             dropChanger={dropStatus}                                       
         />;
@@ -575,7 +721,7 @@ const SearchAcarsWithExtData = (props) => {
         type:'text',
         placeholder:'Serial Number'        
     }
-    const typeCodeInputConfig = {
+    const typeCodeInputConfig = {//nije bilo ubaceno u search
         type:'text',
         placeholder:'Type Code',
         //disabled: disabled        
@@ -632,6 +778,7 @@ const SearchAcarsWithExtData = (props) => {
             //parent metoda
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
+                                                                            //          //
             serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,
         
             aggrStatus,consensusStatus,      aggrText,consensusResult);
@@ -964,32 +1111,45 @@ const SearchAcarsWithExtData = (props) => {
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    
+                                    {/*
+                                     <Input
                                         value={aircraftType}                                        
                                         changed={(e)=> setAircraftType(e.target.value)}                                                                             
                                         elementType='input' 
                                         elementConfig= {aircraftTypeInputConfig}                                                                                                               
-                                    /> */}
+                                    /> 
+                                    */}
+
                                     <div className={classes.dropDownList}>
-                                        {dropAircraftTypeFull}
+                                        {dropAircraftTypeFull}{/*--*/}
                                     </div>
                                 </InputGroup>
+
+
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
                                         </InputGroup.Text>                                
                                     </InputGroup.Prepend>                   
-                                    {/* <Input
-                                        value={typeCode}                                        
-                                        changed={(e)=> setTypeCode(e.target.value)}                                                                             
+                                    
+                                    {/*
+                                    //nije potrebno jer smo povezali typeCode sa dropTypeCode(DropDown)
+                                     <Input
+                                        value={typeCode}//typeCode -> UI                                        
+                                        changed={(e)=> setTypeCode(e.target.value)}//UI -> typeCode                                                                             
                                         elementType='input' 
                                         elementConfig= {typeCodeInputConfig}                                                                                                               
-                                    /> */}
+                                    /> 
+                                    */}
+
                                     <div className={classes.dropDownList}>
-                                        {dropTypeCode}
+                                        {dropTypeCode}{/*--*/}
                                     </div>
                                 </InputGroup>
+
+
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
