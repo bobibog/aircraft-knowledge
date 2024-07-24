@@ -12,23 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
-//////////////////////
-//import {AuthContext} from '../../../context/auth-context';
-//import {useContext} from 'react';
-//////////////////////
 
 
 const SearchAcarsWithExtData = (props) => {
 
 
-    //const authContext = useContext(AuthContext);
-    //const authExtendTokenExpiration = authContext.authenticationExtendTokenExpiration;
-
     ////////////////////////////////
     //#
     //useRef za direktno menjanje podatka bez izazivanja rerendera i cuvaju vrednosti nakon rerendera i nestaje nakon unmounta
-    //const isFirstTimeMounting = useRef(2);//
-    //predstavljaju proslo stanje a uvek su predefinisane po vrednosti u setTimeout ondosno njihova naredna promena ne menja proslu vrednost u proslom timeru tako da moramo totalno ukloniti prosli timer
     const lastFetchTime = useRef(-500);
     const timeOutRef = useRef(null);
     ////////////////////////////////
@@ -132,12 +123,7 @@ const SearchAcarsWithExtData = (props) => {
 
                 //!         //pri rerender se obicnoj funkciji uvek menja referenca a state samo ako je promenjena vrednost sa setState 
     const onFetchAircraftType = useCallback(
-                            //funkcija akcije ili vraca actionObject ili funkciju(koja u sebi zove dispatcheve)
-                            //ako je actionObject vracen u dispatch onda se prosledjuje svim reducerima
-                            //ako je funkcija vracena u dispatch onda se automatski zove i u nju se moze proslediti dispatch funkcija
-        
-                                                    //(aircraftType)//bilo
-                                                                                //,authExtendTokenExpiration
+                                                       //(aircraftType)//bilo
         () => dispatch(actions.fetchAircraftTypes(aircraftTypeChange,limitTypeMax))
         //, [dispatch, aircraftType]//bilo
         ,[dispatch,aircraftTypeChange,limitTypeMax]
@@ -181,30 +167,10 @@ const SearchAcarsWithExtData = (props) => {
     //mozemo u useEffect watch da stavimo funkciju za useCallback ili promenjljivu za useMemo koji imaju svoj watch
     //tako se pri promeni watch od useMemo ili useCallback ponovo referencira promenjljiva i onda zbog promene reference se aktivira watch od useEffect
     useEffect(()=>{
-        
-       //da ne bismo fetchovali podatke pri inicijalnom mountu vec kada krene da se kuca min 1 karakter
-       //# 
-       /*if (isFirstTimeMounting.current) {
-            isFirstTimeMounting.current--;
-            return;
-          }
-        */
-
-        //onFetchAircraftType();//posto je aircraftType inicijalno '' nakon mounta pri pozivu onFetchAircraftType ce se fetchovati svi aircraftTypes a pri promeni aircraftType iz filtera pri kucanju karaketera zbog onFetchAircraftType watcha ce se fetchovati konkretan trenutno ukucani aircraftType,isto vazi i za typeCode
-   
         timerFetchBreak(onFetchAircraftType)//fetch pauza 0.5 sekundi odnosno rec ukljucujuci naredni karakter se fetchuje samo ako je proslo >= 0.5 sekundi a ako se ponovi < 0.5 vise od 2 puta onda fetchujemo samo rec ukljucuju poslednji ukucani karakter jer svakako prikazujemo samo filtiran DropDown za trenutnu rec
     }, [onFetchAircraftType])
 
     useEffect(()=>{
-
-        //#
-        /*if (isFirstTimeMounting.current) {
-            isFirstTimeMounting.current--;
-            return;
-          }
-        */
-        //onFetchTypeCode();//!
-
         timerFetchBreak(onFetchTypeCode)
     }, [onFetchTypeCode])
 
@@ -232,11 +198,7 @@ const SearchAcarsWithExtData = (props) => {
           },0.5 - (now - lastFetchTime.current));
         }
       };
-      //naredna1 pocela u 0
-      //naredna2 pocela u 0.2, ceka jos 0.5-(0.2-0) odnosno ceka 0.3
-      //naredna3 pocela u 0.3, ceka jos 0.5-(0.3-0.2) odnosno ceka 0.4 sto znaci da ako naredni timer od naredna3 overiduje prethodni od naredna2 malo iznad njegovog pocetka odnosno 0.21 cekace podjednako za prikaz naredna3 a ako ga overiduje pri samom kraju odnosno u 0.5 cekace ceo timeout
-      //formula naredne koja ceka proslu je 0.5-(pocetak nove naredne-pocetak prosle naredne)
-
+ 
 
     useEffect(() =>{
         return () => clearTimeout(timeOutRef.current);
@@ -403,7 +365,6 @@ const SearchAcarsWithExtData = (props) => {
         //bilo
         //setValueAircraftTypeFull(e);//pamti selektovan objekat a u DropDown prikazuje full naziv
         //setAircraftType(e.aircraftType);//pamti full DropDown naziv selektovanog objekta jer smo mogli da ga selektujemo po contains < cele reci pa Search po tom nazivu a konkretnom izboru ne bi imao smisla
-        //**setAircraftType(e);
         ///////////
 
         setAircraftTypeChange(e)//za fetch novog pri promeni ukucanog
@@ -420,12 +381,6 @@ const SearchAcarsWithExtData = (props) => {
 
     const onDropTypeCodeChange = (e) =>{//fetch
         console.log("onChangeTypeCode")
-        
-        ///////////
-        //bilo
-        //setValueTypeCode(e);       
-        //setTypeCode(e.typeCode);
-        ///////////
 
         setTypeCodeChange(e)
 

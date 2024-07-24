@@ -32,103 +32,18 @@ import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompa
 import AKRxAll from './containers/AKRxAll/AKRxAll';
 
 
-import instance from './axios-azure'//
 
 function App() {
 
-  //////////////////////////////
+  
   const authContext = useContext(AuthContext);
   const authCheckState = authContext.authenticationCheckState;//
-  
-  const [shouldLogout,setShouldLogout] = useState(false);//
-  const authExtendTokenExpiration = authContext.authenticationExtendTokenExpiration;//
-  //const user = authContext.user;//ili iz localStorage
-
   let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku odnosno izlogovani(iako postoji u localStorage) ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
-  //////////////////////////////
+  
 
   console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je isAuthenticated==false a user(authUser) se menja iz authCheckState ako postoji token odnosno iz authSuccess se inicijalnom useru(authUser) dodeljuju parametri iz localStorage browsera
                                                    //authCheckState se zove iz App i u NavigationItems! 
   
-  //role User
-  //company Aviolog
-
-  //role Parser
-  //company
-
-  
-//pre requesta se automatski poziva middleware
-//globalno definisano
-instance.interceptors.request.use(config =>{
-    const token = localStorage.getItem('token');
-
-          //rute za koje je potreban Authorization odnosno token
-    const protectedRoutes = ['/AircraftTypeFull/GetAircraftTypesFullAll'];
-  
-    let firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'))
-
-    if(!firstLoginReqDateTimeMils){//undefined odnosno nije ulogovan prethodno
-      console.log("NOT LOGGED IN")
-      return config
-    }
-
-    
-    let firstLoginReqDateTimeMilsPlus35 = firstLoginReqDateTimeMils + 35 * 60 * 1000;
-
-                                //min 1               //config.url je trenutna ruta
-    if(token && protectedRoutes.some(protectedUrl => config.url.includes(protectedUrl))) {
-                
-
-        //resetTimeout(2700)
-        
-        if(firstLoginReqDateTimeMilsPlus35 < new Date(Date.now()).getTime()){
-
-          
-          //AKO RADIMO LOGOUT
-          ///////////////////////////////////////////////////////
-          setShouldLogout(true);
-          alert('Token expired, login again');
-          return Promise.reject();
-          
-          //AKO RADIMO EXTEND VALIDNOSTI PREKO RUTE REFRESH-TOKEN
-          //##
-          ///////////////////////////////////////////////////////
-
-          /*
-          let expiresDateTimeISO = new Date(localStorage.getItem('expiresDateTimeISO'));
-          let currDate = new Date();
-
-          currDate.setHours(expiresDateTimeISO.getUTCHours());
-          currDate.setMinutes(expiresDateTimeISO.getUTCMinutes());
-          currDate.setSeconds(expiresDateTimeISO.getUTCSeconds());
-          currDate.setMilliseconds(expiresDateTimeISO.getUTCMilliseconds());
-
-            
-          let currDateISOString = currDate.toISOString();
-            
-          instance.post(`/Account/refresh-token?username=`+localStorage.getItem('username')+"&expires="+currDateISOString,{
-              'refreshToken': localStorage.getItem('refreshToken')//body
-          }).then(response => {   
-            authExtendTokenExpiration(response.data.token,response.data.refreshToken,new Date(response.data.expires).toISOString(),response.data.username,Date.now())
-            config.headers.Authorization = `Bearer ${response.data.token}`;
-            
-            //ponavljanje presretnutog req
-
-          }).catch(error => {//ako ne uspemo da refreshujemo
-            setShouldLogout(true);
-          })    
-          return Promise.reject();
-          */
-
-        }
-    }
-    config.headers.Authorization = `Bearer ${token}`;//ako je jos uvek validan 
-    return config;
-
-},error =>{
-    return Promise.reject(error);
-});
-
   let isRole = authContext.user.role == "Admin" ;
   let isParser = authContext.user.role == "Parser" ;
   let isCustomer = authContext.user.role == "Customer";
@@ -367,15 +282,6 @@ instance.interceptors.request.use(config =>{
     <div className="App">    
       <Layout>
         {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde ali taj sacuvan switch je idalje dostupan za Redirect*/}
-       
-        {/*nezavisno od ovog routes switcha sto znaci da bilo koju vec pogodjenu rutu odnosno komponentu moze demountovati i mountovati Logout*/}
-        {shouldLogout ? (
-               <Redirect to="/logout" />//necemo from jer nam je nebitno gde smo trenutno
-            ):(
-              <></>//ne treba nam nista da radi pa je nutralan
-            )}
-
-
       </Layout>
     </div>
   );

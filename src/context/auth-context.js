@@ -18,13 +18,6 @@ const initialUser = {
 
     token: null,
 
-    //##
-    //////////
-    firstLoginReqDateTimeMils: null,//
-    refreshToken: null,//
-    username: null,//
-    expiresDateTimeISO: null//
-    //////////
 };
 
 
@@ -32,15 +25,16 @@ export const AuthContext = React.createContext({
 
     user: {...initialUser},
     error: null,
-    loading: false,//?? vec imamo u AuthContextProvider
+    loading: false,
     authRedirectPath: "/",//
     authenticate: (username, password, isRegistration) => {},
     logoutUser: () => {},
     authenticationCheckState: () => {},
 
-    //##
-    authenticationExtendTokenExpiration: () => {}//
 });
+
+
+
 
 
 const AuthContextProvider = props => {
@@ -52,39 +46,18 @@ const AuthContextProvider = props => {
 
     const [authRedirectPath,setAuthRedirectPath] = useState("/")//
 
+
     const authStart = () => {
         setAuthError(null);
         setAuthLoading(true);
     };
 
-    //##
-    const authExtendTokenExpiration = (userToken,refreshTokenn,expiresDateTimeISOO,usernamee,firstLoginReqDateTimeMilss) => {
 
-        localStorage.setItem('token',userToken);
-        localStorage.setItem('refreshToken',refreshTokenn);
-        
-        /*
-        let expiresDateTimeISO = new Date(response.data.expires);
-        expiresDateTimeISO.setDate(expiresDateTimeISO.getDate() + 1);
-        expiresDateTimeISO = expiresDateTimeISO.toISOString();
-        localStorage.setItem('expiresDateTimeISO', expiresDateTimeISO)//
-        */
-        localStorage.setItem('expiresDateTimeISO', expiresDateTimeISOO)//
+        const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
 
-
-        localStorage.setItem('username',usernamee);
-        localStorage.setItem('firstLoginReqDateTimeMils',firstLoginReqDateTimeMilss);//kao da smo se ulogovali ponovo
-
-        const user = {...authUser, token: userToken,refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO,username:usernamee,firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss};
-        
-        setAuthUser(user);
-    };
-    
-
-    const authSuccess = (userToken, refreshTokenn,expiresDateTimeISOO,firstLoginReqDateTimeMilss,usernamee, userId, userRole, userTerms, userCompany) => {
-
-                            //overridujemo polja iz initialUser objekta poljima nakon initialUser jer im se matchuju polja sa istim nazivom
-        const user = {...initialUser, token: userToken, refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO, firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss,username:usernamee, id: userId, role: userRole, terms:userTerms, company: userCompany};
+       
+        //bilo
+        const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
 
         setAuthUser(user);//kljucno setovanje za rerender App i Auth zbog promene globalnog stanja authUser koji je exposovan kao user
         setAuthError(null);
@@ -102,13 +75,6 @@ const AuthContextProvider = props => {
 
         localStorage.removeItem('token');//bilo
 
-        //##
-        ///////////////////
-        localStorage.removeItem('refreshToken');//
-        localStorage.removeItem('username');//
-        localStorage.removeItem('expiresDateTimeISO');//
-        localStorage.removeItem('firstLoginReqDateTimeMils');//
-        ///////////////////
 
         //localStorage.removeItem('expirationDate');
         localStorage.removeItem('userId');
@@ -173,45 +139,20 @@ const AuthContextProvider = props => {
         axios.post(url, authData)
             .then(response => {
                 const token = response.data.token;
-                                                
-                //##
-                ///////
+                       
                 localStorage.setItem('token',token);
-                localStorage.setItem('refreshToken', response.data.refreshToken)//
-                localStorage.setItem('username', response.data.username)//
-               
-
-                ///////
-                /*
-                let expiresDateTimeISO = new Date(response.data.expires);
-                expiresDateTimeISO.setDate(expiresDateTimeISO.getDate() + 1);//+1 dan (:(
-                expiresDateTimeISO = expiresDateTimeISO.toISOString();
-                localStorage.setItem('expiresDateTimeISO', expiresDateTimeISO)//
-                */
-                let newDate = new Date(response.data.expires).toISOString();
-                localStorage.setItem('expiresDateTimeISO', newDate)//
-                ///////
-
+          
                 axios.get('/account/me', {headers: {'Authorization': `Bearer ${token}`}})
                     .then(r => {
                         
-
-                        //##
-                        ///////
-                        let firstLoginReqDateTimeMils = new Date(Date.now()).getTime();//ili samo Date.now()
-                        localStorage.setItem('firstLoginReqDateTimeMils',firstLoginReqDateTimeMils);//
-                        ///////
 
                         localStorage.setItem('userId', r.data.id);
                         localStorage.setItem('role', r.data.role);
                         localStorage.setItem('terms', r.data.terms);
                         localStorage.setItem('company', r.data.company)
-
-                                                                                                                                                                        //!!!treba r.data.company
-                        authSuccess(token,response.data.refreshToken,newDate,firstLoginReqDateTimeMils,response.data.username ,r.data.id, r.data.role, r.data.terms, company);
                         
                         //bilo
-                        //authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
+                        authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
                         
                         alert('Nice to see you again '+r.data.userName);
                     });
@@ -253,13 +194,6 @@ const AuthContextProvider = props => {
 
              const token = localStorage.getItem('token');//bilo
 
-             //##
-             const firstLoginReqDateTimeMils = localStorage.getItem('firstLoginReqDateTimeMils');// 
-             const refreshToken = localStorage.getItem('refreshToken');//
-             const username = localStorage.getItem('username')//
-             const expiresDateTimeISO = localStorage.getItem('expiresDateTimeISO')//
-
-
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
@@ -271,12 +205,9 @@ const AuthContextProvider = props => {
              } else{   
                   
                 const userId = localStorage.getItem('userId');
-                
-                //##
-                authSuccess(token, refreshToken,expiresDateTimeISO,firstLoginReqDateTimeMils,username,userId, role, terms, company);
-                
+                   
                 //bilo
-                //authSuccess(token, userId, role, terms, company);   
+                authSuccess(token, userId, role, terms, company);   
                   
              }
     }, []);
@@ -300,13 +231,6 @@ const AuthContextProvider = props => {
                     token: authUser.token,
                     company: authUser.company,
                     
-                    //##
-                    //////////
-                    firstLoginReqDateTimeMils: authUser.firstLoginReqDateTimeMils,//
-                    refreshToken: authUser.refreshToken,//
-                    username: authUser.username,//
-                    expiresDateTimeISO: authUser.expiresDateTimeISO//
-                    //////////
                 },
 
                 authRedirectPath: authRedirectPath,//dodajemo u context
@@ -317,8 +241,6 @@ const AuthContextProvider = props => {
                 logoutUser: logout,
                 authenticationCheckState: authCheckState,//
 
-                //##
-                authenticationExtendTokenExpiration: authExtendTokenExpiration//
             }}
         >
             {props.children}

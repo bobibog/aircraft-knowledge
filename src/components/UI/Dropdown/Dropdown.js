@@ -100,7 +100,6 @@ const Dropdown = ({
                             setQuery(e.target.value)//trenutni string iz input setujemo u query odnosno UI->query
                             //onChange(null)//bilo zakomentarisano odnosno prethodno zapamceni selektovan ostaje selektovan dok se ne selektuje sledeci iako se menja input string
                             //////////////  //ako se odkomentarise onda iako selektujemo prethodno objekat i krenemo ponovo da kucamo onda necemo imati selektovani u Search niti njegov full naziv search polja
-                            //**onChange(e.target.value)
                             onChange(e.target.value);
                         }}
                         onClick={toggle}

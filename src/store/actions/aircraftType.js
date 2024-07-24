@@ -23,7 +23,6 @@ export const fetchAircraftTypeStart = () => {
 };
 
 
-                                                        //,authExtendTokenExpiration
 export const fetchAircraftTypes = (aircraftType,limitTypeMax) => {
     
     return dispatch => {
@@ -41,12 +40,12 @@ export const fetchAircraftTypes = (aircraftType,limitTypeMax) => {
   
             //browser salje preflight option za cors nezavisno od backenda jer saljemo Authorization u headeru odnosno nestandardni meta
             axios.get(`/AircraftTypeFull/GetAircraftTypesFullAll?`+queryString
-                /*
+
                 //ako ne koristimo interseptor odnosno middleware za dodavanje headera
                 ,{headers:{
                 'Authorization': 'Bearer '+localStorage.getItem('token')
                 }}
-                */
+                
                 )
                 .then(response => {                
                     dispatch(fetchAircraftTypeSuccess(response.data['aircraftTypes']))                 
