@@ -19,8 +19,26 @@ const initialUser = {
     token: null,
 
 };
+    //exp-iat == 1h+~8min valid
+    //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
+    //u iso u odnosu na utc prikazujemo offset za vremensku zonu
+    //UTC 2024-07-23 10:00:00 == ISO 8601: 2024-07-23T10:00:00Z
+    //utc je offset zone 00:00
 
+    /*
+    const decodeToken = (token) => {
 
+        var base64Url = token.split('.')[1];//payload
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        var decodedToken = JSON.parse(jsonPayload);
+        return decodedToken;
+    }
+    */
+ 
 export const AuthContext = React.createContext({
 
     user: {...initialUser},

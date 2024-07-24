@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
-
+import * as actionTypes from '../../../store/actions/actionTypes';//
 
 const SearchAcarsWithExtData = (props) => {
 
@@ -20,8 +20,9 @@ const SearchAcarsWithExtData = (props) => {
     ////////////////////////////////
     //#
     //useRef za direktno menjanje podatka bez izazivanja rerendera i cuvaju vrednosti nakon rerendera i nestaje nakon unmounta
-    const lastFetchTime = useRef(-500);
-    const timeOutRef = useRef(null);
+    const timeOutRef = useRef(500);//0.5
+    const timerRef = useRef(null);
+    //const isFirstRender = useRef(2);
     ////////////////////////////////
 
     const airlineNameList = useSelector(state => {
@@ -63,25 +64,21 @@ const SearchAcarsWithExtData = (props) => {
     //const[aggregatedText , setAggegatedText] = useState('');//!
     
     const[serialNumber, setSerialNumber] = useState('');    
+    const[modeS, setModeS] = useState(''); 
     
+
     /////////////////////////
     const[aircraftType, setAircraftType] = useState('');
     const[typeCode, setTypeCode] = useState('');
     /////////////////////////
-
-    const[modeS, setModeS] = useState(''); 
-    
-
     const[typeCodeChange,setTypeCodeChange] = useState('')
     const[aircraftTypeChange,setAircraftTypeChange] = useState('')
-
     /////////////////////////////
     const[aggrStatus, setAggrStatus]=useState('');
 
     //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage/acarsWithExtData kao i channel
     const[consensusStatus, setConsensusStatus]=useState('');
 
-    
     const[aggrText, setAggrText]=useState('');
     const[consensusResult, setConsensusResult]=useState('');
     /////////////////////////////
@@ -120,6 +117,8 @@ const SearchAcarsWithExtData = (props) => {
     
 
     const [limitTypeMax,setLimitTypeMax] = useState(30)
+    const [aircraftTypeChrLimit,setAircraftTypeChrLimit] = useState(3)
+    const [typeCodeChrLimit,setTypeCodeChrLimit] = useState(2)
 
                 //!         //pri rerender se obicnoj funkciji uvek menja referenca a state samo ako je promenjena vrednost sa setState 
     const onFetchAircraftType = useCallback(
@@ -164,45 +163,64 @@ const SearchAcarsWithExtData = (props) => {
     // }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
     
 
+    //u zavisnosti koji useEffect se posle aktivira inicijalno njegovo postojanje timera ce ukloniti prethodni tako da ce ostati ili onFetchAircraftType ili onFetchTypeCode za inicijalni fetch
     //mozemo u useEffect watch da stavimo funkciju za useCallback ili promenjljivu za useMemo koji imaju svoj watch
     //tako se pri promeni watch od useMemo ili useCallback ponovo referencira promenjljiva i onda zbog promene reference se aktivira watch od useEffect
     useEffect(()=>{
-        timerFetchBreak(onFetchAircraftType)//fetch pauza 0.5 sekundi odnosno rec ukljucujuci naredni karakter se fetchuje samo ako je proslo >= 0.5 sekundi a ako se ponovi < 0.5 vise od 2 puta onda fetchujemo samo rec ukljucuju poslednji ukucani karakter jer svakako prikazujemo samo filtiran DropDown za trenutnu rec
+
+        /*     
+        //inicijalni fetch se nece ni prikazati zbog ogranicenja broja karaktera a nije ni zavisio od user inputa
+        if (isFirstRender.current > 0) {
+            isFirstRender.current--;
+            return;
+          }
+        */
+
+        //brisemo prethodni aircraftTypes state
+        dispatch({
+            type: actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS,
+            aircraftTypes: null,        
+        }) 
+        
+        timerFetchDebouncing(onFetchAircraftType,aircraftTypeChrLimit,aircraftTypeChange)
+    
     }, [onFetchAircraftType])
 
     useEffect(()=>{
-        timerFetchBreak(onFetchTypeCode)
+
+        /*     
+        if (isFirstRender.current > 0) {
+            isFirstRender.current--;
+            return;
+          }
+        */
+        
+        dispatch({
+            type: actionTypes.FETCH_TYPECODE_SUCCESS,
+            typeCodes: null,        
+        }) 
+        timerFetchDebouncing(onFetchTypeCode,typeCodeChrLimit,typeCodeChange)
+    
+        //###                                          
+        return () => {clearTimeout(timerRef.current)};//ako prekidamo prethodni timer ali ne zbog narednog timera vec zbog demount
+
     }, [onFetchTypeCode])
 
 
-    //mozemo gledati kao da izvrsenje onFetchAircraftType traje 0.5
-    const timerFetchBreak = (fetchFun) =>{
+    //###
+    const timerFetchDebouncing = (fetchFun,charLimit,currQuery) =>{
 
-        const now = Date.now();//trenutak kada je naredna pozvana
-    
-        //cak i da je inicijalno now==0 aktivirace se
-        if(now - lastFetchTime.current >= 500){//ako je proslo 0.5 sekundi nakon proslog onFetchAircraftType smemo da zovemo ponovo onFetchAircraftType
-          lastFetchTime.current = now;//dodela ovde znaci kada je trenutna pocela sa izvrsenjem
-          fetchFun();
-          
-        //fakticki je nebitno za narednog zakazivanje da li se prethodna izvrsava ili je zakazano da se prethodna izvrsava jer se svakako kreira novi timer
-        //ako se izvrsava onda se kreira timer
-        //ako je zakazano da se izvrsava onda se overiduje novim timerom
-        }else{//ako nije proslo 0.5 sekunde a zelimo ponovo da pozovemo onFetchAircraftType onda zakazujemo pozivanje naredne za razliku do 0.5 trenutne odnosno ako naredni zeli na 0.2 da prekine cekanje trenutne onda naredni ceka 0.3
-          
-          clearTimeout(timeOutRef.current);//pri prekidu prethodnog timeout overidovacemo ga novim
+        //pre return zbog prelaska u min karaktera da ne bi ostao timer        
+        clearTimeout(timerRef.current);//brisemo prethodni ako je aktivan(prekinut narednim kucanjem) ili ako je neaktivan ili zavrsen
 
-          timeOutRef.current = setTimeout(() =>{
-            lastFetchTime.current = Date.now();//trenutak kada naredna prekida cekanje zavrsetka prosle izmedju (0..0.5] potrebnog cekanja
+
+        if(currQuery.length <= charLimit)
+            return;
+
+        timerRef.current = setTimeout(() =>{//kreiramo naredni timer odnosno resetujemo
             fetchFun();
-          },0.5 - (now - lastFetchTime.current));
-        }
+          },timeOutRef.current);
       };
- 
-
-    useEffect(() =>{
-        return () => clearTimeout(timeOutRef.current);
-    },[]);
 
     // Disable Input
     const [disabled, setDisabled] = useState(false);
@@ -546,8 +564,8 @@ const SearchAcarsWithExtData = (props) => {
     // }
 
     // Dropdown Aircraft Type Full
-    if(aircraftTypeList != null)
-    {
+    //if(aircraftTypeList != null)//ako imamo ovaj if i ako ne fetchujemo sve bez kucanjanja(inicijalno) odnosno aircraftType='' onda ce nam biti suzeno polje jer nece biti DropDowna
+    //{
         dropAircraftTypeFull= <Dropdown
             prompt= 'Aircraft Type'            
             options={aircraftTypeList}              
@@ -558,15 +576,15 @@ const SearchAcarsWithExtData = (props) => {
             onDropSelected={onDropAircraftTypeFullSelected}//
 
             descriptor='aircraftType'
-            characterLimit = {3}//bilo 2,minimum za prikazivanje options   
+            characterLimit = {aircraftTypeChrLimit}//bilo 2,minimum za prikazivanje options   
             onKeyDown={deletingAircraftType}
             dropChanger={dropStatus}                                             
         />;
-    }
+    //}
 
     // Dropdown Type Code
-    if(typeCodeList != null)
-    {
+    //if(typeCodeList != null)
+    //{
 
         dropTypeCode = <Dropdown
             prompt= 'Type Code'            
@@ -579,11 +597,11 @@ const SearchAcarsWithExtData = (props) => {
             onDropSelected={onDropTypeCodeSelected}//
 
             descriptor='typeCode'
-            characterLimit = {2}//bilo 1 
+            characterLimit = {typeCodeChrLimit}//bilo 1 
             onKeyDown = {deletingTypeCode}   
             dropChanger={dropStatus}                                       
         />;
-    }
+    //}
     //kao props za filter
     const aggrStatusInputConfig = {
         type:'text',
