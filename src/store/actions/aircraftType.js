@@ -23,7 +23,7 @@ export const fetchAircraftTypeStart = () => {
 };
 
 
-export const fetchAircraftTypes = (aircraftType,limitTypeMax) => {
+export const fetchAircraftTypes = (aircraftType,limitTypeMax,token) => {
     
     return dispatch => {
     
@@ -36,25 +36,20 @@ export const fetchAircraftTypes = (aircraftType,limitTypeMax) => {
 
         query.append('limit',limitTypeMax)//  
 
-        let queryString = query;                  
-  
-            //browser salje preflight option za cors nezavisno od backenda jer saljemo Authorization u headeru odnosno nestandardni meta
-            axios.get(`/AircraftTypeFull/GetAircraftTypesFullAll?`+queryString
-
-                //ako ne koristimo interseptor odnosno middleware za dodavanje headera
-                ,{headers:{
-                'Authorization': 'Bearer '+localStorage.getItem('token')
-                }}
-                
-                )
-                .then(response => {                
-                    dispatch(fetchAircraftTypeSuccess(response.data['aircraftTypes']))                 
-                })
-                .catch(error => {
-                    dispatch(fetchAircraftTypeFail(error));                                
-                }    
-            );  
-            }                            
-    }    
-
+        let queryString = query;   
+        
+        const config ={
+            headers: {'Authorization': `Bearer ${token}`}
+        }
+            
+        axios.get(`/AircraftTypeFull/GetAircraftTypesFullAll?`+queryString, config)
+            .then(response => {                
+                dispatch(fetchAircraftTypeSuccess(response.data['aircraftTypes']))                 
+            })
+            .catch(error => {
+                dispatch(fetchAircraftTypeFail(error));                                
+            }    
+        );        
+    }
+};
 

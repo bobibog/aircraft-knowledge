@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, {useState, useCallback, useEffect, useRef, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Input from '../../UI/Input/Input';
@@ -10,11 +10,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import {AuthContext} from '../../../context/auth-context';
 
 
 import * as actionTypes from '../../../store/actions/actionTypes';//
 
 const SearchAcarsWithExtData = (props) => {
+    const authContext = useContext(AuthContext);
 
 
     ////////////////////////////////
@@ -123,9 +125,9 @@ const SearchAcarsWithExtData = (props) => {
                 //!         //pri rerender se obicnoj funkciji uvek menja referenca a state samo ako je promenjena vrednost sa setState 
     const onFetchAircraftType = useCallback(
                                                        //(aircraftType)//bilo
-        () => dispatch(actions.fetchAircraftTypes(aircraftTypeChange,limitTypeMax))
-        //, [dispatch, aircraftType]//bilo
-        ,[dispatch,aircraftTypeChange,limitTypeMax]
+        () => dispatch(actions.fetchAircraftTypes(aircraftTypeChange,limitTypeMax, authContext.user.token))
+        //, [dispatch, aircraftType, authContext.user.token]//bilo
+        ,[dispatch,aircraftTypeChange,limitTypeMax, authContext.user.token]
     );
 
     const onFetchTypeCode = useCallback(        //(typeCode)
