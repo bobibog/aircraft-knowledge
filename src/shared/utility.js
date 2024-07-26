@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import classesCss from '../components/UI/Table/CustomDataTableRow/CustomDataTableRow.module.css'
 
 export const updateObject = (oldObject, updatedProperties) => {
-    return {
+    return {//vraca azuriran state objekat
         ...oldObject,
         ...updatedProperties
     };

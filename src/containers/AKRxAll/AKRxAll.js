@@ -16,6 +16,8 @@ const AkrxAll = props => {
     // const authCheckState = authContext.authenticationCheckState;    
     // let isCompany = authContext.user.company;
     
+
+            //!!!
     const acarsMessages = useSelector(state => {
         return state.acarsMessageAll.acarsMessages;
     });
@@ -40,8 +42,8 @@ const AkrxAll = props => {
     });   
     /////////////////////////
 
-    const [nowDateTime, setNowDateTime] = useState(new Date());
-    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 2 * 60 * 60 * 1000));
+    const [nowDateTime, setNowDateTime] = useState(new Date());//!
+    const [twentyFourHoursAgoDateTime, setTwentyFourHoursAgoDateTime] = useState(new Date(Date.now() - 2 * 60 * 60 * 1000));//!
 
     useEffect(() => {
         // if(acarsMessagesCount){
@@ -51,9 +53,18 @@ const AkrxAll = props => {
         //console.log("ACARS count = "+acarsMessagesCount);
         
         // Update the state variables with the current and 24 hours before date and time
-        const interval = setInterval(() => {
+
+         const interval = setInterval(() => {
+
+           
+          //MENJAMO REFERENCE ZA nowDateTime I twentyFourHoursAgoDateTime NJIHOVIM SETOVANJEM A TE PROMENE NE TRIGERUJU WATCH ZA fetchAkrxAll JER SE DINAMICKI MENA VREDNOST BEZ PROMENE REFERENCI ZA acarsMessageDateTimeMin I acarsMessageDateTimeMax
           setNowDateTime(new Date());
           setTwentyFourHoursAgoDateTime(new Date(Date.now() - 2 * 60 * 60 * 1000));
+          
+          //TRIGERUJE WATCH JER DIREKTNO MENJAMO REFERENCU
+          //setAcarsMessageDateTimeMax(formatDate(new Date()))
+          //setAcarsMessageDateTimeMin(formatDate(new Date(Date.now() - 2 * 60 * 60 * 1000)))
+
         }, 1000); // Update every second
     
         // Clean up interval on component unmount
@@ -104,8 +115,12 @@ const AkrxAll = props => {
     const[msgno, setMsgno] = useState('');
     const[text, setText] = useState('');
     const[end, setEnd] = useState('');
-    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));
-    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));    
+    
+
+    //statovi acarsMessageDateTimeMin I acarsMessageDateTimeMax zavise od statova nowDateTime I twentyFourHoursAgoDateTime
+    const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState(formatDate(twentyFourHoursAgoDateTime));//!
+    const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState(formatDate(nowDateTime));//!    
+
     const[altMin, setAltMin]=useState('');
     const[altMax, setAltMax]=useState('');
     const[dsta, setDsta]=useState('');
@@ -127,7 +142,11 @@ const AkrxAll = props => {
 
     //backend ima filter i nefilter kolone a razlikuju se po tome sto pri filteru fitler kolone ako ne postoji vrednost vracaju [] a nefilter se ni ne uzimaju u obzir odnosno kao da smo poslali '' ili su uvek null
     const onFetchAkrx = useCallback(
-                                            //      //
+                             
+            //fetchAkrxAll akcija koja vraca funkciju (dispatch)=>{return..} umesto actionObject
+            //ovaj dispatch dobija tu funkciju i odmah je automatski poziva 
+        
+                                              //      //
         () => dispatch(actions.fetchAkrxAll(offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
@@ -136,7 +155,7 @@ const AkrxAll = props => {
             aggrStatus,consensusStatus,     aggrText,consensusResult
         ))
         
-                        //      //
+                       //      //
         , [dispatch, offset, limit, timestampMin, timestampMax,
             stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
             flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
@@ -144,7 +163,7 @@ const AkrxAll = props => {
     
             aggrStatus,consensusStatus,     aggrText,consensusResult]
         );    
-    
+                                                            //dispatchujemo actionObject svim reducerima koji sadrzi type i podatak za izmenu
     const onSetAkrxOffsetLimit = (offset, limit) => dispatch(actions.setAkrxOffsetLimitAll(offset, limit));    
     const onSetAkrxPage = (page) => dispatch(actions.setAkrxPageAll(page));    
      
@@ -265,10 +284,11 @@ const AkrxAll = props => {
     };    
        
     useEffect(() => { 
-        onFetchAkrx();                 
-    }, [onFetchAkrx]); 
-    
-        
+        onFetchAkrx();
+        console.log("FETCH1")                
+    }, [onFetchAkrx]);//useEffect se pri mountu aktivira tako da ne utice inicijalna dodele reference onFetchAkrx koja je u useEffect watch ali promene onFetchAkrx reference nakon mounta uticu na poziv useEffect
+                      //onFetchAkrx menja referencu svaki put kada se u onFetchAkrx watch promeni neka referenca
+
     const akrxPageHeader =
         <CardsInBox
             // headerText="ACARS Messages"
@@ -304,6 +324,7 @@ const AkrxAll = props => {
         //     currPage={page}                      
         // /> ;  
 
+                
                     {/*--*/}
         akrxTable =  <TableAKRx
             data={acarsMessages}

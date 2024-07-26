@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
                  
         case actionTypes.FETCH_AIRCRAFTTYPE_START: return fetchAircraftTypeStart(state, action);            
-        case actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS: return fetchAircraftTypeSuccess(state, action);            
+        case actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS: return fetchAircraftTypeSuccess(state, action);//!            
         case actionTypes.FETCH_AIRCRAFTTYPE_FAIL: return fetchAircraftTypeFail(state, action);
         
         default: return state;
