@@ -1,0 +1,35 @@
+.container {
+  display: block;
+  text-align: center;
+  z-index: 1;
+}
+
+.form {
+  margin-top: 55px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.input {
+  margin-bottom: 12px;
+  width: 350px;
+  margin-left: 5px;
+}
+
+.btnContainer {
+  display: flex;
+  width: 250px;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btnContainer>* {
+  flex: 1 1 50%;
+}
+
+.button {
+  margin-bottom: 5px;
+}

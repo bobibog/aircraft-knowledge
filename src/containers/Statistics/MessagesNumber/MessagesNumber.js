@@ -820,6 +820,9 @@ const MessagesNumber = (props) =>{
       border: "1px solid black"
     }}
   >
+  <div className='d-flex mb-2'>
+    <a href="/addStation" className="btn btn-primary">Add Station</a>
+  </div>
   <ReactBootstrap.Table striped bordered hover>
   <thead>
       <tr>
