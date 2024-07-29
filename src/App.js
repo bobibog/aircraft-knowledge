@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useContext, useState,useRef} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -37,7 +37,12 @@ function App() {
 
   
   const authContext = useContext(AuthContext);
-  const authCheckState = authContext.authenticationCheckState;//
+  const authCheckState = authContext.authenticationCheckState;//!
+  
+  const authRedirectPath = authContext.authRedirectPath;//
+  const authShouldLogout = authContext.authShouldLogout//
+  
+
   let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku odnosno izlogovani(iako postoji u localStorage) ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
   
 
@@ -55,7 +60,7 @@ function App() {
   
 
   useEffect(() => {
-    authCheckState();//kljucno za automatski login sa postojecim tokenom iz localStrage jer se inicijalno zove useEffect zbog mountovanja App a posle kada se uradi logout ili ako uspe automatski login jer se tada menja isAuthenticated
+     authCheckState();//kljucno za automatski login sa postojecim tokenom iz localStrage jer se inicijalno zove useEffect zbog mountovanja App a posle kada se uradi logout ili ako uspe automatski login jer se tada menja isAuthenticated
   }, [authCheckState, isAuthenticated]);
 
 
@@ -67,8 +72,6 @@ function App() {
     <Switch>    
       
       {console.log("da0")}                    
-      {/*Swtichevi koji nam trebaju se aktiviraju da1 i da5*/}
-     
       {/*da1->da5 ako postoje autentifikacijski podaci u localStorage inace ostaje u da1*/}
       {/*da1 je zapravo defaultni za neuatentifikovanog sa mogucnoscu autentifikacije a da5 za autentifikovanog nakon da1*/}
       {/*odnosno bice defaultno u da1 na /auth Auth strani a kada se zavrsi authCheckState ako je isAuthenticated==true onda ce biti u da5 na /auth2, a ako je isAuthenticated==false onda ostaje u da1*/}
@@ -137,14 +140,12 @@ function App() {
 
   
   //ulazi
-  //OVO JE GLAVNI DEO ZA AUTOMATSKI LOGIN JER CE BITI isAuthenticated==false IAKO POSTOJE PODACI U LOCALSTORAGE
-  //authCheckState za ucitavanje podataka iz localstorage se zove iz App i NavigationItems
+  //OVO JE GLAVNI DEO ZA AUTOMATSKI LOGIN PRI INICIJALNOM RENDERU JER CE BITI isAuthenticated==false AKO POSTOJE ILI NE PODACI U LOCALSTORAGE KOJI SU VALIDNI ILI NISU
   if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
     console.log("da1")
     routes = (
       <Switch>
 
-        {/*2-. (automatski Login)vraca se Auth.js za prethodni Redirect jer je isti match putanja iz redirect to i path u ovoj Route i Auth krece da se renderuje u App za login, a za to vreme se izvrsava authCheckState*/}
         <Route path="/auth" component={Auth} />
         
         {/*u Redirect to se stavlja url za Route koji vraca component*/}
@@ -153,12 +154,12 @@ function App() {
         <Redirect from="/aircraft" to="/auth" />        
         <Redirect from="/airports" to="/auth" />                
         <Redirect from="/airlines" to="/auth" />                
-        <Redirect from="/akrx" to="/auth" />
+        
+        <Redirect from="/akrxAll" to="/auth" /> 
         
 
-        {/*3. (Logout)*/}
         <Redirect from="/" exact to="/auth" />
-        {/*1-. (automatski Login)aktivira se ovaj Redirect pri startovanju fronta automatski za isAuthenticated==false sto ce uvek biti na pocetku i na toj smo / ruti a ucitan je prethodno Route sa kojim se matchuje*/}
+
         {/*ako je isAuthenticated==true onda da5 a ako je isAuthenticated==false onda da1*/}
 
         {/*ne postoji default sto znaci da se nista nece ni aktivirati(renderovati)*/}
@@ -209,8 +210,10 @@ function App() {
         <Route path="/adsb"  component={Adsb} />
         <Route path="/airlines" component={Airlines} /> 
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*--*/} 
-        <Route path="/statistics" component={MessagesNumber} />           
+        <Route path="/statistics" component={MessagesNumber} /> 
+
         <Route path="/logout" component={Logout} />
+        
         <Route path="/auth" component={Auth} /> 
       
         {/* <Route path="/user" component={User} />  
@@ -265,9 +268,10 @@ function App() {
         
         <Route path="/auth" component={Auth} />
 
-        <Route path="/logout" component={Logout} />{/*1. (Logout)pozvace se logout() iz Logout pa ce promeniti user(na inicijalni) pa ce se promeniti isAuthenticated na false pa ce se uraditi useEffect i pozvati authCheckState koji ce ponovo uraditi logout() koji nece promeniti stanje i izvrsice se rerender App!!!
+        <Route path="/logout" component={Logout} />
                 
-        <Redirect from="/" exact to="/akrxAll" />{/*<Redirect from="/" exact to="/akrxAll" odnosno vraca nas na akrxAll Route u ovom Switch koji je prethodno definisan/>*/}
+        <Redirect from="/" exact to="/akrxAll" />
+        {/*<Redirect from="/" exact to="/akrxAll" odnosno vraca nas na akrxAll Route u ovom Switch koji je prethodno definisan/>*/}
         
 
           {/*pri defaultnom renderu vratice se return anonimne komponente*/}
@@ -279,12 +283,23 @@ function App() {
   
   
   return (    
-    <div className="App">    
+   <div className="App">    
       <Layout>
-        {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde ali taj sacuvan switch je idalje dostupan za Redirect*/}
+      
+           
+      
+      
+       {/*ako Redirect na isti url nece biti promene*/}
+       {/*promenjen je user na inicijalni sto znaci da ce se pri rerender aktivirati da1 i setovan authShouldLogout==true za promenu url ka / radi matcha sa Auth*/}
+      {authShouldLogout ? (
+               <Redirect to="/" />//necemo from jer nam je nebitno gde smo trenutno
+       ):<></>}  
+     
+      {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde ali taj sacuvan switch je idalje dostupan za Redirect*/}
       </Layout>
-    </div>
+    </div>  
   );
 }
+
 
 export default App;

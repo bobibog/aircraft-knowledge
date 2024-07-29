@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 //import axios from '../axios-local';
 import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';//useNavigate
 
 //dummy
 
@@ -18,37 +18,41 @@ const initialUser = {
 
     token: null,
 
+    
+    //##
+    //////////
+    firstLoginReqDateTimeMils: null,//mils od 1970(odnosno unix)
+    refreshToken: null,
+    username: null,
+    expiresDateTimeISO: null,//vec iso zona u odnosu na 00:00 
+    
+    //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
+    iatMils: null,
+    expMils: null,
+    //////////
+
 };
     //exp-iat == 1h+~8min valid
     //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
     //u iso u odnosu na utc prikazujemo offset za vremensku zonu
     //UTC 2024-07-23 10:00:00 == ISO 8601: 2024-07-23T10:00:00Z
     //utc je offset zone 00:00
-
-    /*
-    const decodeToken = (token) => {
-
-        var base64Url = token.split('.')[1];//payload
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        
-        var decodedToken = JSON.parse(jsonPayload);
-        return decodedToken;
-    }
-    */
  
+    
+            
 export const AuthContext = React.createContext({
 
     user: {...initialUser},
     error: null,
     loading: false,
+    
     authRedirectPath: "/",//
+    authShouldLogout: null,//
+    authSetShouldLogout: () => {},//
+
     authenticate: (username, password, isRegistration) => {},
     logoutUser: () => {},
     authenticationCheckState: () => {},
-
 });
 
 
@@ -62,7 +66,11 @@ const AuthContextProvider = props => {
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
 
-    const [authRedirectPath,setAuthRedirectPath] = useState("/")//
+    const [authRedirectPath,setAuthRedirectPath] = useState("/auth")//
+    const [authShouldLogout,authSetShouldLogout] = useState(false)//
+
+    let timerLogout = useRef(null);//u current
+
 
 
     const authStart = () => {
@@ -71,11 +79,41 @@ const AuthContextProvider = props => {
     };
 
 
-        const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
+    const decodeToken = (token) => {
+
+        var base64Url = token.split('.')[1];//payload
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {//bod ptp 1:1, N:1?
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        var decodedToken = JSON.parse(jsonPayload);
+        return decodedToken;
+    }
+
+    //const navigateTo = useNavigate();//iz js
+
+    const startLogoutTimeout = (mils) => {
+        timerLogout.current = setTimeout(()=>{
+            authCheckState()//navigateTo("/logout")
+        },mils)  
+    }
+
+    useEffect(()=>{
+
+        return () => {clearTimeout(timerLogout.current)}
+
+    },[])
+
+
+    const authSuccess = (userToken,iatt,expp, refreshTokenn,expiresDateTimeISOO,firstLoginReqDateTimeMilss,usernamee, userId, userRole, userTerms, userCompany) => {
+        //const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
 
        
+        const user = {...initialUser,iatMils:iatt,expMils:expp, token: userToken, refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO, firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss,username:usernamee, id: userId, role: userRole, terms:userTerms, company: userCompany};
+
         //bilo
-        const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
+        //const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
 
         setAuthUser(user);//kljucno setovanje za rerender App i Auth zbog promene globalnog stanja authUser koji je exposovan kao user
         setAuthError(null);
@@ -86,6 +124,7 @@ const AuthContextProvider = props => {
         setAuthError(error);
         setAuthLoading(false);
     };
+
 
     let redirect = null;
     const logout = () => {
@@ -99,36 +138,27 @@ const AuthContextProvider = props => {
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         localStorage.removeItem('company');
-    
-        //ako imamo vise setovanja zaredom global context state onda se izvrsavaju tim redom u 1 rerenderu
-        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user odnosno authUser
-        //redirect = <Redirect to="/auth" />
 
-    };
+        //##
+        ///////////////////
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        localStorage.removeItem('expiresDateTimeISO');
+        localStorage.removeItem('firstLoginReqDateTimeMils');
+        localStorage.removeItem('iatMils');
+        localStorage.removeItem('expMils');
+       ///////////////////
     
-   /* const resetTimeout = useCallback((resetTimeoutInSeconds) => {
-    
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-    
-        timeoutRef.current = setTimeout(() => {
-            logout();
-        }, resetTimeoutInSeconds * 1000);
-      }, []);
-    
-      useEffect(() => {
-    
-        resetTimeout(2700);
-    
-        return () => {
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-        };
-      }, [resetTimeout]);
-    */
-      
+        clearTimeout(timerLogout.current)
+
+   
+        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user odnosno authUser
+        
+        
+        authSetShouldLogout(true)
+     
+        //redirect = <Redirect to="/auth" />
+    };      
                 //!
     // const checkAuthTimeout = useCallback((expirationTimeInSeconds) => {
     //     setTimeout(() => {
@@ -158,20 +188,42 @@ const AuthContextProvider = props => {
             .then(response => {
                 const token = response.data.token;
                        
+
+                let decodedToken = decodeToken(token);
+                
                 localStorage.setItem('token',token);
           
+                //##
+                ///////
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+                localStorage.setItem('username', response.data.username)
+                localStorage.setItem('expiresDateTimeISO', response.data.expires)//vec u iso
+                localStorage.setItem('iatMils',decodedToken.iat*1000)//iz sec u mils
+                localStorage.setItem('expMils',decodedToken.exp*1000)
+                
+                ///////
+
                 axios.get('/account/me', {headers: {'Authorization': `Bearer ${token}`}})
                     .then(r => {
                         
+                        //##
+                        ///////
+                        let firstLoginReqDateTimeMils = new Date(Date.now()).getTime();//ili samo Date.now()
+                        localStorage.setItem('firstLoginReqDateTimeMils',firstLoginReqDateTimeMils);//
+                        ///////
 
                         localStorage.setItem('userId', r.data.id);
                         localStorage.setItem('role', r.data.role);
                         localStorage.setItem('terms', r.data.terms);
                         localStorage.setItem('company', r.data.company)
                         
+                                                                                                                                                                                                                                //!!!r.data.company
+                        authSuccess(token,decodedToken.iat*1000,decodedToken.exp*1000,response.data.refreshToken,response.data.expires,firstLoginReqDateTimeMils,response.data.username ,r.data.id, r.data.role, r.data.terms, company);
+
                         //bilo
-                        authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
-                        
+                        //authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
+                        startLogoutTimeout(decodedToken.exp*1000-decodedToken.iat*1000);
+
                         alert('Nice to see you again '+r.data.userName);
                     });
                 
@@ -208,24 +260,41 @@ const AuthContextProvider = props => {
     //proveravamo iz localStorage ako je uradjen ctrl+r ili manuelni odlazak na url ili ponovo posecen url
     const authCheckState = useCallback(() => {
 
-            //console.log("WIQOIOEWIOWQEIOPEQ")
-
              const token = localStorage.getItem('token');//bilo
 
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
+             const userId = localStorage.getItem('userId');
+             
+             //##
+             /////////
+             const firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'));
+             const refreshToken = localStorage.getItem('refreshToken');
+             const username = localStorage.getItem('username')
+             const expiresDateTimeISO = localStorage.getItem('expiresDateTimeISO')
+             const iatMils = Number(localStorage.getItem('iatMils'))
+             const expMils = Number(localStorage.getItem('expMils'))
+             /////////
            
-           
-             if (!token) {
+
+             
+             let firstLoginReqDateTimeMilsExtnd = firstLoginReqDateTimeMils+(expMils-iatMils);
+                
+                
+
+             if (!token || firstLoginReqDateTimeMilsExtnd <= Date.now()) {
+                 if(token)
+                    alert('Login again, token expired');
+                
                  logout();//):
                 
-             } else{   
-                  
-                const userId = localStorage.getItem('userId');
-                   
+             }else if(firstLoginReqDateTimeMilsExtnd > Date.now()){   
+                authSuccess(token,iatMils,expMils,refreshToken,expiresDateTimeISO,firstLoginReqDateTimeMils,username,userId, role, terms, company);
+                startLogoutTimeout(firstLoginReqDateTimeMilsExtnd-Date.now());
+            
                 //bilo
-                authSuccess(token, userId, role, terms, company);   
+                //authSuccess(token, userId, role, terms, company);   
                   
              }
     }, []);
@@ -248,17 +317,29 @@ const AuthContextProvider = props => {
                     terms: authUser.terms,
                     token: authUser.token,
                     company: authUser.company,
-                    
+
+                    //##
+                    //////////
+                    firstLoginReqDateTimeMils: authUser.firstLoginReqDateTimeMils,
+                    refreshToken: authUser.refreshToken,
+                    username: authUser.username,
+                    expiresDateTimeISO: authUser.expiresDateTimeISO,
+                    iatMils: authUser.iatMils,
+                    expMils: authUser.expMils
+                    //////////
                 },
 
+                /////
                 authRedirectPath: authRedirectPath,//dodajemo u context
+                authShouldLogout: authShouldLogout,
+                authSetShouldLogout: authSetShouldLogout, 
+                /////
 
                 error: authError,
                 loading: authLoading,
                 authenticate: auth,
                 logoutUser: logout,
                 authenticationCheckState: authCheckState,//
-
             }}
         >
             {props.children}
