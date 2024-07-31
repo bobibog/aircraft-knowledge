@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState,useRef} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -31,7 +31,7 @@ import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
 import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
 import AKRxAll from './containers/AKRxAll/AKRxAll';
 
-
+import instance from './axios-azure'//
 
 function App() {
 
@@ -57,6 +57,16 @@ function App() {
   let isFlyAir41 = authContext.user.company == "Fly Air41 Airways"&& authContext.user.token !== null;
   let isCompany = authContext.user.company != null ;//Aviolog ili bilo sta != null
   //dummy comment to trigger commit
+  
+
+  //##
+  instance.interceptors.request.use(config =>{
+    localStorage.setItem('lastUsedReqMils',Date.now())
+    return config;
+  },error =>{
+    return Promise.reject(error);
+  });
+  
   
 
   useEffect(() => {
@@ -292,7 +302,7 @@ function App() {
        {/*ako Redirect na isti url nece biti promene*/}
        {/*promenjen je user na inicijalni sto znaci da ce se pri rerender aktivirati da1 i setovan authShouldLogout==true za promenu url ka / radi matcha sa Auth*/}
       {authShouldLogout ? (
-               <Redirect to="/" />//necemo from jer nam je nebitno gde smo trenutno
+               <Redirect to={authRedirectPath} />//necemo from jer nam je nebitno gde smo trenutno
        ):<></>}  
      
       {routes}{/*koji god da se poslednji Switch sacuva renderovace se ovde,a onda se vrsi matchovanje trenutnog url sa rutom i prvi Route ili Redirect iz tog Switch koji ima match, njegova komponenta ce se renderovati ovde ali taj sacuvan switch je idalje dostupan za Redirect*/}
