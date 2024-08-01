@@ -3,7 +3,6 @@ import React, {useState, useCallback, useRef, useEffect} from 'react';
 import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import { Redirect } from 'react-router-dom';//useNavigate
-import { ref } from 'vue';
 
 //dummy
 
@@ -26,6 +25,7 @@ const initialUser = {
     refreshToken: null,
     username: null,
     expiresDateTimeISO: null,//vec iso zona u odnosu na 00:00 
+    expiresDateTimeISOExtend: null,
     
     //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
     iatMils: null,
@@ -33,7 +33,8 @@ const initialUser = {
     //////////
 
 };
-    //exp-iat == 1h+~8min valid
+    //exp-iat == 1h
+    //valid 1h+3min
     //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
     //u iso u odnosu na utc prikazujemo offset za vremensku zonu
     //UTC 2024-07-23 10:00:00 == ISO 8601: 2024-07-23T10:00:00Z
@@ -62,7 +63,7 @@ export const AuthContext = React.createContext({
 
 const AuthContextProvider = props => {
     
-    const [authUser, setAuthUser] = useState({...initialUser});//kopija od initialUser i vise nas ne zanima initialUser objekat vec samo authUser
+    const [authUser, setAuthUser] = useState({...initialUser});//kopiramo polja od initialUser u authUser a initialUser je za reset vrednosti odnosno logout
 
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
@@ -70,10 +71,7 @@ const AuthContextProvider = props => {
     const [authRedirectPath,setAuthRedirectPath] = useState("/")//
     const [authShouldLogout,authSetShouldLogout] = useState(false)//
 
-    let timerLogoutInactivity = useRef(null);
     let timerLogoutTokenInvalid = useRef(null);
-
-    const [logoutTimeInactivity,setLogoutTimeInactivity] = useState(1000*60*15)//15 min inactivity
 
     const authStart = () => {
         setAuthError(null);
@@ -95,11 +93,6 @@ const AuthContextProvider = props => {
 
     //const navigateTo = useNavigate();//iz js
 
-    const startLogoutTimeoutInactivity = (mils) => {
-        timerLogoutInactivity.current = setTimeout(()=>{
-            authCheckState()//navigateTo("/logout")
-        },mils)  
-    }
     const startLogoutTimeoutTokenInvalid = (mils) => {
         timerLogoutTokenInvalid.current = setTimeout(()=>{
             authCheckState()
@@ -107,24 +100,24 @@ const AuthContextProvider = props => {
     }
     useEffect(()=>{
 
-        return () => {clearTimeout(timerLogoutInactivity.current);clearTimeout(timerLogoutTokenInvalid.current)}
+        return () => {clearTimeout(timerLogoutTokenInvalid.current)}
         
-
     },[])
 
 
-    const authSuccess = (tokenn,iatt,expp, refreshTokenn,expiresDateTimeISOO,firstLoginReqDateTimeMilss,usernamee, userId, userRole, userTerms, userCompany) => {
+    const authSuccess = (tokenn,iatt,expp, refreshTokenn,expiresDateTimeISOO,expiresDateTimeISOExtendd,firstLoginReqDateTimeMilss,usernamee, userId, userRole, userTerms, userCompany) => {
         //const authSuccess = (token, userId, userRole, userTerms, userCompany) => {
 
        
-        const user = {...initialUser,iatMils:iatt,expMils:expp, token: tokenn, refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO, firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss,username:usernamee, id: userId, role: userRole, terms:userTerms, company: userCompany};
-
+        const user = {...initialUser,iatMils:iatt,expMils:expp, token: tokenn, refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO,expiresDateTimeISOExtend:expiresDateTimeISOExtendd, firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss,username:usernamee, id: userId, role: userRole, terms:userTerms, company: userCompany};
+    
         //bilo
         //const user = {...initialUser, token: tokenn, id: userId, role: userRole, terms:userTerms, company: userCompany};
 
         setAuthUser(user);//kljucno setovanje za rerender App i Auth zbog promene globalnog stanja authUser koji je exposovan kao user
         setAuthError(null);
         setAuthLoading(false);
+        
     };
 
     const authFail = (error) => {
@@ -151,19 +144,21 @@ const AuthContextProvider = props => {
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('username');
         localStorage.removeItem('expiresDateTimeISO');
+        localStorage.removeItem('expiresDateTimeISOExtend');
         localStorage.removeItem('firstLoginReqDateTimeMils');
         localStorage.removeItem('iatMils');
         localStorage.removeItem('expMils');
         localStorage.removeItem('lastUsedReqMils');
        ///////////////////
 
-        clearTimeout(timerLogoutInactivity.current)
         clearTimeout(timerLogoutTokenInvalid.current)
 
    
+        //prelazi u da1 switch
         setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user odnosno authUser
-            
-            
+        ////////////////////////////////////////////////    
+        ////////////////////////////////////////////////
+        //redirect na Auth jer ce inace ostati trenutna ruta koja ne mora postojati u da1
         authSetShouldLogout(true)
             
         //window.removeEventListener('storage',listenLocalRef.current)//ako se izloguje manuelno odnosno ne preko authCheckState
@@ -198,11 +193,11 @@ const AuthContextProvider = props => {
         }
         axios.post(url, authData)
             .then(response => {
-                
                 fetchMe(response.data.token,response.data.refreshToken,response.data.expires,response.data.username,Date.now())
                 .then(res=>alert('Nice to see you again '+response.data.username))
                 
-                /*const token = response.data.token;
+                /*
+                const token = response.data.token;
                        
 
                 let decodedToken = decodeToken(token);
@@ -237,10 +232,11 @@ const AuthContextProvider = props => {
 
                         //bilo
                         //authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
-                        startLogoutTimeoutTokenInvalid(decodedToken.exp*1000-decodedToken.iat*1000);
+                        startLogoutTimeout(decodedToken.exp*1000-decodedToken.iat*1000);
 
                         alert('Nice to see you again '+r.data.userName);
-                    });*/
+                    });
+                    */
                 
             })
             .catch(err => {
@@ -308,11 +304,22 @@ const handleStorageEvent = (token,userId,role,firstLoginReqDateTimeMils,expMils,
   }
 */
 
-const setupLocalStorage = (token,refreshToken,expiresDateTimeISO,username,firstLoginReqDateTimeMils,expMils,iatMils,userId,role,terms,company) => {
+const initializeStateStorage = (token,refreshToken,expiresDateTimeISO,username,firstLoginReqDateTimeMils,expMils,iatMils,userId,role,terms,company) => {
     
+    
+    let expiresDateTimeISOO = new Date(expiresDateTimeISO);
+    let currDate = new Date();
+    currDate.setUTCFullYear(9999)
+    currDate.setUTCHours(expiresDateTimeISOO.getUTCHours());
+    currDate.setUTCMinutes(expiresDateTimeISOO.getUTCMinutes());
+    currDate.setUTCSeconds(expiresDateTimeISOO.getUTCSeconds());
+    currDate.setUTCMilliseconds(expiresDateTimeISOO.getUTCMilliseconds());
+
+    localStorage.setItem('expiresDateTimeISOExtend',currDate.toISOString())
+    localStorage.setItem('expiresDateTimeISO',expiresDateTimeISO)
+
     localStorage.setItem('token',token);
     localStorage.setItem('refreshToken',refreshToken);
-    localStorage.setItem('expiresDateTimeISO', new Date(expiresDateTimeISO).toISOString())
     localStorage.setItem('username',username);
     localStorage.setItem('firstLoginReqDateTimeMils',firstLoginReqDateTimeMils);//kao da smo se ulogovali ponovo
     localStorage.setItem('iatMils',iatMils);
@@ -323,7 +330,7 @@ const setupLocalStorage = (token,refreshToken,expiresDateTimeISO,username,firstL
     localStorage.setItem('terms', terms);
     localStorage.setItem('company', company)
 
-    authSuccess(token,iatMils,expMils,refreshToken,expiresDateTimeISO,firstLoginReqDateTimeMils,username ,userId, role, terms, company);
+    authSuccess(token,iatMils,expMils,refreshToken,expiresDateTimeISO,currDate.toISOString(),firstLoginReqDateTimeMils,username ,userId, role, terms, company);
 
     //const user = {...authUser,iatMils:decodedToken.iat,expMils:decodedToken.exp,token: token,refreshToken:refreshTokenn,expiresDateTimeISO:expiresDateTimeISOO,username:usernamee,firstLoginReqDateTimeMils:firstLoginReqDateTimeMilss};
     //setAuthUser(user);
@@ -334,90 +341,153 @@ const fetchMe = (token,refreshToken,expires,username,firstLoginReqDateTimeMils) 
 
     return new Promise((resolve,reject)=>{    
         
-    //setupLocalStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils)
+    //initializeStateStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils)
 
     axios.get('/account/me', {headers: {'Authorization': `Bearer ${token}`}})
     .then(r => {
 
         let decodedToken = decodeToken(token)   
-        setupLocalStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils,decodedToken.exp*1000,decodedToken.iat*1000,r.data.id,r.data.role,r.data.terms,r.data.company)
-        startLogoutTimeoutInactivity(logoutTimeInactivity+1000*5)//+5 sec da ne obuhvatimo poslednji request od /account/me
-        startLogoutTimeoutTokenInvalid(decodedToken.exp*1000-decodedToken.iat*1000)
+        initializeStateStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils,decodedToken.exp*1000,decodedToken.iat*1000,r.data.id,r.data.role,r.data.terms,r.data.company)
+        startLogoutTimeoutTokenInvalid(decodedToken.exp*1000-decodedToken.iat*1000);//+1000*60*3//TEST 20*1000
         resolve(r);
     }).catch(error => {
-        setupLocalStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils)//postavljamo nezavisno od /account/me tako da ce naredni neprosledjeni biti undefined
+        logout();
+        initializeStateStorage(token,refreshToken,expires,username,firstLoginReqDateTimeMils)//postavljamo nezavisno od /account/me tako da ce naredni neprosledjeni biti undefined
         reject(error)
     })
     
     }) 
 }
-const extendTokenDuration = (token,username,expiresDateTimeISO,refreshToken)=>{
-    axios.post(`/Account/refresh-token?username=`+username+"&expires="+expiresDateTimeISO,{
-        'refreshToken': refreshToken//body
-    }).then(response => {   
-        fetchMe(token,response.data.refreshToken,response.data.expires,response.data.username,Date.now())
-    }).catch(error => {
+const extendTokenDuration = (username,expiresDateTimeISOExtend,refreshToken)=>{
+  /*
+    let expiresDateTimeISOO = new Date(expiresDateTimeISO);
+    let currDate = new Date();
+    currDate.setUTCHours(expiresDateTimeISOO.getUTCHours());
+    currDate.setUTCMinutes(expiresDateTimeISOO.getUTCMinutes());
+    currDate.setUTCSeconds(expiresDateTimeISOO.getUTCSeconds());
+    currDate.setUTCMilliseconds(expiresDateTimeISOO.getUTCMilliseconds());
+
+    let allPassedMins = ((Date.now()-authUser.firstLoginReqDateTimeMils)/1000)/60
     
-    })    
+    if(passedMins > 19){
+
+        var passedHours = allPassedMins/60
+        var passedMins = allPassedMins%60
+
+        if(passedHours + currDate.getUTCHours() < 24){
+            
+            currDate.setUTCMinutes(currDate.getUTCMinutes()+passedMins)
+            currDate.setUTCHours(currDate.getUTCHours()+passedHours)
+
+            axios.post(`/Account/refresh-token?username=`+username+"&expires="+currDate.toISOString(),{
+                'refreshToken': refreshToken//body
+            }).then(response => { 
+                                //                      //                      //
+                fetchMe(response.data.token,response.data.refreshToken,response.data.expires,response.data.username,Date.now())
+            }).catch(error => {
+                logout();
+                alert('Cant refresh token');
+            }) 
+        }else{
+            logout()
+            alert('Cant refresh token'); 
+        }
+    }else{ 
+        axios.post(`/Account/refresh-token?username=`+username+"&expires="+currDate.toISOString(),{
+            'refreshToken': refreshToken//body
+        }).then(response => { 
+            fetchMe(response.data.token,response.data.refreshToken,response.data.expires,response.data.username,Date.now())
+        }).catch(error => {
+            logout();
+        }) 
+    
+    }
+    */
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
+
+    axios.post(`/Account/refresh-token?username=`+username+"&expires="+expiresDateTimeISOExtend,{
+        'refreshToken': refreshToken
+    }).then(response => { 
+        fetchMe(response.data.token,response.data.refreshToken,response.data.expires,response.data.username,Date.now())
+    }).catch(error => {
+        logout();
+        alert('Cant refresh token');
+    }) 
+    
 }
+
+    const fromStorageToState = () => {
+  
+             
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        const terms = localStorage.getItem('terms');
+        const company = localStorage.getItem('company');
+        const userId = localStorage.getItem('userId');
+        
+        //##
+        /////////
+        const refreshToken = localStorage.getItem('refreshToken');
+        const username = localStorage.getItem('username')
+        const expiresDateTimeISO = localStorage.getItem('expiresDateTimeISO')
+        const expiresDateTimeISOExtend = localStorage.getItem('expiresDateTimeISOExtend')
+        const iatMils = Number(localStorage.getItem('iatMils'))
+        const expMils = Number(localStorage.getItem('expMils'))
+        const firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'));
+        /////////
+
+        authSuccess(token,iatMils,expMils,refreshToken,expiresDateTimeISO,expiresDateTimeISOExtend,firstLoginReqDateTimeMils,username ,userId, role, terms, company);  
+    }
 
     //kljucno za automatski login sa postojecim tokenom odnosno kada ode ponovo na front a prethodno je izasao bez logout
     //proveravamo iz localStorage ako je uradjen ctrl+r ili manuelni odlazak na url ili ponovo posecen url
     const authCheckState = useCallback(() => {
         
              //window.removeEventListener('storage',listenLocalRef.current)
-            
-             
-             const token = localStorage.getItem('token');//bilo
-
-             const role = localStorage.getItem('role');
-             const terms = localStorage.getItem('terms');
-             const company = localStorage.getItem('company');
-             const userId = localStorage.getItem('userId');
-             
-             //##
-             /////////
-             const firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'));
-             const refreshToken = localStorage.getItem('refreshToken');
-             const username = localStorage.getItem('username')
-             const expiresDateTimeISO = localStorage.getItem('expiresDateTimeISO')
-             const iatMils = Number(localStorage.getItem('iatMils'))
-             const expMils = Number(localStorage.getItem('expMils'))
-             const lastUsedReqMils = Number(localStorage.getItem('lastUsedReqMils'))
-             /////////
+          
            
 
+             const token = localStorage.getItem('token');//bilo
+             const firstLoginReqDateTimeMils = Number(localStorage.getItem('firstLoginReqDateTimeMils'));
+             const lastUsedReqMils = Number(localStorage.getItem('lastUsedReqMils'))
+             const iatMils = Number(localStorage.getItem('iatMils'))
+             const expMils = Number(localStorage.getItem('expMils'))
+
+                                                    
+             let logoutTimeInactivity = expMils-iatMils//+1000*60*3//TEST 20*1000
+             let firstLoginReqDateTimeMilsExtnd = firstLoginReqDateTimeMils+logoutTimeInactivity;//
+
              
-             let firstLoginReqDateTimeMilsExtnd = firstLoginReqDateTimeMils+(expMils-iatMils);//
-                
-                
+             clearTimeout(timerLogoutTokenInvalid.current)
+
+             
              if (!token)//za inicijalni mount pre logina
                 logout()
 
 
-            //ctrl+r(kao i nakon logina) ili automatski inactive logout(15 min) ili istekao token(1h)
-            /////////////////////////////////////////////////////////////// 
-             else if(lastUsedReqMils > (Date.now()-logoutTimeInactivity)){//ako je koristio front poslednjih 15 minuta ne logoutujemo se
-           
+            //osim poziva pri mount(ili nezavisno) i ctrl+r ili manuelni odlazak na url
+            /////////////////////////////////////////////////////////////// //
 
-                //1h%15                 
-                if(Date.now() >= firstLoginReqDateTimeMilsExtnd){//ako je proslo 1h i bio je aktivan poslednjih 15 min
-                    clearTimeout(timerLogoutInactivity.current);
-                    clearTimeout(timerLogoutTokenInvalid.current)
-                    extendTokenDuration(token,username,expiresDateTimeISO,refreshToken)    
-                    //window.addEventListener('storage',handleStorageEvent(token,userId,role,firstLoginReqDateTimeMils,expMils,iatMils,refreshToken,username,lastUsedReqMils,expiresDateTimeISO,terms,company))
-                }else{//ako nije proslo 1h i bio je aktivan poslednjih 15 minuta
-                   
-                    clearTimeout(timerLogoutInactivity.current);
-
-                    if(firstLoginReqDateTimeMilsExtnd - Date.now() > logoutTimeInactivity)
-                        startLogoutTimeoutInactivity(logoutTimeInactivity);
-                    //else startLogoutTimeoutInactivity(firstLoginReqDateTimeMilsExtnd-Date.now());
+                                                    //+1000 da ne obuhvati poslednji extendTokenDuration fetch odnosno lastUsedReqMils jer bi se inace radio extendTokenDuration posle inactivity time
+             else if(lastUsedReqMils > (Date.now()-logoutTimeInactivity)){//ako je koristio front poslednjih 1h ne logoutujemo se
                 
-                    authSuccess(token,iatMils,expMils,refreshToken,expiresDateTimeISO,firstLoginReqDateTimeMils,username ,userId, role, terms, company);  
+                if(Date.now() >= firstLoginReqDateTimeMilsExtnd){//ako je proslo 1h ali je postojala aktivnost(iz timerLogoutTokenInvalid)
+
+                                        //ne mozemo koristiti authUser jer bi bio predefinisan na inicijalne vrednosti u trenutku definisanja authCheckState sto je null zbog useCallBack pa bismo onda morali da koristimo watch
+                    extendTokenDuration(localStorage.getItem('username'),localStorage.getItem('expiresDateTimeISOExtend'),localStorage.getItem('refreshToken'))
+                    //ne ovde startLogoutTimeoutTokenInvalid(expMils-iatMils) jer extendTokenDuration ima async fetch pa ce se zapravo timer postaviti pre lastUsedReqMils
+                    
+
+                    //window.addEventListener('storage',handleStorageEvent(token,userId,role,firstLoginReqDateTimeMils,expMils,iatMils,refreshToken,username,lastUsedReqMils,expiresDateTimeISO,terms,company))
+                }else{
+                    fromStorageToState();
+                                                            //ako nije proslo 1h a ima aktivnosti onda setujemo na razliku ostatka do 1h
+                    startLogoutTimeoutTokenInvalid(firstLoginReqDateTimeMilsExtnd-Date.now()); 
+                    //startLogoutTimeoutTokenInvalid(expMils-iatMils);//+1000*60*3
                     //window.addEventListener('storage',handleStorageEvent(token,userId,role,firstLoginReqDateTimeMils,expMils,iatMils,refreshToken,username,lastUsedReqMils,expiresDateTimeISO,terms,company))
                 }
-            }else{//ako nije koristio front poslednjih 15 minuta logoutujemo se automatski inactive logout(15 min)
+            }else{//ako nije koristio front poslednjih 1h logoutujemo se automatski(iz timerLogoutTokenInvalid)
                   logout();
                   alert('Inactivity time reached, login again'); 
             }
