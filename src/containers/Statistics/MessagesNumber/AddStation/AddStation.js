@@ -7,9 +7,8 @@ import classes from './AddStation.module.css';
 const AddStation = () => {
     const dispatch = useDispatch();
     const authContext = useContext(AuthContext);
-    let isAuthenticated = authContext.user.token;
+    const isAuthenticated = authContext.user.token;
 
-    // Set id to 0 since it should always be 0
     const [id] = useState(0);
     const [stationId, setStationId] = useState('');
     const [latitude, setLatitude] = useState('');
@@ -17,34 +16,58 @@ const AddStation = () => {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
     const [locationAddress, setLocationAddress] = useState('');
-    const [lastActiveTime, setLastActiveTime] = useState('');
     const [feederName, setFeederName] = useState('');
     const [feederEmail, setFeederEmail] = useState('');
     const [feederPhone, setFeederPhone] = useState('');
     const [description, setDescription] = useState('');
-    const [notificationEmail, setNotificationEmail] = useState('');
-    const [feederNotificationEmail, setFeederNotificationEmail] = useState('');
-    const [firstTimeSentToFeeder, setFirstTimeSentToFeeder] = useState('');
 
     const onAddStation = useCallback(() => {
-        dispatch(actions.addStation(
+        const cleanLatitude = latitude.replace(/[^0-9.-]/g, '').trim();
+        const cleanLongitude = longitude.replace(/[^0-9.-]/g, '').trim();
+        const latitudeValue = parseFloat(cleanLatitude);
+        const longitudeValue = parseFloat(cleanLongitude);
+
+        const payload = {
             id,
             stationId,
-            latitude || null,
-            longitude || null,
-            city || null,
-            country || null,
-            locationAddress || null,
-            lastActiveTime ? new Date(lastActiveTime).toISOString() : null,
-            feederName,
-            feederEmail,
-            feederPhone || null,
-            description || null,
-            notificationEmail || null,
-            feederNotificationEmail || null,
-            firstTimeSentToFeeder ? new Date(firstTimeSentToFeeder).toISOString() : null,
+            latitude: !isNaN(latitudeValue) ? latitudeValue : 0,
+            longitude: !isNaN(longitudeValue) ? longitudeValue : 0,
+            city: city || 'string',
+            country: country || 'string',
+            locationAddress: locationAddress || 'string',
+            feederName: feederName || 'string',
+            feederEmail: feederEmail || 'string',
+            feederPhone: feederPhone || 'string',
+            description: description || 'string',
             isAuthenticated
-        ));
+        };
+
+        console.log('Payload being sent to the API:', JSON.stringify(payload, null, 2));
+
+        dispatch(actions.addStation(payload))
+          .catch(error => {
+            if (error.response) {
+                console.error("Error response:", error.response);
+                const errorDetails = error.response.data;
+                let errorMessages = '';
+
+                if (errorDetails && errorDetails.errors) {
+                    for (const field in errorDetails.errors) {
+                        errorMessages += `${field}: ${errorDetails.errors[field].join(' ')}\n`;
+                    }
+                } else {
+                    errorMessages = errorDetails.title || 'An unknown error occurred.';
+                }
+
+                alert(`Error: ${errorMessages}`);
+            } else if (error.request) {
+                console.error("Request error:", error.request);
+                alert("No response received from the server. Please check your network connection and try again.");
+            } else {
+                console.error("Error message:", error.message);
+                alert(`Error: ${error.message}`);
+            }
+        });
     }, [
         dispatch,
         id,
@@ -54,14 +77,10 @@ const AddStation = () => {
         city,
         country,
         locationAddress,
-        lastActiveTime,
         feederName,
         feederEmail,
         feederPhone,
         description,
-        notificationEmail,
-        feederNotificationEmail,
-        firstTimeSentToFeeder,
         isAuthenticated
     ]);
 
@@ -72,14 +91,10 @@ const AddStation = () => {
         setCity('');
         setCountry('');
         setLocationAddress('');
-        setLastActiveTime('');
         setFeederName('');
         setFeederEmail('');
         setFeederPhone('');
         setDescription('');
-        setNotificationEmail('');
-        setFeederNotificationEmail('');
-        setFirstTimeSentToFeeder('');
     };
 
     const onSubmit = (e) => {
@@ -94,50 +109,100 @@ const AddStation = () => {
                 <form className={classes.form} onSubmit={onSubmit}>
                     <input type="hidden" value={id} />
                     <div>                        
-                        <input className={classes.input} value={stationId} onChange={(e) => setStationId(e.target.value)} placeholder='Station ID' />
+                        <input 
+                            className={classes.input} 
+                            value={stationId} 
+                            onChange={(e) => setStationId(e.target.value)} 
+                            placeholder='Station ID' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder='Latitude' />
+                        <input 
+                            className={classes.input} 
+                            value={latitude} 
+                            onChange={(e) => setLatitude(e.target.value)} 
+                            placeholder='Latitude' 
+                            type="text"
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder='Longitude' />
+                        <input 
+                            className={classes.input} 
+                            value={longitude} 
+                            onChange={(e) => setLongitude(e.target.value)} 
+                            placeholder='Longitude' 
+                            type="text"
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={city} onChange={(e) => setCity(e.target.value)} placeholder='City' />
+                        <input 
+                            className={classes.input} 
+                            value={city} 
+                            onChange={(e) => setCity(e.target.value)} 
+                            placeholder='City' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={country} onChange={(e) => setCountry(e.target.value)} placeholder='Country' />
+                        <input 
+                            className={classes.input} 
+                            value={country} 
+                            onChange={(e) => setCountry(e.target.value)} 
+                            placeholder='Country' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={locationAddress} onChange={(e) => setLocationAddress(e.target.value)} placeholder='Location Address' />
+                        <input 
+                            className={classes.input} 
+                            value={locationAddress} 
+                            onChange={(e) => setLocationAddress(e.target.value)} 
+                            placeholder='Location Address' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={lastActiveTime} onChange={(e) => setLastActiveTime(e.target.value)} placeholder='Last Active Time' />
+                        <input 
+                            className={classes.input} 
+                            value={feederName} 
+                            onChange={(e) => setFeederName(e.target.value)} 
+                            placeholder='Feeder Name' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={feederName} onChange={(e) => setFeederName(e.target.value)} placeholder='Feeder Name' />
+                        <input 
+                            className={classes.input} 
+                            value={feederEmail} 
+                            onChange={(e) => setFeederEmail(e.target.value)} 
+                            placeholder='Feeder Email' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={feederEmail} onChange={(e) => setFeederEmail(e.target.value)} placeholder='Feeder Email' />
+                        <input 
+                            className={classes.input} 
+                            value={feederPhone} 
+                            onChange={(e) => setFeederPhone(e.target.value)} 
+                            placeholder='Feeder Phone' 
+                            required 
+                        />
                     </div>
                     <div>                        
-                        <input className={classes.input} value={feederPhone} onChange={(e) => setFeederPhone(e.target.value)} placeholder='Feeder Phone' />
-                    </div>
-                    <div>                        
-                        <input className={classes.input} value={description} onChange={(e) => setDescription(e.target.value)} placeholder='Description' />
-                    </div>
-                    <div>                        
-                        <input className={classes.input} value={notificationEmail} onChange={(e) => setNotificationEmail(e.target.value)} placeholder='Notification Email' />
-                    </div>
-                    <div>                        
-                        <input className={classes.input} value={feederNotificationEmail} onChange={(e) => setFeederNotificationEmail(e.target.value)} placeholder='Feeder Notification Email' />
-                    </div>
-                    <div>                        
-                        <input className={classes.input} value={firstTimeSentToFeeder} onChange={(e) => setFirstTimeSentToFeeder(e.target.value)} placeholder='First Time Sent To Feeder' />
+                        <input 
+                            className={classes.input} 
+                            value={description} 
+                            onChange={(e) => setDescription(e.target.value)} 
+                            placeholder='Description' 
+                            required 
+                        />
                     </div>
                     <div className={classes.btnContainer}>
                         <div className={classes.button}>
-                            <button className='btn btn-primary' type="submit" onClick={onSubmit}>Add Station</button>
+                            <button className='btn btn-primary' type="submit">Add Station</button>
                         </div>
                         <div className={classes.button}>
                             <button type="button" className="btn btn-warning" onClick={onReset}>CLEAR</button>
