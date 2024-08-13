@@ -132,7 +132,7 @@ export{
 } from './statistics'
 
 export{
-  addStation
+  addStation, updateStation, fetchStation
 } from './station'
 
 export{

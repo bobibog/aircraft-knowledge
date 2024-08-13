@@ -1,75 +1,77 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom'; 
 import * as actions from '../../../../store/actions/index';
 import { AuthContext } from '../../../../context/auth-context';
-import classes from './AddStation.module.css';
+import classes from './UpdateStation.module.css';
 
-const AddStation = () => {
+const UpdateStation = () => {
+    const { id } = useParams();
+
     const dispatch = useDispatch();
     const authContext = useContext(AuthContext);
+    const isAuthenticated = authContext.user.token;
 
-    const [id] = useState(0);
-    const [stationId, setStationId] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
-    const [locationAddress, setLocationAddress] = useState('');
-    const [feederName, setFeederName] = useState('');
-    const [feederEmail, setFeederEmail] = useState('');
-    const [feederPhone, setFeederPhone] = useState('');
-    const [description, setDescription] = useState('');
+    const [latitude, setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
+    const [city, setCity] = useState('string');
+    const [country, setCountry] = useState('string');
+    const [locationAddress, setLocationAddress] = useState('string');
+    const [feederName, setFeederName] = useState('string');
+    const [feederEmail, setFeederEmail] = useState('string');
+    const [feederPhone, setFeederPhone] = useState('string');
+    const [description, setDescription] = useState('string');
+    const [feederNotificationEmail, setFeederNotificationEmail] = useState('string');
 
-    const onAddStation = useCallback(() => {
-        const cleanLatitude = latitude.replace(/[^0-9.-]/g, '').trim();
-        const cleanLongitude = longitude.replace(/[^0-9.-]/g, '').trim();
-        const latitudeValue = parseFloat(cleanLatitude);
-        const longitudeValue = parseFloat(cleanLongitude);
+    useEffect(() => {
+        if (id) {
+            dispatch(actions.fetchStation(id, isAuthenticated)).then(station => {
+                if (station) {
+                    setLatitude(station.latitude);
+                    setLongitude(station.longitude);
+                    setCity(station.city);
+                    setCountry(station.country);
+                    setLocationAddress(station.locationAddress);
+                    setFeederName(station.feederName);
+                    setFeederEmail(station.feederEmail);
+                    setFeederPhone(station.feederPhone);
+                    setDescription(station.description);
+                    setFeederNotificationEmail(station.feederNotificationEmail);
+                } else {
+                    console.error("Station data is undefined or null");
+                }
+            }).catch(error => {
+                console.error("Error while fetching station data:", error);
+            });
+        }
+    }, [dispatch, id, isAuthenticated]);
 
+
+    const onUpdateStation = useCallback(() => {
         const payload = {
             id,
-            stationId,
-            latitude: !isNaN(latitudeValue) ? latitudeValue : 0,
-            longitude: !isNaN(longitudeValue) ? longitudeValue : 0,
-            city: city || 'string',
-            country: country || 'string',
-            locationAddress: locationAddress || 'string',
-            feederName: feederName || 'string',
-            feederEmail: feederEmail || 'string',
-            feederPhone: feederPhone || 'string',
-            description: description || 'string',
+            latitude: parseFloat(latitude) || 0,
+            longitude: parseFloat(longitude) || 0,
+            city,
+            country,
+            locationAddress,
+            feederName,
+            feederEmail,
+            feederPhone,
+            description,
+            feederNotificationEmail,
+            isAuthenticated
         };
 
         console.log('Payload being sent to the API:', JSON.stringify(payload, null, 2));
 
-        dispatch(actions.addStation(payload))
+        dispatch(actions.updateStation({...payload, isAuthenticated: authContext.user.token}))
           .catch(error => {
-            if (error.response) {
-                console.error("Error response:", error.response);
-                const errorDetails = error.response.data;
-                let errorMessages = '';
-
-                if (errorDetails && errorDetails.errors) {
-                    for (const field in errorDetails.errors) {
-                        errorMessages += `${field}: ${errorDetails.errors[field].join(' ')}\n`;
-                    }
-                } else {
-                    errorMessages = errorDetails.title || 'An unknown error occurred.';
-                }
-
-                alert(`Error: ${errorMessages}`);
-            } else if (error.request) {
-                console.error("Request error:", error.request);
-                alert("No response received from the server. Please check your network connection and try again.");
-            } else {
-                console.error("Error message:", error.message);
-                alert(`Error: ${error.message}`);
-            }
-        });
+              console.error("Error updating station:", error);
+          });
     }, [
         dispatch,
         id,
-        stationId,
         latitude,
         longitude,
         city,
@@ -79,28 +81,20 @@ const AddStation = () => {
         feederEmail,
         feederPhone,
         description,
+        feederNotificationEmail,
+        isAuthenticated
     ]);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        onAddStation();
+        onUpdateStation();
     };
 
     return (
         <div className={classes.form}>
-            <h2><u>Add new station</u></h2>  
+            <h2><u>Update Station</u></h2>  
             <div className={classes.container}>         
                 <form className={classes.form} onSubmit={onSubmit}>
-                    <input type="hidden" value={id} />
-                    <div>                        
-                        <input 
-                            className={classes.input} 
-                            value={stationId} 
-                            onChange={(e) => setStationId(e.target.value)} 
-                            placeholder='Station ID' 
-                            required 
-                        />
-                    </div>
                     <div>                        
                         <input 
                             className={classes.input} 
@@ -184,8 +178,19 @@ const AddStation = () => {
                             required 
                         />
                     </div>
+                    <div>                        
+                        <select 
+                            className={classes.input} 
+                            value={feederNotificationEmail} 
+                            onChange={(e) => setFeederNotificationEmail(e.target.value)} 
+                            required
+                        >
+                            <option value="Send">Send</option>
+                            <option value="DoNothing">Do Nothing</option>
+                        </select>
+                    </div>
                     <div className={classes.btnContainer}>
-                        <button className='btn btn-primary' type="submit">Add Station</button>
+                        <button className='btn btn-primary' type="submit">Update Station</button>
                     </div>
                 </form>
             </div>
@@ -193,4 +198,4 @@ const AddStation = () => {
     );
 }
 
-export default AddStation;
+export default UpdateStation;
