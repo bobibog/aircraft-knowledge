@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios-azure';
 
 
-
 export const fetchAircraftTypeSuccess = (aircraftTypes) => {
     return {
         type: actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS,
@@ -24,15 +23,18 @@ export const fetchAircraftTypeStart = () => {
 };
 
 
-//Must add token here, because /AircraftTypeFull/GetAircraftTypesFullAll API endpoint is now Authorized
-//(user must be logged in - have a valid token) !!!
-export const fetchAircraftTypes = (aircraftType, token) => {
+export const fetchAircraftTypes = (aircraftType,limitTypeMax,token) => {
+    
     return dispatch => {
-        dispatch(fetchAircraftTypeStart());        
+    
+        dispatch(fetchAircraftTypeStart());//azuriramo podatak u global state kao indikator a neka komponenta koja ga koristi ce reagovati rerenderom        
           
         const query = new URLSearchParams();                        
         query.append('aircraftType', aircraftType);
-          
+        
+        //console.log("Aircraft type: "+aircraftType)
+
+        query.append('limit',limitTypeMax)//  
 
         let queryString = query;   
         

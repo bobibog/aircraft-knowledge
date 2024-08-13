@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 //import axios from '../axios-local';
 import axios from '../axios-azure';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
@@ -14,40 +14,70 @@ const initialUser = {
     password: null,
     role: null,
     company: null,
+    terms: null,
+
     token: null,
-    terms: null
+
 };
+    //exp-iat == 1h+~8min valid
+    //iat i exp nam trebaju iz decodedToken a konvertovacemo ih iz sec od 1970 u mils
+    //u iso u odnosu na utc prikazujemo offset za vremensku zonu
+    //UTC 2024-07-23 10:00:00 == ISO 8601: 2024-07-23T10:00:00Z
+    //utc je offset zone 00:00
 
+    /*
+    const decodeToken = (token) => {
 
+        var base64Url = token.split('.')[1];//payload
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        var decodedToken = JSON.parse(jsonPayload);
+        return decodedToken;
+    }
+    */
+ 
 export const AuthContext = React.createContext({
+
     user: {...initialUser},
     error: null,
     loading: false,
     authRedirectPath: "/",//
     authenticate: (username, password, isRegistration) => {},
     logoutUser: () => {},
-    authenticationCheckState: () => {}    
+    authenticationCheckState: () => {},
+
 });
+
+
+
 
 
 const AuthContextProvider = props => {
     
-    const [authUser, setAuthUser] = useState({...initialUser});//
+    const [authUser, setAuthUser] = useState({...initialUser});//kopija od initialUser i vise nas ne zanima initialUser objekat vec samo authUser
 
     const [authError, setAuthError] = useState(null);
     const [authLoading, setAuthLoading] = useState(false);
 
     const [authRedirectPath,setAuthRedirectPath] = useState("/")//
 
+
     const authStart = () => {
         setAuthError(null);
         setAuthLoading(true);
     };
 
-    const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
+
+        const authSuccess = (userToken, userId, userRole, userTerms, userCompany) => {
+
+       
+        //bilo
         const user = {...initialUser, token: userToken, id: userId, role: userRole, terms:userTerms, company: userCompany};
-        
-        setAuthUser(user);//kljucno setovanje za rerender App zbog promene globalnog stanja
+
+        setAuthUser(user);//kljucno setovanje za rerender App i Auth zbog promene globalnog stanja authUser koji je exposovan kao user
         setAuthError(null);
         setAuthLoading(false);
     };
@@ -59,17 +89,47 @@ const AuthContextProvider = props => {
 
     let redirect = null;
     const logout = () => {
-        localStorage.removeItem('token');
+        console.log("LOGOUT")
+
+        localStorage.removeItem('token');//bilo
+
+
         //localStorage.removeItem('expirationDate');
         localStorage.removeItem('userId');
         localStorage.removeItem('role');
         localStorage.removeItem('terms');
         localStorage.removeItem('company');
-        
-        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user
+    
+        //ako imamo vise setovanja zaredom global context state onda se izvrsavaju tim redom u 1 rerenderu
+        setAuthUser(initialUser);//kljucno setovanje za rerender App jer App koristi user odnosno authUser
         //redirect = <Redirect to="/auth" />
-    };
 
+    };
+    
+   /* const resetTimeout = useCallback((resetTimeoutInSeconds) => {
+    
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+    
+        timeoutRef.current = setTimeout(() => {
+            logout();
+        }, resetTimeoutInSeconds * 1000);
+      }, []);
+    
+      useEffect(() => {
+    
+        resetTimeout(2700);
+    
+        return () => {
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+        };
+      }, [resetTimeout]);
+    */
+      
+                //!
     // const checkAuthTimeout = useCallback((expirationTimeInSeconds) => {
     //     setTimeout(() => {
     //         logout();
@@ -78,7 +138,9 @@ const AuthContextProvider = props => {
 
     //const expiresInSeconds = 29000;
 
-    //login
+    //istovremeno login i register
+    //za login se prosledjuje username i password a ostalo je undefined
+    //za register se ni ne koristi
     const auth = (username, password, role, terms, company, isRegistration) => {
         authStart();
         const authData = {
@@ -89,21 +151,27 @@ const AuthContextProvider = props => {
             company: company
         };
         let url = '/user/register';
-        if (!isRegistration) {
+        if (!isRegistration) {//ako smo vec registrovani odnosno login jer je neprosledjeni isRegistration tada undefined sto je false
             url = '/account/authenticate';
         }
         axios.post(url, authData)
             .then(response => {
                 const token = response.data.token;
-                localStorage.setItem('token', token);
-
+                       
+                localStorage.setItem('token',token);
+          
                 axios.get('/account/me', {headers: {'Authorization': `Bearer ${token}`}})
                     .then(r => {
+                        
+
                         localStorage.setItem('userId', r.data.id);
                         localStorage.setItem('role', r.data.role);
                         localStorage.setItem('terms', r.data.terms);
                         localStorage.setItem('company', r.data.company)
+                        
+                        //bilo
                         authSuccess(token, r.data.id, r.data.role, r.data.terms, company);
+                        
                         alert('Nice to see you again '+r.data.userName);
                     });
                 
@@ -136,12 +204,14 @@ const AuthContextProvider = props => {
     // }, [checkAuthTimeout]);
 
 
-    //kljucno za automatski login sa postojecim tokenom
+    //kljucno za automatski login sa postojecim tokenom odnosno kada ode ponovo na front a prethodno je izasao bez logout
+    //proveravamo iz localStorage ako je uradjen ctrl+r ili manuelni odlazak na url ili ponovo posecen url
     const authCheckState = useCallback(() => {
 
             //console.log("WIQOIOEWIOWQEIOPEQ")
 
-             const token = localStorage.getItem('token');
+             const token = localStorage.getItem('token');//bilo
+
              const role = localStorage.getItem('role');
              const terms = localStorage.getItem('terms');
              const company = localStorage.getItem('company');
@@ -153,8 +223,9 @@ const AuthContextProvider = props => {
              } else{   
                   
                 const userId = localStorage.getItem('userId');
-                authSuccess(token, userId, role, terms, company);
-                     
+                   
+                //bilo
+                authSuccess(token, userId, role, terms, company);   
                   
              }
     }, []);
@@ -169,13 +240,15 @@ const AuthContextProvider = props => {
                 user: {
                     id: authUser.id,
 
-                    //POSTO APP KORISTI USER GLOBAL STATE OBJEKAT, STA GOD DA SE U NJEMU MENJA UTICACE NA RERENCER APP!!!
+                    //POSTO APP KORISTI USER GLOBAL STATE OBJEKAT, STA GOD DA SE U USER MENJA UTICACE NA RERENCER APP!!!
+                    //pri login i logut menjamo authUser a user je exposovan i zavisi od authUser
                     username: authUser.username,
                     password: authUser.password,
                     role: authUser.role,
                     terms: authUser.terms,
                     token: authUser.token,
-                    company: authUser.company
+                    company: authUser.company,
+                    
                 },
 
                 authRedirectPath: authRedirectPath,//dodajemo u context
@@ -184,7 +257,8 @@ const AuthContextProvider = props => {
                 loading: authLoading,
                 authenticate: auth,
                 logoutUser: logout,
-                authenticationCheckState: authCheckState//
+                authenticationCheckState: authCheckState,//
+
             }}
         >
             {props.children}

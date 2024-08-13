@@ -91,7 +91,7 @@ ReactDOM.render(
         </BreakpointContextProvider>
       </AuthContextProvider>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>,//dvostruki rerender zbog provera
   document.getElementById('root')
 );
 

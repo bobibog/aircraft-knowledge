@@ -123,7 +123,7 @@ const AcarsWithExtData = props => {
     // FILTERING/SEARCHING
     const submitSearchHandler = (acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
         tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,//ne filtriramo po aggregatedText
+        serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,
     
         aggrStatus,consensusStatus,     aggrText,consensusResult
 
@@ -247,12 +247,15 @@ const AcarsWithExtData = props => {
         
     }      
     if(acarsWithExtDataCount){
-        console.log("ACARSWITHEXTDATA count = "+acarsWithExtDataCount);
+        console.log("ACARSWITHEXTDATA messagesCountField = "+acarsWithExtDataCount);
         console.log("ACARSWITHEXTDATA messages = "+acarsWithExtData)
+        console.log("ACARSWITHEXTDATA messagesCountReal = "+acarsWithExtData.length)
     }
 
     return (
-        <div style={{marginTop:'-2px'}}>             
+        <div style={{marginTop:'-2px'}}>     
+
+    {/*-u filter su aircraftType fetch i typeCode fetch-*/}        
             <SearchAcarsWithExtData
                 clickedSearch={submitSearchHandler}                               
                 clickedReset={resetSearchHandler} 
