@@ -1,4 +1,4 @@
-import axios from '../../axios-azure';
+import axios from "../../axios-azure";
 
 export function addStation({
   stationId,
@@ -11,31 +11,32 @@ export function addStation({
   feederEmail,
   feederPhone,
   description,
-  isAuthenticated
+  isAuthenticated,
 }) {
   return function (dispatch) {
-    const url = 'https://api-dev.aviolog.com/api/v1/Station';
+    const url = "https://api-dev.aviolog.com/api/v1/Station";
 
     const stationData = {
       stationId,
       latitude: parseFloat(latitude) || 0,
       longitude: parseFloat(longitude) || 0,
-      city: city || '',
-      country: country || '',
-      locationAddress: locationAddress || '',
-      feederName: feederName || '',
-      feederEmail: feederEmail || '',
-      feederPhone: feederPhone || '',
-      description: description || ''
+      city: city || "",
+      country: country || "",
+      locationAddress: locationAddress || "",
+      feederName: feederName || "",
+      feederEmail: feederEmail || "",
+      feederPhone: feederPhone || "",
+      description: description || "",
     };
 
     const config = {
       headers: {
-        'Authorization': `Bearer ${isAuthenticated}`
-      }
+        Authorization: `Bearer ${isAuthenticated}`,
+      },
     };
 
-    return axios.post(url, stationData, config)
+    return axios
+      .post(url, stationData, config)
       .then((response) => {
         console.log("Success response:", response);
         alert("Station was added successfully.");
@@ -48,14 +49,16 @@ export function addStation({
           console.error("Error status:", error.response.status);
           console.error("Error headers:", error.response.headers);
           const errorMessages = error.response.data.errors
-            ? Object.entries(error.response.data.errors).map(
-                ([field, messages]) => `${field}: ${messages.join(', ')}`
-              ).join('\n')
-            : error.response.data.title || 'Unknown error occurred.';
+            ? Object.entries(error.response.data.errors)
+                .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+                .join("\n")
+            : error.response.data.title || "Unknown error occurred.";
           alert(`Error: ${errorMessages}\nStatus: ${error.response.status}`);
         } else if (error.request) {
           console.error("Request data:", error.request);
-          alert("No response received from the server. Please check your network connection and try again.");
+          alert(
+            "No response received from the server. Please check your network connection and try again."
+          );
         } else {
           console.error("Error message:", error.message);
           alert(`Error: ${error.message}`);
@@ -77,7 +80,7 @@ export function updateStation({
   feederPhone,
   description,
   feederNotificationEmail,
-  isAuthenticated
+  isAuthenticated,
 }) {
   return function (dispatch) {
     const url = `https://api-dev.aviolog.com/api/v1/Station/${id}`;
@@ -89,22 +92,23 @@ export function updateStation({
       city: city || null,
       country: country || null,
       locationAddress: locationAddress || null,
-      feederName: feederName || '',
-      feederEmail: feederEmail || '',
+      feederName: feederName || "",
+      feederEmail: feederEmail || "",
       feederPhone: feederPhone || null,
       description: description || null,
-      feederNotificationEmail: feederNotificationEmail || null
+      feederNotificationEmail: feederNotificationEmail || null,
     };
 
     const config = {
       headers: {
-        'Authorization': `Bearer ${isAuthenticated}`,
-        'Content-Type': 'application/json', // Ensure Content-Type is set
-        'accept': '*/*'  // Match the accept header from Swagger
-      }
+        Authorization: `Bearer ${isAuthenticated}`,
+        "Content-Type": "application/json", // Ensure Content-Type is set
+        accept: "*/*", // Match the accept header from Swagger
+      },
     };
 
-    return axios.put(url, stationData, config)
+    return axios
+      .put(url, stationData, config)
       .then((response) => {
         console.log("Success response:", response);
         alert("Station was updated successfully.");
@@ -115,14 +119,16 @@ export function updateStation({
         if (error.response) {
           console.error("Error data:", error.response.data);
           const errorMessages = error.response.data.errors
-            ? Object.entries(error.response.data.errors).map(
-                ([field, messages]) => `${field}: ${messages.join(' ')}`
-              ).join('\n')
-            : error.response.data.title || 'Unknown error occurred.';
+            ? Object.entries(error.response.data.errors)
+                .map(([field, messages]) => `${field}: ${messages.join(" ")}`)
+                .join("\n")
+            : error.response.data.title || "Unknown error occurred.";
           alert(`Error: ${errorMessages}\nStatus: ${error.response.status}`);
         } else if (error.request) {
           console.error("Request error:", error.request);
-          alert("No response received from the server. Please check your network connection and try again.");
+          alert(
+            "No response received from the server. Please check your network connection and try again."
+          );
         } else {
           console.error("Error message:", error.message);
           alert(`Error: ${error.message}`);
@@ -132,18 +138,18 @@ export function updateStation({
   };
 }
 
-
 export function fetchStation(id, isAuthenticated) {
   return function (dispatch) {
     const url = `https://api-dev.aviolog.com/api/v1/Station/${id}`;
-    
+
     const config = {
       headers: {
-        'Authorization': `Bearer ${isAuthenticated}`
-      }
+        Authorization: `Bearer ${isAuthenticated}`,
+      },
     };
 
-    return axios.get(url, config)
+    return axios
+      .get(url, config)
       .then((response) => {
         console.log("Fetched station data:", response.data);
         return response.data; // Ensure this data is returned properly
@@ -153,14 +159,16 @@ export function fetchStation(id, isAuthenticated) {
         if (error.response) {
           console.error("Error data:", error.response.data);
           const errorMessages = error.response.data.errors
-            ? Object.entries(error.response.data.errors).map(
-                ([field, messages]) => `${field}: ${messages.join(', ')}`
-              ).join('\n')
-            : error.response.data.title || 'Unknown error occurred.';
+            ? Object.entries(error.response.data.errors)
+                .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+                .join("\n")
+            : error.response.data.title || "Unknown error occurred.";
           alert(`Error: ${errorMessages}\nStatus: ${error.response.status}`);
         } else if (error.request) {
           console.error("Request data:", error.request);
-          alert("No response received from the server. Please check your network connection and try again.");
+          alert(
+            "No response received from the server. Please check your network connection and try again."
+          );
         } else {
           console.error("Error message:", error.message);
           alert(`Error: ${error.message}`);

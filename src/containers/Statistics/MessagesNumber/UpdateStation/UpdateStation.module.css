@@ -11,8 +11,18 @@
   margin-right: auto;
 }
 
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+label{
+  margin-bottom: 2px;
+}
+
 .input {
-  margin-bottom: 12px;
   width: 350px;
 }
 
