@@ -19,6 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
 import StationStatusTable from './StationStatusTable/StationStatusTable';
 import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
+import { useHistory } from 'react-router-dom';
 
 
 const MessagesNumber = (props) =>{
@@ -222,23 +223,31 @@ const MessagesNumber = (props) =>{
         )
     }
 
+    const history = useHistory();
+
+    const handleRowClick = (id) => {
+        history.push(`/updateStation/${id}`);
+    };
     const stationDataParsed = (object, index) => {
-        return(
-            <tr key = {index}>
+        return (
+            <tr key={index} onClick={() => handleRowClick(object.id)} style={{ cursor: 'pointer' }}>
                 <td>{object.stationId}</td>
                 <td>{object.latitude}</td>
                 <td>{object.longitude}</td>
                 <td>{object.city}</td>
                 <td>{object.country}</td>
                 <td>{object.locationAddress}</td>
-                <td style={{width:'120px'}}>{object.lastActiveTime != null ? (object.lastActiveTime).slice(0,10)+' '+(object.lastActiveTime).slice(11,19) : 'Inactive'}</td>
+                <td style={{ width: '120px' }}>
+                    {object.lastActiveTime != null ? (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) : 'Inactive'}
+                </td>
                 <td>{object.feederName}</td>
                 <td>{object.feederEmail}</td>
                 <td>{object.feederPhone}</td>
                 <td>{object.description}</td>
             </tr>
-        )
-    }
+        );
+    };
+  
 
        
     const loading = useSelector(state => {
@@ -820,25 +829,28 @@ const MessagesNumber = (props) =>{
       border: "1px solid black"
     }}
   >
+  <div className='d-flex mb-2'>
+    <a href="/addStation" className="btn btn-primary">Add Station</a>
+  </div>
   <ReactBootstrap.Table striped bordered hover>
-  <thead>
-      <tr>
-          <th>Station</th>
-          <th>Latitude</th>         
-          <th>Longitude</th>      
-          <th>City</th>    
-          <th>Country</th>
-          <th>Location Address</th>    
-          <th>Last Time Seen</th>
-          <th>Feeder Name</th>  
-          <th>Feeder Email</th>            
-          <th>Feeder Phone</th>  
-          <th>Description</th>  
-      </tr>
-  </thead>
-  <tbody>
-     {stationData.map(stationDataParsed)}
-  </tbody>
+      <thead>
+          <tr>
+              <th>Station</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>City</th>
+              <th>Country</th>
+              <th>Location Address</th>
+              <th>Last Time Seen</th>
+              <th>Feeder Name</th>
+              <th>Feeder Email</th>
+              <th>Feeder Phone</th>
+              <th>Description</th>
+          </tr>
+      </thead>
+      <tbody>
+          {stationData.map(stationDataParsed)}
+      </tbody>
   </ReactBootstrap.Table>
   
   </div>;

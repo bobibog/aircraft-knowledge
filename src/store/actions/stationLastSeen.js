@@ -30,9 +30,9 @@ export const getStationData = () => {
         dispatch(stationDataStart());       
         
                  
-        axios.get(`/FeederStatistics/StationsData`)
+        axios.get(`/Station`)
             .then(response => {                
-                dispatch(stationDataSuccess(response.data['stationData']))   
+                dispatch(stationDataSuccess(response.data))   
                 //var json = JSON.stringify(response.data, undefined, 2);
                 //dispatch(stationData(json))
 

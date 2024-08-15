@@ -1,7 +1,7 @@
 FROM node:14-alpine as build
 # FROM node
 WORKDIR /app
-COPY package.json .
+COPY package*.json .
 RUN npm install --legacy-peer-deps
 COPY . .
 ENV REACT_APP_URL_API_DEV=https://api.aviolog.com/api/v1 \
