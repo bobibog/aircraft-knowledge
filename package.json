@@ -41,6 +41,7 @@
         "react-bootstrap": "^1.5.2",
         "react-chart-polar": "^1.0.5",
         "react-chartjs-2": "^4.3.1",
+        "react-datetime": "^3.2.0",
         "react-datetime-picker": "^4.2.0",
         "react-dom": "^16.14.0",
         "react-horizontal-stacked-bar-chart": "^8.15.2",

@@ -132,6 +132,10 @@ export{
 } from './statistics'
 
 export{
+  addStation, updateStation, fetchStation
+} from './station'
+
+export{
     statisticsDirectionalRanges
 }from './directionalRanges'
 
