@@ -228,6 +228,7 @@ const MessagesNumber = (props) =>{
     const handleRowClick = (id) => {
         history.push(`/updateStation/${id}`);
     };
+    
     const stationDataParsed = (object, index) => {
         return (
                   <tr key={index} onClick={() => handleRowClick(object.id)} style={{ cursor: 'pointer' }}>
@@ -834,32 +835,38 @@ const MessagesNumber = (props) =>{
       border: "1px solid black"
     }}
   >
-  <div className='d-flex mb-2'>
-    <a href="/addStation" className="btn btn-primary">Add Station</a>
+
+  <div className='d-flex pb-2'>
+      <button onClick={() => history.push('/addStation')} className="btn btn-primary">
+          Add Station
+      </button>
   </div>
-  <ReactBootstrap.Table striped bordered hover>
-      <thead>
-          <tr>
-              <th>Station</th>
-              <th>Latitude</th>
-              <th>Longitude</th>
-              <th>City</th>
-              <th>Country</th>
-              <th>Location Address</th>
-              <th>Last Time Seen</th>
-              <th>Feeder Name</th>
-              <th>Feeder Email</th>
-              <th>Feeder Phone</th>
-              <th>Description</th>
-              <th>Notification Email</th>
-              <th>Feeder Notification Email</th>
-              <th>First Time Sent To Feeder</th>
-          </tr>
-      </thead>
-      <tbody>
-          {stationData.map(stationDataParsed)}
-      </tbody>
-  </ReactBootstrap.Table>
+  <div className="table-responsive">
+    <ReactBootstrap.Table striped bordered hover>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Location Address</th>
+                <th>Last Time Seen</th>
+                <th>Feeder Name</th>
+                <th>Feeder Email</th>
+                <th>Feeder Phone</th>
+                <th>Description</th>
+                <th>Notification Email</th>
+                <th>Feeder Notification Email</th>
+                <th>First Time Sent To Feeder</th>
+            </tr>
+        </thead>
+        <tbody>
+            {stationData.map(stationDataParsed)}
+        </tbody>
+    </ReactBootstrap.Table>
+</div>
+
   
   </div>;
    }

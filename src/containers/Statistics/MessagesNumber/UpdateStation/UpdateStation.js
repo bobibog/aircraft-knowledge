@@ -106,6 +106,7 @@ const UpdateStation = () => {
               className={classes.input}
               id="id"
               value={stationData.id}
+              disabled
               type="text"
             />
           </div>
@@ -149,7 +150,6 @@ const UpdateStation = () => {
               value={stationData.city}
               onChange={(e) => setStationData({ ...stationData, city: e.target.value })}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -160,7 +160,6 @@ const UpdateStation = () => {
               value={stationData.country}
               onChange={(e) => setStationData({ ...stationData, country: e.target.value })}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -171,7 +170,6 @@ const UpdateStation = () => {
               value={stationData.locationAddress}
               onChange={(e) => setStationData({ ...stationData, locationAddress: e.target.value })}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -214,7 +212,6 @@ const UpdateStation = () => {
               value={stationData.feederPhone}
               onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -225,7 +222,6 @@ const UpdateStation = () => {
               value={stationData.description}
               onChange={(e) => setStationData({ ...stationData, description: e.target.value })}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -247,7 +243,6 @@ const UpdateStation = () => {
               id="feederNotificationEmail"
               value={stationData.feederNotificationEmail}
               onChange={(e) => setStationData({ ...stationData, feederNotificationEmail: e.target.value })}
-              required
             >
               <option value="Send">Send</option>
               <option value="DoNothing">Do Nothing</option>

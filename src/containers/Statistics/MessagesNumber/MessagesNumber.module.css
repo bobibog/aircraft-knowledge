@@ -110,3 +110,11 @@
 .resultBox {
     width: 258px;
 }
+
+@media (max-width: 1683px) {
+  th, td{
+      font-size: 13.5px;
+      padding: 0.25rem!important;
+  }
+
+}
