@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useContext } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
-import { AuthContext } from "../../../../context/auth-context";
 import classes from "./AddStation.module.css";
 
 const AddStation = () => {
   const dispatch = useDispatch();
-  const authContext = useContext(AuthContext);
+  const history = useHistory();
 
   const [id] = useState(0);
   const [stationId, setStationId] = useState("");
@@ -31,47 +31,46 @@ const AddStation = () => {
       stationId,
       latitude: !isNaN(latitudeValue) ? latitudeValue : 0,
       longitude: !isNaN(longitudeValue) ? longitudeValue : 0,
-      city: city || "string",
-      country: country || "string",
-      locationAddress: locationAddress || "string",
-      feederName: feederName || "string",
-      feederEmail: feederEmail || "string",
-      feederPhone: feederPhone || "string",
-      description: description || "string",
+      city,
+      country,
+      locationAddress,
+      feederName,
+      feederEmail,
+      feederPhone,
+      description,
     };
 
-    console.log(
-      "Payload being sent to the API:",
-      JSON.stringify(payload, null, 2)
-    );
+    dispatch(actions.addStation(payload))
+      .then(() => {
+        history.push("/statistics");
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Error response:", error.response);
+          const errorDetails = error.response.data;
+          let errorMessages = "";
 
-    dispatch(actions.addStation(payload)).catch((error) => {
-      if (error.response) {
-        console.error("Error response:", error.response);
-        const errorDetails = error.response.data;
-        let errorMessages = "";
-
-        if (errorDetails && errorDetails.errors) {
-          for (const field in errorDetails.errors) {
-            errorMessages += `${field}: ${errorDetails.errors[field].join(
-              " "
-            )}\n`;
+          if (errorDetails && errorDetails.errors) {
+            for (const field in errorDetails.errors) {
+              errorMessages += `${field}: ${errorDetails.errors[field].join(
+                " "
+              )}\n`;
+            }
+          } else {
+            errorMessages = errorDetails.title || "An unknown error occurred.";
           }
-        } else {
-          errorMessages = errorDetails.title || "An unknown error occurred.";
-        }
 
-        alert(`Error: ${errorMessages}`);
-      } else if (error.request) {
-        console.error("Request error:", error.request);
-        alert(
-          "No response received from the server. Please check your network connection and try again."
-        );
-      } else {
-        console.error("Error message:", error.message);
-        alert(`Error: ${error.message}`);
-      }
-    });
+          alert(`Error: ${errorMessages}`);
+        } else if (error.request) {
+          console.error("Request error:", error.request);
+          alert(
+            "No response received from the server. Please check your network connection and try again."
+          );
+        } else {
+          console.error("Error message:", error.message);
+          alert(`Error: ${error.message}`);
+        }
+      });
   }, [
     dispatch,
     id,
@@ -85,6 +84,7 @@ const AddStation = () => {
     feederEmail,
     feederPhone,
     description,
+    history,
   ]);
 
   const onSubmit = (e) => {
@@ -138,7 +138,6 @@ const AddStation = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -149,7 +148,6 @@ const AddStation = () => {
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -160,7 +158,6 @@ const AddStation = () => {
               value={locationAddress}
               onChange={(e) => setLocationAddress(e.target.value)}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -193,7 +190,6 @@ const AddStation = () => {
               value={feederPhone}
               onChange={(e) => setFeederPhone(e.target.value)}
               type="text"
-              required
             />
           </div>
           <div className={classes.fieldContainer}>
@@ -204,7 +200,6 @@ const AddStation = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               type="text"
-              required
             />
           </div>
           <div className={classes.btnContainer}>
