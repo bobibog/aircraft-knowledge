@@ -230,21 +230,26 @@ const MessagesNumber = (props) =>{
     };
     const stationDataParsed = (object, index) => {
         return (
-            <tr key={index} onClick={() => handleRowClick(object.id)} style={{ cursor: 'pointer' }}>
-                <td>{object.stationId}</td>
-                <td>{object.latitude}</td>
-                <td>{object.longitude}</td>
-                <td>{object.city}</td>
-                <td>{object.country}</td>
-                <td>{object.locationAddress}</td>
-                <td style={{ width: '120px' }}>
-                    {object.lastActiveTime != null ? (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) : 'Inactive'}
-                </td>
-                <td>{object.feederName}</td>
-                <td>{object.feederEmail}</td>
-                <td>{object.feederPhone}</td>
-                <td>{object.description}</td>
-            </tr>
+                  <tr key={index} onClick={() => handleRowClick(object.id)} style={{ cursor: 'pointer' }}>
+                      <td>{object.stationId}</td>
+                      <td>{object.latitude}</td>
+                      <td>{object.longitude}</td>
+                      <td>{object.city || ''}</td>
+                      <td>{object.country || ''}</td>
+                      <td>{object.locationAddress || ''}</td>
+                      <td style={{ width: '120px' }}>
+                          {object.lastActiveTime != null ? (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) : 'Inactive'}
+                      </td>
+                      <td>{object.feederName}</td>
+                      <td>{object.feederEmail}</td>
+                      <td>{object.feederPhone || ''}</td>
+                      <td>{object.description || ''}</td>
+                      <td>{object.notificationEmail || ''}</td>
+                      <td>{object.feederNotificationEmail || ''}</td>
+                      <td style={{ width: '120px' }}>
+                          {object.firstTimeSentToFeeder != null ? (object.firstTimeSentToFeeder).slice(0, 10) + ' ' + (object.firstTimeSentToFeeder).slice(11, 19) : ''}
+                      </td>
+                  </tr>
         );
     };
   
@@ -846,6 +851,9 @@ const MessagesNumber = (props) =>{
               <th>Feeder Email</th>
               <th>Feeder Phone</th>
               <th>Description</th>
+              <th>Notification Email</th>
+              <th>Feeder Notification Email</th>
+              <th>First Time Sent To Feeder</th>
           </tr>
       </thead>
       <tbody>

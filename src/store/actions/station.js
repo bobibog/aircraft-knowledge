@@ -12,9 +12,10 @@ export function addStation({
   feederPhone,
   description,
   isAuthenticated,
+  history,
 }) {
   return function (dispatch) {
-    const url = "https://api-dev.aviolog.com/api/v1/Station";
+    const url = "/Station";
 
     const stationData = {
       stationId,
@@ -40,7 +41,6 @@ export function addStation({
       .then((response) => {
         console.log("Success response:", response);
         alert("Station was added successfully.");
-        window.location.href = "/statistics";
       })
       .catch((error) => {
         console.error("Error response:", error);
@@ -81,12 +81,13 @@ export function updateStation({
   description,
   feederNotificationEmail,
   isAuthenticated,
+  history,
 }) {
   return function (dispatch) {
-    const url = `https://api-dev.aviolog.com/api/v1/Station/${id}`;
+    const url = `/Station/${id}`;
 
     const stationData = {
-      id, // Include the id explicitly as Swagger does
+      id,
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
       city: city || null,
@@ -102,8 +103,8 @@ export function updateStation({
     const config = {
       headers: {
         Authorization: `Bearer ${isAuthenticated}`,
-        "Content-Type": "application/json", // Ensure Content-Type is set
-        accept: "*/*", // Match the accept header from Swagger
+        "Content-Type": "application/json",
+        accept: "*/*",
       },
     };
 
@@ -112,7 +113,6 @@ export function updateStation({
       .then((response) => {
         console.log("Success response:", response);
         alert("Station was updated successfully.");
-        window.location.href = "/statistics";
       })
       .catch((error) => {
         console.error("Error response:", error);
@@ -133,14 +133,14 @@ export function updateStation({
           console.error("Error message:", error.message);
           alert(`Error: ${error.message}`);
         }
-        console.error("Error config:", error.config); // Log Axios config
+        console.error("Error config:", error.config);
       });
   };
 }
 
 export function fetchStation(id, isAuthenticated) {
   return function (dispatch) {
-    const url = `https://api-dev.aviolog.com/api/v1/Station/${id}`;
+    const url = `/Station/${id}`;
 
     const config = {
       headers: {
