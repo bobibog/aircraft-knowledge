@@ -152,7 +152,7 @@ export function fetchStation(id, isAuthenticated) {
       .get(url, config)
       .then((response) => {
         console.log("Fetched station data:", response.data);
-        return response.data; // Ensure this data is returned properly
+        return response.data;
       })
       .catch((error) => {
         console.error("Error fetching station data:", error);
