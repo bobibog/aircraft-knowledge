@@ -160,15 +160,14 @@ const Auth = props => {
 
 
     if ( isAuthenticated ) {
-        //ulazi
-        console.log("e1")               //vrednost od authRedirectPath je bila undefined
+        //1
+                                        //vrednost od authRedirectPath je bila undefined
         authRedirect = <Redirect to={authContext.authRedirectPath} />//redirect na "/"
     }
 
     //gde poslednje udje tu vrednost ce imati authRedirect
     if(isAuthenticated && isTermed!=1){
-        //ulazi na kraju
-        console.log("e2")
+        //2
         //return (<div>bla</div>);
         authRedirect = <Redirect to="/auth2"/>
     }                                         

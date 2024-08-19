@@ -46,7 +46,7 @@ function App() {
   let isAuthenticated = authContext.user.token !== null;//uvek false na pocetku odnosno izlogovani(iako postoji u localStorage) ali je authContext deo stanja App iako nije state vec globalni sto znaci bilo koja promena iz njega utice na rerender App
   
 
-  console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je isAuthenticated==false a user(authUser) se menja iz authCheckState ako postoji token odnosno iz authSuccess se inicijalnom useru(authUser) dodeljuju parametri iz localStorage browsera
+  //console.log("IS AUTHENTICATED: "+isAuthenticated)//na pocetku je isAuthenticated==false a user(authUser) se menja iz authCheckState ako postoji token odnosno iz authSuccess se inicijalnom useru(authUser) dodeljuju parametri iz localStorage browsera
                                                    //authCheckState se zove iz App i u NavigationItems! 
   
   let isRole = authContext.user.role == "Admin" ;
@@ -61,18 +61,24 @@ function App() {
 
   //##
   instance.interceptors.request.use(config =>{
-    localStorage.setItem('lastUsedReqMils',Date.now())
+    const url = config.url;
+
+    //refresh token posle inactivity extend
+                                //refresh                                 //login                                //login
+    if(!url.includes('/Account/refresh-token?username=') && !url.includes('/account/me') && !url.includes('/account/authenticate')){
+      localStorage.setItem('lastUsedReqMils',Date.now())
+    }
+      
     return config;
   },error =>{
     return Promise.reject(error);
   });
-  
-  
+
 
   useEffect(() => {
      authCheckState();//kljucno za automatski login sa postojecim tokenom iz localStrage jer se inicijalno zove useEffect zbog mountovanja App a posle kada se uradi logout ili ako uspe automatski login jer se tada menja isAuthenticated
   }, [authCheckState, isAuthenticated]);
-
+    //authCheckState nema promenjljivu u watch pa se ne menja njena referenca iz watch
 
   //defaultni bezuslovni
   let routes = (
