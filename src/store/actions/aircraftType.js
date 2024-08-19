@@ -22,7 +22,8 @@ export const fetchAircraftTypeStart = () => {
     }
 };
 
-
+//Must add token here, because /AircraftTypeFull/GetAircraftTypesFullAll API endpoint is now Authorized
+//(user must be logged in - have a valid token) !!!
 export const fetchAircraftTypes = (aircraftType,limitTypeMax,token) => {
     
     return dispatch => {
