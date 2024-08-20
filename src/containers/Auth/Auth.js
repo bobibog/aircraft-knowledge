@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 //import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -72,6 +72,11 @@ const Auth = props => {
         setAuthForm(updatedControls);        
         // this.setState( { controls: updatedControls } );
     }
+
+    useEffect(()=>{
+        authContext.authSetShouldLogout(false)//
+    },[])
+
 
     // const submitHandler = ( event ) => {
     //     event.preventDefault();
@@ -155,18 +160,17 @@ const Auth = props => {
 
 
     if ( isAuthenticated ) {
-        //ulazi
-        console.log("e1")               //vrednost od authRedirectPath je bila undefined
+        //1
+                                        //vrednost od authRedirectPath je bila undefined
         authRedirect = <Redirect to={authContext.authRedirectPath} />//redirect na "/"
     }
 
     //gde poslednje udje tu vrednost ce imati authRedirect
     if(isAuthenticated && isTermed!=1){
-        //ulazi na kraju
-        console.log("e2")
+        //2
         //return (<div>bla</div>);
-        authRedirect = <Redirect to="/auth2"/>//4-. (Uspeasan automatski Login)ovde se ulazi ako je isAuthenticated==true a to ce se znati nakon izvrsavanja authCheckState
-    }                                         //auth2 znaci da je authCheckState promenio usera(autentifikovao) iz localStorage browsera pa je onda isAuthenticated==true a zbog promene usera koji je deo global state a koristi ga App onda ce se rerenderovati ponovo App pa onda i Auth jer je child pa se u Auth vrsi ovaj redirect ka ruti /auth2 koja ne postoji u da5 aktivnom Switch pa ce tada aktivirati default iz da5 odnosno Auth nece vise postojati u App
+        authRedirect = <Redirect to="/auth2"/>
+    }                                         
     if(isRole=='Admin')
     {
         authRedirect = <Redirect to="/administrator"/>
@@ -188,14 +192,11 @@ const Auth = props => {
             </Modal> 
 
 
-            {authRedirect}{/*postoji samo ako je isAuthenticated==true*/}
+            {authRedirect}{/*postoji samo ako je isAuthenticated==true ili Admin i ovaj redirect prekida render ispod za login*/}
             {errorMessage}
 
-            {/*3-. (Neuspesan automatski Login authCheckState nije promenio usera odnosno isAuthenticated==false)*/}
-            {/*4. (Logout)*/}
-
-                                {/*--*/} 
-            <form onSubmit={submitHandler}>          
+        
+            <form onSubmit={submitHandler}>{/*--*/}
                 {form}
                 <Button btnType="Success" >LOG IN</Button>
             </form>

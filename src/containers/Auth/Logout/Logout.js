@@ -11,7 +11,7 @@ const Logout = props => {
         logout();
     }, [logout]);
     
-    return <Redirect to="/"/>;{/*2. (Logout)*/}    
-}
+    return <Redirect to="/"/>;
+}                                                     
 
 export default Logout;
