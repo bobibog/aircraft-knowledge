@@ -19,7 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
 import StationStatusTable from './StationStatusTable/StationStatusTable';
 import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 const MessagesNumber = (props) =>{
@@ -148,9 +148,37 @@ const MessagesNumber = (props) =>{
         setMsgType('');
     };    
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const targetStationId = searchParams.get("stationId");
+
     useEffect(() => {
         onFetchStationStatus();
-    }, [onFetchStationStatus])
+    
+        if (targetStationId) {
+            setTimeout(() => {
+                const element = document.getElementById(`station-row-${targetStationId}`);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                    element.focus();
+
+                    element.classList.add(classes.highlight);
+    
+                    setTimeout(() => {
+                        element.classList.add(classes.dehighlight);
+    
+                        setTimeout(() => {
+                            element.classList.remove(classes.highlight);
+                            element.classList.remove(classes.dehighlight);
+                        }, 2000);
+                    }, 2000); 
+                }
+            }, 100);
+        }
+    }, [onFetchStationStatus, targetStationId, classes.highlight, classes.dehighlight]);
+    
+    
+    
 
     let stationStatusTable = <Spinner />;
     if (!stationStatus && !loadingStationStatus  ) {
@@ -231,28 +259,41 @@ const MessagesNumber = (props) =>{
     
     const stationDataParsed = (object, index) => {
         return (
-                  <tr key={index} onClick={() => handleRowClick(object.id)} style={{ cursor: 'pointer' }}>
-                      <td>{object.stationId}</td>
-                      <td>{object.latitude}</td>
-                      <td>{object.longitude}</td>
-                      <td>{object.city || ''}</td>
-                      <td>{object.country || ''}</td>
-                      <td>{object.locationAddress || ''}</td>
-                      <td style={{ width: '120px' }}>
-                          {object.lastActiveTime != null ? (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) : 'Inactive'}
-                      </td>
-                      <td>{object.feederName}</td>
-                      <td>{object.feederEmail}</td>
-                      <td>{object.feederPhone || ''}</td>
-                      <td>{object.description || ''}</td>
-                      <td>{object.notificationEmail || ''}</td>
-                      <td>{object.feederNotificationEmail || ''}</td>
-                      <td style={{ width: '120px' }}>
-                          {object.firstTimeSentToFeeder != null ? (object.firstTimeSentToFeeder).slice(0, 10) + ' ' + (object.firstTimeSentToFeeder).slice(11, 19) : ''}
-                      </td>
-                  </tr>
+            <tr 
+                key={index} 
+                id={`station-row-${object.stationId}`}
+                onClick={() => handleRowClick(object.id)} 
+                style={{ cursor: 'pointer' }}
+            >
+                <td>{object.stationId}</td>
+                <td>{object.latitude}</td>
+                <td>{object.longitude}</td>
+                <td>{object.city || ''}</td>
+                <td>{object.country || ''}</td>
+                <td>{object.locationAddress || ''}</td>
+                <td style={{ width: '120px' }}>
+                    {object.lastActiveTime != null ? 
+                        (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) 
+                        : 
+                        'Inactive'
+                    }
+                </td>
+                <td>{object.feederName}</td>
+                <td>{object.feederEmail}</td>
+                <td>{object.feederPhone || ''}</td>
+                <td>{object.description || ''}</td>
+                <td>{object.notificationEmail || ''}</td>
+                <td>{object.feederNotificationEmail || ''}</td>
+                <td style={{ width: '120px' }}>
+                    {object.firstTimeSentToFeeder != null ? 
+                        (object.firstTimeSentToFeeder).slice(0, 10) + ' ' + (object.firstTimeSentToFeeder).slice(11, 19) 
+                        : 
+                        ''}
+                </td>
+            </tr>
         );
     };
+    
   
 
        

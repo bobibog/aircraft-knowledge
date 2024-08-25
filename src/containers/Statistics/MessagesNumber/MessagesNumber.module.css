@@ -111,6 +111,17 @@
     width: 258px;
 }
 
+.highlight {
+    background-color: rgb(219, 239, 255) !important;
+    transition: background-color 2s ease-in-out !important;
+}
+
+.dehighlight {
+    background-color: transparent !important;
+    transition: background-color 2s ease-in-out !important;
+}
+
+
 @media (max-width: 1683px) {
   th, td{
       font-size: 13.5px;

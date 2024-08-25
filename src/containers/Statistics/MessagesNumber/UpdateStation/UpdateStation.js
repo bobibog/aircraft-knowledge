@@ -7,7 +7,6 @@ import classes from "./UpdateStation.module.css";
 const UpdateStation = () => {
   const { id } = useParams();
   const history = useHistory();
-
   const dispatch = useDispatch();
 
   const [stationData, setStationData] = useState({
@@ -62,24 +61,24 @@ const UpdateStation = () => {
 
   const onUpdateStation = useCallback(() => {
     const payload = {
-        id: stationData.id,
-        latitude: parseFloat(stationData.latitude) || 0,
-        longitude: parseFloat(stationData.longitude) || 0,
-        city: stationData.city,
-        country: stationData.country,
-        locationAddress: stationData.locationAddress,
-        feederName: stationData.feederName,
-        feederEmail: stationData.feederEmail,
-        feederPhone: stationData.feederPhone,
-        description: stationData.description,
-        feederNotificationEmail: stationData.feederNotificationEmail === "DoNothing"
-            ? "DoNothing"
-            : stationData.feederNotificationEmail,
+      id: stationData.id,
+      latitude: parseFloat(stationData.latitude) || 0,
+      longitude: parseFloat(stationData.longitude) || 0,
+      city: stationData.city,
+      country: stationData.country,
+      locationAddress: stationData.locationAddress,
+      feederName: stationData.feederName,
+      feederEmail: stationData.feederEmail,
+      feederPhone: stationData.feederPhone,
+      description: stationData.description,
+      feederNotificationEmail: stationData.feederNotificationEmail === "DoNothing"
+        ? "DoNothing"
+        : stationData.feederNotificationEmail,
     };
 
     dispatch(actions.updateStation(payload))
       .then(() => {
-        history.push("/statistics");
+        history.push(`/statistics?stationId=${stationData.stationId}`);
       })
       .catch((error) => {
         console.error("Error updating station:", error);
@@ -88,7 +87,7 @@ const UpdateStation = () => {
     dispatch,
     stationData,
     history
-]);
+  ]);
 
   const onSubmit = (e) => {
     e.preventDefault();
