@@ -173,7 +173,7 @@ const MessagesNumber = (props) =>{
                         }, 2000);
                     }, 2000); 
                 }
-            }, 100);
+            }, 1000);
         }
     }, [onFetchStationStatus, targetStationId, classes.highlight, classes.dehighlight]);
     
