@@ -40,7 +40,6 @@ export function addStation({
       .post(url, stationData, config)
       .then((response) => {
         console.log("Success response:", response);
-        alert("Station was added successfully.");
       })
       .catch((error) => {
         console.error("Error response:", error);
@@ -112,7 +111,6 @@ export function updateStation({
       .put(url, stationData, config)
       .then((response) => {
         console.log("Success response:", response);
-        alert("Station was updated successfully.");
       })
       .catch((error) => {
         console.error("Error response:", error);
