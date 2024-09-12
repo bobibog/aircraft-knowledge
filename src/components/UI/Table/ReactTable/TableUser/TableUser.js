@@ -105,14 +105,23 @@ const TableUser = (props) => {
         {
             Header: "UPDATE",            
             Cell: ( props ) => {return (
-                <Link to={`/updateUser/${props.row.original.id}`} className={classes.buttonUpdate} onClick={
-                    useCallback(() => dispatch(actions.getUser(props.row.original.id, isAuthenticated))
-                      , [dispatch, props.row.original.id])}>
+                <Link to={`/updateUser/${props.row.original.id}`} className={classes.buttonUpdate} 
+                    // onClick={
+                    //     useCallback(() => dispatch(actions.getUser(props.row.original.id, isAuthenticated))
+                    //     , [dispatch, props.row.original.id])}
+                >
                     <FontAwesomeIcon icon={faPenAlt} className={classes.update} />
                 </Link>                
-            )}
-            
-        }
+            )}            
+        },
+        {
+            Header: "Login provider",
+            accessor: "loginProvider"
+        },
+        {
+            Header: "Ethereum account",
+            accessor: "ethereumAccountAddress"
+        },
     ];
     
     

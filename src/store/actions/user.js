@@ -42,18 +42,21 @@ export const fetchUsersStart = () => {
 };
 
 // 1 USER
-export const fetchUserSuccess = (password, username, name, surname, role, terms, company, email) => {
+export const fetchUserSuccess = (id, username, name, surname, role, terms, email, company, emailConfirmed, loginProvider, ethereumAccountAddress) => {
     return {
         type: actionTypes.FETCH_USER_SUCCESS,
         // user: user 
-        password: password,
+        //password: password,
         username: username,
         name: name,
         surname: surname,
         role: role,
         terms: terms,
         company: company,
-        email: email       
+        email: email,
+        emailConfirmed: emailConfirmed,
+        loginProvider: loginProvider,
+        ethereumAccountAddress: ethereumAccountAddress       
     }
 };
 
@@ -118,9 +121,10 @@ export const getUser = (id, isAuthenticated) => {
             
         axios.get(url, config)
             .then(response => { 
-                dispatch(fetchUserSuccess(response.data.password, response.data.username,
+                dispatch(fetchUserSuccess(response.data.id, response.data.username,
                     response.data.name, response.data.surname, response.data.role, response.data.terms,
-                    response.data.email, response.data.company))                                 
+                    response.data.email, response.data.company, response.data.emailConfirmed,
+                    response.data.loginProvider, response.data.ethereumAccountAddress))                                 
             }
             )
             .catch(error => {
