@@ -139,8 +139,18 @@ const  UpdateUser = (props) => {
     //     , [dispatch, id, password, username, role, email, uName, surname, company, terms, isAuthenticated]
     // );    
     
-    const onReset =()=>{
-        setSelectedUser(selectedUserInitialValue);
+    const onCancel = () => {
+        //back to user page if we want to cancel update:
+        history.push('/user');
+    }
+    
+    const onReset = () => {
+        //Ima smisla jedino resetovati Company na prazan string posto rola nije validna kao prazan string!
+        //Ostala polja nema smisla resetovati jer se ona i ne mogu editovati jer bekend endpoint edituje samo rolu i kompaniju!
+        //Zbog svega toga najbolje da ukinemo dugme Clear jer prakticno nema smisla ovde.
+        setSelectedUser({...selectedUser, company: ""});
+        // setSelectedUser(selectedUserInitialValue);
+        
         // setPassword('');
         // setUsername('');
         // setRole('');
@@ -210,8 +220,11 @@ const  UpdateUser = (props) => {
                         <div className={classes.button}>
                             <button  type="submit" className="btn btn-primary" onClick={onUpdate} >UPDATE</button>
                         </div>
-                        <div className={classes.button}>
+                        {/* <div className={classes.button}>
                             <button  type="submit" className="btn btn-warning" onClick={onReset}>CLEAR</button>
+                        </div> */}
+                        <div className={classes.button}>
+                            <button  type="submit" className="btn btn-warning" onClick={onCancel}>CANCEL</button>
                         </div>
                     </div>
                 </div>

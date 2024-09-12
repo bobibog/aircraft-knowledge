@@ -104,7 +104,7 @@ const Users = props => {
     
     return (
         <React.Fragment>    
-            <Heading/>                                                
+            {/* <Heading/>                                                 */}
             {usersTable}            
         </React.Fragment>        
     );
