@@ -79,12 +79,12 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
         dispatch(fetchUsersStart());        
           
         const query = new URLSearchParams();                        
-        query.append('username', username);
-        query.append('name', name);
-        query.append('surname', surname);
-        query.append('email', email);
-        query.append('company', company);
-        query.append('terms', terms);        
+        // query.append('username', username);
+        // query.append('name', name);
+        // query.append('surname', surname);
+        // query.append('email', email);
+        // query.append('company', company);
+        // query.append('terms', terms);        
         query.append('offset', offset);
         query.append('limit', limit); 
         
@@ -92,13 +92,13 @@ export const fetchUsers = (offset, limit, username, password, role, name, surnam
             ? query
             : '';    
         
-        let url = '/Account/Users?';
+        let url = '/Account/Users?' + queryString;
             
         const config ={
             headers: {'Authorization': `Bearer ${isAuthenticated}`}
         }
             
-        axios.get(url, config, queryString)
+        axios.get(url, config)
             .then(response => {                
                 dispatch(fetchUsersSuccess(response.data['users'], response.data['usersCount']))                 
             })
