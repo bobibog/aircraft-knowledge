@@ -50,7 +50,7 @@ const  DeleteUser = (props) => {
     const onDelete = () => {
         setDeleteLoading(true);
         const url = `/Account/Delete/${selectedUserId}`
-        axios.put(url, config)
+        axios.delete(url, config)
             .then(response => {
                 setDeleteLoading(false)
                 //back to user page if update successfull:
@@ -118,10 +118,10 @@ const  DeleteUser = (props) => {
                             <label htmlFor="emailConfirmed">Email confirmed</label>                         
                             <input className={classes.input} name="emailConfirmed" value={selectedUser.emailConfirmed} disabled />
                         </div>
-                        <div className={classes.fieldContainer}>  
+                        {/* <div className={classes.fieldContainer}>  
                             <label htmlFor="loginProvider">Login provider</label>                      
                             <input className={classes.input} name="loginProvider" value={selectedUser.loginProvider} disabled />
-                        </div>
+                        </div> */}
                         <div className={classes.fieldContainer}>
                             <label htmlFor="ethereumAccountAddress">Ethereum account address</label>                        
                             <input className={classes.input} name="ethereumAccountAddress" value={selectedUser.ethereumAccountAddress} disabled />
