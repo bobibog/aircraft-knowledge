@@ -17,6 +17,7 @@ import User from './containers/Users/Users';
 import AddUser from './containers/Users/AddUser/AddUser';
 import Auth2 from './containers/Auth/Auth2';
 import UpdateUser from './containers/Users/UpdateUser/UpdateUser';
+import DeleteUser from './containers/Users/DeleteUser/DeleteUser';
 import Adsb from './containers/Adsb/Adsb';
 //import Map from './containers/Map/Map';
 import AcarsWithExtData from './containers/AcarsWithExtData/AcarsWithExtData';
@@ -208,6 +209,7 @@ function App() {
         <Route path="/user" component={User} />  
         <Route path="/addUser" component={AddUser} />
         <Route path={"/updateUser/:id"} component={UpdateUser} />
+        <Route path={"/deleteUser/:id"} component={DeleteUser} />
         <Route path="/administrator" component={Administrator} />    
         <Redirect from="/" exact to="/administrator" />
         <Route render={() => <div><h1>Data not found administrator</h1></div>} />
