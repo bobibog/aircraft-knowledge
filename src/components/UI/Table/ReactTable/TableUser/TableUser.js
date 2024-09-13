@@ -87,20 +87,12 @@ const TableUser = (props) => {
             accessor: "terms"
         },
         {
+            Header: "Ethereum account",
+            accessor: "ethereumAccountAddress"
+        },
+        {
             Header: "Email confirmed",
             Cell: (props) => {return props.row.original.emailConfirmed ? (<FontAwesomeIcon icon={faCheckCircle} className={classes.update}/>) : (<span/>);}
-        },    
-        {
-            Header: "DELETE",
-            Cell: ( props ) => {return (
-                <Button className={classes.buttonDelete} clicked={useCallback(
-                         () => dispatch(actions.deleteUser(props.row.original.id, isAuthenticated))
-                         , [dispatch, props.row.original.id, isAuthenticated])}                           
-                >
-                  <FontAwesomeIcon icon={faTrashAlt} className={classes.trashCan}  
-                   />
-                </Button>
-              );}
         },
         {
             Header: "UPDATE",            
@@ -113,15 +105,24 @@ const TableUser = (props) => {
                     <FontAwesomeIcon icon={faPenAlt} className={classes.update} />
                 </Link>                
             )}            
-        },
+        },    
         {
-            Header: "Login provider",
-            accessor: "loginProvider"
-        },
-        {
-            Header: "Ethereum account",
-            accessor: "ethereumAccountAddress"
-        },
+            Header: "DELETE",
+            Cell: ( props ) => {return (
+                <Link to={`/deleteUser/${props.row.original.id}`} className={classes.buttonDelete} 
+                    // clicked={useCallback(
+                    //      () => dispatch(actions.deleteUser(props.row.original.id, isAuthenticated))
+                    //      , [dispatch, props.row.original.id, isAuthenticated])}                           
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} className={classes.trashCan} />
+                </Link>
+              );}
+        }
+        // {
+        //     Header: "Login provider",
+        //     accessor: "loginProvider"
+        // },
+        
     ];
     
     
