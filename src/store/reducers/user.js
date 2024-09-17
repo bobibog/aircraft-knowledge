@@ -4,14 +4,18 @@ import {updateObject} from '../../shared/utility';
 
 const initialState = {
     
+    id: null,
     username: null,
-    password: null,
+    //password: null,
     name: null,
     surname: null,
     role: null,
     terms: null,
     company: null,
-    email: null,    
+    email: null, 
+    emailConfirmed: null,
+    loginProvider: null,
+    ethereumAccountAddress: null,   
     users: null,
     usersCount: null,
     usersLoading: false,
@@ -59,7 +63,8 @@ const fetchUserStart = (state, action) => {
 const fetchUserSuccess = (state, action) => {
     return updateObject(state, {
         
-        password: action.password,  
+        //password: action.password,
+        id: action.id,  
         username: action.username,
         role: action.role,
         email: action.email,
@@ -68,7 +73,9 @@ const fetchUserSuccess = (state, action) => {
         company: action.company,
         terms: action.terms,          
         usersLoading: false,
-        emailConfirmed: action.emailConfirmed
+        emailConfirmed: action.emailConfirmed,
+        loginProvider: action.loginProvider,
+        ethereumAccountAddress: action.ethereumAccountAddress
     });
 };
 const fetchUserFail = (state, action) => {

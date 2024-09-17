@@ -1,20 +1,20 @@
 import React, { useContext, useState, useEffect, useCallback, useRef } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+//import {useSelector, useDispatch} from 'react-redux';
 import {Link, useHistory, Redirect} from 'react-router-dom';
-import classes from './UpdateUser.module.css';
-import * as actions from '../../../store/actions/index';
-import { result } from 'lodash';
+import classes from './DeleteUser.module.css';
+//import * as actions from '../../../store/actions/index';
+//import { result } from 'lodash';
 import axios from '../../../axios-azure';
-import {match} from 'react-router';
+//import {match} from 'react-router';
 import {AuthContext} from '../../../context/auth-context';
-import {UserContext} from '../../../context/user-context';
-import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
+//import {UserContext} from '../../../context/user-context';
+//import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 //import { useParams, useHistory } from "react-router-dom";
 
 const selectedUserInitialValue = {name: "", surname: "", email: "", username: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
 
 
-const  UpdateUser = (props) => {          
+const  DeleteUser = (props) => {          
     
     //const dispatch = useDispatch();
     const history = useHistory();
@@ -24,7 +24,7 @@ const  UpdateUser = (props) => {
 
     const [selectedUser, setSelectedUser] = useState(selectedUserInitialValue);
     const [loading, setLoading] = useState(false);
-    const [updateLoading, setUpdateLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
 
     //const selectedUserId = props.id;
     //const idUser = props.match.params.id; 
@@ -47,24 +47,19 @@ const  UpdateUser = (props) => {
             });
     }, [selectedUserId]);
 
-    const onUpdate = () => {
-        setUpdateLoading(true);
-        const updateUserDto = {
-            username: selectedUser.username, 
-            role: selectedUser.role,
-            company: selectedUser.company
-        };
-        const url = '/Account/UpdateRoleCompany'
-        axios.put(url, updateUserDto, config)
+    const onDelete = () => {
+        setDeleteLoading(true);
+        const url = `/Account/Delete/${selectedUserId}`
+        axios.delete(url, config)
             .then(response => {
-                setUpdateLoading(false)
+                setDeleteLoading(false)
                 //back to user page if update successfull:
                 history.push('/user');
                 //location.href is BAD idea because it makes HTTP call to the server!!!
                 //window.location.href="/user"; 
             })
             .catch(error => {
-                setUpdateLoading(false);
+                setDeleteLoading(false);
                 alert(error.message);  
                 //console.log('Greska je: ' + error);                
             });
@@ -75,6 +70,7 @@ const  UpdateUser = (props) => {
         history.push('/user');
     }
     
+    //We do not use this reset:
     const onReset = () => {
         //Ima smisla jedino resetovati Company na prazan string posto rola nije validna kao prazan string!
         //Ostala polja nema smisla resetovati jer se ona i ne mogu editovati jer bekend endpoint edituje samo rolu i kompaniju!
@@ -85,7 +81,7 @@ const  UpdateUser = (props) => {
         
   return (
     <>
-                <h2><u>UPDATE - {selectedUser.username}</u></h2>  
+                <h2><u>DELETE - {selectedUser.username}</u></h2>  
                 <div className={classes.container}>         
                     <form className={classes.form} >                        
                         <div className={classes.fieldContainer}> 
@@ -102,7 +98,7 @@ const  UpdateUser = (props) => {
                         </div>
                         <div className={classes.fieldContainer}>                        
                             <label htmlFor="company">Company</label>                        
-                            <input className={classes.input} name="company" value={selectedUser.company} onChange={(e)=>setSelectedUser({...selectedUser, company: e.target.value})} />
+                            <input className={classes.input} name="company" value={selectedUser.company} disabled />
                         </div>
                         <div className={classes.fieldContainer}> 
                             <label htmlFor="username">Username</label>                        
@@ -113,7 +109,7 @@ const  UpdateUser = (props) => {
                         </div> */}
                         <div className={classes.fieldContainer}>
                             <label htmlFor="role">Role</label>                         
-                            <input className={classes.input} name='role' value={selectedUser.role} onChange={(e)=>setSelectedUser({...selectedUser, role: e.target.value})} />
+                            <input className={classes.input} name='role' value={selectedUser.role} disabled />
                         </div>
                         <div className={classes.fieldContainer}>                        
                             <input className={classes.input} name="terms" value={selectedUser.terms} disabled />
@@ -134,7 +130,7 @@ const  UpdateUser = (props) => {
                     </form>
                     <div className={classes.btnContainer}>
                         <div className={classes.button}>
-                            <button  type="submit" className="btn btn-primary" onClick={onUpdate} >UPDATE</button>
+                            <button  type="submit" className="btn btn-danger" onClick={onDelete} >DELETE</button>
                         </div>
                         {/* <div className={classes.button}>
                             <button  type="submit" className="btn btn-warning" onClick={onReset}>CLEAR</button>
@@ -148,4 +144,4 @@ const  UpdateUser = (props) => {
   );
 };
 
-export default UpdateUser;
+export default DeleteUser;

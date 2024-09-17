@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
@@ -42,7 +42,7 @@ const AddStation = () => {
 
     dispatch(actions.addStation(payload))
       .then(() => {
-        history.push("/statistics");
+        history.push(`/statistics?stationId=${stationId}`);
       })
       .catch((error) => {
         if (error.response) {
