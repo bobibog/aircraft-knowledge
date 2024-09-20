@@ -175,5 +175,29 @@ export const COLUMNS=[
     {
         Header: "WiFi LinkQuality",
         accessor: "wifiLinkQuality"
+    },
+    {
+        Header: "Latitude",
+        accessor: "locationLat"
+    },
+    {
+        Header: "Longitude",
+        accessor: "locationLon"
+    },
+    {
+        Header: "Source",
+        accessor: "locationSource"
+    },
+    {
+        Header: "Accuracy",
+        accessor: "locationAccuracy"
+    },
+    {
+        Header: "Country",
+        accessor: "locationCountry"
+    },
+    {
+        Header: "Town",
+        accessor: "locationTown"
     }    
 ]
