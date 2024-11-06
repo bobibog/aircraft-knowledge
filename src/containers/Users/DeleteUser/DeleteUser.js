@@ -102,7 +102,7 @@ const  DeleteUser = (props) => {
                         </div>
                         <div className={classes.fieldContainer}> 
                             <label htmlFor="username">Username</label>                        
-                            <input className={classes.input} name="username" value={selectedUser.username} disabled />
+                            <input className={classes.input} name="username" value={selectedUser.userName} disabled />
                         </div>
                         {/* <div >                        
                             <input className={classes.input} name="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder='Password'/>
