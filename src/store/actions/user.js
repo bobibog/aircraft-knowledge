@@ -48,7 +48,7 @@ export const fetchUserSuccess = (id, userName, name, surname, role, terms, email
         type: actionTypes.FETCH_USER_SUCCESS,
         // user: user 
         //password: password,
-        username: username,
+        username: userName,
         name: name,
         surname: surname,
         role: role,
