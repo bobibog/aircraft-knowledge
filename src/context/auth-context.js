@@ -250,7 +250,7 @@ const AuthContextProvider = props => {
                     //,response.data.username
                 )
                 .then(res=>{        
-                    alert('Nice to see you again '+response.data.username)
+                    alert('Nice to see you again '+response.data.user.username)
                 })
                 
                 /*
