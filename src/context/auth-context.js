@@ -22,7 +22,7 @@ const initialUser = {
     //##
     //////////
     refreshToken: null,
-    username: null,
+    //username: null,
     //expiresDateTimeISO: null,//vec iso zona u odnosu na 00:00 
     //expiresDateTimeISOExtend: null,
     
@@ -250,7 +250,7 @@ const AuthContextProvider = props => {
                     //,response.data.username
                 )
                 .then(res=>{        
-                    alert('Nice to see you again ' + response.data.user.username)
+                    alert('Nice to see you again ' + response.data.user.userName)
                 })
                 
                 /*
@@ -413,6 +413,7 @@ const fetchMe = (token) =>{
         //We have already initialized token in login api call!
         // initializeStateStorage(token,r.data.refreshToken,r.data.userName,r.data.id,r.data.role,r.data.terms,r.data.company);
         //Now it is changed that user data are in user object:
+        //const usernameForAuthContext = r.data.user.userName;
         initializeStateStorage(token,r.data.user.refreshToken,r.data.user.userName,r.data.user.id,r.data.user.role,r.data.user.terms,r.data.user.company);
         
         // if(!isLoggedIn)

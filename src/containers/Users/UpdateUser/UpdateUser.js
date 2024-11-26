@@ -52,7 +52,8 @@ const  UpdateUser = (props) => {
         const updateUserDto = {
             userName: selectedUser.userName, 
             role: selectedUser.role,
-            company: selectedUser.company
+            company: selectedUser.company,
+            emailConfirmed: selectedUser.emailConfirmed
         };
         const url = '/Account/UpdateRoleCompany'
         axios.put(url, updateUserDto, config)
@@ -121,7 +122,7 @@ const  UpdateUser = (props) => {
                         </div>
                         <div className={classes.fieldContainer}>
                             <label htmlFor="emailConfirmed">Email confirmed</label>                         
-                            <input className={classes.input} name="emailConfirmed" value={selectedUser.emailConfirmed} disabled />
+                            <input className={classes.input} name="emailConfirmed" value={selectedUser.emailConfirmed} onChange={(e)=>setSelectedUser({...selectedUser, emailConfirmed: e.target.value})} />
                         </div>
                         {/* <div className={classes.fieldContainer}>  
                             <label htmlFor="loginProvider">Login provider</label>                      
