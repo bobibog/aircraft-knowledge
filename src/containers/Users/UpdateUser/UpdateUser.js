@@ -11,7 +11,7 @@ import {UserContext} from '../../../context/user-context';
 import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 //import { useParams, useHistory } from "react-router-dom";
 
-const selectedUserInitialValue = {name: "", surname: "", email: "", username: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
+const selectedUserInitialValue = {name: "", surname: "", email: "", userName: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
 
 
 const  UpdateUser = (props) => {          
@@ -50,7 +50,7 @@ const  UpdateUser = (props) => {
     const onUpdate = () => {
         setUpdateLoading(true);
         const updateUserDto = {
-            username: selectedUser.username, 
+            userName: selectedUser.userName, 
             role: selectedUser.role,
             company: selectedUser.company
         };
@@ -85,7 +85,7 @@ const  UpdateUser = (props) => {
         
   return (
     <>
-                <h2><u>UPDATE - {selectedUser.username}</u></h2>  
+                <h2><u>UPDATE - {selectedUser.userName}</u></h2>  
                 <div className={classes.container}>         
                     <form className={classes.form} >                        
                         <div className={classes.fieldContainer}> 
@@ -105,8 +105,8 @@ const  UpdateUser = (props) => {
                             <input className={classes.input} name="company" value={selectedUser.company} onChange={(e)=>setSelectedUser({...selectedUser, company: e.target.value})} />
                         </div>
                         <div className={classes.fieldContainer}> 
-                            <label htmlFor="username">Username</label>                        
-                            <input className={classes.input} name="username" value={selectedUser.userName} disabled />
+                            <label htmlFor="userName">Username</label>                        
+                            <input className={classes.input} name="userName" value={selectedUser.userName} disabled />
                         </div>
                         {/* <div >                        
                             <input className={classes.input} name="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder='Password'/>
@@ -115,7 +115,8 @@ const  UpdateUser = (props) => {
                             <label htmlFor="role">Role</label>                         
                             <input className={classes.input} name='role' value={selectedUser.role} onChange={(e)=>setSelectedUser({...selectedUser, role: e.target.value})} />
                         </div>
-                        <div className={classes.fieldContainer}>                        
+                        <div className={classes.fieldContainer}>   
+                            <label htmlFor="terms">Terms</label>                      
                             <input className={classes.input} name="terms" value={selectedUser.terms} disabled />
                         </div>
                         <div className={classes.fieldContainer}>
