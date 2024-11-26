@@ -38,7 +38,11 @@ const  UpdateUser = (props) => {
         setLoading(true);
         axios.get(`/account/${selectedUserId}`, config)
             .then(response => {
-                setSelectedUser(response.data);
+                const userCurrent = response.data;
+                //We chose to operate on frontend with string instead of bool. Backend will then validate if
+                //that string is a valid boolean!
+                userCurrent.emailConfirmed = userCurrent.emailConfirmed.toString();
+                setSelectedUser(userCurrent);
                 setLoading(false); 
             })
             .catch(error => {
