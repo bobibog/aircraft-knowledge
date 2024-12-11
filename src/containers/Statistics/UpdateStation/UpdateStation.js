@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import * as actions from "../../../../store/actions/index";
+import * as actions from "../../../store/actions/index";
 import classes from "./UpdateStation.module.css";
 
 const UpdateStation = () => {

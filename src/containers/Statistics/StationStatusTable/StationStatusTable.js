@@ -5,7 +5,7 @@ import {RiArrowLeftSLine} from 'react-icons/ri';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {FiSkipForward} from 'react-icons/fi';
 import {FiSkipBack} from 'react-icons/fi';
-import {CheckBox} from '../../../../components/UI/CheckBox/CheckBox';
+import {CheckBox} from '../../../components/UI/CheckBox/CheckBox';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import * as FileSaver from 'file-saver';
