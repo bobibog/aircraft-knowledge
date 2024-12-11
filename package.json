@@ -38,7 +38,7 @@
         "react": "^16.14.0",
         "react-apexcharts": "^1.4.0",
         "react-azure-maps": "^0.3.0",
-        "react-bootstrap": "^1.5.2",
+        "react-bootstrap": "^2.0.0",
         "react-chart-polar": "^1.0.5",
         "react-chartjs-2": "^4.3.1",
         "react-datetime": "^3.2.0",

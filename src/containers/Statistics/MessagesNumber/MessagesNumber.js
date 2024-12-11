@@ -17,7 +17,7 @@ import Chart from 'react-apexcharts';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
-import StationStatusTable from './StationStatusTable/StationStatusTable';
+import StationStatusTable from '../StationStatusTable/StationStatusTable';
 import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -254,7 +254,8 @@ const MessagesNumber = (props) =>{
     const history = useHistory();
 
     const handleRowClick = (id) => {
-        history.push(`/updateStation/${id}`);
+        //history.push(`/updateStation/${id}`);
+        history.push(`/stationDetails/${id}`);
     };
     
     const stationDataParsed = (object, index) => {
