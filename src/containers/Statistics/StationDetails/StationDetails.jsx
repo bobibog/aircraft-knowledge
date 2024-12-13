@@ -32,8 +32,8 @@ const StationDetails = () => {
   });
   const [stationDataLoading, setStationDataLoading] = useState(true);
 
-  const [usersStationData, setUsersStationData] = useState([]);
-  const [usersStationDataLoading, setUsersStationDataLoading] = useState(true);
+  const [stationLocationData, setStationLocationData] = useState([]);
+  const [stationLocationDataLoading, setStationLocationDataLoading] = useState(true);
 
   useEffect(() => {
     //if (id) {
@@ -75,8 +75,20 @@ const StationDetails = () => {
         .catch(error => {
             setUsersStationDataLoading(false);
             console.error("Error while fetching station's feeder history data:", error);
+        });
+
+    axios.get(`/Station/GetStationLocationHistory/${id}`)
+        .then(response => {
+            setStationLocationDataLoading(false);
+            setStationLocationData(response.data);            
+        })
+        .catch(error => {
+            setStationLocationDataLoading(false);
+            console.error("Error while fetching station's location history data:", error);
         })
     }, []);
+
+    
 //   }, [dispatch, id]);
 
 //   const onUpdateStation = useCallback(() => {
@@ -318,6 +330,33 @@ if (!stationDataLoading) {
         </tbody>;
 }
 
+let stationLocationTable = <Spinner />;
+// if (usersStationData.length == 0 && !usersStationDataLoading) {
+//     usersStationTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read station's feeder history from the server!</p>;
+// }
+if (!stationLocationDataLoading) {
+    stationLocationTable = 
+        <tbody>
+        {usersStationData.map((item, index) => (
+            <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{item.latitude || 'N/A'}</td>
+            <td>{item.longitude || 'N/A'}</td>
+            <td>{item.city || 'N/A'}</td>
+            <td>{item.country || 'N/A'}</td>
+            <td>{item.locationAddress || 'N/A'}</td>
+            <td>{new Date(item.startDate).toLocaleString()}</td>
+            <td>
+                {item.createdOn
+                ? new Date(item.createdOn).toLocaleString()
+                : 'N/A'}
+            </td>
+            <td>{item.createdByUsername || 'N/A'}</td>
+            </tr>
+        ))}
+        </tbody>;
+}
+
 return (
     // <div className={classes.form}>
     <div>
@@ -339,15 +378,14 @@ return (
                         {/* </div> */}
                     </Col>
                 </Row>
-                <Row className="mb-4">
-                    {/* Table for History of Some Fields */}
+                <Row className="mb-4">                    
                     <Col>
                         <h5>Feeder history</h5>
                         <Table striped bordered hover responsive>
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>UserName</th>
+                                <th>Username</th>
                                 <th>Start Date</th>
                                 <th>Note</th>
                                 <th>Created On</th>
@@ -359,27 +397,23 @@ return (
                     </Col>
                 </Row>
                 <Row>
-                    {/* Table for History of Other Fields */}
                     <Col>
-                        <h5>Field History 2</h5>
-                        <Table striped bordered hover>
+                        <h5>Location history</h5>
+                        <Table striped bordered hover responsive>
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Field Name</th>
-                                <th>Previous Value</th>
-                                <th>Date</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Location Address</th>
+                                <th>Start Date</th>
+                                <th>Created On</th>
+                                <th>Created By</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Field 10</td>
-                                <td>Old Value</td>
-                                <td>2024-12-01</td>
-                            </tr>
-                            {/* Add more rows as needed */}
-                            </tbody>
+                            {stationLocationTable}
                         </Table>
                     </Col>
                 </Row>
