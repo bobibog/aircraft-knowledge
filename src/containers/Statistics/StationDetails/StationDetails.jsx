@@ -32,6 +32,9 @@ const StationDetails = () => {
   });
   const [stationDataLoading, setStationDataLoading] = useState(true);
 
+  const [usersStationData, setUsersStationData] = useState([]);
+  const [usersStationDataLoading, setUsersStationDataLoading] = useState(true);
+
   const [stationLocationData, setStationLocationData] = useState([]);
   const [stationLocationDataLoading, setStationLocationDataLoading] = useState(true);
 
@@ -310,7 +313,7 @@ let usersStationTable = <Spinner />;
 // if (usersStationData.length == 0 && !usersStationDataLoading) {
 //     usersStationTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read station's feeder history from the server!</p>;
 // }
-if (!stationDataLoading) {
+if (!usersStationDataLoading) {
     usersStationTable = 
         <tbody>
         {usersStationData.map((item, index) => (
@@ -337,7 +340,7 @@ let stationLocationTable = <Spinner />;
 if (!stationLocationDataLoading) {
     stationLocationTable = 
         <tbody>
-        {usersStationData.map((item, index) => (
+        {stationLocationData.map((item, index) => (
             <tr key={index}>
             <td>{index + 1}</td>
             <td>{item.latitude || 'N/A'}</td>
