@@ -332,11 +332,11 @@ return (
                 <Row className="mb-4">
                     {/* Buttons Row */}
                     <Col>
-                        <div className={classes.btnContainer}>
-                            <button onClick={() => history.push(`/updateStation/${id}`)} className="btn btn-primary" type="submit">
+                        {/* <div className={classes.btnContainer}> */}
+                            <Button variant="primary" className="mt-3 me-3 mb-3" onClick={() => history.push(`/updateStation/${id}`)} >
                                 Update Station
-                            </button>
-                        </div>
+                            </Button>
+                        {/* </div> */}
                     </Col>
                 </Row>
                 <Row className="mb-4">

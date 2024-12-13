@@ -1,4 +1,5 @@
 import axios from "../../axios-azure";
+import axiosPrivate from "../../axios-private";
 
 export function addStation({
   stationId,
@@ -142,14 +143,15 @@ export function fetchStation(id, isAuthenticated) {
   return function (dispatch) {
     const url = `/Station/${id}`;
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${isAuthenticated}`,
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${isAuthenticated}`,
+    //   },
+    // };
 
-    return axios
-      .get(url, config)
+    return axiosPrivate
+      // .get(url, config)
+      .get(url)
       .then((response) => {
         console.log("Fetched station data:", response.data);
         return response.data;
