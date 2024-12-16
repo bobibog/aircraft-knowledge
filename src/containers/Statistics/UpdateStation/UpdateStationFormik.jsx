@@ -16,25 +16,49 @@ const UpdateStationFormik = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [stationData, setStationData] = useState({
-    id: 0,
-    stationId: "",
-    latitude: 0,
-    longitude: 0,
-    locationStartDate: "",
-    city: "",
-    country: "",
-    locationAddress: "",
-    lastActiveTime: "",
-    userId: "",
-    //feederName: "",
-    //feederEmail: "",
-    feederPhone: "",
-    description: "",
-    notificationEmail: "",
-    feederNotificationEmail: "DoNothing",
-    firstTimeSentToFeeder: ""
-  });
+  // const [stationData, setStationData] = useState({
+  //   id: 0,
+  //   stationId: "",
+  //   latitude: 0,
+  //   longitude: 0,
+  //   locationStartDate: "",
+  //   city: "",
+  //   country: "",
+  //   locationAddress: "",
+  //   lastActiveTime: "",
+  //   userId: "",
+  //   //feederName: "",
+  //   //feederEmail: "",
+  //   feederPhone: "",
+  //   description: "",
+  //   notificationEmail: "",
+  //   feederNotificationEmail: "DoNothing",
+  //   firstTimeSentToFeeder: ""
+  // });
+
+  // const initialData = {
+  //   id: 0,
+  //   stationId: "",
+  //   latitude: 0,
+  //   longitude: 0,
+  //   locationStartDate: "",
+  //   city: "",
+  //   country: "",
+  //   locationAddress: "",
+  //   lastActiveTime: "",
+  //   userId: "",
+  //   //feederName: "",
+  //   //feederEmail: "",
+  //   feederPhone: "",
+  //   description: "",
+  //   notificationEmail: "",
+  //   feederNotificationEmail: "DoNothing",
+  //   firstTimeSentToFeeder: ""
+  // };
+
+  const [stationData, setStationData] = useState(null);
+  const [loading, setLoading] = useState(true); // To handle loading state
+  const [error, setError] = useState(null); // To handle error state
 
   const [users, setUsers] = useState([]);
 
@@ -60,6 +84,7 @@ const UpdateStationFormik = () => {
     if (id) {
       dispatch(actions.fetchStation(id))
         .then((station) => {
+          setLoading(false);
           if (station) {
             setStationData({
               id: station.id,
@@ -81,11 +106,13 @@ const UpdateStationFormik = () => {
               feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
               firstTimeSentToFeeder: station.firstTimeSentToFeeder
             });
-          } else {
+          } else {            
             console.error("Station data is undefined or null");
           }
         })
         .catch((error) => {
+          setLoading(false);
+          setError("Failed to load station data.");
           console.error("Error while fetching station data:", error);
         });
     }
@@ -126,12 +153,20 @@ const UpdateStationFormik = () => {
       history
     ]);
   
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <Formik
-      initialValues={initialData}
+      initialValues={stationData}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      enableReinitialize // This ensures the form updates when initialData changes
     >
       {({ setFieldValue, values }) => (
         <Form>

@@ -5,9 +5,9 @@ import axios from "../../../axios-private";
 
 const UserSelector = ({ onSelect }) => {
   // Fetch users API
-  const fetchUsers = async (query) => {
+  const fetchUsers = async (searchString) => {
     const response = await axios.get("/Account/UsersBySearchString", {
-      params: { query },
+      params: { searchString },
     });
     return response.data; // Ensure API returns objects with unique `id`
   };

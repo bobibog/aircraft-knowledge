@@ -71,7 +71,7 @@ export function addStation({
 
 export function updateStation(stationData) {
   return function (dispatch) {
-    const url = `/Station/${id}`;
+    const url = `/Station/${stationData.id}`;
 
     // const config = {
     //   headers: {

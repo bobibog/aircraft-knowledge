@@ -29,7 +29,7 @@ import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumbe
 import AddStation from './containers/Statistics/AddStation/AddStation';
 import StationDetails from './containers/Statistics/StationDetails/StationDetails';
 // import UpdateStation from './containers/Statistics/UpdateStation/UpdateStation';
-import UpdateStation from './containers/Statistics/UpdateStation/UpdateStationFormik';
+import UpdateStationFormik from './containers/Statistics/UpdateStation/UpdateStationFormik';
 import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
 import AcarsWithExtDataCompany from './containers/AcarsWithExtDataCompany/AcarsWithExtDataCompany';
 import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
