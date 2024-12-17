@@ -11,6 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import UserSelector from "../../Users/UserSelector/UserSelector";
 
+import classes from './UpdateStationFormik.module.css';
+
 const UpdateStationFormik = () => {
   const { id } = useParams();
   const history = useHistory();
@@ -167,116 +169,124 @@ const UpdateStationFormik = () => {
 
   return (
     stationData && (
-    <Formik
-      initialValues={stationData}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      enableReinitialize // This ensures the form updates when initialData changes
-    >
-      {({ setFieldValue, values }) => (
-        <Form>
-          <div>
-            <label htmlFor="id">Station Id</label>
-            <Field name="id" type="number" disabled />
-            <ErrorMessage name="id" component="div" className="error" />
-          </div>          
+    <div className={classes["form-container"]}> 
+      <Formik
+        initialValues={stationData}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+        enableReinitialize // This ensures the form updates when initialData changes
+      >
+        {({ setFieldValue, values }) => (
+          <Form className={classes.form}>
+            <div className={classes["form-group"]}>
+              <label htmlFor="id">Id</label>
+              <Field name="id" type="number" disabled />
+              <ErrorMessage name="id" component="div" className={classes.error} />
+            </div>   
+            <div className={classes["form-group"]}>
+              <label htmlFor="stationId">Station Id</label>
+              <Field name="stationId" type="number" disabled />
+              <ErrorMessage name="stationId" component="div" className={classes.error} />
+            </div>          
 
-          <div>
-            <label htmlFor="latitude">Latitude</label>
-            <Field name="latitude" type="number" step="any" />
-            <ErrorMessage name="latitude" component="div" className="error" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="latitude">Latitude</label>
+              <Field name="latitude" type="number" step="any" />
+              <ErrorMessage name="latitude" component="div" className={classes.error} />
+            </div>
 
-          <div>
-            <label htmlFor="longitude">Longitude</label>
-            <Field name="longitude" type="number" step="any" />
-            <ErrorMessage name="longitude" component="div" className="error" />
-          </div>          
+            <div className={classes["form-group"]}>
+              <label htmlFor="longitude">Longitude</label>
+              <Field name="longitude" type="number" step="any" />
+              <ErrorMessage name="longitude" component="div" className={classes.error} />
+            </div>          
 
-          <div>
-            <label htmlFor="locationStartDate">Geolocation start date</label>
-            <DatePicker
-              selected={values.locationStartDate != '' ? new Date(values.locationStartDate) : null}
-              onChange={(date) => setFieldValue("locationStartDate", date)}
-              isClearable
-            />
-            <ErrorMessage
-              name="locationStartDate"
-              component="div"
-              className="error"
-            />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="locationStartDate">Geolocation start date</label>
+              <DatePicker
+                selected={values.locationStartDate != '' ? new Date(values.locationStartDate) : null}
+                onChange={(date) => setFieldValue("locationStartDate", date)}
+                isClearable
+              />
+              <ErrorMessage
+                name="locationStartDate"
+                component="div"
+                className={classes.error}
+              />
+            </div>
 
-          <div>
-            <label htmlFor="city">City</label>
-            <Field name="city" type="text" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="city">City</label>
+              <Field name="city" type="text" />
+            </div>
 
-          <div>
-            <label htmlFor="country">Country</label>
-            <Field name="country" type="text" />
-          </div>
-          
+            <div className={classes["form-group"]}>
+              <label htmlFor="country">Country</label>
+              <Field name="country" type="text" />
+            </div>
+            
 
-          <div>
-            <label htmlFor="userId">Feeder</label>
-            <UserSelector
-              onSelect={(userId) => setFieldValue("userId", userId)}
-            />
-            <ErrorMessage name="userId" component="div" className="error" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="userId">Feeder</label>
+              <UserSelector
+                onSelect={(userId) => setFieldValue("userId", userId)}
+              />
+              <ErrorMessage name="userId" component="div" className={classes.error} />
+            </div>
 
-          <div>
-            <label htmlFor="startDate">Feeder start date</label>
-            <DatePicker
-              selected={values.startDate != '' ? new Date(values.startDate) : null}
-              onChange={(date) => setFieldValue("startDate", date)}
-            />
-            <ErrorMessage name="startDate" component="div" className="error" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="startDate">Feeder start date</label>
+              <DatePicker
+                selected={values.startDate != '' ? new Date(values.startDate) : null}
+                onChange={(date) => setFieldValue("startDate", date)}
+              />
+              <ErrorMessage name="startDate" component="div" className={classes.error} />
+            </div>
 
-          <div>
-            <label htmlFor="feederPhone">Feeder Phone</label>
-            <Field name="feederPhone" type="text" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="feederPhone">Feeder Phone</label>
+              <Field name="feederPhone" type="text" />
+            </div>
 
-          <div>
-            <label htmlFor="description">Note</label>
-            <Field name="description" as="textarea" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="description">Note</label>
+              <Field name="description" as="textarea" />
+            </div>
 
-          <div>
-            <label htmlFor="lastActiveTime">Station last active time</label>
-            <Field name="lastActiveTime" type="text" disabled />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="lastActiveTime">Station last active time</label>
+              <Field name="lastActiveTime" type="text" disabled />
+            </div>
 
-          <div>
-            <label htmlFor="notificationEmail">
-              Notification Email
-            </label>
-            <Field name="notificationEmail" type="text" disabled />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="notificationEmail">
+                Notification Email
+              </label>
+              <Field name="notificationEmail" type="text" disabled />
+            </div>
 
-          <div>
-            <label htmlFor="feederNotificationEmail">
-              Feeder Notification Email
-            </label>
-            <Field name="feederNotificationEmail" as="select" >
-              <option value="Send">Send</option>
-              <option value="DoNothing">Do Nothing</option>
-            </Field>
-            <ErrorMessage name="feederNotificationEmail" component="div" className="error" />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="feederNotificationEmail">
+                Feeder Notification Email
+              </label>
+              <Field name="feederNotificationEmail" as="select" >
+                <option value="Send">Send</option>
+                <option value="DoNothing">Do Nothing</option>
+              </Field>
+              <ErrorMessage name="feederNotificationEmail" component="div" className={classes.error} />
+            </div>
 
-          <div>
-            <label htmlFor="UserStationStatus">Feeder-Station status</label>
-            <Field name="UserStationStatus" type="text" disabled />
-          </div>
+            <div className={classes["form-group"]}>
+              <label htmlFor="UserStationStatus">Feeder-Station status</label>
+              <Field name="UserStationStatus" type="text" disabled />
+            </div>
 
-          <button type="submit">Update Station</button>
-        </Form>
-      )}
-    </Formik> )
+            <button type="submit">Update Station</button>
+          </Form>
+        )}
+      </Formik>
+    </div> 
+    )
   );
 };
 

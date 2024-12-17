@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { debounce } from "lodash";
 
 const DropdownFilterSelector = ({
@@ -13,20 +13,22 @@ const DropdownFilterSelector = ({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  // Debounced fetch function
-  const fetchDebouncedOptions = debounce(async (searchQuery) => {
-    if (!searchQuery.trim()) {
-      setOptions([]);
-      return;
-    }
-    try {
-      const result = await fetchOptions(searchQuery);
-      setOptions(result);
-    } catch (error) {
-      console.error("Error fetching options:", error);
-    }
-  }, debounceTime);
-
+  // Debounced fetch function (memoized with useCallback to persist between renders)
+  const fetchDebouncedOptions = useCallback(
+    debounce(async (searchQuery) => {
+      if (!searchQuery.trim()) {
+        setOptions([]);
+        return;
+      }
+      try {
+        const result = await fetchOptions(searchQuery);
+        setOptions(result);
+      } catch (error) {
+        console.error("Error fetching options:", error);
+      }
+    }, debounceTime),
+    [fetchOptions, debounceTime]
+  );
   // Handle input change
   const handleInputChange = (e) => {
     const value = e.target.value;
