@@ -22,8 +22,10 @@ const StationDetails = () => {
     country: "",
     locationAddress: "",
     lastActiveTime: "",
-    feederName: "",
+    feederUsername: "",
     feederEmail: "",
+    feederName: "",    
+    feederSurname: "",
     feederPhone: "",
     description: "",
     notificationEmail: "",
@@ -53,8 +55,10 @@ const StationDetails = () => {
                 country: station.country || '',
                 locationAddress: station.locationAddress || '',
                 lastActiveTime: station.lastActiveTime || '',
-                feederName: station.feederName || '',
+                feederUsername: station.feederUsername || '',
                 feederEmail: station.feederEmail || '',
+                feederName: station.feederName || '',
+                feederSurname: station.feederSurname || '',
                 feederPhone: station.feederPhone || '',
                 description: station.description || '',
                 notificationEmail: station.notificationEmail || '',
@@ -224,11 +228,11 @@ if (stationData.id != 0 && !stationDataLoading) {
                 />
             </Form.Group>
             <Form.Group className="mb-1">
-                <Form.Label>Feeder Name</Form.Label>
+                <Form.Label>Feeder username</Form.Label>
                 <Form.Control
                 // className={classes.input}
                 // id="feederName"
-                value={stationData.feederName}
+                value={stationData.feederUsername}
                 //onChange={(e) => setStationData({ ...stationData, feederName: e.target.value })}
                 disabled
                 type="text"
@@ -242,6 +246,30 @@ if (stationData.id != 0 && !stationDataLoading) {
                 // id="feederEmail"
                 value={stationData.feederEmail}
                 //onChange={(e) => setStationData({ ...stationData, feederEmail: e.target.value })}
+                disabled
+                type="text"
+                required
+                />
+            </Form.Group>
+            <Form.Group className="mb-1">
+                <Form.Label>Feeder Name</Form.Label>
+                <Form.Control
+                // className={classes.input}
+                // id="feederName"
+                value={stationData.feederName}
+                //onChange={(e) => setStationData({ ...stationData, feederName: e.target.value })}
+                disabled
+                type="text"
+                required
+                />
+            </Form.Group>
+            <Form.Group className="mb-1">
+                <Form.Label>Feeder surname</Form.Label>
+                <Form.Control
+                // className={classes.input}
+                // id="feederName"
+                value={stationData.feederSurname}
+                //onChange={(e) => setStationData({ ...stationData, feederName: e.target.value })}
                 disabled
                 type="text"
                 required
