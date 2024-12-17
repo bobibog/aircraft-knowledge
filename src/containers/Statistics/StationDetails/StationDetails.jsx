@@ -18,6 +18,7 @@ const StationDetails = () => {
     stationId: "",
     latitude: 0,
     longitude: 0,
+    locationStartDate: "",
     city: "",
     country: "",
     locationAddress: "",
@@ -27,6 +28,7 @@ const StationDetails = () => {
     feederName: "",    
     feederSurname: "",
     feederPhone: "",
+    startDate: "",
     description: "",
     notificationEmail: "",
     feederNotificationEmail: "DoNothing",
@@ -51,6 +53,7 @@ const StationDetails = () => {
                 stationId: station.stationId,
                 latitude: station.latitude,
                 longitude: station.longitude,
+                locationStartDate: station.locationStartDate || '',
                 city: station.city || '',
                 country: station.country || '',
                 locationAddress: station.locationAddress || '',
@@ -60,6 +63,7 @@ const StationDetails = () => {
                 feederName: station.feederName || '',
                 feederSurname: station.feederSurname || '',
                 feederPhone: station.feederPhone || '',
+                startDate: station.startDate || '',
                 description: station.description || '',
                 notificationEmail: station.notificationEmail || '',
                 feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
@@ -185,6 +189,17 @@ if (stationData.id != 0 && !stationDataLoading) {
                 />
             </Form.Group>
             <Form.Group className="mb-1">
+                <Form.Label>Geolocation start date</Form.Label>
+                <Form.Control
+                // className={classes.input}
+                // id="feederPhone"
+                value={stationData.locationStartDate}
+                //onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
+                disabled
+                type="text"
+                />
+            </Form.Group>
+            <Form.Group className="mb-1">
                 <Form.Label>City</Form.Label>
                 <Form.Control
                 // className={classes.input}
@@ -281,6 +296,17 @@ if (stationData.id != 0 && !stationDataLoading) {
                 // className={classes.input}
                 // id="feederPhone"
                 value={stationData.feederPhone}
+                //onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
+                disabled
+                type="text"
+                />
+            </Form.Group>
+            <Form.Group className="mb-1">
+                <Form.Label>Feeder start date</Form.Label>
+                <Form.Control
+                // className={classes.input}
+                // id="feederPhone"
+                value={stationData.startDate}
                 //onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
                 disabled
                 type="text"
