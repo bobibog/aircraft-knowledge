@@ -193,7 +193,7 @@ if (stationData.id != 0 && !stationDataLoading) {
                 <Form.Control
                 // className={classes.input}
                 // id="feederPhone"
-                value={stationData.locationStartDate}
+                value={new Date(stationData.locationStartDate).toLocaleString()}
                 //onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
                 disabled
                 type="text"
@@ -237,7 +237,7 @@ if (stationData.id != 0 && !stationDataLoading) {
                 <Form.Control
                 // className={classes.input}
                 // id="lastActiveTime"
-                value={stationData.lastActiveTime}
+                value={new Date(stationData.lastActiveTime).toLocaleString()}
                 disabled
                 type="text"
                 />
@@ -306,7 +306,7 @@ if (stationData.id != 0 && !stationDataLoading) {
                 <Form.Control
                 // className={classes.input}
                 // id="feederPhone"
-                value={stationData.startDate}
+                value={new Date(stationData.startDate).toLocaleString()}
                 //onChange={(e) => setStationData({ ...stationData, feederPhone: e.target.value })}
                 disabled
                 type="text"
@@ -320,7 +320,15 @@ if (stationData.id != 0 && !stationDataLoading) {
                 value={stationData.description}
                 //onChange={(e) => setStationData({ ...stationData, description: e.target.value })}
                 disabled
-                type="text"
+                as="textarea"
+                style={{
+                    resize: "none",       // Prevent manual resizing
+                    overflow: "hidden",    // Hide scrollbars if not needed
+                    whiteSpace: "pre-wrap", // Wrap text and preserve formatting
+                    wordWrap: "break-word", // Ensure long words break correctly
+                    height: "auto",        // Auto adjust height
+                    minHeight: "50px"     // Set a minimum height
+                  }}
                 />
             </Form.Group>
             <Form.Group className="mb-1">
@@ -355,7 +363,7 @@ if (stationData.id != 0 && !stationDataLoading) {
                 <Form.Control
                 // className={classes.input}
                 // id="firstTimeSentToFeeder"
-                value={stationData.firstTimeSentToFeeder}
+                value={new Date(stationData.firstTimeSentToFeeder).toLocaleString()}
                 disabled
                 type="text"
                 />

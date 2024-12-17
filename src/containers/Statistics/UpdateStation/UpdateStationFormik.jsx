@@ -92,19 +92,19 @@ const UpdateStationFormik = () => {
               stationId: station.stationId,
               latitude: station.latitude,
               longitude: station.longitude,
-              locationStartDate: station.locationStartDate,
-              city: station.city,
-              country: station.country,
-              locationAddress: station.locationAddress,
-              lastActiveTime: station.lastActiveTime,
-              startDate: station.startDate,
+              locationStartDate: station.locationStartDate || '',
+              city: station.city || '',
+              country: station.country || '',
+              locationAddress: station.locationAddress || '',
+              lastActiveTime: station.lastActiveTime || '',
+              startDate: station.startDate || '',
               //feederName: station.feederName,
               //feederEmail: station.feederEmail,
-              feederPhone: station.feederPhone,
-              description: station.description,
-              notificationEmail: station.notificationEmail,
+              feederPhone: station.feederPhone || '',
+              description: station.description || '',
+              notificationEmail: station.notificationEmail || '',
               feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
-              firstTimeSentToFeeder: station.firstTimeSentToFeeder
+              firstTimeSentToFeeder: station.firstTimeSentToFeeder || ''
             });
           } else {            
             console.error("Station data is undefined or null");
@@ -161,7 +161,12 @@ const UpdateStationFormik = () => {
     return <div>{error}</div>;
   }
 
+  if (!stationData) {
+    return <div>Station data is not available.</div>;
+  }
+
   return (
+    stationData && (
     <Formik
       initialValues={stationData}
       validationSchema={validationSchema}
@@ -191,7 +196,7 @@ const UpdateStationFormik = () => {
           <div>
             <label htmlFor="locationStartDate">Geolocation start date</label>
             <DatePicker
-              selected={values.LocationStartDate}
+              selected={values.locationStartDate != '' ? new Date(values.locationStartDate) : null}
               onChange={(date) => setFieldValue("locationStartDate", date)}
               isClearable
             />
@@ -224,7 +229,7 @@ const UpdateStationFormik = () => {
           <div>
             <label htmlFor="startDate">Feeder start date</label>
             <DatePicker
-              selected={values.StartDate}
+              selected={values.startDate != '' ? new Date(values.startDate) : null}
               onChange={(date) => setFieldValue("startDate", date)}
             />
             <ErrorMessage name="startDate" component="div" className="error" />
@@ -271,7 +276,7 @@ const UpdateStationFormik = () => {
           <button type="submit">Update Station</button>
         </Form>
       )}
-    </Formik>
+    </Formik> )
   );
 };
 

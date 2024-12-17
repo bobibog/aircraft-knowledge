@@ -14,7 +14,7 @@ const UserSelector = ({ onSelect }) => {
 
   // Render user as (username, email, fullName)
   const renderUser = (user) =>
-    `${user.userName}, ${user.email}), ${user.fullName}`;
+    `${user.userName}, ${user.email}, ${user.name} ${user.surname}`;
 
   return (
     <DropdownFilterSelector
