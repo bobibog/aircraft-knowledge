@@ -141,6 +141,8 @@ const UpdateStationFormik = () => {
       //     ? "DoNothing"
       //     : stationData.feederNotificationEmail,
       // };
+
+      console.log("Form Submitted", formValue); // Debugging line
   
       dispatch(actions.updateStation(formValue))
         .then(() => {
@@ -149,11 +151,7 @@ const UpdateStationFormik = () => {
         .catch((error) => {
           console.error("Error updating station:", error);
         });
-    }, [
-      dispatch,
-      stationData,
-      history
-    ]);
+    });
   
   if (loading) {
     return <div>Loading...</div>;
@@ -172,7 +170,7 @@ const UpdateStationFormik = () => {
     <div className={classes["form-container"]}> 
       <Formik
         initialValues={stationData}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         onSubmit={handleSubmit}
         enableReinitialize // This ensures the form updates when initialData changes
       >
@@ -281,7 +279,7 @@ const UpdateStationFormik = () => {
               <Field name="UserStationStatus" type="text" disabled />
             </div>
 
-            <button type="submit">Update Station</button>
+            <button type="submit" disabled={loading} >Update Station</button>
           </Form>
         )}
       </Formik>
