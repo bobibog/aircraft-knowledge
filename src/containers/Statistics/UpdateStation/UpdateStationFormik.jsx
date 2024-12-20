@@ -203,7 +203,11 @@ const UpdateStationFormik = () => {
               <label htmlFor="locationStartDate">Geolocation start date</label>
               <DatePicker
                 selected={values.locationStartDate != '' ? new Date(values.locationStartDate) : null}
-                onChange={(date) => setFieldValue("locationStartDate", date)}
+                onChange={(date) => {
+                  //must treat the date as UTC date, using toISOString() function!
+                  const utcDate = date ? new Date(date).toISOString() : null;
+                  setFieldValue("locationStartDate", utcDate);
+                }}
                 isClearable
               />
               <ErrorMessage
@@ -236,7 +240,26 @@ const UpdateStationFormik = () => {
               <label htmlFor="startDate">Feeder start date</label>
               <DatePicker
                 selected={values.startDate != '' ? new Date(values.startDate) : null}
-                onChange={(date) => setFieldValue("startDate", date)}
+                onChange={(date) => {
+                  //must treat the date as UTC date, using toISOString() function!
+                  const utcDate = date ? new Date(Date.UTC(
+                    date.getUTCFullYear(),
+                    date.getUTCMonth(),
+                    date.getUTCDate(),
+                    date.getUTCHours(),
+                    date.getUTCMinutes(),
+                    date.getUTCSeconds(),
+                    
+                  )) : null;
+                  // const utcDateString = utcDate.toISOString();
+                  const utcDateString = utcDate.toUTCString();
+                  setFieldValue("startDate", utcDateString);
+                }}
+                showTimeSelect
+                timeFormat="HH"
+                timeIntervals={60}
+                dateFormat="yyyy-MM-dd HH:mm 'UTC'"
+                timeCaption="time"
               />
               <ErrorMessage name="startDate" component="div" className={classes.error} />
             </div>
