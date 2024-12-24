@@ -188,8 +188,10 @@ const UpdateStationFormik = () => {
         .then(() => {
           history.push(`/stationDetails/${formValue.id}`);
         })
-        .catch((error) => {
-          console.error("Error updating station:", error);
+        .catch((error) => {          
+          // console.error("Error response data:", error.response?.data);
+          // console.error("Error response status:", error.response?.status);
+          alert(`Error message: ${error.response?.data}. Error status: ${error.response?.status} ${error.response?.statusText}.` )
         });
     });
   

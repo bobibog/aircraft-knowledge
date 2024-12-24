@@ -83,31 +83,32 @@ export function updateStation(stationData) {
 
     return axiosPrivate
       .put(url, stationData)
-      .then((response) => {
-        console.log("Success response:", response);
-        alert("Station was updated successfully.");
-      })
-      .catch((error) => {
-        console.error("Error response:", error);
-        if (error.response) {
-          console.error("Error data:", error.response.data);
-          const errorMessages = error.response.data.errors
-            ? Object.entries(error.response.data.errors)
-                .map(([field, messages]) => `${field}: ${messages.join(" ")}`)
-                .join("\n")
-            : error.response.data.title || "Unknown error occurred.";
-          alert(`Error: ${errorMessages}\nStatus: ${error.response.status}`);
-        } else if (error.request) {
-          console.error("Request error:", error.request);
-          alert(
-            "No response received from the server. Please check your network connection and try again."
-          );
-        } else {
-          console.error("Error message:", error.message);
-          alert(`Error: ${error.message}`);
-        }
-        console.error("Error config:", error.config);
-      });
+      // .then((response) => {
+      //   console.log("Success response:", response);
+      //   alert("Station was updated successfully.");
+      // })
+      // .catch((error) => {
+      //   console.error("Error response:", error);
+      //   if (error.response) {
+      //     console.error("Error data:", error.response.data);
+      //     const errorMessages = error.response.data.errors
+      //       ? Object.entries(error.response.data.errors)
+      //           .map(([field, messages]) => `${field}: ${messages.join(" ")}`)
+      //           .join("\n")
+      //       : error.response.data.title || "Unknown error occurred.";
+      //     alert(`Error: ${errorMessages}\nStatus: ${error.response.status}`);
+      //   } else if (error.request) {
+      //     console.error("Request error:", error.request);
+      //     alert(
+      //       "No response received from the server. Please check your network connection and try again."
+      //     );
+      //   } else {
+      //     console.error("Error message:", error.message);
+      //     alert(`Error: ${error.message}`);
+      //   }
+      //   console.error("Error config:", error.config);
+      // })
+      ;
   };
 }
 
