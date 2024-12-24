@@ -168,9 +168,19 @@ const UpdateStationFormik = () => {
       //     ? "DoNothing"
       //     : stationData.feederNotificationEmail,
       // };
+
+      // We create new datetime ISO string using: year, month, day, hours, minutes
+      //from this localized datetime, but WITHOUT setting timezone! We also add 'Z' at the end of this
+      //ISO datetime string to signalize that it is UTC time! That way we send this localized datetime as
+      //as if it were a UTC datetime, by stripping timezone off of it! So backend api endpoint reckognize
+      //this datetime correctly and treat it as UTC!
       const startDate = new Date(formValue.startDate);
       const startDateUtcString = datetimeToUtc(startDate);
       formValue.startDate = startDateUtcString;
+
+      const locationStartDate = new Date(formValue.locationStartDate);
+      const locationStartDateUtcString = datetimeToUtc(locationStartDate);
+      formValue.locationStartDate = locationStartDateUtcString;
 
       console.log("Form Submitted", formValue); // Debugging line
   
@@ -235,11 +245,15 @@ const UpdateStationFormik = () => {
               <DatePicker
                 selected={values.locationStartDate != '' ? new Date(values.locationStartDate) : null}
                 onChange={(date) => {
-                  //must treat the date as UTC date, using toISOString() function!
-                  const utcDate = date ? new Date(date).toISOString() : null;
+                  //this date is localized datetime but we will treat it as if it were a UTC date!
+                  const utcDate = date ? date.toString() : null;
                   setFieldValue("locationStartDate", utcDate);
                 }}
-                isClearable
+                showTimeSelect
+                timeFormat="HH"
+                timeIntervals={60}
+                dateFormat="yyyy-MM-dd HH:mm 'UTC'"
+                timeCaption="time"
               />
               <ErrorMessage
                 name="locationStartDate"
@@ -277,7 +291,7 @@ const UpdateStationFormik = () => {
                   //even though this datepicker handles datetime as local datetime (with timezone: GMT+-hours).
                   //We will resolve this in this way: user selects date here considering that he is selecting
                   //UTC datetime. But in reality, datepicker resolves this selected datetime as local, 
-                  // with timezone (ex. Central European: GMT+01). When user clickc "Update station" submit button,
+                  // with timezone (ex. Central European: GMT+01). When user clicks "Update station" submit button,
                   // in submit handler we create new datetime ISO string using: year, month, day, hours, minutes
                   //from this localized datetime, but WITHOUT setting timezone! We also add 'Z' at the end of this
                   //ISO datetime string to signalize that it is UTC time! That way we send this localized datetime as
