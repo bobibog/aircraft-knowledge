@@ -8,6 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {DateTime} from 'luxon';
 
 import UserSelector from "../../Users/UserSelector/UserSelector";
 
@@ -63,6 +64,14 @@ const UpdateStationFormik = () => {
   const [error, setError] = useState(null); // To handle error state
 
   const [users, setUsers] = useState([]);
+
+  const datetimeNumberToString = (datetimeNumber) => {
+    let datetimeString = datetimeNumber.toString();
+    if (datetimeNumber < 10) {
+      datetimeString = '0' + datetimeString;
+    }
+    return datetimeString
+  }
 
   // Validation schema
   const validationSchema = Yup.object({
@@ -124,6 +133,24 @@ const UpdateStationFormik = () => {
   //   e.preventDefault();
   //   onUpdateStation();
   // };
+  
+  const datetimeToUtc = (date) => {
+    const currYear = date.getFullYear();
+    const currMonth = date.getMonth() + 1;
+    const currDay = date.getDate();
+    const currHour = date.getHours();
+    const currMinute = date.getMinutes();
+
+    const currYearString = currYear
+    const currMonthString = datetimeNumberToString(currMonth);
+    const currDayString = datetimeNumberToString(currDay);
+    const currHourString = datetimeNumberToString(currHour);
+    const currMinuteString = datetimeNumberToString(currMinute);
+
+    const utcDateString = `${currYearString}-${currMonthString}-${currDayString}T${currHourString}:${currMinuteString}:00Z`
+    return utcDateString;
+    //return date;
+  }
 
   const handleSubmit = ((formValue) => {
       // const payload = {
@@ -141,6 +168,9 @@ const UpdateStationFormik = () => {
       //     ? "DoNothing"
       //     : stationData.feederNotificationEmail,
       // };
+      const startDate = new Date(formValue.startDate);
+      const startDateUtcString = datetimeToUtc(startDate);
+      formValue.startDate = startDateUtcString;
 
       console.log("Form Submitted", formValue); // Debugging line
   
@@ -164,6 +194,7 @@ const UpdateStationFormik = () => {
   if (!stationData) {
     return <div>Station data is not available.</div>;
   }
+
 
   return (
     stationData && (
@@ -240,19 +271,22 @@ const UpdateStationFormik = () => {
               <label htmlFor="startDate">Feeder start date</label>
               <DatePicker
                 selected={values.startDate != '' ? new Date(values.startDate) : null}
+                //selected={values.startDate != '' ? datetimeToUtc(values.startDate) : null}
                 onChange={(date) => {
-                  //must treat the date as UTC date, using toISOString() function!
-                  const utcDate = date ? new Date(Date.UTC(
-                    date.getUTCFullYear(),
-                    date.getUTCMonth(),
-                    date.getUTCDate(),
-                    date.getUTCHours(),
-                    date.getUTCMinutes(),
-                    date.getUTCSeconds(),
-                    
-                  )) : null;
-                  // const utcDateString = utcDate.toISOString();
-                  const utcDateString = utcDate.toUTCString();
+                  //We want that user selects the datetime in this datepicker as it is UTC,
+                  //even though this datepicker handles datetime as local datetime (with timezone: GMT+-hours).
+                  //We will resolve this in this way: user selects date here considering that he is selecting
+                  //UTC datetime. But in reality, datepicker resolves this selected datetime as local, 
+                  // with timezone (ex. Central European: GMT+01). When user clickc "Update station" submit button,
+                  // in submit handler we create new datetime ISO string using: year, month, day, hours, minutes
+                  //from this localized datetime, but WITHOUT setting timezone! We also add 'Z' at the end of this
+                  //ISO datetime string to signalize that it is UTC time! That way we send this localized datetime as
+                  //as if it were a UTC datetime, by stripping timezone off of it! So backend api endpoint reckognize
+                  //this datetime correctly and treat it as UTC! When datepicker get this datetime from backend it
+                  //displays it as if it were localized datetime, but in fact it is a UTC datetime.  
+                  const utcDateString = date.toString();
+                  //const utcDateUTCString = date.toUTCString();
+                  //const utcDateString = date.toISOString();
                   setFieldValue("startDate", utcDateString);
                 }}
                 showTimeSelect
