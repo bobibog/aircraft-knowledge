@@ -85,7 +85,7 @@ const UpdateStationFormik = () => {
     city: Yup.string(),
     country: Yup.string(),
     locationAddress: Yup.string(),
-    feederPhone: Yup.string(),
+    //feederPhone: Yup.string(),
     description: Yup.string(),
     feederNotificationEmail: Yup.string(),
     userStationStatus: Yup.string(),
@@ -111,7 +111,7 @@ const UpdateStationFormik = () => {
               startDate: station.startDate || '',
               //feederName: station.feederName,
               //feederEmail: station.feederEmail,
-              feederPhone: station.feederPhone || '',
+              //feederPhone: station.feederPhone || '',
               description: station.description || '',
               notificationEmail: station.notificationEmail || '',
               feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
@@ -317,10 +317,10 @@ const UpdateStationFormik = () => {
               <ErrorMessage name="startDate" component="div" className={classes.error} />
             </div>
 
-            <div className={classes["form-group"]}>
+            {/* <div className={classes["form-group"]}>
               <label htmlFor="feederPhone">Feeder Phone</label>
               <Field name="feederPhone" type="text" />
-            </div>
+            </div> */}
 
             <div className={classes["form-group"]}>
               <label htmlFor="description">Note</label>
