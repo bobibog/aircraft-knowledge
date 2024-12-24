@@ -207,7 +207,6 @@ const UpdateStationFormik = () => {
     return <div>Station data is not available.</div>;
   }
 
-
   return (
     stationData && (
     <div className={classes["form-container"]}> 
@@ -274,6 +273,10 @@ const UpdateStationFormik = () => {
               <Field name="country" type="text" />
             </div>
             
+            <div className={classes["form-group"]}>
+              <label htmlFor="locationAddress">Location address</label>
+              <Field name="locationAddress" type="text" />
+            </div>
 
             <div className={classes["form-group"]}>
               <label htmlFor="userId">Feeder</label>
