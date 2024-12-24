@@ -11,7 +11,7 @@ import {UserContext} from '../../../context/user-context';
 import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 //import { useParams, useHistory } from "react-router-dom";
 
-const selectedUserInitialValue = {name: "", surname: "", email: "", userName: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
+const selectedUserInitialValue = {name: "", surname: "", email: "", userName: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: "", phoneNumber: ""}
 
 
 const  UpdateUser = (props) => {          
@@ -57,7 +57,8 @@ const  UpdateUser = (props) => {
             userName: selectedUser.userName, 
             role: selectedUser.role,
             company: selectedUser.company,
-            emailConfirmed: selectedUser.emailConfirmed
+            emailConfirmed: selectedUser.emailConfirmed,
+            phoneNumber: selectedUser.phoneNumber,
         };
         const url = '/Account/UpdateRoleCompany'
         axios.put(url, updateUserDto, config)
@@ -104,6 +105,10 @@ const  UpdateUser = (props) => {
                         <div className={classes.fieldContainer}>                        
                             <label htmlFor="email">Email</label>
                             <input className={classes.input} name="email" value={selectedUser.email} disabled />
+                        </div>
+                        <div className={classes.fieldContainer}>                        
+                            <label htmlFor="phoneNumber">Phone</label>                        
+                            <input className={classes.input} name="phoneNumber" value={selectedUser.phoneNumber} onChange={(e)=>setSelectedUser({...selectedUser, phoneNumber: e.target.value})} />
                         </div>
                         <div className={classes.fieldContainer}>                        
                             <label htmlFor="company">Company</label>                        
