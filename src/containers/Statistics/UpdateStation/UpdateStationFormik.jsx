@@ -115,8 +115,10 @@ const UpdateStationFormik = () => {
               locationAddress: station.locationAddress || '',
               lastActiveTime: station.lastActiveTime || '',
               startDate: station.startDate || '',
-              //feederName: station.feederName,
-              //feederEmail: station.feederEmail,
+              feederUsername: station.feederUsername,
+              feederName: station.feederName,
+              feederSurname: station.feederSurname,
+              feederEmail: station.feederEmail,
               //feederPhone: station.feederPhone || '',
               description: station.description || '',
               notificationEmail: station.notificationEmail || '',
@@ -287,6 +289,12 @@ const UpdateStationFormik = () => {
             <div className={classes["form-group"]}>
               <label htmlFor="userId">Feeder</label>
               <UserSelector
+                currentFeeder={{
+                  userName: values.feederUsername, 
+                  name: values.feederName, 
+                  surname: values.feederSurname, 
+                  email: values.feederEmail
+                }}
                 onSelect={(userId) => setFieldValue("userId", userId)}
               />
               <ErrorMessage name="userId" component="div" className={classes.error} />

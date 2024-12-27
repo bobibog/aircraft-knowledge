@@ -3,7 +3,7 @@ import DropdownFilterSelector from "../../../components/UI/DropdownFilterSelecto
 // import axios from "axios";
 import axios from "../../../axios-private";
 
-const UserSelector = ({ onSelect }) => {
+const UserSelector = ({ currentFeeder, onSelect }) => {
   // Fetch users API
   const fetchUsers = async (searchString) => {
     const response = await axios.get("/Account/UsersBySearchString", {
@@ -18,6 +18,7 @@ const UserSelector = ({ onSelect }) => {
 
   return (
     <DropdownFilterSelector
+      selectedItem={currentFeeder}
       fetchOptions={fetchUsers}
       renderOption={renderUser}
       onOptionSelect={(user) => onSelect(user.id)}

@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { debounce } from "lodash";
 
 const DropdownFilterSelector = ({
+  selectedItem,
   fetchOptions, // Function to fetch filtered objects (async, receives search query)
   renderOption, // Function to render a single option (receives an object)
   onOptionSelect, // Callback when an option is selected (receives selected object)
@@ -12,6 +13,11 @@ const DropdownFilterSelector = ({
   const [options, setOptions] = useState([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    setSelectedOption(selectedItem);
+    setQuery(renderOption(selectedItem));
+  }, []);
 
   // Debounced fetch function (memoized with useCallback to persist between renders)
   const fetchDebouncedOptions = useCallback(
