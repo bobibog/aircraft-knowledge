@@ -12,9 +12,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import UserSelector from "../../Users/UserSelector/UserSelector";
 
-import classes from './UpdateStationFormik.module.css';
+import classes from './AddStationFormik.module.css';
 
-const UpdateStationFormik = () => {
+const AddStationFormik = () => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -39,31 +39,37 @@ const UpdateStationFormik = () => {
   //   firstTimeSentToFeeder: ""
   // });
 
-  // const initialData = {
-  //   id: 0,
-  //   stationId: "",
-  //   latitude: 0,
-  //   longitude: 0,
-  //   locationStartDate: "",
-  //   city: "",
-  //   country: "",
-  //   locationAddress: "",
-  //   lastActiveTime: "",
-  //   userId: "",
-  //   //feederName: "",
-  //   //feederEmail: "",
-  //   feederPhone: "",
-  //   description: "",
-  //   notificationEmail: "",
-  //   feederNotificationEmail: "DoNothing",
-  //   firstTimeSentToFeeder: ""
-  // };
+  // Default to current date with time '12:00:00 AM'
+  const defaultStartDate = new Date();
+  defaultStartDate.setHours(0, 0, 0, 0);
+  var defaultStartDateString = defaultStartDate.toString();
 
-  const [stationData, setStationData] = useState(null);
-  const [loading, setLoading] = useState(true); // To handle loading state
+  const initialData = {
+    id: 0,
+    stationId: "",
+    latitude: 0,
+    longitude: 0,
+    locationStartDate: defaultStartDateString,
+    city: "",
+    country: "",
+    locationAddress: "",
+    lastActiveTime: "",
+    userId: "",
+    //feederName: "",
+    //feederEmail: "",
+    //feederPhone: "",
+    startDate: defaultStartDateString,
+    description: "",
+    notificationEmail: "",
+    feederNotificationEmail: "DoNothing",
+    firstTimeSentToFeeder: ""
+  };
+
+  //const [stationData, setStationData] = useState(null);
+  const [loading, setLoading] = useState(false); // To handle loading state
   const [error, setError] = useState(null); // To handle error state
 
-  const [users, setUsers] = useState([]);
+  //const [users, setUsers] = useState([]);
 
   const datetimeNumberToString = (datetimeNumber) => {
     let datetimeString = datetimeNumber.toString();
@@ -75,17 +81,26 @@ const UpdateStationFormik = () => {
 
   // Validation schema
   const validationSchema = Yup.object({
-    id: Yup.number().required("Id is required"),
+    //id: Yup.number().required("Id is required"),
+    stationId: Yup.string()
+        .required("Station Id is required")
+        .test(
+          'is-integer',
+          'Station Id must be a valid integer.',
+          (value) => {
+            return value !== undefined && value !== null && /^\d+$/.test(value);
+          }
+        ),
     userId: Yup.string().required("User is required"),
     latitude: Yup.number()
-      .required("Latitude is required")
-      .min(-90, 'Latitude must be between -90 and 90.')
-      .max(90, 'Latitude must be between -90 and 90.'),
+        .required("Latitude is required")
+        .min(-90, 'Latitude must be between -90 and 90.')
+        .max(90, 'Latitude must be between -90 and 90.'),
     longitude: Yup.number()
-      .required("Longitude is required")
-      .min(-180, 'Longitude must be between -180 and 180.')
-      .max(180, 'Longitude must be between -180 and 180.'),
-    startDate: Yup.date().required("Start date is required"),
+        .required("Longitude is required")
+        .min(-180, 'Longitude must be between -180 and 180.')
+        .max(180, 'Longitude must be between -180 and 180.'),
+    startDate: Yup.date().required("Feeder start date is required"),
     locationStartDate: Yup.date().required("Location start date is required"),
     // LocationStartDate: Yup.date().nullable(),
     city: Yup.string(),
@@ -97,43 +112,43 @@ const UpdateStationFormik = () => {
     userStationStatus: Yup.string(),
   });
 
-  useEffect(() => {
-    if (id) {
-      dispatch(actions.fetchStation(id))
-        .then((station) => {
-          setLoading(false);
-          if (station) {
-            setStationData({
-              id: station.id,
-              userId: station.userId,
-              stationId: station.stationId,
-              latitude: station.latitude,
-              longitude: station.longitude,
-              locationStartDate: station.locationStartDate || '',
-              city: station.city || '',
-              country: station.country || '',
-              locationAddress: station.locationAddress || '',
-              lastActiveTime: station.lastActiveTime || '',
-              startDate: station.startDate || '',
-              //feederName: station.feederName,
-              //feederEmail: station.feederEmail,
-              //feederPhone: station.feederPhone || '',
-              description: station.description || '',
-              notificationEmail: station.notificationEmail || '',
-              feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
-              firstTimeSentToFeeder: station.firstTimeSentToFeeder || ''
-            });
-          } else {            
-            console.error("Station data is undefined or null");
-          }
-        })
-        .catch((error) => {
-          setLoading(false);
-          setError("Failed to load station data.");
-          console.error("Error while fetching station data:", error);
-        });
-    }
-  }, [dispatch, id]);  
+//   useEffect(() => {
+//     if (id) {
+//       dispatch(actions.fetchStation(id))
+//         .then((station) => {
+//           setLoading(false);
+//           if (station) {
+//             setStationData({
+//               id: station.id,
+//               userId: station.userId,
+//               stationId: station.stationId,
+//               latitude: station.latitude,
+//               longitude: station.longitude,
+//               locationStartDate: station.locationStartDate || '',
+//               city: station.city || '',
+//               country: station.country || '',
+//               locationAddress: station.locationAddress || '',
+//               lastActiveTime: station.lastActiveTime || '',
+//               startDate: station.startDate || '',
+//               //feederName: station.feederName,
+//               //feederEmail: station.feederEmail,
+//               //feederPhone: station.feederPhone || '',
+//               description: station.description || '',
+//               notificationEmail: station.notificationEmail || '',
+//               feederNotificationEmail: station.feederNotificationEmail || "DoNothing",
+//               firstTimeSentToFeeder: station.firstTimeSentToFeeder || ''
+//             });
+//           } else {            
+//             console.error("Station data is undefined or null");
+//           }
+//         })
+//         .catch((error) => {
+//           setLoading(false);
+//           setError("Failed to load station data.");
+//           console.error("Error while fetching station data:", error);
+//         });
+//     }
+//   }, [dispatch, id]);  
 
   // const onSubmit = (e) => {
   //   e.preventDefault();
@@ -180,23 +195,32 @@ const UpdateStationFormik = () => {
       //ISO datetime string to signalize that it is UTC time! That way we send this localized datetime as
       //as if it were a UTC datetime, by stripping timezone off of it! So backend api endpoint reckognize
       //this datetime correctly and treat it as UTC!
-      const startDate = new Date(formValue.startDate);
-      const startDateUtcString = datetimeToUtc(startDate);
-      formValue.startDate = startDateUtcString;
-
-      const locationStartDate = new Date(formValue.locationStartDate);
-      const locationStartDateUtcString = datetimeToUtc(locationStartDate);
-      formValue.locationStartDate = locationStartDateUtcString;
-
-      //console.log("Form Submitted", formValue); // Debugging line
-  
-      dispatch(actions.updateStation(formValue))
+      //We will do this only if user entered startDate, otherwise we do nothing (send NULL 
+      // to backend api which will then declare default 01.01.1970 as startDate).
+      if (formValue.startDate) {
+        const startDate = new Date(formValue.startDate);
+        const startDateUtcString = datetimeToUtc(startDate);
+        formValue.startDate = startDateUtcString;
+      }
+      
+      if (formValue.locationStartDate) {
+        const locationStartDate = new Date(formValue.locationStartDate);
+        const locationStartDateUtcString = datetimeToUtc(locationStartDate);
+        formValue.locationStartDate = locationStartDateUtcString;
+      }
+      
+      console.log("Form Submitted", formValue); // Debugging line
+      
+      setLoading(true);
+      dispatch(actions.addStation(formValue))
         .then(() => {
-          history.push(`/stationDetails/${formValue.id}`);
+            setLoading(false);
+            history.push('/statistics');
         })
         .catch((error) => {          
           // console.error("Error response data:", error.response?.data);
           // console.error("Error response status:", error.response?.status);
+          setLoading(false);
           alert(`Error message: ${error.response?.data}. Error status: ${error.response?.status} ${error.response?.statusText}.` )
         });
     });
@@ -209,29 +233,32 @@ const UpdateStationFormik = () => {
     return <div>{error}</div>;
   }
 
-  if (!stationData) {
-    return <div>Station data is not available.</div>;
-  }
+//   if (!stationData) {
+//     return <div>Station data is not available.</div>;
+//   }
 
-  return (
-    stationData && (
+  return (    
     <div className={classes["form-container"]}> 
       <Formik
-        initialValues={stationData}
+        initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
-        enableReinitialize // This ensures the form updates when initialData changes
+        //enableReinitialize // This ensures the form updates when initialData changes
       >
         {({ setFieldValue, values }) => (
           <Form className={classes.form}>
-            <div className={classes["form-group"]}>
+            {/* <div className={classes["form-group"]}>
               <label htmlFor="id">Id</label>
               <Field name="id" type="number" disabled />
               <ErrorMessage name="id" component="div" className={classes.error} />
-            </div>   
+            </div>    */}
+
+            {/* Hidden Id Field */}
+            <Field name="id" type="hidden" />
+
             <div className={classes["form-group"]}>
               <label htmlFor="stationId">Station Id</label>
-              <Field name="stationId" type="number" disabled />
+              <Field name="stationId" type="text" />
               <ErrorMessage name="stationId" component="div" className={classes.error} />
             </div>          
 
@@ -361,13 +388,12 @@ const UpdateStationFormik = () => {
               <Field name="UserStationStatus" type="text" disabled />
             </div>
 
-            <button type="submit" disabled={loading} >Update Station</button>
+            <button type="submit" disabled={loading} >Create Station</button>
           </Form>
         )}
       </Formik>
-    </div> 
-    )
+    </div>     
   );
 };
 
-export default UpdateStationFormik;
+export default AddStationFormik;

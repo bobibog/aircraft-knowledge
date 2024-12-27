@@ -405,8 +405,8 @@ if (!stationLocationDataLoading) {
         {stationLocationData.map((item, index) => (
             <tr key={index}>
             <td>{index + 1}</td>
-            <td>{item.latitude || 'N/A'}</td>
-            <td>{item.longitude || 'N/A'}</td>
+            <td>{!isNaN(item.latitude) ? item.latitude : 'N/A'}</td>
+            <td>{!isNaN(item.longitude) ? item.longitude : 'N/A'}</td>
             <td>{item.city || 'N/A'}</td>
             <td>{item.country || 'N/A'}</td>
             <td>{item.locationAddress || 'N/A'}</td>
