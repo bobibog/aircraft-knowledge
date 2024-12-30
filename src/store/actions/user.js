@@ -42,12 +42,13 @@ export const fetchUsersStart = () => {
 };
 
 // 1 USER
-export const fetchUserSuccess = (id, username, name, surname, role, terms, email, company, emailConfirmed, loginProvider, ethereumAccountAddress) => {
+// export const fetchUserSuccess = (id, username, name, surname, role, terms, email, company, emailConfirmed, loginProvider, ethereumAccountAddress) => {
+export const fetchUserSuccess = (id, userName, name, surname, role, terms, email, company, emailConfirmed, loginProvider, ethereumAccountAddress) => {
     return {
         type: actionTypes.FETCH_USER_SUCCESS,
         // user: user 
         //password: password,
-        username: username,
+        username: userName,
         name: name,
         surname: surname,
         role: role,

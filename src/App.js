@@ -26,8 +26,11 @@ import ConfirmEmail from './containers/Auth/ConfirmEmail';
 import Parser from './containers/Parser/Parser';
 import Decoding from './containers/Parser/ParserFunctions/Decoding/Decoding';
 import MessagesNumber from './containers/Statistics/MessagesNumber/MessagesNumber';
-import AddStation from './containers/Statistics/MessagesNumber/AddStation/AddStation'
-import UpdateStation from './containers/Statistics/MessagesNumber/UpdateStation/UpdateStation'
+// import AddStation from './containers/Statistics/AddStation/AddStation';
+import AddStationFormik from './containers/Statistics/AddStation/AddStationFormik';
+import StationDetails from './containers/Statistics/StationDetails/StationDetails';
+// import UpdateStation from './containers/Statistics/UpdateStation/UpdateStation';
+import UpdateStationFormik from './containers/Statistics/UpdateStation/UpdateStationFormik';
 import AkrxMessageAll from './containers/AKRxAll/AKRxAll';
 import AcarsWithExtDataCompany from './containers/AcarsWithExtDataCompany/AcarsWithExtDataCompany';
 import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
@@ -202,8 +205,11 @@ function App() {
         <Route path="/airlines" component={Airlines} /> 
         <Route path="/acarsWithExtData"  component={AcarsWithExtData} />{/*--*/}  
         <Route path="/statistics" component={MessagesNumber} />          
-        <Route path="/addStation" component={AddStation} />          
-        <Route path="/updateStation/:id" component={UpdateStation} />
+        {/* <Route path="/addStation" component={AddStation} />   */}
+        <Route path="/addStation" component={AddStationFormik} /> 
+        <Route path="/stationDetails/:id" component={StationDetails} />        
+        {/* <Route path="/updateStation/:id" component={UpdateStation} /> */}
+        <Route path="/updateStation/:id" component={UpdateStationFormik} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
         <Route path="/user" component={User} />  

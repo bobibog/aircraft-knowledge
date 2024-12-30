@@ -24,6 +24,7 @@
         "chart.js": "^3.9.1",
         "date-fns": "^2.23.0",
         "file-saver": "^2.0.5",
+        "formik": "^2.4.6",
         "geo-tz": "^7.0.1",
         "igniteui-react-charts": "^16.16.3",
         "igniteui-react-core": "^16.16.3",
@@ -31,6 +32,7 @@
         "leaflet-drift-marker": "^2.0.0",
         "leaflet-rotatedmarker": "^0.2.0",
         "lodash": "^4.17.21",
+        "luxon": "^3.5.0",
         "mapbox-gl": "^2.6.1",
         "moment": "^2.29.1",
         "plotly.js-dist-min": "^2.14.0",
@@ -38,9 +40,10 @@
         "react": "^16.14.0",
         "react-apexcharts": "^1.4.0",
         "react-azure-maps": "^0.3.0",
-        "react-bootstrap": "^1.5.2",
+        "react-bootstrap": "^2.0.0",
         "react-chart-polar": "^1.0.5",
         "react-chartjs-2": "^4.3.1",
+        "react-datepicker": "^3.5.0",
         "react-datetime": "^3.2.0",
         "react-datetime-picker": "^4.2.0",
         "react-dom": "^16.14.0",
@@ -69,7 +72,8 @@
         "redux-thunk": "^2.3.0",
         "styled-components": "^5.3.1",
         "worker-loader": "^3.0.8",
-        "xlsx": "^0.17.2"
+        "xlsx": "^0.17.2",
+        "yup": "^1.6.0"
     },
     "scripts": {
         "start": "react-scripts --max_old_space_size=4096 start --openssl-legacy-provider",

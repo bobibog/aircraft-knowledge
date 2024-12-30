@@ -1,0 +1,74 @@
+/* Center the form in the page */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Light background */
+  }
+  
+  /* Style the form itself */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px; /* Fixed form width */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Input field styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* Styling for disabled fields */
+    .form-group input:disabled,
+    .form-group textarea:disabled,
+    .form-group select:disabled {
+    background-color: #f0f0f0; /* Light grey background */
+    color: #888; /* Grey text */
+    cursor: not-allowed;
+    }
+
+  .react-datepicker-wrapper {
+    width: 100%; /* Match width with input fields */
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }

@@ -68,7 +68,8 @@ const TableUser = (props) => {
         },
         {
             Header: "Username",
-            accessor: "username"
+            // accessor: "username"
+            accessor: "userName"
         },
         {
             Header: "Company",

@@ -11,7 +11,7 @@ import {AuthContext} from '../../../context/auth-context';
 //import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 //import { useParams, useHistory } from "react-router-dom";
 
-const selectedUserInitialValue = {name: "", surname: "", email: "", username: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
+const selectedUserInitialValue = {name: "", surname: "", email: "", userName: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
 
 
 const  DeleteUser = (props) => {          
@@ -81,7 +81,7 @@ const  DeleteUser = (props) => {
         
   return (
     <>
-                <h2><u>DELETE - {selectedUser.username}</u></h2>  
+                <h2><u>DELETE - {selectedUser.userName}</u></h2>  
                 <div className={classes.container}>         
                     <form className={classes.form} >                        
                         <div className={classes.fieldContainer}> 
@@ -101,8 +101,8 @@ const  DeleteUser = (props) => {
                             <input className={classes.input} name="company" value={selectedUser.company} disabled />
                         </div>
                         <div className={classes.fieldContainer}> 
-                            <label htmlFor="username">Username</label>                        
-                            <input className={classes.input} name="username" value={selectedUser.username} disabled />
+                            <label htmlFor="userName">Username</label>                        
+                            <input className={classes.input} name="userName" value={selectedUser.userName} disabled />
                         </div>
                         {/* <div >                        
                             <input className={classes.input} name="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder='Password'/>

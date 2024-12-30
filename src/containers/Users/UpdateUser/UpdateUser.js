@@ -11,7 +11,7 @@ import {UserContext} from '../../../context/user-context';
 import { faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 //import { useParams, useHistory } from "react-router-dom";
 
-const selectedUserInitialValue = {name: "", surname: "", email: "", username: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: ""}
+const selectedUserInitialValue = {name: "", surname: "", email: "", userName: "", role: "", company: "", terms: "", emailConfirmed: "", loginProvider: "", ethereumAccountAddress: "", phoneNumber: ""}
 
 
 const  UpdateUser = (props) => {          
@@ -38,7 +38,11 @@ const  UpdateUser = (props) => {
         setLoading(true);
         axios.get(`/account/${selectedUserId}`, config)
             .then(response => {
-                setSelectedUser(response.data);
+                const userCurrent = response.data;
+                //We chose to operate on frontend with string instead of bool. Backend will then validate if
+                //that string is a valid boolean!
+                userCurrent.emailConfirmed = userCurrent.emailConfirmed.toString();
+                setSelectedUser(userCurrent);
                 setLoading(false); 
             })
             .catch(error => {
@@ -50,9 +54,11 @@ const  UpdateUser = (props) => {
     const onUpdate = () => {
         setUpdateLoading(true);
         const updateUserDto = {
-            username: selectedUser.username, 
+            userName: selectedUser.userName, 
             role: selectedUser.role,
-            company: selectedUser.company
+            company: selectedUser.company,
+            emailConfirmed: selectedUser.emailConfirmed,
+            phoneNumber: selectedUser.phoneNumber,
         };
         const url = '/Account/UpdateRoleCompany'
         axios.put(url, updateUserDto, config)
@@ -85,7 +91,7 @@ const  UpdateUser = (props) => {
         
   return (
     <>
-                <h2><u>UPDATE - {selectedUser.username}</u></h2>  
+                <h2><u>UPDATE - {selectedUser.userName}</u></h2>  
                 <div className={classes.container}>         
                     <form className={classes.form} >                        
                         <div className={classes.fieldContainer}> 
@@ -101,12 +107,16 @@ const  UpdateUser = (props) => {
                             <input className={classes.input} name="email" value={selectedUser.email} disabled />
                         </div>
                         <div className={classes.fieldContainer}>                        
+                            <label htmlFor="phoneNumber">Phone</label>                        
+                            <input className={classes.input} name="phoneNumber" value={selectedUser.phoneNumber} onChange={(e)=>setSelectedUser({...selectedUser, phoneNumber: e.target.value})} />
+                        </div>
+                        <div className={classes.fieldContainer}>                        
                             <label htmlFor="company">Company</label>                        
                             <input className={classes.input} name="company" value={selectedUser.company} onChange={(e)=>setSelectedUser({...selectedUser, company: e.target.value})} />
                         </div>
                         <div className={classes.fieldContainer}> 
-                            <label htmlFor="username">Username</label>                        
-                            <input className={classes.input} name="username" value={selectedUser.username} disabled />
+                            <label htmlFor="userName">Username</label>                        
+                            <input className={classes.input} name="userName" value={selectedUser.userName} disabled />
                         </div>
                         {/* <div >                        
                             <input className={classes.input} name="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder='Password'/>
@@ -115,12 +125,13 @@ const  UpdateUser = (props) => {
                             <label htmlFor="role">Role</label>                         
                             <input className={classes.input} name='role' value={selectedUser.role} onChange={(e)=>setSelectedUser({...selectedUser, role: e.target.value})} />
                         </div>
-                        <div className={classes.fieldContainer}>                        
+                        <div className={classes.fieldContainer}>   
+                            <label htmlFor="terms">Terms</label>                      
                             <input className={classes.input} name="terms" value={selectedUser.terms} disabled />
                         </div>
                         <div className={classes.fieldContainer}>
                             <label htmlFor="emailConfirmed">Email confirmed</label>                         
-                            <input className={classes.input} name="emailConfirmed" value={selectedUser.emailConfirmed} disabled />
+                            <input className={classes.input} name="emailConfirmed" value={selectedUser.emailConfirmed} onChange={(e)=>setSelectedUser({...selectedUser, emailConfirmed: e.target.value})} />
                         </div>
                         {/* <div className={classes.fieldContainer}>  
                             <label htmlFor="loginProvider">Login provider</label>                      
