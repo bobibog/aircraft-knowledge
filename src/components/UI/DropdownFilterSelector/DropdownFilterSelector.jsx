@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { debounce } from "lodash";
 
 const DropdownFilterSelector = ({
@@ -13,19 +13,36 @@ const DropdownFilterSelector = ({
   const [options, setOptions] = useState([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
     setSelectedOption(selectedItem);
-    setQuery(renderOption(selectedItem));
+    if (selectedItem) {
+      setQuery(renderOption(selectedItem));
+    }    
+  }, []);
+
+  // Handle clicks outside to close the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsDropdownVisible(false); // Close dropdown if clicking outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   // Debounced fetch function (memoized with useCallback to persist between renders)
   const fetchDebouncedOptions = useCallback(
     debounce(async (searchQuery) => {
-      if (!searchQuery.trim()) {
-        setOptions([]);
-        return;
-      }
+      // if (!searchQuery.trim()) {
+      //   setOptions([]);
+      //   return;
+      // }
       try {
         const result = await fetchOptions(searchQuery);
         setOptions(result);
@@ -52,12 +69,16 @@ const DropdownFilterSelector = ({
   };
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
+    <div ref={wrapperRef} style={{ position: "relative", width: "100%" }}>
       <input
         type="text"
         value={selectedOption ? query : query}
         onChange={handleInputChange}
-        onFocus={() => setIsDropdownVisible(true)}
+        onFocus={(e) => {
+          //setIsDropdownVisible(true);
+          e.target.select(); // Select all text on focus
+          handleInputChange(e);
+        }}
         placeholder={placeholder}
         style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
       />
