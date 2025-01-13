@@ -421,13 +421,10 @@ const  SearchAKRxElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
                                 <div className={classes.dateTime}>
-                                <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                <InputGroup className="mb-3 input-group-sm">                                    
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
@@ -446,12 +443,9 @@ const  SearchAKRxElement = (props) => {
                                 </div>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
@@ -471,11 +465,9 @@ const  SearchAKRxElement = (props) => {
                                 
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={tail}
                                         // changed={(e)=>setTail(e.target.value) & setFilter(e.target.value)}
@@ -486,11 +478,9 @@ const  SearchAKRxElement = (props) => {
                                 </InputGroup>
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={flight}
                                         // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
@@ -500,11 +490,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={text}
                                         // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
@@ -518,11 +506,9 @@ const  SearchAKRxElement = (props) => {
                                 {/*///////////////////////////////////////////////*/}
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={aggrText}                                      
                                         changed={(e)=>setAggrText(e.target.value)}
@@ -532,11 +518,9 @@ const  SearchAKRxElement = (props) => {
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input
                                         value={aggrStatus}                                        
                                         changed={(e)=>setAggrStatus(e.target.value)}
@@ -549,11 +533,9 @@ const  SearchAKRxElement = (props) => {
                                 {/*///////////////////////////////////////////////*/}
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={freqMin}
                                         // changed={(e)=>setFreqMin(e.target.value) & setFilter(e.target.value)}
@@ -563,11 +545,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>        
                                     <Input 
                                         value={freqMax}
                                         // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
@@ -577,11 +557,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input
                                         value={timestampMin}
                                         // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
@@ -591,11 +569,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>          
                                     <Input
                                         value={timestampMax}
                                         // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
@@ -612,11 +588,9 @@ const  SearchAKRxElement = (props) => {
                         <div className="col-sm-3">                
                             <div className={classes.card}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={stationId}
                                         // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
@@ -626,11 +600,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={channel}
                                         // changed={(e)=>setChannel(e.target.value) & setFilter(e.target.value)}
@@ -640,11 +612,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                             <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input 
                                         value={levelMin}
                                         // changed={(e)=>setLevelMin(e.target.value) & setFilter(e.target.value)}
@@ -654,11 +624,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={levelMax}
                                         // changed={(e)=>setLevelMax(e.target.value) & setFilter(e.target.value)}
@@ -668,11 +636,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input 
                                         value={errorMin}
                                         // changed={(e)=>setErrorMin(e.target.value) & setFilter(e.target.value)}
@@ -682,11 +648,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={errorMax}
                                         // changed={(e)=>setErrorMax(e.target.value) & setFilter(e.target.value)}
@@ -696,11 +660,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={mode}
                                         // changed={(e)=>setMode(e.target.value) & setFilter(e.target.value)}
@@ -710,11 +672,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup> 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={label}
                                         // changed={(e)=>setLabel(e.target.value) & setFilter(e.target.value)}
@@ -724,11 +684,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={blockId}
                                         // changed={(e)=>setBlockId(e.target.value) & setFilter(e.target.value)}
@@ -747,11 +705,9 @@ const  SearchAKRxElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={ack}
                                         // changed={(e)=>setAck(e.target.value) & setFilter(e.target.value)}
@@ -761,11 +717,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>                               
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input
                                         value={msgno}
                                         // changed={(e)=>setMsgno(e.target.value) & setFilter(e.target.value)}
@@ -775,11 +729,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>                                
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={end}
                                         // changed={(e)=>setEnd(e.target.value) & setFilter(e.target.value)}
@@ -790,11 +742,9 @@ const  SearchAKRxElement = (props) => {
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={altMin}
                                         // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
@@ -804,11 +754,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={altMax}
                                         // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
@@ -818,11 +766,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={dsta}
                                         // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
@@ -832,11 +778,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input 
                                         value={icao}
                                         // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
@@ -846,12 +790,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                                      
                                     <Input 
                                         value={isOnground}                                        
                                         changed={(e)=>(setIsOnground(e.target.value))}                                        
@@ -861,12 +802,9 @@ const  SearchAKRxElement = (props) => {
                                 </InputGroup>                             
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                                        
                                     <Input 
                                         value={isResponse}                                        
                                         changed={(e)=>setIsResponse(e.target.value)}
@@ -883,11 +821,9 @@ const  SearchAKRxElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >                               
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
                                     <Input
                                         value={latMin}                                        
                                         changed={(e)=>setLatMin(e.target.value)}
@@ -896,11 +832,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={latMax}                                        
                                         changed={(e)=>setLatMax(e.target.value)}
@@ -909,11 +843,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={lonMin}                                        
                                         changed={(e)=>setLonMin(e.target.value)}
@@ -922,11 +854,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={lonMax}                                        
                                         changed={(e)=>setLonMax(e.target.value)}          
@@ -936,11 +866,9 @@ const  SearchAKRxElement = (props) => {
                                 </InputGroup>                                
                                 
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={toAddr}                                        
                                         changed={(e)=>setToAddr(e.target.value)}                                                                             
@@ -949,11 +877,9 @@ const  SearchAKRxElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={type}                                        
                                         changed={(e)=>setType(e.target.value)}
@@ -965,11 +891,9 @@ const  SearchAKRxElement = (props) => {
                                 {/*///////////////////////////////////////////////*/}
                          
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={consensusStatus}                                      
                                         changed={(e)=>setConsensusStatus(e.target.value)}
@@ -980,11 +904,9 @@ const  SearchAKRxElement = (props) => {
 
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={consensusResult}                                      
                                         changed={(e)=>setConsensusResult(e.target.value)}
