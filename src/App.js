@@ -91,9 +91,7 @@ function App() {
     
     //MATCHOVANJE U SWITCH URLA SA ROUTE ILI REDIRECT KRECE TEK KADA SE MOUNTUJE APP
     //kada se mountuje App pokrenuce iz useEffect authCheckState koji je kesiran po referenci za proveru tokena i takodje ce krenuti za renderovanjem u child matchovane komponente iz switch sa trenutnim url na kom je App a to ce biti Auth u da1
-    <Switch>    
-      
-      {console.log("da0")}                    
+    <Switch>        
       {/*da1->da5 ako postoje autentifikacijski podaci u localStorage inace ostaje u da1*/}
       {/*da1 je zapravo defaultni za neuatentifikovanog sa mogucnoscu autentifikacije a da5 za autentifikovanog nakon da1*/}
       {/*odnosno bice defaultno u da1 na /auth Auth strani a kada se zavrsi authCheckState ako je isAuthenticated==true onda ce biti u da5 na /auth2, a ako je isAuthenticated==false onda ostaje u da1*/}
@@ -163,8 +161,7 @@ function App() {
   
   //ulazi
   //OVO JE GLAVNI DEO ZA AUTOMATSKI LOGIN PRI INICIJALNOM RENDERU JER CE BITI isAuthenticated==false AKO POSTOJE ILI NE PODACI U LOCALSTORAGE KOJI SU VALIDNI ILI NISU
-  if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
-    console.log("da1")
+  if(!isAuthenticated){//iako postoji token u browseru, jos uvek nije isAuthenticated==true!    
     routes = (
       <Switch>
 
@@ -190,7 +187,6 @@ function App() {
   }  
 
   if (isRole && isAuthenticated) {//isRole==Admin
-    console.log("da2")
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -224,7 +220,7 @@ function App() {
   }
 
   if (isParser && isAuthenticated) {
-    console.log("da3")//ako je role=Parser
+    //ako je role=Parser
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -259,7 +255,6 @@ function App() {
   }
   
   if (isCustomer && isAuthenticated && !isCompany && !isParser && !isRole) {
-    console.log("da4")
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}
@@ -281,7 +276,6 @@ function App() {
   //isCompany je neophodan za logovanje odnosno potreban kao deo autentifikacije u localStorage
   {/*u ovom trenutku se ucitao token odnosno autentifikovani smo i bicemo na auth2 za koju ne postoji match Route tako da ce se default renderovati*/}
   if (isCompany && isAuthenticated && !isRole && !isParser) {
-    console.log("da5");{/*--*/}
     routes = (
       <Switch>  
         {/* <Route path="/map" component={Map} /> */}

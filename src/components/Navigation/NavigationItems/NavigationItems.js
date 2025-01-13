@@ -22,8 +22,7 @@ const NavigationItems = ( props ) => {
       }, [authCheckState]);
 
     if(!isAuthenticated)//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
-    {
-        console.log("#1")
+    {        
         return(
             <ul className={classes.NavigationItems}>
                 <NavigationItem link="/auth">Log in</NavigationItem>
@@ -31,7 +30,6 @@ const NavigationItems = ( props ) => {
         )
     }
     if(isAuthenticated){
-        console.log("#2")
         if(isCustomer && !isCompany){
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrx">ACARS raw</NavigationItem>
@@ -43,7 +41,6 @@ const NavigationItems = ( props ) => {
             </ul>)
         }
         if(isParser && isAuthenticated){
-            console.log("#3")
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -58,7 +55,6 @@ const NavigationItems = ( props ) => {
             </ul>)
         }
         if(isRole && isAuthenticated){
-            console.log("#4")
             return(<ul className={classes.NavigationItems}>
                 <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>
                 <NavigationItem link="/acarsWithExtData">ACARS per Aircraft</NavigationItem>
@@ -74,8 +70,6 @@ const NavigationItems = ( props ) => {
             </ul>)
         }
         if(isCompany && isAuthenticated){
-            console.log("#5")
-           
             return(<ul className={classes.NavigationItems}>
 
                 {/*ako menjamo NavigationItem link onda menjamo i rutu u App.js tako da je u tom trenutku postojanja NavigationItem dostupna*/}
@@ -88,7 +82,6 @@ const NavigationItems = ( props ) => {
             </ul>)
         }
         else{
-            console.log("#6")
             return(<ul className={classes.NavigationItems}>
                  <NavigationItem link="/akrx">ACARS raw</NavigationItem>  
                  <NavigationItem link="/acarsWithExtDataCompany">ACARS per aircraft</NavigationItem>    
