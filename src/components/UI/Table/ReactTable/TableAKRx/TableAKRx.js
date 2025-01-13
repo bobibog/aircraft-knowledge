@@ -881,12 +881,8 @@ const TableAKRx = (props) => {
                                     
                                     <span >
                                         {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
-                                    </span> 
+                                    </span>
                                     
-                                    {console.log("RESIZEAKRXALL canResize "+column.canResize)}{/*true*/}
-                                    {console.log("RESIZEAKRXALL isResizing "+column.isResizing)}{/*false*/}
-
-                                            {/*--*/}
                                     {column.canResize && (
                                         <div
                                             {...column.getResizerProps()}
