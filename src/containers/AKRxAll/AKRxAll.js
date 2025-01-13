@@ -285,7 +285,7 @@ const AkrxAll = props => {
        
     useEffect(() => { 
         onFetchAkrx();
-        console.log("FETCH1")                
+        //console.log("FETCH1")                
     }, [onFetchAkrx]);//useEffect se pri mountu aktivira tako da ne utice inicijalna dodele reference onFetchAkrx koja je u useEffect watch ali promene onFetchAkrx reference nakon mounta uticu na poziv useEffect
                       //onFetchAkrx menja referencu svaki put kada se u onFetchAkrx watch promeni neka referenca
 

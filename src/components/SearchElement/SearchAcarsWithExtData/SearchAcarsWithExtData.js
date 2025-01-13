@@ -783,12 +783,9 @@ const SearchAcarsWithExtData = (props) => {
                             <div className={classes.card} >
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
@@ -807,12 +804,9 @@ const SearchAcarsWithExtData = (props) => {
                                 </div>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
@@ -831,11 +825,9 @@ const SearchAcarsWithExtData = (props) => {
                                 </div>
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={tail}                                        
                                         changed={(e)=>setTail(e.target.value)}
@@ -845,11 +837,9 @@ const SearchAcarsWithExtData = (props) => {
                                 </InputGroup>
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={flight}
                                         // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
@@ -859,11 +849,9 @@ const SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={text}
                                         // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
@@ -875,11 +863,9 @@ const SearchAcarsWithExtData = (props) => {
 
                                 {/*/////////////////////////////////*/}
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={aggrText}                                      
                                         changed={(e)=>setAggrText(e.target.value)}
@@ -889,11 +875,9 @@ const SearchAcarsWithExtData = (props) => {
                                 </InputGroup>
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={aggrStatus}       
                                                     //pri kucanju menjamo dinamicki                                 
@@ -907,11 +891,9 @@ const SearchAcarsWithExtData = (props) => {
 
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={mode}
                                         // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
@@ -921,22 +903,17 @@ const SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={label}                                        
                                         changed={(e)=>setLabel(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {labelInputConfig}                     
                                     />
-                                </InputGroup>
-                                                                                  
-                                                                                                               
+                                </InputGroup>                                                              
                             </div>
-                            
                         </div>
                         </div>
                         {/* 2. column */}
@@ -944,11 +921,9 @@ const SearchAcarsWithExtData = (props) => {
                         <div className="col-sm-3">                
                             <div className={classes.card}>   
                             <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={blockId}                                        
                                         changed={(e)=>setBlockId(e.target.value)}          
@@ -957,11 +932,9 @@ const SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>  
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={msgno}                                        
                                         changed={(e)=>setMsgno(e.target.value)}          
@@ -970,11 +943,9 @@ const SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={dsta}                                        
                                         changed={(e)=>setDsta(e.target.value)}          
@@ -1081,12 +1052,9 @@ const SearchAcarsWithExtData = (props) => {
                                     </div>
                                 </InputGroup> */}
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                    
                                     {/*
                                      <Input
                                         value={aircraftType}                                        
@@ -1095,20 +1063,15 @@ const SearchAcarsWithExtData = (props) => {
                                         elementConfig= {aircraftTypeInputConfig}                                                                                                               
                                     /> 
                                     */}
-
                                     <div className={classes.dropDownList}>
-                                        {dropAircraftTypeFull}{/*--*/}
+                                        {dropAircraftTypeFull}
                                     </div>
                                 </InputGroup>
 
-
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text> 
                                     {/*
                                     //nije potrebno jer smo povezali typeCode sa dropTypeCode(DropDown)
                                      <Input
@@ -1118,19 +1081,15 @@ const SearchAcarsWithExtData = (props) => {
                                         elementConfig= {typeCodeInputConfig}                                                                                                               
                                     /> 
                                     */}
-
                                     <div className={classes.dropDownList}>
                                         {dropTypeCode}{/*--*/}
                                     </div>
                                 </InputGroup>
 
-
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input
                                         value={serialNumber}                                        
                                         changed={(e)=> setSerialNumber(e.target.value)}                                                                             
@@ -1143,11 +1102,9 @@ const SearchAcarsWithExtData = (props) => {
                                 {/*///////////////////////////////////////////////*/}
                          
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={consensusStatus}                                      
                                         changed={(e)=>setConsensusStatus(e.target.value)}
@@ -1157,11 +1114,9 @@ const SearchAcarsWithExtData = (props) => {
                                 </InputGroup>
 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input
                                         value={consensusResult}                                      
                                         changed={(e)=>setConsensusResult(e.target.value)}
@@ -1169,9 +1124,6 @@ const SearchAcarsWithExtData = (props) => {
                                         elementConfig= {consensResultInputConfig}                                               
                                     />
                                 </InputGroup>
-                                {/*///////////////////////////////////////////////*/}
-
-
 
                                 {/* <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
@@ -1203,11 +1155,6 @@ const SearchAcarsWithExtData = (props) => {
                             
                         </div>
                         </div>
-                        
-                       
-                        
-                       
-                        
                     </div> 
                 </div>          
             </DropdownButton>

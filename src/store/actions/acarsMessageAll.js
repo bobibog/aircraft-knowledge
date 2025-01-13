@@ -57,11 +57,9 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         //vracamo funkciju umesto actionObject
     return dispatch => {
         
-        dispatch(fetchAkrxStartAll());       
-        
+        dispatch(fetchAkrxStartAll());
 
-        console.log("FETCH2") 
-
+        //console.log("FETCH2") 
 
         // Converting Local in UTC
         var acarsMINUtc="";

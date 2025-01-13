@@ -851,11 +851,7 @@ const TableAcarsWithExtData = (props) => {
                                     <span >
                                         {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
                                     </span> 
-
-                                    {console.log("RESIZEEXTDATA canResize "+column.canResize)}{/*true*/}
-                                    {console.log("RESIZEEXTDATA isResizing "+column.isResizing)}{/*false*/}
-
-                                            {/*--*/}
+                                            
                                     {column.canResize && (
                                         <div
                                             {...column.getResizerProps()}

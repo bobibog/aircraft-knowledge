@@ -246,11 +246,11 @@ const AcarsWithExtData = props => {
         />;
         
     }      
-    if(acarsWithExtDataCount){
-        console.log("ACARSWITHEXTDATA messagesCountField = "+acarsWithExtDataCount);
-        console.log("ACARSWITHEXTDATA messages = "+acarsWithExtData)
-        console.log("ACARSWITHEXTDATA messagesCountReal = "+acarsWithExtData.length)
-    }
+    // if(acarsWithExtDataCount){
+    //     console.log("ACARSWITHEXTDATA messagesCountField = "+acarsWithExtDataCount);
+    //     console.log("ACARSWITHEXTDATA messages = "+acarsWithExtData)
+    //     console.log("ACARSWITHEXTDATA messagesCountReal = "+acarsWithExtData.length)
+    // }
 
     return (
         <div style={{marginTop:'-2px'}}>     
