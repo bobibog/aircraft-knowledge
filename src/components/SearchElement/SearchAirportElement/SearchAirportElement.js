@@ -199,11 +199,9 @@ const  SearchAirportElement = (props) => {
                         <div className="col-sm-3">                        
                             <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
                                     <Input
                                         value={airportName}
                                         // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
@@ -213,11 +211,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
                                     <Input
                                         value={airportType}
                                         // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
@@ -228,11 +224,9 @@ const  SearchAirportElement = (props) => {
                                 </InputGroup>
                                                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={city}
                                         // changed={(e)=>setCity(e.target.value) & setFilter(e.target.value)}
@@ -256,11 +250,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup> */}
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={continent}
                                         // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
@@ -270,11 +262,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={isoCountry}
                                         // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
@@ -284,11 +274,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input
                                         value={isoRegion}
                                         // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
@@ -298,11 +286,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={iata}
                                         changed={(e)=>setIATA(e.target.value)}
@@ -311,11 +297,9 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup> 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={airportICAO}
                                         changed={(e)=>setICAO(e.target.value)}
@@ -324,19 +308,17 @@ const  SearchAirportElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
-                                        <Input
-                                            value={gpsCode}
-                                            // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
-                                            changed={(e)=>setGpsCode(e.target.value)}                                                                           
-                                            elementType='input' 
-                                            elementConfig= {gpsInputConfig}                                                                                                                      
-                                        />
-                                    </InputGroup>                                              
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input
+                                        value={gpsCode}
+                                        // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
+                                        changed={(e)=>setGpsCode(e.target.value)}                                                                           
+                                        elementType='input' 
+                                        elementConfig= {gpsInputConfig}                                                                                                                      
+                                    />
+                                </InputGroup>                                              
                             </div>
                         </div> 
                         </div>
@@ -345,11 +327,9 @@ const  SearchAirportElement = (props) => {
                                 <div className={classes.card}>
                                 
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>               
                                         <Input
                                             value={localCode}
                                             // changed={(e)=>setAirportName(e.target.value) & setFilter(e.target.value)}  
@@ -359,11 +339,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>             
                                         <Input
                                             value={elevationFtMin}
                                             changed={(e)=>setElevationFtMin(e.target.value)}
@@ -372,11 +350,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                 
                                         <Input
                                             value={elevationFtMax}
                                             changed={(e)=>setElevationFtMax(e.target.value)}
@@ -385,11 +361,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>              
                                         <Input 
                                             value={latitudeDegMin}
                                             // changed={(e)=>setCity(e.target.value) & setFilter(e.target.value)}
@@ -399,11 +373,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>  
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>              
                                         <Input
                                             value={latitudeDegMax}
                                             // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
@@ -413,11 +385,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>              
                                         <Input
                                             value={longitudeDegMin}
                                             // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
@@ -427,11 +397,9 @@ const  SearchAirportElement = (props) => {
                                         />
                                     </InputGroup>
                                     <InputGroup className="mb-3 input-group-sm">
-                                        <InputGroup.Prepend className={classes.inputPrepend}>
-                                            <InputGroup.Text className={classes.span}>
-                                                <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                            </InputGroup.Text>                                
-                                        </InputGroup.Prepend>                   
+                                        <InputGroup.Text className={classes.span}>
+                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                        </InputGroup.Text>                
                                         <Input
                                             value={longitudeDegMax}
                                             // changed={(e)=>setCountry(e.target.value) & setFilter(e.target.value)}
