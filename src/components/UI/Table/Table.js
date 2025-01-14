@@ -366,7 +366,7 @@ const TableCustom = (props) => {
                                             colSpan={colSpanPagination}
                                             // count={props.data.length}
                                             count={props.totalDataCount}
-                                            rowsPerPage={rowsPerPage}
+                                            rowsPerPage={+rowsPerPage}
                                             page={currentPage}
                                             SelectProps={{
                                                 inputProps: { 'aria-label': 'rows per page' },
