@@ -151,7 +151,7 @@ const TableCustom = (props) => {
             </IconButton>
             <IconButton
               onClick={handleNextButtonClick}
-              disabled={notUseTotalCount ? (count <= rowsPerPage) : (page >= Math.ceil(count / rowsPerPage) - 1)}
+              disabled={notUseTotalCount ? (count - page * rowsPerPage <= rowsPerPage) : (page >= Math.ceil(count / rowsPerPage) - 1)}
               aria-label="next page"
             >
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
@@ -281,11 +281,13 @@ const TableCustom = (props) => {
       
     // Custom formatter using rowsPerPage
     const customLabelDisplayedRows = ({ from, to, count, page, rowsPerPage }) => {
-        if (count > rowsPerPage) {
+        // if (count > rowsPerPage) {
+        if (count - page * rowsPerPage > rowsPerPage) {
             return `${page * rowsPerPage + 1}-${page * rowsPerPage + +rowsPerPage} of more than ${page * rowsPerPage + +rowsPerPage}`;
         }
         else {
-            return `${page * rowsPerPage + 1}-${page * rowsPerPage + count} of ${page * rowsPerPage + count}`;
+            // return `${page * rowsPerPage + 1}-${page * rowsPerPage + count} of ${page * rowsPerPage + count}`;
+            return `${page * rowsPerPage + 1}-${count} of ${count}`;
         }
     };
         
@@ -365,7 +367,9 @@ const TableCustom = (props) => {
                                             }
                                             colSpan={colSpanPagination}
                                             // count={props.data.length}
-                                            count={props.totalDataCount}
+                                            //must transfer next as count because MUI displays console warning when page number exceeds the number 
+                                            // which MUI deduces from count!!! so we must always send count which is at least by one greater than page*rowsPerPage !!!
+                                            count={currentPage * (+rowsPerPage) + props.totalDataCount}
                                             rowsPerPage={+rowsPerPage}
                                             // page={!props.totalDataCount || props.totalDataCount <= 0 ? 0 : currentPage}
                                             page={currentPage}
