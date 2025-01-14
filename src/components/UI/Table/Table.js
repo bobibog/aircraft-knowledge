@@ -369,7 +369,11 @@ const TableCustom = (props) => {
                                             // count={props.data.length}
                                             //must transfer next as count because MUI displays console warning when page number exceeds the number 
                                             // which MUI deduces from count!!! so we must always send count which is at least by one greater than page*rowsPerPage !!!
-                                            count={currentPage * (+rowsPerPage) + props.totalDataCount}
+                                            count={
+                                                props.notUseTotalCount
+                                                ? (currentPage * (+rowsPerPage) + props.totalDataCount)
+                                                : props.totalDataCount
+                                            }
                                             rowsPerPage={+rowsPerPage}
                                             // page={!props.totalDataCount || props.totalDataCount <= 0 ? 0 : currentPage}
                                             page={currentPage}
