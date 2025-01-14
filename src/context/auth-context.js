@@ -219,6 +219,24 @@ const AuthContextProvider = props => {
 
     //const expiresInSeconds = 29000;
 
+    const refreshToken = () => {
+        axios.post(
+            '/refresh-token', 
+            {},
+            {
+                withCredentials: true
+            }
+        )
+        .then(response => {
+            localStorage.setItem('token',response.data.token);
+            setAuthUser({token: response.data.token, ...authUser});
+            return response.data.token;
+        })
+        .catch(err => {
+            authFail(err);
+        });
+    }
+
     //istovremeno login i register
     //za login se prosledjuje username i password a ostalo je undefined
     //za register se ni ne koristi
