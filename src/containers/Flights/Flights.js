@@ -37,12 +37,12 @@ const Flights = props => {
         return state.flight.flightsPage;
     });
 
-    var flightsFirstCount = 0;
+    // var flightsFirstCount = 0;
 
-    if(flights != null){
-        flightsFirstCount = flights.length;
-        console.log("Br Letova = "+flightsFirstCount);
-    }
+    // if(flights != null){
+    //     flightsFirstCount = flights.length;
+    //     console.log("Br Letova = "+flightsFirstCount);
+    // }
     
 
     const dispatch = useDispatch();
@@ -76,8 +76,10 @@ const Flights = props => {
     }    
 
     useEffect(() => {
+        //onSetFlightsOffsetLimit(0, 10);
         onFetchFlights(match.params.id);
     }, [onFetchFlights, match.params.id]);
+    //}, [onFetchFlights]);
 
     useEffect(() => {
         return () => {
@@ -152,9 +154,12 @@ const Flights = props => {
             header={flightHeader}
             rowsPerPageDef={limit}
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
-            totalDataCount={flightsFirstCount}
+            totalDataCount={flightsCount}
             setPageStore={setAirlinesPageHandler}
-            currPage={page} />;        
+            currPage={page}
+            notUseTotalCount={true}  
+        />; 
+                 
     };    
 
     // const hideCell = (index) => {
