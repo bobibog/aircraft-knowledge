@@ -220,7 +220,7 @@ const AuthContextProvider = props => {
     //const expiresInSeconds = 29000;
 
     const refreshToken = () => {
-        axios.post(
+        return axios.post(
             '/refresh-token', 
             {},
             {
