@@ -160,3 +160,7 @@ export{
     setStationStatusOffsetLimit,
     setStationStatusPage
 }from './stationStatus'
+
+export{
+    getStationNumber
+}from './activeStationsNumber'
