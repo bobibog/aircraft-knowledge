@@ -60,6 +60,7 @@ const MessagesNumber = (props) =>{
     const[station, setStation] = useState([]);
     const[percentage, setPercentage] = useState([]);
     const[percentageADSB, setPercentageADSB] = useState([]);
+    
 
     const messagesNumber = useSelector(state => {
         return state.statistics.messagesNumber;
@@ -83,6 +84,10 @@ const MessagesNumber = (props) =>{
 
     const stationData = useSelector(state => {
         return state.stationLastSeen.stationData;
+    });
+
+    const activeStationsNumber = useSelector(state => {
+        return state.activeStationsNumber.stationsNumber;
     })
 
     // STATION STATUS
@@ -398,6 +403,14 @@ const MessagesNumber = (props) =>{
         onStationData();
     }, [])
 
+    useEffect(()=>{
+        onActiveStationsNumber();
+        
+    },[])
+
+    // if(activeStationsNumber){
+    //     console.log(activeStationsNumber);
+    // }
        
     const onStatisticsMessagesNumber = useCallback(
         () => dispatch(actions.statisticsMessagesNumber(timeMin, timeMax, stationId), [dispatch, timeMin, timeMax, stationId])
@@ -418,6 +431,8 @@ const MessagesNumber = (props) =>{
     const onFeedingPercentagePerMessageType = useCallback(() => dispatch(actions.feedingPercentagePerTypeData(timeMin3, timeMax3, stationId3), [dispatch, timeMin3, timeMax3, stationId3]));
 
     const onStationData = useCallback(() => dispatch(actions.getStationData(), [dispatch]));
+
+    const onActiveStationsNumber = useCallback(() => dispatch(actions.getStationNumber(), [dispatch]));
     
 
     var hoursMin = timeMin.slice(11, 13);    
@@ -1147,6 +1162,8 @@ const MessagesNumber = (props) =>{
                     {result4}
             </div>
             <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            <h2 style={{color:'red', fontWeight:'bold', backgroundColor:'lightblue'}}>ACTIVE STATIONS NUMBER IN LAST 4 HOURS = {activeStationsNumber ? activeStationsNumber : '-'}</h2>
+            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
             <h5>STATIONS STATUS</h5>
             <div className={classes.container}>
             <br></br>
@@ -1160,8 +1177,7 @@ const MessagesNumber = (props) =>{
                 </div>
                     
             </div>
-        </>
-       
+        </>       
     )
 }
 
