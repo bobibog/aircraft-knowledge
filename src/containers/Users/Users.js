@@ -49,7 +49,7 @@ const Users = props => {
     const authContext = useContext(AuthContext);
     let isAuthenticated = authContext.user.token;
 
-        console.log("TOLKEN="+isAuthenticated);
+        //console.log("TOLKEN="+isAuthenticated);
     
     const onFetchUsers = useCallback(
         () => dispatch(actions.fetchUsers(offset, limit, username, password, role, name, surname, email, company, terms, isAuthenticated ))
@@ -104,7 +104,7 @@ const Users = props => {
     
     return (
         <React.Fragment>    
-            <Heading/>                                                
+            {/* <Heading/>                                                 */}
             {usersTable}            
         </React.Fragment>        
     );

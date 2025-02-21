@@ -133,11 +133,9 @@ const  SearchAircraftElement = (props) => {
                         <div className="col-md">                        
                             <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={airline}
                                         // changed={(e)=>setAirline(e.target.value) & setFilter(e.target.value)} 
@@ -148,11 +146,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={operators}
                                         // changed={(e)=>setOperator(e.target.value) & setFilter(e.target.value)}
@@ -163,11 +159,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={typeCode}
                                         // changed={(e)=>setTypeCode(e.target.value) & setFilter(e.target.value)}
@@ -178,11 +172,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={fullType}
                                         // changed={(e)=>setFullType(e.target.value) & setFilter(e.target.value)}
@@ -193,11 +185,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={registration}
                                         // changed={(e)=>setRegistration(e.target.value) & setFilter(e.target.value)}
@@ -212,11 +202,9 @@ const  SearchAircraftElement = (props) => {
                         <div className="col-md">                        
                         <div className={classes.card} >                               
                             <InputGroup className="mb-3 input-group-sm">
-                                <InputGroup.Prepend className={classes.inputPrepend}>
-                                    <InputGroup.Text className={classes.span}>
-                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                    </InputGroup.Text>                                
-                                </InputGroup.Prepend>                   
+                                <InputGroup.Text className={classes.span}>
+                                    <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                </InputGroup.Text>              
                                 <Input
                                     value={serialNumber}
                                     // changed={(e)=>setSerialNumber(e.target.value) & setFilter(e.target.value)}
@@ -227,11 +215,9 @@ const  SearchAircraftElement = (props) => {
                                 />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input
                                         value={modeS}
                                         // changed={(e)=>setModeS(e.target.value) & setFilter(e.target.value)}
@@ -242,11 +228,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={minManufactureDate}
                                         // changed={(e)=>setMinManufactureDate(e.target.value) & setFilter(e.target.value)}
@@ -257,11 +241,9 @@ const  SearchAircraftElement = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text> 
                                     <Input
                                         value={maxManufactureDate}
                                         // changed={(e)=>setMaxManufactureDate(e.target.value) & setFilter(e.target.value)}

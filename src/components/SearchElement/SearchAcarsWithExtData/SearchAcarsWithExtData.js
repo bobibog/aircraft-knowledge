@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
+import React, {useState, useCallback, useEffect, useRef, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Input from '../../UI/Input/Input';
@@ -10,10 +10,22 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import {AuthContext} from '../../../context/auth-context';
 
 
+import * as actionTypes from '../../../store/actions/actionTypes';//
 
-const  SearchAcarsWithExtData = (props) => {
+const SearchAcarsWithExtData = (props) => {
+    const authContext = useContext(AuthContext);
+
+
+    ////////////////////////////////
+    //#
+    //useRef za direktno menjanje podatka bez izazivanja rerendera i cuvaju vrednosti nakon rerendera i nestaje nakon unmounta
+    const timeOutRef = useRef(500);//0.5
+    const timerRef = useRef(null);
+    //const isFirstRender = useRef(2);
+    ////////////////////////////////
 
     const airlineNameList = useSelector(state => {
         return state.airline.airlines;
@@ -32,8 +44,8 @@ const  SearchAcarsWithExtData = (props) => {
     const[valueIATA, setValueIATA] = useState(null);
     const[valueICAO, setValueICAO] = useState(null);
     
-    const[valueAircraftTypeFull, setValueAircraftTypeFull] = useState(null);
-    const[valueTypeCode, setValueTypeCode] = useState(null);
+    const[valueAircraftTypeFull, setValueAircraftTypeFull] = useState(null);//selektovan objekat iz DropDown
+    const[valueTypeCode, setValueTypeCode] = useState(null);//
 
     const[acarsMessageDateTimeMin, setAcarsMessageDateTimeMin] = useState('');
     const[acarsMessageDateTimeMax, setAcarsMessageDateTimeMax] = useState('');
@@ -51,13 +63,27 @@ const  SearchAcarsWithExtData = (props) => {
     const[operatorName, setOperatorName] = useState('');
     const[operatorIata, setOperatorIata] = useState('');
     const[operatorIcao, setOperatorIcao] = useState('');
-    const[aggregatedText , setAggegatedText] = useState('');
+    //const[aggregatedText , setAggegatedText] = useState('');//!
     
     const[serialNumber, setSerialNumber] = useState('');    
-    const[aircraftType, setAircraftType] = useState('');
-    const[typeCode, setTypeCode] = useState('');   
     const[modeS, setModeS] = useState(''); 
     
+
+    /////////////////////////
+    const[aircraftType, setAircraftType] = useState('');
+    const[typeCode, setTypeCode] = useState('');
+    /////////////////////////
+    const[typeCodeChange,setTypeCodeChange] = useState('')
+    const[aircraftTypeChange,setAircraftTypeChange] = useState('')
+    /////////////////////////////
+    const[aggrStatus, setAggrStatus]=useState('');
+
+    //MENJA SE RESPONSE PRI ISTOM SEARCH U AcarsMessage/acarsWithExtData kao i channel
+    const[consensusStatus, setConsensusStatus]=useState('');
+
+    const[aggrText, setAggrText]=useState('');
+    const[consensusResult, setConsensusResult]=useState('');
+    /////////////////////////////
 
     const dispatch = useDispatch();
 
@@ -91,14 +117,23 @@ const  SearchAcarsWithExtData = (props) => {
     //     , [dispatch, operatorIcao ]
     // );
     
+
+    const [limitTypeMax,setLimitTypeMax] = useState(30)
+    const [aircraftTypeChrLimit,setAircraftTypeChrLimit] = useState(3)
+    const [typeCodeChrLimit,setTypeCodeChrLimit] = useState(2)
+
+                //!         //pri rerender se obicnoj funkciji uvek menja referenca a state samo ako je promenjena vrednost sa setState 
     const onFetchAircraftType = useCallback(
-        () => dispatch(actions.fetchAircraftTypes(aircraftType))
-        , [dispatch, aircraftType ]
+                                                       //(aircraftType)//bilo
+        () => dispatch(actions.fetchAircraftTypes(aircraftTypeChange,limitTypeMax, authContext.user.token))
+        //, [dispatch, aircraftType, authContext.user.token]//bilo
+        ,[dispatch,aircraftTypeChange,limitTypeMax, authContext.user.token]
     );
 
-    const onFetchTypeCode = useCallback(
-        () => dispatch(actions.fetchTypeCodes(typeCode))
-        , [dispatch, typeCode ]
+    const onFetchTypeCode = useCallback(        //(typeCode)
+        () => dispatch(actions.fetchTypeCodes(typeCodeChange,limitTypeMax))
+        //, [dispatch, typeCode]
+        ,[dispatch,typeCodeChange,limitTypeMax]
     );
 
 
@@ -130,14 +165,64 @@ const  SearchAcarsWithExtData = (props) => {
     // }, [airlineName, airlineIata, airlineIcao, operatorName, operatorIata, operatorIcao]);
     
 
+    //u zavisnosti koji useEffect se posle aktivira inicijalno njegovo postojanje timera ce ukloniti prethodni tako da ce ostati ili onFetchAircraftType ili onFetchTypeCode za inicijalni fetch
+    //mozemo u useEffect watch da stavimo funkciju za useCallback ili promenjljivu za useMemo koji imaju svoj watch
+    //tako se pri promeni watch od useMemo ili useCallback ponovo referencira promenjljiva i onda zbog promene reference se aktivira watch od useEffect
     useEffect(()=>{
-        onFetchAircraftType();
+
+        /*     
+        //inicijalni fetch se nece ni prikazati zbog ogranicenja broja karaktera a nije ni zavisio od user inputa
+        if (isFirstRender.current > 0) {
+            isFirstRender.current--;
+            return;
+          }
+        */
+
+        //brisemo prethodni aircraftTypes state
+        dispatch({
+            type: actionTypes.FETCH_AIRCRAFTTYPE_SUCCESS,
+            aircraftTypes: null,        
+        }) 
+        
+        timerFetchDebouncing(onFetchAircraftType,aircraftTypeChrLimit,aircraftTypeChange)
+    
     }, [onFetchAircraftType])
 
     useEffect(()=>{
-        onFetchTypeCode();
+
+        /*     
+        if (isFirstRender.current > 0) {
+            isFirstRender.current--;
+            return;
+          }
+        */
+        
+        dispatch({
+            type: actionTypes.FETCH_TYPECODE_SUCCESS,
+            typeCodes: null,        
+        }) 
+        timerFetchDebouncing(onFetchTypeCode,typeCodeChrLimit,typeCodeChange)
+    
+        //###                                          
+        return () => {clearTimeout(timerRef.current)};//ako prekidamo prethodni timer ali ne zbog narednog timera vec zbog demount
+
     }, [onFetchTypeCode])
 
+
+    //###
+    const timerFetchDebouncing = (fetchFun,charLimit,currQuery) =>{
+
+        //pre return zbog prelaska u min karaktera da ne bi ostao timer        
+        clearTimeout(timerRef.current);//brisemo prethodni ako je aktivan(prekinut narednim kucanjem) ili ako je neaktivan ili zavrsen
+
+
+        if(currQuery.length <= charLimit)
+            return;
+
+        timerRef.current = setTimeout(() =>{//kreiramo naredni timer odnosno resetujemo
+            fetchFun();
+          },timeOutRef.current);
+      };
 
     // Disable Input
     const [disabled, setDisabled] = useState(false);
@@ -212,8 +297,6 @@ const  SearchAcarsWithExtData = (props) => {
         //setOperatorIata('');
         //setOperatorIcao('');
         setSerialNumber('');        
-        setAircraftType('');
-        setTypeCode(''); 
         //setAggregatedText('');
         setValueName(null);
         setValueIATA(null);
@@ -221,10 +304,23 @@ const  SearchAcarsWithExtData = (props) => {
         //setValueOperatorName(null);
         //setValueOperatorIATA(null);
         //setValueOperatorICAO(null);
-        setValueAircraftTypeFull(null);
-        setValueTypeCode(null);
         
 
+        ////////////////////////////////
+        setAircraftType('');//
+        setValueAircraftTypeFull(null);//
+        setTypeCode('');//
+        setValueTypeCode(null);//
+        ////////////////////////////////
+
+        ///////////////
+        setAggrStatus("")
+        setConsensusStatus("")
+        
+        setAggrText('');
+        setConsensusResult('');
+        ///////////////
+        
         setDateFromErr({});
         setDateToErr({});
         props.clickedReset();        
@@ -244,7 +340,8 @@ const  SearchAcarsWithExtData = (props) => {
     let dropOperatorIATA= '';
     let dropOperatorICAO = '';
     let dropAircraftTypeFull = '';
-    let dropTypeCode = '';
+    
+    let dropTypeCode = '';//
 
     const onDropNameChange = (e) =>{
         setValueName(e);       
@@ -277,16 +374,46 @@ const  SearchAcarsWithExtData = (props) => {
     //     setOperatorIcao(e.icao);
     //     //disabler();                     
     // }
-    const onDropAircraftTypeFullhange = (e) =>{
-        setValueAircraftTypeFull(e);       
-        setAircraftType(e.aircraftType);
+
+
+                                        //e nije event vec trenutno selektovan objekat
+    const onDropAircraftTypeFullChange = (e) =>{
+
+        console.log("onChangeAircraftTypeFull")
+        
+        ///////////
+        //bilo
+        //setValueAircraftTypeFull(e);//pamti selektovan objekat a u DropDown prikazuje full naziv
+        //setAircraftType(e.aircraftType);//pamti full DropDown naziv selektovanog objekta jer smo mogli da ga selektujemo po contains < cele reci pa Search po tom nazivu a konkretnom izboru ne bi imao smisla
+        ///////////
+
+        setAircraftTypeChange(e)//za fetch novog pri promeni ukucanog
+
         //disabler();                     
     }
-    const onDropTypeCodeChange = (e) =>{
+    const onDropAircraftTypeFullSelected = (e) =>{
+        console.log("onSelectedAircraftTypeFull")
+        
+        setValueAircraftTypeFull(e);//za promenu u DropDown childu koji koristi valueAircraftTypeFull samo za prikaz vrednosti polja pa ni ne mora biti u Search
+        setAircraftType(e.aircraftType);//za Search selektovanog
+        
+    }
+
+    const onDropTypeCodeChange = (e) =>{//fetch
+        console.log("onChangeTypeCode")
+
+        setTypeCodeChange(e)
+
+        //disabler();                     
+    }
+    const onDropTypeCodeSelected = (e) =>{
+        console.log("onSelectedTypeCode")
+        
         setValueTypeCode(e);       
         setTypeCode(e.typeCode);
-        //disabler();                     
+        
     }
+
 
     // DELETING VALUE BY BACKSPACE
     // const deletingAirlineName=(e)=>{
@@ -326,19 +453,21 @@ const  SearchAcarsWithExtData = (props) => {
     //     }
     // }
     const deletingAircraftType=(e)=>{
+        console.log("KEY DOWN deletingAircraftType")//moze i sa key up ali onda nece moci da se drzi
         if (e.keyCode === 8) {
             setValueAircraftTypeFull('');
             setAircraftType('');
         }
     }
     const deletingTypeCode=(e)=>{
+        console.log("KEY DOWN deletingTypeCode")
         if (e.keyCode === 8) {
             setValueTypeCode('');
             setTypeCode('');
         }
     }
 
-    // Dropdown  Staus 
+    // Dropdown  Status 
     const[dropStatus, setDropStatus]=useState(0);
     function dropChanger(dropStatus){
         if(dropStatus==0){
@@ -437,36 +566,64 @@ const  SearchAcarsWithExtData = (props) => {
     // }
 
     // Dropdown Aircraft Type Full
-    if(aircraftTypeList != null)
-    {
+    //if(aircraftTypeList != null)//ako imamo ovaj if i ako ne fetchujemo sve bez kucanjanja(inicijalno) odnosno aircraftType='' onda ce nam biti suzeno polje jer nece biti DropDowna
+    //{
         dropAircraftTypeFull= <Dropdown
             prompt= 'Aircraft Type'            
             options={aircraftTypeList}              
-            value={valueAircraftTypeFull}   
-            onChange={onDropAircraftTypeFullhange} 
+            
+            value={valueAircraftTypeFull}
+
+            onChange={onDropAircraftTypeFullChange}//
+            onDropSelected={onDropAircraftTypeFullSelected}//
+
             descriptor='aircraftType'
-            characterLimit = {2}   
+            characterLimit = {aircraftTypeChrLimit}//bilo 2,minimum za prikazivanje options   
             onKeyDown={deletingAircraftType}
             dropChanger={dropStatus}                                             
         />;
-    }
+    //}
 
     // Dropdown Type Code
-    if(typeCodeList != null)
-    {
+    //if(typeCodeList != null)
+    //{
+
         dropTypeCode = <Dropdown
             prompt= 'Type Code'            
-            options={typeCodeList}              
-            value={valueTypeCode}   
-            onChange={onDropTypeCodeChange} 
+            
+            options={typeCodeList}
+
+            value={valueTypeCode} 
+            
+            onChange={onDropTypeCodeChange}//
+            onDropSelected={onDropTypeCodeSelected}//
+
             descriptor='typeCode'
-            characterLimit = {1}  
+            characterLimit = {typeCodeChrLimit}//bilo 1 
             onKeyDown = {deletingTypeCode}   
             dropChanger={dropStatus}                                       
         />;
+    //}
+    //kao props za filter
+    const aggrStatusInputConfig = {
+        type:'text',
+        placeholder:'Aggregation Status'
     }
-   
-       
+    const aggrTextInputConfig = {
+         type:'text',
+         placeholder:'Aggregated Text',             
+    }    
+
+    const consensStatusInputConfig = {
+        type:'text',
+        placeholder:'Consensus Status'
+    }   
+    const consensResultInputConfig = {
+        type:'text',
+        placeholder:'Consensus Result'
+    }   
+    ////////////////////////
+
     const acarsMessageDateTimeMinInputConfig = {
         type:'datetime-local',
         placeholder:'From:'
@@ -539,16 +696,16 @@ const  SearchAcarsWithExtData = (props) => {
         type:'text',
         placeholder:'Serial Number'        
     }
-    const typeCodeInputConfig = {
+    const typeCodeInputConfig = {//nije bilo ubaceno u search
         type:'text',
         placeholder:'Type Code',
         //disabled: disabled        
     }
-    // const aggregatedTextInputConfig = {
+    //const aggregatedTextInputConfig = {//!
     //     type:'text',
     //     placeholder:'Aggregated Text',
              
-    // }    
+    // }      
     
     // Changing Dropdown Button title according to event (search or reset click)
     const[filter, setFilter] = useState('');
@@ -593,9 +750,14 @@ const  SearchAcarsWithExtData = (props) => {
    
 
     const onSerach = (e) =>{
+            //parent metoda
         props.clickedSearch(acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
             tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText);
+                                                                            //          //
+            serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,
+        
+            aggrStatus,consensusStatus,      aggrText,consensusResult);
+        
         setFilter('a');
         toggleDropdown();
         props.allChanger(changer);
@@ -621,12 +783,9 @@ const  SearchAcarsWithExtData = (props) => {
                             <div className={classes.card} >
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
@@ -645,12 +804,9 @@ const  SearchAcarsWithExtData = (props) => {
                                 </div>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
@@ -667,12 +823,11 @@ const  SearchAcarsWithExtData = (props) => {
                                     })}
                                 </InputGroup>
                                 </div>
+
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={tail}                                        
                                         changed={(e)=>setTail(e.target.value)}
@@ -680,12 +835,11 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {tailInputConfig}                                               
                                     />
                                 </InputGroup>
+
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={flight}
                                         // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
@@ -695,11 +849,9 @@ const  SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
                                     <Input
                                         value={text}
                                         // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
@@ -707,13 +859,41 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementType='input' 
                                         elementConfig= {textInputConfig}                                               
                                     />
-                                </InputGroup> 
+                                </InputGroup>
+
+                                {/*/////////////////////////////////*/}
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input
+                                        value={aggrText}                                      
+                                        changed={(e)=>setAggrText(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrTextInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
+                                    <Input
+                                        value={aggrStatus}       
+                                                    //pri kucanju menjamo dinamicki                                 
+                                        changed={(e)=>setAggrStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aggrStatusInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                {/*/////////////////////////////////*/}
+
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={mode}
                                         // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
@@ -723,22 +903,17 @@ const  SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={label}                                        
                                         changed={(e)=>setLabel(e.target.value)}          
                                         elementType='input' 
                                         elementConfig= {labelInputConfig}                     
                                     />
-                                </InputGroup>
-                                                                                  
-                                                                                                               
+                                </InputGroup>                                                              
                             </div>
-                            
                         </div>
                         </div>
                         {/* 2. column */}
@@ -746,11 +921,9 @@ const  SearchAcarsWithExtData = (props) => {
                         <div className="col-sm-3">                
                             <div className={classes.card}>   
                             <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input 
                                         value={blockId}                                        
                                         changed={(e)=>setBlockId(e.target.value)}          
@@ -759,11 +932,9 @@ const  SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>  
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
                                     <Input 
                                         value={msgno}                                        
                                         changed={(e)=>setMsgno(e.target.value)}          
@@ -772,11 +943,9 @@ const  SearchAcarsWithExtData = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={dsta}                                        
                                         changed={(e)=>setDsta(e.target.value)}          
@@ -883,43 +1052,44 @@ const  SearchAcarsWithExtData = (props) => {
                                     </div>
                                 </InputGroup> */}
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    {/* <Input
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                    
+                                    {/*
+                                     <Input
                                         value={aircraftType}                                        
                                         changed={(e)=> setAircraftType(e.target.value)}                                                                             
                                         elementType='input' 
                                         elementConfig= {aircraftTypeInputConfig}                                                                                                               
-                                    /> */}
+                                    /> 
+                                    */}
                                     <div className={classes.dropDownList}>
                                         {dropAircraftTypeFull}
                                     </div>
                                 </InputGroup>
+
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    {/* <Input
-                                        value={typeCode}                                        
-                                        changed={(e)=> setTypeCode(e.target.value)}                                                                             
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text> 
+                                    {/*
+                                    //nije potrebno jer smo povezali typeCode sa dropTypeCode(DropDown)
+                                     <Input
+                                        value={typeCode}//typeCode -> UI                                        
+                                        changed={(e)=> setTypeCode(e.target.value)}//UI -> typeCode                                                                             
                                         elementType='input' 
                                         elementConfig= {typeCodeInputConfig}                                                                                                               
-                                    /> */}
+                                    /> 
+                                    */}
                                     <div className={classes.dropDownList}>
-                                        {dropTypeCode}
+                                        {dropTypeCode}{/*--*/}
                                     </div>
                                 </InputGroup>
+
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
                                     <Input
                                         value={serialNumber}                                        
                                         changed={(e)=> setSerialNumber(e.target.value)}                                                                             
@@ -927,6 +1097,34 @@ const  SearchAcarsWithExtData = (props) => {
                                         elementConfig= {serialNumberInputConfig}                                                                                                               
                                     />
                                 </InputGroup>
+
+                                
+                                {/*///////////////////////////////////////////////*/}
+                         
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input
+                                        value={consensusStatus}                                      
+                                        changed={(e)=>setConsensusStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensStatusInputConfig}                                               
+                                    />
+                                </InputGroup>
+
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={consensusResult}                                      
+                                        changed={(e)=>setConsensusResult(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {consensResultInputConfig}                                               
+                                    />
+                                </InputGroup>
+
                                 {/* <InputGroup className="mb-3 input-group-sm" size="sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
@@ -957,11 +1155,6 @@ const  SearchAcarsWithExtData = (props) => {
                             
                         </div>
                         </div>
-                        
-                       
-                        
-                       
-                        
                     </div> 
                 </div>          
             </DropdownButton>

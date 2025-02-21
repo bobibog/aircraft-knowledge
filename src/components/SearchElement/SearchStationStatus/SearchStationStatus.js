@@ -175,12 +175,9 @@ const  SearchStationStatus = (props) => {
                             <div className={classes.card} >
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                                      
                                     <Input 
                                         value={start}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
@@ -199,12 +196,9 @@ const  SearchStationStatus = (props) => {
                                 </div>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                                       
                                     <Input 
                                         value={end}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
@@ -222,11 +216,9 @@ const  SearchStationStatus = (props) => {
                                 </InputGroup>
                                 </div>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={statId}                                        
                                         changed={(e)=>setStatId(e.target.value)}
@@ -235,11 +227,9 @@ const  SearchStationStatus = (props) => {
                                     />
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
                                     <Input
                                         value={msgType}
                                         changed={(e)=>setMsgType(e.target.value)}

@@ -80,13 +80,12 @@ const Styles = styled.div`
         } 
     }    
 
-    .th,
-    .td {
+    .th,.td {${''/*elementi klase .th ili .td*/}
       margin: 0;
-      padding: 0.5rem;
+      padding: 0.5rem;${''/**/}
       border-right: 1px solid black;
       border: 1px solid #ddd;
-      padding: 12px;
+      padding: 12px;${''/*opet odnosno override prethodne*/}
       width: 180px;      
       display: inline-block;
       word-wrap: break-word;
@@ -112,16 +111,25 @@ const Styles = styled.div`
         width:80px !important;
         word-break: break-word;             
       }
+      ${''/*Text*/}
       :nth-child(4){          
         width:420px !important;
         word-break: break-word !important; 
+        
         font-family: monospace;          
         white-space: pre-wrap;               
       }
+         ${''/*Aggregared Text(Parsed Text)*/}
       :nth-child(5){          
-        width:120px !important;
-        word-break: break-word;             
+        width:420px !important;
+        word-break: break-word; ${''/*prelazak reci u novi red bilo na space bilo u sred reci i ne zadrzava >1 space i prelome linija(\n)*/}     
+        ${''
+        /* 
+        font-family: monospace;          
+        white-space: pre-wrap; cuva >1 space i prelome linija(\n) i prelama na space
+        */}
       }
+         ${''/*Aggregation Status*/}
       :nth-child(6){          
         width:160px !important;
         word-break: break-word;             
@@ -364,7 +372,7 @@ const Styles = styled.div`
             z-index: 1;            
             border: 0;
             position: relative; 
-            margin-top: -1480px;
+            margin-top: -1480px;  ${''/**/}
             border-top: 1px solid black;
 
             .tr, .td{
@@ -407,8 +415,10 @@ const Styles = styled.div`
             .td{
                 width: 100% !important;                
                 border: 1 solid blue;
-                padding-left: 8%;
+                padding-left: 8%; ${''/**/}
                 content-align: center;
+
+
                 :nth-child(2){          
                     width:550px !important;
                     word-break: break-word;             
@@ -647,7 +657,7 @@ const IndeterminateCheckbox = React.forwardRef(
       )
     }
   );
-
+                    //ne dekomponujemo
 const TableAKRx = (props) => {
     
     //+RESIZE
@@ -664,8 +674,10 @@ const TableAKRx = (props) => {
     );
 
     //To avoid refreshing data with each rerender -> useMemo()
+    
     const columns = useMemo(()=> COLUMNS, []);    
     
+
     const data = useMemo(()=> props.data, []);    
     const [pageInd, setPage] = useState(props.currPage);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
@@ -674,6 +686,7 @@ const TableAKRx = (props) => {
         setRowClose(false);
     }
     
+    ///////////////////////////////////
     const handleChangePage = (event, newPage) => {
         props.setPageStore(newPage);
         setPage(newPage);
@@ -681,6 +694,8 @@ const TableAKRx = (props) => {
         let newOffset = newPage * rowsPerPage;
         props.changeOffsetOrLimit(newOffset, rowsPerPage);
     };
+    ///////////////////////////////////
+
     const handleChangeRowsPerPage = (event) => {
         let changedRowsPerPage = parseInt(event.target.value, 10)
         setRowsPerPage(changedRowsPerPage);
@@ -688,9 +703,11 @@ const TableAKRx = (props) => {
         setPage(0);        
         props.changeOffsetOrLimit(0, event.target.value);        
     };    
+
+    //prosledjujemo columns u reactov useTable hook
         
     //Destructuring properties and methods from tableInstance to enable easy table creation
-    const { 
+    const { //propertiji koje vraca useTable hook
         getTableProps, 
         getTableBodyProps, 
         headerGroups, 
@@ -818,6 +835,9 @@ const TableAKRx = (props) => {
                     <button className="btn btn-info"  onClick={(e) => exportToCSV(data,"AKRxMesages")}>Export to Excel</button>
                 </div>
                 <div >
+
+
+                    {/*show cols*/}
                     <DropdownButton title={title} className="drop" drop="down" onToggle={(e) => changeTitle()}>
                         <div className="boxCheck">                    
                             <div style={{paddingLeft:'18px'}}>
@@ -837,6 +857,11 @@ const TableAKRx = (props) => {
                     </DropdownButton>
                 </div>
             </div>
+        
+        
+        
+        
+        
         {(props.data && props.data.length !== 0)            
        ?   
        <>
@@ -856,11 +881,16 @@ const TableAKRx = (props) => {
                                     
                                     <span >
                                         {column.isSorted ? (column.isSortedDesc ? ' ▼' : ' ▲') : ''}
-                                    </span> 
+                                    </span>
+                                    
                                     {column.canResize && (
                                         <div
                                             {...column.getResizerProps()}
+
+                                                        //
                                             className={`resizer ${
+                                            
+                                                                    //
                                             column.isResizing ? 'isResizing' : ''
                                             }`}
                                         />
@@ -891,7 +921,7 @@ const TableAKRx = (props) => {
         </table>
         
         </>
-        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for previous day or entered serach term. Please back to previous page or enter new search term in the Filter.</p></div>}
+        : <div style={{ marginTop:"95px" }}><p style={{ color:"red", fontSize:"26px" }}>There are no data for previous day or entered search term. Please back to previous page or enter new search term in the Filter.</p></div>}
         <div className="pagginationBox">
             
             {/* <span>
@@ -929,6 +959,7 @@ const TableAKRx = (props) => {
             <button className="button" onClick={(e) => nextPage(handleChangePage(e, pageIndex+1))} disabled={!canNextPage}><RiArrowRightSLine/></button>
             {/* <button className="button" onClick={(e)=> gotoPage(handleChangePage(e, pageCount-1))} disabled={!canNextPage}><FiSkipForward/></button> */}
         </div>
+        
         
     </Styles>
     )

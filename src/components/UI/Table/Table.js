@@ -119,22 +119,22 @@ const TableCustom = (props) => {
     function TablePaginationActions(props) {
         const classes = useStyles1();
         const theme = useTheme();
-        const { count, page, rowsPerPage, onChangePage } = props;
+        const { count, page, rowsPerPage, onPageChange, notUseTotalCount } = props;
       
         const handleFirstPageButtonClick = (event) => {
-          onChangePage(event, 0);
+          onPageChange(event, 0);
         };
       
         const handleBackButtonClick = (event) => {
-          onChangePage(event, page - 1);
+          onPageChange(event, page - 1);
         };
       
         const handleNextButtonClick = (event) => {
-          onChangePage(event, page + 1);
+          onPageChange(event, page + 1);
         };
       
         const handleLastPageButtonClick = (event) => {
-          onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+          onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
         };
       
         return (
@@ -151,14 +151,14 @@ const TableCustom = (props) => {
             </IconButton>
             <IconButton
               onClick={handleNextButtonClick}
-              disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+              disabled={notUseTotalCount ? (count - page * rowsPerPage <= rowsPerPage) : (page >= Math.ceil(count / rowsPerPage) - 1)}
               aria-label="next page"
             >
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
             <IconButton
               onClick={handleLastPageButtonClick}
-              disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+              disabled={notUseTotalCount ? true : (page >= Math.ceil(count / rowsPerPage) - 1)}
               aria-label="last page"
             >
               {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
@@ -169,14 +169,15 @@ const TableCustom = (props) => {
 
     TablePaginationActions.propTypes = {
         count: PropTypes.number.isRequired,
-        onChangePage: PropTypes.func.isRequired,
+        onPageChange: PropTypes.func.isRequired,
         page: PropTypes.number.isRequired,
         rowsPerPage: PropTypes.number.isRequired,
+        notUseTotalCount: PropTypes.bool
     };
 
 
     // const [page, setPage] = useState(0);
-    const [page, setPage] = useState(props.currPage);
+    const [currentPage, setCurrentPage] = useState(props.currPage);
     // const [rowsPerPage, setRowsPerPage] = useState(10);
     const [rowsPerPage, setRowsPerPage] = useState(props.rowsPerPageDef);
     
@@ -186,12 +187,18 @@ const TableCustom = (props) => {
         setRowClose(false);
     }
 
-    // const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.totalDataCount - page * rowsPerPage);
-
+    let emptyRows;
+    if (props.notUseTotalCount) {
+        emptyRows = rowsPerPage - Math.min(rowsPerPage, props.totalDataCount);
+    }
+    else {
+        // const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage);
+        emptyRows = rowsPerPage - Math.min(rowsPerPage, props.totalDataCount - currentPage * rowsPerPage);
+    }
+    
     const handleChangePage = (event, newPage) => {
         props.setPageStore(newPage);
-        setPage(newPage);
+        setCurrentPage(newPage);
         setRowClose(true);
         let newOffset = newPage * rowsPerPage;
         props.changeOffsetOrLimit(newOffset, rowsPerPage);
@@ -201,7 +208,7 @@ const TableCustom = (props) => {
         let changedRowsPerPage = parseInt(event.target.value, 10)
         setRowsPerPage(changedRowsPerPage);
         props.setPageStore(0);
-        setPage(0);
+        setCurrentPage(0);
         // props.changeOffsetOrLimit(0, rowsPerPage);
         // if (changedRowsPerPage !== -1) {
         //     props.changeOffsetOrLimit(0, event.target.value);
@@ -240,7 +247,50 @@ const TableCustom = (props) => {
         },
       });
 
-    
+    //   const CustomPaginationActions = (props) => {
+    //     const { count, page, rowsPerPage, onPageChange } = props;
+      
+    //     const handleBackButtonClick = (event) => {
+    //       onPageChange(event, page - 1);
+    //     };
+      
+    //     const handleNextButtonClick = (event) => {
+    //       onPageChange(event, page + 1);
+    //     };
+      
+    //     return (
+    //       <div style={{ flexShrink: 0, marginLeft: '2.5em' }}>
+    //         <IconButton
+    //           onClick={handleBackButtonClick}
+    //           disabled={page === 0}
+    //           aria-label="previous page"
+    //         >
+    //           <KeyboardArrowLeft />
+    //         </IconButton>
+    //         <IconButton
+    //           onClick={handleNextButtonClick}
+    //           disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+    //           aria-label="next page"
+    //         >
+    //           <KeyboardArrowRight />
+    //         </IconButton>
+    //         {/* Last Page button is intentionally omitted */}
+    //       </div>
+    //     );
+    //   };
+      
+    // Custom formatter using rowsPerPage
+    const customLabelDisplayedRows = ({ from, to, count, page, rowsPerPage }) => {
+        // if (count > rowsPerPage) {
+        if (count - page * rowsPerPage > rowsPerPage) {
+            return `${page * rowsPerPage + 1}-${page * rowsPerPage + +rowsPerPage} of more than ${page * rowsPerPage + +rowsPerPage}`;
+        }
+        else {
+            // return `${page * rowsPerPage + 1}-${page * rowsPerPage + count} of ${page * rowsPerPage + count}`;
+            return `${page * rowsPerPage + 1}-${count} of ${count}`;
+        }
+    };
+        
 
     return (  
             
@@ -291,11 +341,8 @@ const TableCustom = (props) => {
                                                     (columnsTotal - 1) > columnIndexVisible
                                                     ? columnIndexVisible + 2
                                                     : columnIndexVisible + 1                                                    
-                                                }                                       
-                                                                                 
-
+                                                }
                                             />
-                                        
                                         </TableRow>
                                     )}
 
@@ -313,18 +360,36 @@ const TableCustom = (props) => {
                                             labelRowsPerPage={breakpoints.xs ? null : 'Rows per page:'}
                                             rowsPerPageOptions={[10, 25, 50, 100, { label: 'All', value: -1 }]}
                                             //rowsPerPageOptions={[5, 10, 25, { label: 'All', value: props.totalDataCount }]}
+                                            labelDisplayedRows={
+                                                props.notUseTotalCount
+                                                ? (paginationInfo) => customLabelDisplayedRows({ ...paginationInfo, rowsPerPage })
+                                                : undefined // Fallback to default formatting
+                                            }
                                             colSpan={colSpanPagination}
                                             // count={props.data.length}
-                                            count={props.totalDataCount}
-                                            rowsPerPage={rowsPerPage}
-                                            page={page}
+                                            //must transfer next as count because MUI displays console warning when page number exceeds the number 
+                                            // which MUI deduces from count!!! so we must always send count which is at least by one greater than page*rowsPerPage !!!
+                                            count={
+                                                props.notUseTotalCount
+                                                ? (currentPage * (+rowsPerPage) + props.totalDataCount)
+                                                : props.totalDataCount
+                                            }
+                                            rowsPerPage={+rowsPerPage}
+                                            // page={!props.totalDataCount || props.totalDataCount <= 0 ? 0 : currentPage}
+                                            page={currentPage}
                                             SelectProps={{
                                                 inputProps: { 'aria-label': 'rows per page' },
                                                 native: true,
                                             }}
-                                            onChangePage={handleChangePage}
-                                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                                            ActionsComponent={TablePaginationActions}
+                                            onPageChange={handleChangePage}
+                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                            ActionsComponent={(subProps) => (
+                                                <TablePaginationActions
+                                                    {...subProps}
+                                                    notUseTotalCount={props.notUseTotalCount}
+                                                />
+                                            )}
+                                            
                                         />
                                     </TableRow>
                                 </TableFooter>                       

@@ -192,7 +192,9 @@ const Airports = props => {
             changeOffsetOrLimit={changeOffsetOrLimitHandler}
             totalDataCount={airportsCount}
             setPageStore={setAirportsPageHandler}
-            currPage={page} />;        
+            currPage={page}
+            notUseTotalCount={true} //not know total airports count - only if next page exists
+        />;        
     };    
 
         

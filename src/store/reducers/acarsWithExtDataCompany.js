@@ -7,15 +7,17 @@ const initialState = {
     acarsPerAircraftMessages: null,
     acarsPerAircraftMessagesCount: null,
     acarsWithExtDataLoading: false,
-    acarsWithExtDataOffset: 0,
-    acarsWithExtDataLimit: rowsPerPageDefault,     
+    
+    acarsWithExtDataOffset: 0,//
+    acarsWithExtDataLimit: rowsPerPageDefault,//isto kao i u reducers/acarsMessage
+    
     acarsWithExtDataPage: 0     
 };
 
 const setAcarsWithExtDataOffsetLimitCompany = (state, action) => {
     return updateObject(state, {
-        acarsWithExtDataOffset: action.offset,
-        acarsWithExtDataLimit: action.limit
+        acarsWithExtDataOffset: action.offset,//
+        acarsWithExtDataLimit: action.limit//
     });
 };
 const setAcarsWithExtDataPageCompany = (state, action) => {

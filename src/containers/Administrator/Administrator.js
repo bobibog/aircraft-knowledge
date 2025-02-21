@@ -4,8 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Background from '../../assets/images/arbeit.jpg';
 // import Requests from '../../assets/images/Request.jpg';
 import Customers from '../../assets/images/crudCustomer.png';
+import {Link} from 'react-router-dom';
 
-const Administrator = ()=>{
+const Administrator = () => {
+
+    //const navigate = useNavigate();
     
     return(
         <div className={classes.container} style={{backgroundImage:"url("+Background+")"}}>
@@ -26,7 +29,8 @@ const Administrator = ()=>{
                         <div className="card-body">
                             <h5 className="card-title">C.R.U.D. <br/>User</h5>
                             <p className="card-text">Create, Read, Update and Delete User</p>
-                            <a href="/user" className="btn btn-primary">START</a>
+                            {/* <a href="/user" className="btn btn-primary">START</a> */}
+                            <Link to="/user" className="btn btn-primary ml-3" >START</Link>
                         </div>
                     </div>
                 </div>                

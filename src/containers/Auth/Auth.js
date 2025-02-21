@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 //import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -17,6 +17,8 @@ import * as actions from '../../store/actions/index';
 
 
 const Auth = props => {
+
+    //console.log("AUTH");
 
     //EYE
     const[eyeStatus, setEyeStatus]=useState('password');   
@@ -56,8 +58,8 @@ const Auth = props => {
     
     const[accept, setAccept] = useState(0);
     
-    const authContext = useContext(AuthContext);
-    let isAuthenticated = authContext.user.token !== null;    
+    const authContext = useContext(AuthContext);//
+    let isAuthenticated = authContext.user.token !== null;//
     
     const inputChangedHandler = ( event, controlName ) => {
         const updatedControls = updateObject( authForm, {
@@ -70,6 +72,11 @@ const Auth = props => {
         setAuthForm(updatedControls);        
         // this.setState( { controls: updatedControls } );
     }
+
+    useEffect(()=>{
+        authContext.authSetShouldLogout(false)//
+    },[])
+
 
     // const submitHandler = ( event ) => {
     //     event.preventDefault();
@@ -96,6 +103,7 @@ const Auth = props => {
 
     const submitHandler = (e) => {
         e.preventDefault();          
+                        //! login
         authContext.authenticate( authForm.username.value, authForm.password.value);                
     };      
     
@@ -149,12 +157,20 @@ const Auth = props => {
     }
 
     let authRedirect = null;
+
+
     if ( isAuthenticated ) {
-        authRedirect = <Redirect to={authContext.authRedirectPath} />
+        //1
+                                        //vrednost od authRedirectPath je bila undefined
+        authRedirect = <Redirect to={authContext.authRedirectPath} />//redirect na "/"
     }
+
+    //gde poslednje udje tu vrednost ce imati authRedirect
     if(isAuthenticated && isTermed!=1){
+        //2
+        //return (<div>bla</div>);
         authRedirect = <Redirect to="/auth2"/>
-    }
+    }                                         
     if(isRole=='Admin')
     {
         authRedirect = <Redirect to="/administrator"/>
@@ -164,7 +180,7 @@ const Auth = props => {
         authRedirect = <Redirect to="/parser"/>
     }
     if(isAuthenticated && isTermed== 1 && isRole!='Admin' && isRole != 'Parser' )
-    {
+    {   
         authRedirect = <Redirect to="/akrx"/>
     }
     
@@ -174,12 +190,18 @@ const Auth = props => {
             <Modal show={terms}>
                 <TermsOfUse clickedTerms={termsHandler}/>
             </Modal> 
-            {authRedirect}
+
+
+            {authRedirect}{/*postoji samo ako je isAuthenticated==true ili Admin i ovaj redirect prekida render ispod za login*/}
             {errorMessage}
-            <form onSubmit={submitHandler}>            
+
+        
+            <form onSubmit={submitHandler}>{/*--*/}
                 {form}
                 <Button btnType="Success" >LOG IN</Button>
             </form>
+            
+            
             {/* <Button
                 // clicked={switchAuthModeHandler}
                 // btnType="Danger">SWITCH TO {isRegistration ? 'SIGN IN' : 'REGISTER'}

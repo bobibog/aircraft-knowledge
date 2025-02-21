@@ -1,3 +1,7 @@
+//iz index.js exportujemo funkcije koje nismo prethodno importovali u njega
+//to radimo da bismo ih sve grupisali u index.js pa samo index.js importujemo gde zelimo
+
+
 export {
     fetchAirlines,
     setAirlinesOffsetLimit,
@@ -128,6 +132,10 @@ export{
 } from './statistics'
 
 export{
+  addStation, updateStation, fetchStation
+} from './station'
+
+export{
     statisticsDirectionalRanges
 }from './directionalRanges'
 
@@ -152,3 +160,7 @@ export{
     setStationStatusOffsetLimit,
     setStationStatusPage
 }from './stationStatus'
+
+export{
+    getStationNumber
+}from './activeStationsNumber'

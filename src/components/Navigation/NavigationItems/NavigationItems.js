@@ -5,10 +5,12 @@ import {AuthContext} from '../../../context/auth-context';
 
 
 
-
+        //
 const NavigationItems = ( props ) => {
     const authContext = useContext(AuthContext);
-    const authCheckState = authContext.authenticationCheckState;
+    
+    const authCheckState = authContext.authenticationCheckState;//
+
     let isAuthenticated = authContext.user.token !== null;
     let isRole = authContext.user.role == "Admin" ;
     let isParser = authContext.user.role == "Parser" && authContext.user.token !== null;
@@ -16,11 +18,11 @@ const NavigationItems = ( props ) => {
     let isCompany = authContext.user.company != null; 
     
     useEffect(() => {
-        authCheckState();
+        authCheckState();//isto i u App sto znaci da ce se na negde od ta 2 mesta izvrsiti zasigurno autentifikacija
       }, [authCheckState]);
 
-    if(!isAuthenticated)
-    {
+    if(!isAuthenticated)//iako postoji token u browseru, jos uvek nije isAuthenticated==true!
+    {        
         return(
             <ul className={classes.NavigationItems}>
                 <NavigationItem link="/auth">Log in</NavigationItem>
@@ -69,8 +71,11 @@ const NavigationItems = ( props ) => {
         }
         if(isCompany && isAuthenticated){
             return(<ul className={classes.NavigationItems}>
-                <NavigationItem link="/akrx">ACARS raw</NavigationItem>
-                <NavigationItem link="/acarsWithExtDataCompany">ACARS per aircraft</NavigationItem>               
+
+                {/*ako menjamo NavigationItem link onda menjamo i rutu u App.js tako da je u tom trenutku postojanja NavigationItem dostupna*/}
+                {/*u ovom slucaju poslednji se aktiviraju #5 i da5 sto znaci da ce oni biti renderovani*/}
+                <NavigationItem link="/akrxAll">ACARS raw</NavigationItem>{/*bilo <NavigationItem link="/akrx">ACARS raw</NavigationItem>*/}
+                <NavigationItem link="/acarsWithExtData">ACARS per aircraft</NavigationItem>{/*bilo <NavigationItem link="/acarsWithExtDataCompany">ACARS per aircraft</NavigationItem>*/}
                 <NavigationItem link="/adsbCompany">ADSB messages</NavigationItem>
                                 
                 <NavigationItem link="/logout">Log out</NavigationItem>        

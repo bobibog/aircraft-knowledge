@@ -696,12 +696,9 @@ const  SearchAdsbElement = (props) => {
                 <div className={classes.dropdownShow}>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                                      
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input 
                                         value={acarsMessageDateTimeMin}
                                         // changed={(e)=>setAcarsMessageDateTimeMin(e.target.value) & setFilter(e.target.value)}
@@ -720,12 +717,9 @@ const  SearchAdsbElement = (props) => {
                                 </div>
                                 <div className={classes.dateTime}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span2}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                                       
+                                    <InputGroup.Text className={classes.span2}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                                                       
                                     <Input 
                                         value={acarsMessageDateTimeMax}
                                         // changed={(e)=>setAcarsMessageDateTimeMax(e.target.value) & setFilter(e.target.value)}
@@ -747,15 +741,10 @@ const  SearchAdsbElement = (props) => {
                         <div className={classes.bar}>          
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
-                                
-                                
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <InputGroup.Append className={classes.inputApend} >
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>
                                     <Input
                                         value={address}
                                         // changed={(e)=>setTail(e.target.value) & setFilter(e.target.value)}
@@ -763,111 +752,86 @@ const  SearchAdsbElement = (props) => {
                                         elementType='input' 
                                         elementConfig= {addressInputConfig}                                               
                                     />
-                                    <Button onClick={(e)=> setAddress2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <Button onClick={(e)=> setAddress2(true)} className={classes.existsBtn}>Exist?</Button>                                    
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input
-                                            value={addressType}
-                                            // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAddressType(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {addressTypeInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setAddressType2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input
+                                        value={addressType}
+                                        // changed={(e)=>setFlight(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAddressType(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {addressTypeInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setAddressType2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>                   
-                                    <InputGroup.Append className={classes.inputApend} >   
-                                        <Input
-                                            value={aircraftType}
-                                            // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAircraftType(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {aircraftTypeInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setAircraftType2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text> 
+                                    <Input
+                                        value={aircraftType}
+                                        // changed={(e)=>setText(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAircraftType(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {aircraftTypeInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setAircraftType2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input 
-                                            value={airspeedMin}
-                                            // changed={(e)=>setFreqMin(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAirspeedMin(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {airspeedMinInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setAirspeed2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input 
+                                        value={airspeedMin}
+                                        // changed={(e)=>setFreqMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAirspeedMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {airspeedMinInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setAirspeed2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>    
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input 
-                                            value={airspeedMax}
-                                            // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAirspeedMax(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {airspeedMaxInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setAirspeed2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
+                                    <Input 
+                                        value={airspeedMax}
+                                        // changed={(e)=>setFreqMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAirspeedMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {airspeedMaxInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setAirspeed2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input
-                                            value={airspeedStatus}
-                                            // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAirspeedStatus(e.target.value)}                                                                             
-                                            elementType='input' 
-                                            elementConfig= {airspeedStatusInputConfig}                                                                                                               
-                                        />
-                                        <Button onClick={(e)=> setAirspeedStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={airspeedStatus}
+                                        // changed={(e)=>setTimestampMin(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAirspeedStatus(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {airspeedStatusInputConfig}                                                                                                               
+                                    />
+                                    <Button onClick={(e)=> setAirspeedStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                     
-                                        <Input
-                                            value={altInfo}
-                                            // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAltInfo(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={altInfoInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setAltInfo2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                    
+                                    <Input
+                                        value={altInfo}
+                                        // changed={(e)=>setTimestampMax(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAltInfo(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={altInfoInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setAltInfo2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                           
                                                                                                                
                             </div>
@@ -877,12 +841,9 @@ const  SearchAdsbElement = (props) => {
                         <div className="col-sm-3">                
                             <div className={classes.card}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} > 
+                                        </InputGroup.Text>
                                         <Input 
                                             value={altUnit}
                                             // changed={(e)=>setStationId(e.target.value) & setFilter(e.target.value)}
@@ -891,137 +852,104 @@ const  SearchAdsbElement = (props) => {
                                             elementConfig= {altUnitInputConfig}                     
                                         />
                                         <Button onClick={(e)=> setAltUnit2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>    
-                                    <InputGroup.Append className={classes.inputApend} >            
-                                        <Input 
-                                            value={altitudeMin}
-                                            // changed={(e)=>setChannel(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setAltitudeMin(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {altitudeMinInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setAltitude2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
-                            <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input 
-                                            value={altitudeMax}                                        
-                                            changed={(e)=>setAltitudeMax(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {altitudeMaxInputConfig}                     
-                                        />
-                                       <Button onClick={(e)=> setAltitude2(true)} className={classes.existsBtn}>Exist?</Button> 
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>            
+                                    <Input 
+                                        value={altitudeMin}
+                                        // changed={(e)=>setChannel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setAltitudeMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {altitudeMinInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setAltitude2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input 
-                                            value={bds2Identification}                                        
-                                            changed={(e)=>setBds2Identification(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {bds2InputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setBds2Identification2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>  
+                                    <Input 
+                                        value={altitudeMax}                                        
+                                        changed={(e)=>setAltitudeMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {altitudeMaxInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setAltitude2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input 
-                                            value={capability}                                        
-                                            changed={(e)=>setCapability(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {capabilityInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setCapability2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input 
+                                        value={bds2Identification}                                        
+                                        changed={(e)=>setBds2Identification(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {bds2InputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setBds2Identification2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>    
-                                    <InputGroup.Append className={classes.inputApend} >                
-                                        <Input 
-                                            value={cc}                                        
-                                            changed={(e)=>setCc(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {ccInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setCc2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input 
+                                        value={capability}                                        
+                                        changed={(e)=>setCapability(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {capabilityInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setCapability2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input 
-                                            value={commBMb}                                        
-                                            changed={(e)=>setCommBMb(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {commBBmbInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setCommBMb2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input 
+                                        value={cc}                                        
+                                        changed={(e)=>setCc(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {ccInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setCc2(true)} className={classes.existsBtn}>Exist?</Button>
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input 
+                                        value={commBMb}                                        
+                                        changed={(e)=>setCommBMb(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {commBBmbInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setCommBMb2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup> 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input
-                                            value={commBBds}
-                                            // changed={(e)=>setLabel(e.target.value) & setFilter(e.target.value)}
-                                            changed={(e)=>setCommBBds(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {commBdsInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setCommBBds2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={commBBds}
+                                        // changed={(e)=>setLabel(e.target.value) & setFilter(e.target.value)}
+                                        changed={(e)=>setCommBBds(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {commBdsInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setCommBBds2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={controlField}                                        
-                                            changed={(e)=>setControlField(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {controlFieldInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setControlField2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input
+                                        value={controlField}                                        
+                                        changed={(e)=>setControlField(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {controlFieldInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setControlField2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup> 
                                                                                             
                             </div>
@@ -1033,150 +961,114 @@ const  SearchAdsbElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={dr}                                        
-                                            changed={(e)=>setDr(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {drInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setDr2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input
+                                        value={dr}                                        
+                                        changed={(e)=>setDr(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {drInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setDr2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                               
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input
-                                            value={emergencyState}                                        
-                                            changed={(e)=>setEmergencyState(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {emergencyStateInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setEmergencyState2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input
+                                        value={emergencyState}                                        
+                                        changed={(e)=>setEmergencyState(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {emergencyStateInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setEmergencyState2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                                
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input
-                                            value={error}                                        
-                                            changed={(e)=>setError(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {errorInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setError2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input
+                                        value={error}                                        
+                                        changed={(e)=>setError(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {errorInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setError2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={esSub}                                        
-                                            changed={(e)=>setEsSub(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {esSubInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setEsSub2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                  
+                                    <Input 
+                                        value={esSub}                                        
+                                        changed={(e)=>setEsSub(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {esSubInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setEsSub2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={esType}                                        
-                                            changed={(e)=>setEsType(e.target.value)}                                                                             
-                                            elementType='input' 
-                                            elementConfig= {esTypeInputConfig}                                                                                                               
-                                        />
-                                        <Button onClick={(e)=> setEsType2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input
+                                        value={esType}                                        
+                                        changed={(e)=>setEsType(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {esTypeInputConfig}                                                                                                               
+                                    />
+                                    <Button onClick={(e)=> setEsType2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input
-                                            value={ewStatus}                                        
-                                            changed={(e)=>setEwStatus(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={ewStatusInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setEwStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                  
+                                    <Input
+                                        value={ewStatus}                                        
+                                        changed={(e)=>setEwStatus(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={ewStatusInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setEwStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input 
-                                            value={ewVelocity}                                        
-                                            changed={(e)=>setEwVelocity(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {ewVelocityInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setEwVelocity2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input 
+                                        value={ewVelocity}                                        
+                                        changed={(e)=>setEwVelocity(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {ewVelocityInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setEwVelocity2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input 
-                                            value={fFlag}                                        
-                                            changed={(e)=> setFFlag(e.target.value)}                                        
-                                            elementType='input' 
-                                            elementConfig= {fFlagInputConfig}                                                                                    
-                                        />  
-                                         <Button onClick={(e)=> setFFlag2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>                                  
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input 
+                                        value={fFlag}                                        
+                                        changed={(e)=> setFFlag(e.target.value)}                                        
+                                        elementType='input' 
+                                        elementConfig= {fFlagInputConfig}                                                                                    
+                                    />  
+                                        <Button onClick={(e)=> setFFlag2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                             
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                     
-                                        <Input 
-                                            value={flightStatus}                                        
-                                            changed={(e)=>setFlightStatus(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {flightStatusInputConfig}                                                                                     
-                                        />   
-                                        <Button onClick={(e)=> setFlightStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>                                 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input 
+                                        value={flightStatus}                                        
+                                        changed={(e)=>setFlightStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {flightStatusInputConfig}                                                                                     
+                                    />   
+                                    <Button onClick={(e)=> setFlightStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                                                                                                            
                             </div>
                         </div>
@@ -1185,29 +1077,22 @@ const  SearchAdsbElement = (props) => {
                         <div className={classes.bar}>          
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >        
-                            <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input
-                                            value={haeBaro}                                        
-                                            changed={(e)=>setHaeBaro(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {haeBaroInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setHaeBaro2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>  
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={haeBaro}                                        
+                                        changed={(e)=>setHaeBaro(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {haeBaroInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setHaeBaro2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
                                         <InputGroup.Text className={classes.span}>
                                             <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                  
+                                        </InputGroup.Text>                
                                         <Input
                                             value={heading}                                        
                                             changed={(e)=>setHeading(e.target.value)}
@@ -1215,119 +1100,90 @@ const  SearchAdsbElement = (props) => {
                                             elementConfig= {headingInputConfig}                                               
                                         />
                                         <Button onClick={(e)=> setHeading2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={headingStatus}                                        
-                                            changed={(e)=>setHeadingStatus(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {headingStatusInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setHeadingStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input
+                                        value={headingStatus}                                        
+                                        changed={(e)=>setHeadingStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {headingStatusInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setHeadingStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input
-                                            value={icao}                                        
-                                            changed={(e)=>setIcao(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {icaoInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setIcao2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input
+                                        value={icao}                                        
+                                        changed={(e)=>setIcao(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {icaoInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setIcao2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                      
-                                        <Input
-                                            value={identification}                                        
-                                            changed={(e)=>setIdentification(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {identificationInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setIdentification2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                     
+                                    <Input
+                                        value={identification}                                        
+                                        changed={(e)=>setIdentification(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {identificationInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setIdentification2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={iid}                                        
-                                            changed={(e)=>setIid(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {iidInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setIid2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                  
+                                    <Input 
+                                        value={iid}                                        
+                                        changed={(e)=>setIid(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {iidInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setIid2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                     
-                                        <Input 
-                                            value={latMin}                                        
-                                            changed={(e)=>setLatMin(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {latMinInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setLat2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input 
+                                        value={latMin}                                        
+                                        changed={(e)=>setLatMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {latMinInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setLat2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                     
-                                        <Input
-                                            value={latMax}                                        
-                                            changed={(e)=>setLatMax(e.target.value)}                                                                             
-                                            elementType='input' 
-                                            elementConfig= {latMaxInputConfig}                                                                                                               
-                                        />
-                                        <Button onClick={(e)=> setLat2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>    
+                                    <Input
+                                        value={latMax}                                        
+                                        changed={(e)=>setLatMax(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {latMaxInputConfig}                                                                                                               
+                                    />
+                                    <Button onClick={(e)=> setLat2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input
-                                            value={levelMin}                                        
-                                            changed={(e)=>setLevelMin(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={levelMinInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setLevel2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>        
+                                    <Input
+                                        value={levelMin}                                        
+                                        changed={(e)=>setLevelMin(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={levelMinInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setLevel2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                           
                                                                                                                
                             </div>
@@ -1337,148 +1193,112 @@ const  SearchAdsbElement = (props) => {
                         <div className="col-sm-3">                
                             <div className={classes.card}>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input 
-                                            value={levelMax}                                        
-                                            changed={(e)=>setLevelMax(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {levelMaxInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setLevel2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input 
+                                        value={levelMax}                                        
+                                        changed={(e)=>setLevelMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {levelMaxInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setLevel2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >              
-                                        <Input 
-                                            value={lonMin}                                        
-                                            changed={(e)=>setLonMin(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {lonMinInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setLon2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>    
-                                </InputGroup>
-                            <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>      
-                                    <InputGroup.Append className={classes.inputApend} >            
-                                        <Input 
-                                            value={lonMax}                                        
-                                            changed={(e)=>setLonMax(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {lonMaxInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setLon2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>           
+                                    <Input 
+                                        value={lonMin}                                        
+                                        changed={(e)=>setLonMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {lonMinInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setLon2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input 
-                                            value={modeA}                                        
-                                            changed={(e)=>setModeA(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {modeAInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setModeA2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>          
+                                    <Input 
+                                        value={lonMax}                                        
+                                        changed={(e)=>setLonMax(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {lonMaxInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setLon2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input 
-                                            value={modeAIdent}                                        
-                                            changed={(e)=>setModeAIdent(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {modeAIdentInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setModeAIdent2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input 
+                                        value={modeA}                                        
+                                        changed={(e)=>setModeA(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {modeAInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setModeA2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={modeC}                                        
-                                            changed={(e)=>setModeC(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {modeCInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setModeC2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input 
+                                        value={modeAIdent}                                        
+                                        changed={(e)=>setModeAIdent(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {modeAIdentInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setModeAIdent2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input 
-                                            value={msgType}                                        
-                                            changed={(e)=>setMsgType(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {msgTypeInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setMsgType2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input 
+                                        value={modeC}                                        
+                                        changed={(e)=>setModeC(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {modeCInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setModeC2(true)} className={classes.existsBtn}>Exist?</Button>
+                                </InputGroup>
+                                <InputGroup className="mb-3 input-group-sm">
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input 
+                                        value={msgType}                                        
+                                        changed={(e)=>setMsgType(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {msgTypeInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setMsgType2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup> 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={nacp}                                        
-                                            changed={(e)=>setNacp(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {nacpInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setNacp2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input
+                                        value={nacp}                                        
+                                        changed={(e)=>setNacp(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {nacpInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setNacp2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={nsStatus}                                        
-                                            changed={(e)=>setNsStatus(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {nsStatusInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setNsStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input
+                                        value={nsStatus}                                        
+                                        changed={(e)=>setNsStatus(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {nsStatusInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setNsStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup> 
                                                                                             
                             </div>
@@ -1490,150 +1310,114 @@ const  SearchAdsbElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >               
-                                        <Input
-                                            value={nsVelocity}                                        
-                                            changed={(e)=>setNsVelocity(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {nsVelocityInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setNsVelocity2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append> 
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
+                                    <Input
+                                        value={nsVelocity}                                        
+                                        changed={(e)=>setNsVelocity(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {nsVelocityInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setNsVelocity2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                               
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >               
-                                        <Input
-                                            value={nucp}                                        
-                                            changed={(e)=>setNucp(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {nucpInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setNucp2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>   
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>           
+                                    <Input
+                                        value={nucp}                                        
+                                        changed={(e)=>setNucp(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {nucpInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setNucp2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                                
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input
-                                            value={posDecoding}                                        
-                                            changed={(e)=>setPosDecoding(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {posDecodingInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setPosDecoding2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={posDecoding}                                        
+                                        changed={(e)=>setPosDecoding(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {posDecodingInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setPosDecoding2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>   
-                                    <InputGroup.Append className={classes.inputApend} >              
-                                        <Input 
-                                            value={report}                                        
-                                            changed={(e)=>setReport(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {reportInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setReport2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>  
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>            
+                                    <Input 
+                                        value={report}                                        
+                                        changed={(e)=>setReport(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {reportInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setReport2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={sl}                                        
-                                            changed={(e)=>setSl(e.target.value)}                                                                             
-                                            elementType='input' 
-                                            elementConfig= {slInputConfig}                                                                                                               
-                                        />
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input
+                                        value={sl}                                        
+                                        changed={(e)=>setSl(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {slInputConfig}                                                                                                               
+                                    />
                                         <Button onClick={(e)=> setSl2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={squawk}                                        
-                                            changed={(e)=>setSquawk(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={squawkInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setSquawk2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input
+                                        value={squawk}                                        
+                                        changed={(e)=>setSquawk(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={squawkInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setSquawk2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={stationId}                                        
-                                            changed={(e)=>setStationId(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {stationIdInputConfig}                     
-                                        />
-                                        <Button onClick={(e)=> setStationId2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                
+                                    <Input 
+                                        value={stationId}                                        
+                                        changed={(e)=>setStationId(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {stationIdInputConfig}                     
+                                    />
+                                    <Button onClick={(e)=> setStationId2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={tFlag}                                        
-                                            changed={(e)=>setTFlag(e.target.value)}                                        
-                                            elementType='input' 
-                                            elementConfig= {tFlagInputConfig}                                                                                    
-                                        />
-                                        <Button onClick={(e)=> setTFlag2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>                                    
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input 
+                                        value={tFlag}                                        
+                                        changed={(e)=>setTFlag(e.target.value)}                                        
+                                        elementType='input' 
+                                        elementConfig= {tFlagInputConfig}                                                                                    
+                                    />
+                                    <Button onClick={(e)=> setTFlag2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                             
                                 
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input 
-                                            value={timestampMin}                                        
-                                            changed={(e)=>setTimestampMin(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {timeStampMinInputConfig}                                                                                     
-                                        /> 
-                                        <Button onClick={(e)=> setTimestamp2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>                              
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                  
+                                    <Input 
+                                        value={timestampMin}                                        
+                                        changed={(e)=>setTimestampMin(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {timeStampMinInputConfig}                                                                                     
+                                    /> 
+                                    <Button onClick={(e)=> setTimestamp2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                                                                                                            
                             </div>
                         </div>
@@ -1644,20 +1428,16 @@ const  SearchAdsbElement = (props) => {
                         <div className="col-sm-3" id="bar">                        
                             <div className={classes.card} >                               
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>  
-                                    <InputGroup.Append className={classes.inputApend} >               
-                                        <Input
-                                            value={timestampMax}                                        
-                                            changed={(e)=>setTimestampMax(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {timeStampMaxInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setTimestamp2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>  
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>            
+                                    <Input
+                                        value={timestampMax}                                        
+                                        changed={(e)=>setTimestampMax(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {timeStampMaxInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setTimestamp2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 {/* <InputGroup className="mb-3 input-group-sm">
                                     <InputGroup.Prepend className={classes.inputPrepend}>
@@ -1673,101 +1453,77 @@ const  SearchAdsbElement = (props) => {
                                     />
                                 </InputGroup> */}
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                   
-                                        <Input
-                                            value={um}                                        
-                                            changed={(e)=>setUm(e.target.value)}
-                                            elementType='input' 
-                                            elementConfig= {umInputConfig}                                               
-                                        />
-                                        <Button onClick={(e)=> setUm2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                   
+                                    <Input
+                                        value={um}                                        
+                                        changed={(e)=>setUm(e.target.value)}
+                                        elementType='input' 
+                                        elementConfig= {umInputConfig}                                               
+                                    />
+                                    <Button onClick={(e)=> setUm2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input 
-                                            value={verticalRateMin}                                        
-                                            changed={(e)=>setVerticalRateMin(e.target.value)}          
-                                            elementType='input' 
-                                            elementConfig= {verticalMinRateInputConfig}                     
-                                        />  
-                                        <Button onClick={(e)=> setVerticalRate2(true)} className={classes.existsBtn}>Exist?</Button>                                   
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>                 
+                                    <Input 
+                                        value={verticalRateMin}                                        
+                                        changed={(e)=>setVerticalRateMin(e.target.value)}          
+                                        elementType='input' 
+                                        elementConfig= {verticalMinRateInputConfig}                     
+                                    />  
+                                    <Button onClick={(e)=> setVerticalRate2(true)} className={classes.existsBtn}>Exist?</Button> 
                                 </InputGroup>                                
                                 
                                 <InputGroup className="mb-3 input-group-sm" size="sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>
-                                    <InputGroup.Append className={classes.inputApend} >                    
-                                        <Input
-                                            value={verticalRateMax}                                        
-                                            changed={(e)=> setVerticalRateMax(e.target.value)}                                                                             
-                                            elementType='input' 
-                                            elementConfig= {verticalMaxRateInputConfig}                                                                                                               
-                                        />
-                                        <Button onClick={(e)=> setVerticalRate2(true)} className={classes.existsBtn}>Exist?</Button>    
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>               
+                                    <Input
+                                        value={verticalRateMax}                                        
+                                        changed={(e)=> setVerticalRateMax(e.target.value)}                                                                             
+                                        elementType='input' 
+                                        elementConfig= {verticalMaxRateInputConfig}                                                                                                               
+                                    />
+                                    <Button onClick={(e)=> setVerticalRate2(true)} className={classes.existsBtn}>Exist?</Button> 
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend>    
-                                    <InputGroup.Append className={classes.inputApend} >                 
-                                        <Input
-                                            value={verticalRateSrc}                                        
-                                            changed={(e)=>setVerticalRateSrc(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={verticalRateSrcInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setVerticalRateSrc2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>             
+                                    <Input
+                                        value={verticalRateSrc}                                        
+                                        changed={(e)=>setVerticalRateSrc(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={verticalRateSrcInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setVerticalRateSrc2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                      
-                                        <Input
-                                            value={verticalStatus}                                        
-                                            changed={(e)=>setVerticalStatus(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={verticalStatusInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setVerticalStatus2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>            
+                                    <Input
+                                        value={verticalStatus}                                        
+                                        changed={(e)=>setVerticalStatus(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={verticalStatusInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setVerticalStatus2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>
                                 <InputGroup className="mb-3 input-group-sm">
-                                    <InputGroup.Prepend className={classes.inputPrepend}>
-                                        <InputGroup.Text className={classes.span}>
-                                            <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
-                                        </InputGroup.Text>                                
-                                    </InputGroup.Prepend> 
-                                    <InputGroup.Append className={classes.inputApend} >                  
-                                        <Input
-                                            value={vs}                                        
-                                            changed={(e)=>setVs(e.target.value)}
-                                            elementType='input'
-                                            elementConfig={vsInputConfig}
-                                        />
-                                        <Button onClick={(e)=> setVs2(true)} className={classes.existsBtn}>Exist?</Button>
-                                    </InputGroup.Append>
+                                    <InputGroup.Text className={classes.span}>
+                                        <FontAwesomeIcon icon={faSearch} className={classes.icon} />                                                                        
+                                    </InputGroup.Text>              
+                                    <Input
+                                        value={vs}                                        
+                                        changed={(e)=>setVs(e.target.value)}
+                                        elementType='input'
+                                        elementConfig={vsInputConfig}
+                                    />
+                                    <Button onClick={(e)=> setVs2(true)} className={classes.existsBtn}>Exist?</Button>
                                 </InputGroup>                     
                                                                                                                
                             </div>

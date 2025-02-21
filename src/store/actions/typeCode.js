@@ -25,13 +25,15 @@ export const fetchTypeCodeStart = () => {
 
 
 
-export const fetchTypeCodes = (typeCode) => {
+export const fetchTypeCodes = (typeCode,limitTypeMax) => {
     return dispatch => {
         dispatch(fetchTypeCodeStart());        
           
         const query = new URLSearchParams();                        
         query.append('typeCode', typeCode);
-          
+        
+        
+        query.append('limit',limitTypeMax)//  
 
         let queryString = query;            
             

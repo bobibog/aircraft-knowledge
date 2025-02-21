@@ -17,8 +17,9 @@ import Chart from 'react-apexcharts';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
-import StationStatusTable from './StationStatusTable/StationStatusTable';
+import StationStatusTable from '../StationStatusTable/StationStatusTable';
 import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 const MessagesNumber = (props) =>{
@@ -59,6 +60,7 @@ const MessagesNumber = (props) =>{
     const[station, setStation] = useState([]);
     const[percentage, setPercentage] = useState([]);
     const[percentageADSB, setPercentageADSB] = useState([]);
+    
 
     const messagesNumber = useSelector(state => {
         return state.statistics.messagesNumber;
@@ -82,6 +84,10 @@ const MessagesNumber = (props) =>{
 
     const stationData = useSelector(state => {
         return state.stationLastSeen.stationData;
+    });
+
+    const activeStationsNumber = useSelector(state => {
+        return state.activeStationsNumber.stationsNumber;
     })
 
     // STATION STATUS
@@ -147,9 +153,37 @@ const MessagesNumber = (props) =>{
         setMsgType('');
     };    
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const targetStationId = searchParams.get("stationId");
+
     useEffect(() => {
         onFetchStationStatus();
-    }, [onFetchStationStatus])
+    
+        if (targetStationId) {
+            setTimeout(() => {
+                const element = document.getElementById(`station-row-${targetStationId}`);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                    element.focus();
+
+                    element.classList.add(classes.highlight);
+    
+                    setTimeout(() => {
+                        element.classList.add(classes.dehighlight);
+    
+                        setTimeout(() => {
+                            element.classList.remove(classes.highlight);
+                            element.classList.remove(classes.dehighlight);
+                        }, 2000);
+                    }, 2000); 
+                }
+            }, 100);
+        }
+    }, [onFetchStationStatus, targetStationId, classes.highlight, classes.dehighlight]);
+    
+    
+    
 
     let stationStatusTable = <Spinner />;
     if (!stationStatus && !loadingStationStatus  ) {
@@ -222,23 +256,51 @@ const MessagesNumber = (props) =>{
         )
     }
 
+    const history = useHistory();
+
+    const handleRowClick = (id) => {
+        //history.push(`/updateStation/${id}`);
+        history.push(`/stationDetails/${id}`);
+    };
+    
     const stationDataParsed = (object, index) => {
-        return(
-            <tr key = {index}>
+        return (
+            <tr 
+                key={index} 
+                id={`station-row-${object.stationId}`}
+                onClick={() => handleRowClick(object.id)} 
+                style={{ cursor: 'pointer' }}
+            >
                 <td>{object.stationId}</td>
                 <td>{object.latitude}</td>
                 <td>{object.longitude}</td>
-                <td>{object.city}</td>
-                <td>{object.country}</td>
-                <td>{object.locationAddress}</td>
-                <td style={{width:'120px'}}>{object.lastActiveTime != null ? (object.lastActiveTime).slice(0,10)+' '+(object.lastActiveTime).slice(11,19) : 'Inactive'}</td>
+                <td>{object.city || ''}</td>
+                <td>{object.country || ''}</td>
+                <td>{object.locationAddress || ''}</td>
+                <td style={{ width: '120px' }}>
+                    {object.lastActiveTime != null ? 
+                        (object.lastActiveTime).slice(0, 10) + ' ' + (object.lastActiveTime).slice(11, 19) 
+                        : 
+                        'Inactive'
+                    }
+                </td>
                 <td>{object.feederName}</td>
                 <td>{object.feederEmail}</td>
-                <td>{object.feederPhone}</td>
-                <td>{object.description}</td>
+                <td>{object.feederPhone || ''}</td>
+                <td>{object.description || ''}</td>
+                <td>{object.notificationEmail || ''}</td>
+                <td>{object.feederNotificationEmail || ''}</td>
+                <td style={{ width: '120px' }}>
+                    {object.firstTimeSentToFeeder != null ? 
+                        (object.firstTimeSentToFeeder).slice(0, 10) + ' ' + (object.firstTimeSentToFeeder).slice(11, 19) 
+                        : 
+                        ''}
+                </td>
             </tr>
-        )
-    }
+        );
+    };
+    
+  
 
        
     const loading = useSelector(state => {
@@ -341,6 +403,14 @@ const MessagesNumber = (props) =>{
         onStationData();
     }, [])
 
+    useEffect(()=>{
+        onActiveStationsNumber();
+        
+    },[])
+
+    // if(activeStationsNumber){
+    //     console.log(activeStationsNumber);
+    // }
        
     const onStatisticsMessagesNumber = useCallback(
         () => dispatch(actions.statisticsMessagesNumber(timeMin, timeMax, stationId), [dispatch, timeMin, timeMax, stationId])
@@ -361,6 +431,8 @@ const MessagesNumber = (props) =>{
     const onFeedingPercentagePerMessageType = useCallback(() => dispatch(actions.feedingPercentagePerTypeData(timeMin3, timeMax3, stationId3), [dispatch, timeMin3, timeMax3, stationId3]));
 
     const onStationData = useCallback(() => dispatch(actions.getStationData(), [dispatch]));
+
+    const onActiveStationsNumber = useCallback(() => dispatch(actions.getStationNumber(), [dispatch]));
     
 
     var hoursMin = timeMin.slice(11, 13);    
@@ -820,26 +892,38 @@ const MessagesNumber = (props) =>{
       border: "1px solid black"
     }}
   >
-  <ReactBootstrap.Table striped bordered hover>
-  <thead>
-      <tr>
-          <th>Station</th>
-          <th>Latitude</th>         
-          <th>Longitude</th>      
-          <th>City</th>    
-          <th>Country</th>
-          <th>Location Address</th>    
-          <th>Last Time Seen</th>
-          <th>Feeder Name</th>  
-          <th>Feeder Email</th>            
-          <th>Feeder Phone</th>  
-          <th>Description</th>  
-      </tr>
-  </thead>
-  <tbody>
-     {stationData.map(stationDataParsed)}
-  </tbody>
-  </ReactBootstrap.Table>
+
+  <div className='d-flex pb-2'>
+      <button onClick={() => history.push('/addStation')} className="btn btn-primary">
+          Add Station
+      </button>
+  </div>
+  <div className="table-responsive">
+    <ReactBootstrap.Table striped bordered hover>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Location Address</th>
+                <th>Last Time Seen</th>
+                <th>Feeder Name</th>
+                <th>Feeder Email</th>
+                <th>Feeder Phone</th>
+                <th>Description</th>
+                <th>Notification Email</th>
+                <th>Feeder Notification Email</th>
+                <th>First Time Sent To Feeder</th>
+            </tr>
+        </thead>
+        <tbody>
+            {stationData.map(stationDataParsed)}
+        </tbody>
+    </ReactBootstrap.Table>
+</div>
+
   
   </div>;
    }
@@ -1078,6 +1162,8 @@ const MessagesNumber = (props) =>{
                     {result4}
             </div>
             <hr style={{width:"100%", size:"3", color:"black"}}></hr>
+            <h2 style={{color:'red', fontWeight:'bold', backgroundColor:'lightblue'}}>ACTIVE STATIONS NUMBER IN LAST 4 HOURS = {activeStationsNumber ? activeStationsNumber : '-'}</h2>
+            <hr style={{width:"100%", size:"3", color:"black"}}></hr>
             <h5>STATIONS STATUS</h5>
             <div className={classes.container}>
             <br></br>
@@ -1091,8 +1177,7 @@ const MessagesNumber = (props) =>{
                 </div>
                     
             </div>
-        </>
-       
+        </>       
     )
 }
 

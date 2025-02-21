@@ -5,7 +5,9 @@ import {moment} from 'moment';
 
 export const setAkrxOffsetLimitAll = (offset, limit) => {
     return {
+        
         type: actionTypes.SET_AKRX_OFFSET_LIMIT_ALL,
+        ////////////////////////////////////
         offset: offset,
         limit: limit
     }
@@ -17,10 +19,11 @@ export const setAkrxPageAll = (page) => {
         page: page
     }
 };
-
+                //2.(DISPATCHED ACTION)
 export const fetchAkrxSuccessAll = (acarsMessages, acarsMessagesCount) => {
     return {
         type: actionTypes.FETCH_AKRX_SUCCESS_ALL,
+        ///////////////////////////////
         acarsMessages: acarsMessages,
         acarsMessagesCount: acarsMessagesCount
     }
@@ -43,10 +46,21 @@ export const fetchAkrxStartAll = () => {
 export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
     stationId, channel, freqMin, freqMax, levelMin, levelMax, errorMin, errorMax, mode, label, blockId, ack, tail,
     flight, msgno, text, end, acarsMessageDateTimeMin, acarsMessageDateTimeMax, altMin, altMax, dsta, icao,
-    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type) => {
+    isOnground, isResponse, latMin, latMax,  lonMin,  lonMax, toAddr, type,
+
+    ////////
+    aggrStatus,consensusStatus,     aggrText,consensusResult
+    ////////
+
+    ) => {
+
+        //vracamo funkciju umesto actionObject
     return dispatch => {
-        dispatch(fetchAkrxStartAll());       
         
+        dispatch(fetchAkrxStartAll());
+
+        //console.log("FETCH2") 
+
         // Converting Local in UTC
         var acarsMINUtc="";
         if(acarsMessageDateTimeMin!=''){
@@ -63,7 +77,9 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         query.append('timestampMin', timestampMin);
         query.append('timestampMax', timestampMax);
         query.append('stationId', stationId);
-        query.append('channel', channel);
+        
+        query.append('channel', channel);//
+
         query.append('freqMin', freqMin);
         query.append('freqMax', freqMax);
         query.append('levelMin', levelMin);
@@ -93,16 +109,31 @@ export const fetchAkrxAll = (offset, limit, timestampMin, timestampMax,
         query.append('lonMax', lonMax);        
         query.append('toAddr', toAddr);
         query.append('type',type);        
+
+        
         query.append('offset', offset);
         query.append('limit', limit);     
+
+        /////////////////
+        query.append('aggregationStatus',aggrStatus);
+        query.append('consensusStatus',consensusStatus);//
+
+        
+        query.append('aggregatedText',aggrText);
+        query.append('consensusResult',consensusResult);
+        /////////////////
+   
 
         let queryString = limit !== "-1"            
             ? query
             : '';            
             
         axios.get(`/AcarsMessage/allUsers?`+ queryString)
-            .then(response => {                
+            .then(response => { 
+
+                                //1.(DISPATCHED ACTION)
                 dispatch(fetchAkrxSuccessAll(response.data['acarsMessages'], response.data['acarsMessagesCount']))                 
+            
             })
             .catch(error => {
                 dispatch(fetchAkrxFailAll(error));                                

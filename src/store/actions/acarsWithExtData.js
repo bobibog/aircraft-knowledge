@@ -43,14 +43,21 @@ export const fetchAcarsWithExtDataFail = (error) => {
 
 export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, acarsMessageDateTimeMax, 
     tail,  flight, text, mode, label, blockId, msgno,  dsta,  airlineName,  airlineIata,  airlineIcao,  
-    serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode, aggregatedText                              
+    serialNumber, operatorName,  operatorIata,  operatorIcao,  aircraftType,  typeCode,     
+    
+    ////////
+    aggrStatus,consensusStatus,     aggrText,consensusResult                             
+    ////////
+
     ) => {
     return dispatch => {
         dispatch(fetchAcarsWithExtDataStart());                      
                   
         const query = new URLSearchParams();         
+        
         query.append('offset', offset);
         query.append('limit', limit); 
+        
         query.append('acarsMessageDateTimeMin', acarsMessageDateTimeMin);
         query.append('acarsMessageDateTimeMax', acarsMessageDateTimeMax);        
         query.append('tail', tail);
@@ -70,7 +77,19 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
         query.append('serialNumber', serialNumber);        
         query.append('aircraftType', aircraftType != null ? aircraftType : '');
         query.append('typeCode', typeCode != null ? typeCode : '');
-        query.append('aggregatedText', aggregatedText != null ? aggregatedText : '');
+        
+        //query.append('aggregatedText', aggregatedText != null ? aggregatedText : '');//nije deo zadatka
+
+        /////////////////
+        query.append('aggregationStatus',aggrStatus);
+        query.append('consensusStatus',consensusStatus);
+
+        
+        query.append('aggregatedText',aggrText);
+        query.append('consensusResult',consensusResult);
+        /////////////////
+   
+
 
         let queryString = limit !== "-1"            
             ? query
@@ -78,7 +97,7 @@ export const fetchAcarsWithExtData = (offset, limit, acarsMessageDateTimeMin, ac
             
         let url = '/AcarsMessage/acarsWithExtData?'
             
-        axios.get(url+ queryString)
+        axios.get(url + queryString)
             .then(response => {                
                 dispatch(fetchAcarsWithExtDataSuccess(response.data['acarsPerAircraftMessages'], response.data['acarsPerAircraftMessagesCount']))                 
             })
