@@ -1174,8 +1174,7 @@ const MessagesNumber = (props) =>{
                         //allChanger={allChanger}  
                     />
                     {stationStatusTable}
-                </div>
-                    
+                </div>                    
             </div>
         </>       
     )
