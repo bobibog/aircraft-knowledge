@@ -1177,8 +1177,7 @@ const MessagesNumber = (props) =>{
                 </div>
                     
             </div>
-        </>
-       
+        </>       
     )
 }
 
