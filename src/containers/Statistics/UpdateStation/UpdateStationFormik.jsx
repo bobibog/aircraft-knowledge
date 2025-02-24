@@ -190,6 +190,8 @@ const UpdateStationFormik = () => {
       const locationStartDateUtcString = datetimeToUtc(locationStartDate);
       formValue.locationStartDate = locationStartDateUtcString;
 
+      formValue.lastActiveTime = formValue.lastActiveTime != '' ? formValue.lastActiveTime : null;
+
       //console.log("Form Submitted", formValue); // Debugging line
   
       dispatch(actions.updateStation(formValue))
