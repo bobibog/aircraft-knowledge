@@ -164,3 +164,9 @@ export{
 export{
     getStationNumber
 }from './activeStationsNumber'
+
+export{
+    fetchStationStatusFrameSize,
+    setStationStatusFrameSizeOffsetLimit,
+    setStationStatusFrameSizePage
+}from './stationStatusFrameSize'
