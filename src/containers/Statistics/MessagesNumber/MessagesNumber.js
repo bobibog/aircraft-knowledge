@@ -18,7 +18,9 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
 import StationStatusTable from '../StationStatusTable/StationStatusTable';
+import StationStatusFrameSizeTable from '../StationStatusFrameSizeTable/StationStatusFrameSizeTable';
 import SearchStationStatus from '../../../components/SearchElement/SearchStationStatus/SearchStationStatus';
+import SearchStationStatusFrameSize from '../../../components/SearchElement/SearchStationStatusFrameSize/SearchStationStatusFrameSize';
 import { useHistory, useLocation } from 'react-router-dom';
 
 
@@ -116,6 +118,29 @@ const MessagesNumber = (props) =>{
     const pageStationStatus = useSelector(state => {
         return state.stationStatus.stationStatusPage;
     });    
+
+    // STATION STATUS FRAME SIZE
+    const stationStatusFrameSize = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSize;
+    });
+
+    const stationStatusFrameSizeCount = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSizeCount;
+    });
+
+    const loadingStationStatusFrameSize = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSizeLoading;
+    });
+    const offsetStationStatusFrameSize = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSizeOffset;
+    });
+    const limitStationStatusFrameSize = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSizeLimit;
+    });
+    const pageStationStatusFrameSize = useSelector(state => {
+        return state.stationStatusFrameSize.stationStatusFrameSizePage;
+    });
+    // 
         
     const onFetchStationStatus = useCallback(
         () => dispatch(actions.fetchStationStatus(offsetStationStatus, limitStationStatus, start, end, statId, msgType ))
@@ -204,6 +229,93 @@ const MessagesNumber = (props) =>{
     }      
 
     // ↑ STATION STATUS
+
+    ////////// STATION STATUS FRAME SIZE
+    const onFetchStationStatusFrameSize = useCallback(
+        () => dispatch(actions.fetchStationStatusFrameSize(offsetStationStatusFrameSize, limitStationStatusFrameSize, start, end, statId, msgType ))
+        , [dispatch, offsetStationStatusFrameSize, limitStationStatusFrameSize, start, end, statId, msgType]
+    );    
+
+    const onSetStationStatusFrameSizeOffsetLimit = (offsetStationStatusFrameSize, limitStationStatusFrameSize) => dispatch(actions.setStationStatusFrameSizeOffsetLimit(offsetStationStatusFrameSize, limitStationStatusFrameSize));    
+    
+    const onSetStationStatusFrameSizePage = (pageStationStatusFrameSize) => dispatch(actions.setStationStatusFrameSizePage(pageStationStatusFrameSize)); 
+
+    const changeOffsetOrLimitHandlerFrameSize = (tableOffset, tableLimit) => {        
+        onSetStationStatusFrameSizeOffsetLimit(tableOffset, tableLimit);   
+    };
+    const setStationStatusPageHandlerFrameSize = pageStationStatusFrameSize => {                
+        onSetStationStatusFrameSizePage(pageStationStatusFrameSize);
+    };   
+    
+    // FILTERING/SEARCHING
+    const submitSearchHandlerFrameSize = (start, end, statId, msgType) => {  
+        onSetStationStatusFrameSizeOffsetLimit(0, limitStationStatusFrameSize);
+        onSetStationStatusFrameSizePage(0);
+        setStart(start);
+        setEnd(end);
+        setStatId(statId);
+        setMsgType(msgType);
+    };
+    
+    
+    const resetSearchHandlerFrameSize = () => {
+        onSetStationStatusFrameSizeOffsetLimit(0, 10);
+        onSetStationStatusFrameSizePage(0);
+        setStart('');
+        setEnd('');
+        setStatId('');
+        setMsgType('');
+    };    
+
+    // const location = useLocation();
+    // const searchParams = new URLSearchParams(location.search);
+    // const targetStationId = searchParams.get("stationId");
+
+    useEffect(() => {
+        onFetchStationStatusFrameSize();
+    
+        if (targetStationId) {
+            setTimeout(() => {
+                const element = document.getElementById(`station-row-${targetStationId}`);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                    element.focus();
+
+                    element.classList.add(classes.highlight);
+    
+                    setTimeout(() => {
+                        element.classList.add(classes.dehighlight);
+    
+                        setTimeout(() => {
+                            element.classList.remove(classes.highlight);
+                            element.classList.remove(classes.dehighlight);
+                        }, 2000);
+                    }, 2000); 
+                }
+            }, 100);
+        }
+    }, [onFetchStationStatusFrameSize, targetStationId, classes.highlight, classes.dehighlight]);
+    
+    
+   
+    let stationStatusFrameSizeTable = <Spinner />;
+    if (!stationStatusFrameSize && !loadingStationStatusFrameSize  ) {
+        stationStatusFrameSizeTable = <p style={{ textAlign: 'center', color:'red', marginTop:'65px' }}>Could not read StationStationFrameSize table from the server!</p>;
+    }    
+    if (stationStatusFrameSize && !loadingStationStatusFrameSize ) {
+        stationStatusFrameSizeTable =  <StationStatusFrameSizeTable
+            data={stationStatusFrameSize}
+            rowsPerPageDef={limitStationStatusFrameSize}            
+            totalDataCount={stationStatusFrameSizeCount}
+            currPage={pageStationStatusFrameSize}
+            changeOffsetOrLimit={changeOffsetOrLimitHandlerFrameSize}
+            setPageStore={setStationStatusPageHandlerFrameSize}   
+            //allOption={allOption}                     
+        />;
+        
+    }  
+
+    
 
 
     const[messagesNumberResult, setMessagesNumberResult] = useState(messagesNumber);
@@ -1174,8 +1286,20 @@ const MessagesNumber = (props) =>{
                         //allChanger={allChanger}  
                     />
                     {stationStatusTable}
-                </div>
-                    
+                </div>                    
+            </div>
+            <hr style={{width:"100%", size:"3", color:"black", marginTop:"75px"}}></hr>
+            <h5>STATIONS STATUS FRAME SIZE</h5>
+            <div className={classes.container}>
+            <br></br>
+                <div >
+                    <SearchStationStatusFrameSize 
+                         clickedSearch={submitSearchHandlerFrameSize}                               
+                        clickedReset={resetSearchHandlerFrameSize} 
+                        //allChanger={allChanger}  
+                    />
+                    {stationStatusFrameSizeTable}
+                </div>                    
             </div>
         </>       
     )
