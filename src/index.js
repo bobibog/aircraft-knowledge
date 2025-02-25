@@ -35,6 +35,7 @@ import currentLocationCompanyReducer from './store/reducers/currentLocationCompa
 import stationLastSeenReducer from './store/reducers/stationLastSeen';
 import stationStatusReducer from './store/reducers/stationStatus';
 import activeStationsNumberReducer from './store/reducers/activeStationsNumber';
+import stationStatusFrameSizeReducer from './store/reducers/stationStatusFrameSize';
 
 let composeEnhancers = null;
 if (process.env.NODE_ENV === 'development') {
@@ -67,7 +68,8 @@ const rootReducer = combineReducers({
   currentLocationCompany: currentLocationCompanyReducer,
   stationLastSeen: stationLastSeenReducer,
   stationStatus: stationStatusReducer,
-  activeStationsNumber: activeStationsNumberReducer
+  activeStationsNumber: activeStationsNumberReducer,
+  stationStatusFrameSize: stationStatusFrameSizeReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
