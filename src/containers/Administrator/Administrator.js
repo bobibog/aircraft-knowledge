@@ -33,7 +33,18 @@ const Administrator = () => {
                             <Link to="/user" className="btn btn-primary ml-3" >START</Link>
                         </div>
                     </div>
-                </div>                
+                </div>        
+                <div className="col-lg">
+                    <div className={classes.card}>
+                    <img src={Customers} className="card-img-top" alt="arbeit-img" style={{width:"450px", height:"250px", alignSelf:"center", paddingTop:"12px"}} />
+                        <div className="card-body">
+                            <h5 className="card-title">Manage <br/>Overall Bid</h5>
+                            <p className="card-text">Create, Read, Update Overall Bid</p>
+                            {/* <a href="/user" className="btn btn-primary">START</a> */}
+                            <Link to="/overall-bid-details" className="btn btn-primary ml-3" >START</Link>
+                        </div>
+                    </div>
+                </div>             
             </div>
         </div>
     );
