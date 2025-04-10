@@ -58,19 +58,19 @@ const OverallBidDetails = () => {
             <Card.Title>Current and Scheduled Overall Bid</Card.Title>
             <Row>
               <Col md={6}>
-                <p><strong>Current Bid Value:</strong> {currentBidData.currentBidValue ?? '—'}</p>
-                <p><strong>Current Start Date:</strong> {datetimeStringToDateString(currentBidData.currentStartDate)}</p>
+                <p><strong>Current Bid Value:</strong> { currentBidData.currentBidValue ?? ' —' }</p>
+                <p><strong>Current Start Date:</strong> { currentBidData.currentStartDate != null ? datetimeStringToDateString(currentBidData.currentStartDate) : ' —' }</p>
               </Col>
               <Col md={6}>
-                <p><strong>Scheduled Bid Value:</strong> {currentBidData.scheduledBidValue ?? '—'}</p>
-                <p><strong>Scheduled Start Date:</strong> {datetimeStringToDateString(currentBidData.scheduledStartDate)}</p>
+                <p><strong>Scheduled Bid Value:</strong> { currentBidData.scheduledBidValue ?? ' —' }</p>
+                <p><strong>Scheduled Start Date:</strong> { currentBidData.scheduledStartDate != null ? datetimeStringToDateString(currentBidData.scheduledStartDate) : ' —' }</p>
               </Col>
             </Row>
           </Card.Body>
         </Card>
       )}
 
-      {!loading && bidHistory.length > 0 && (
+      {!loading &&  (
         <Card>
           <Card.Body>
             <Card.Title>Overall Bid History</Card.Title>
@@ -88,18 +88,24 @@ const OverallBidDetails = () => {
                 </tr>
               </thead>
               <tbody>
-                {bidHistory.map((bid) => (
-                  <tr key={bid.id}>
-                    {/* <td>{bid.id}</td> */}
-                    <td>{bid.bidValue ?? '—'}</td>
-                    <td>{bid.status}</td>
-                    <td>{datetimeStringToDateString(bid.startDate)}</td>
-                    <td>{datetimeStringRemoveT(bid.createdOn)}</td>
-                    {/* <td>{new Date(bid.modifiedOn).toLocaleString()}</td> */}
-                    <td>{bid.createdByUserName ?? '—'}</td>
-                    {/* <td>{bid.modifiedByUserName ?? '—'}</td> */}
+                {bidHistory.length === 0 ? (
+                  <tr>
+                    <td colSpan="8" className="text-center">No data</td>
                   </tr>
-                ))}
+                ) : (
+                  bidHistory.map((bid) => (
+                    <tr key={bid.id}>
+                      {/* <td>{bid.id}</td> */}
+                      <td>{bid.bidValue ?? '—'}</td>
+                      <td>{bid.status}</td>
+                      <td>{datetimeStringToDateString(bid.startDate)}</td>
+                      <td>{datetimeStringRemoveT(bid.createdOn)}</td>
+                      {/* <td>{new Date(bid.modifiedOn).toLocaleString()}</td> */}
+                      <td>{bid.createdByUserName ?? '—'}</td>
+                      {/* <td>{bid.modifiedByUserName ?? '—'}</td> */}
+                    </tr>
+                  ))  
+                )}
               </tbody>
             </Table>
           </Card.Body>
