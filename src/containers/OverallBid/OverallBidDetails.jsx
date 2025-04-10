@@ -56,7 +56,7 @@ const OverallBidDetails = () => {
           <Button
             variant="primary"
             className="mx-0"
-            onClick={() => history.push('/overall-bid-details/update')}
+            onClick={() => history.push('/update-overall-bid')}
           >
             Update Bid
           </Button>
@@ -81,11 +81,11 @@ const OverallBidDetails = () => {
                 <Card.Title>Current and Scheduled Overall Bid</Card.Title>
                 <Row>
                   <Col md={6}>
-                    <p><strong>Current Bid Value:</strong> { currentBidData.currentBidValue ?? ' —' }</p>
+                    <p><strong>Current Bid:</strong> { currentBidData.currentBidValue ?? ' —' } Glog</p>
                     <p><strong>Current Start Date:</strong> { currentBidData.currentStartDate != null ? datetimeStringToDateString(currentBidData.currentStartDate) : ' —' }</p>
                   </Col>
                   <Col md={6}>
-                    <p><strong>Scheduled Bid Value:</strong> { currentBidData.scheduledBidValue ?? ' —' }</p>
+                    <p><strong>Scheduled Bid:</strong> { currentBidData.scheduledBidValue ?? ' —' } Glog</p>
                     <p><strong>Scheduled Start Date:</strong> { currentBidData.scheduledStartDate != null ? datetimeStringToDateString(currentBidData.scheduledStartDate) : ' —' }</p>
                   </Col>
                 </Row>
@@ -105,7 +105,7 @@ const OverallBidDetails = () => {
                   <thead>
                     <tr>
                       {/* <th>ID</th> */}
-                      <th>Bid Value</th>
+                      <th>Bid Value (Glog)</th>
                       <th>Status</th>
                       <th>Start Date</th>
                       <th>Created On</th>

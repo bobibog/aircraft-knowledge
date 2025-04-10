@@ -37,6 +37,7 @@ import AdsbCompany from './containers/AdsbCompany/AdsbCompany';
 import OpenstreetMapCompany from './containers/Map/Openstreet/OpenstreetMapCompany';
 import AKRxAll from './containers/AKRxAll/AKRxAll';
 import OverallBidDetails from './containers/OverallBid/OverallBidDetails';
+import UpdateOverallBid from './containers/OverallBid/UpdateOverallBid';
 
 import instance from './axios-azure'//
 
@@ -208,6 +209,7 @@ function App() {
         {/* <Route path="/updateStation/:id" component={UpdateStation} /> */}
         <Route path="/updateStation/:id" component={UpdateStationFormik} />
         <Route path="/overall-bid-details" component={OverallBidDetails} />
+        <Route path="/update-overall-bid" component={UpdateOverallBid} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" component={Auth} /> 
         <Route path="/user" component={User} />  
