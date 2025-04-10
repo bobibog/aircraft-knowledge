@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from '../../axios-private';
-import { Card, Table, Spinner, Row, Col, Container, Alert } from 'react-bootstrap';
+import { Card, Table, Row, Col, Container, Alert, Button } from 'react-bootstrap';
 import { format } from 'date-fns';
-//import Spinner from '../../components/UI/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { datetimeStringToDateString, datetimeStringRemoveT } from '../../shared/datetime-helpers'
 
 const OverallBidDetails = () => {
@@ -10,6 +11,7 @@ const OverallBidDetails = () => {
   const [bidHistory, setBidHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +42,26 @@ const OverallBidDetails = () => {
 
   return (
     <Container className="py-4">
-      <h2 className="mb-4">Overall Bid Details</h2>
+      <Row className="align-items-center mb-3">
+        <Col>
+          <h2 className="mb-0">Overall Bid Details</h2>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col md={12}>
+      {/* Button aligned with Card and Table */}
+      <Row className="mb-3">
+        <Col md={2}>
+          <Button
+            variant="primary"
+            className="mx-0"
+            onClick={() => history.push('/overall-bid-details/update')}
+          >
+            Update Bid
+          </Button>
+        </Col>
+      </Row>
 
       {loading && (
         <div className="text-center">
@@ -53,64 +74,74 @@ const OverallBidDetails = () => {
       )}
 
       {!loading && currentBidData && (
-        <Card className="mb-4">
-          <Card.Body>
-            <Card.Title>Current and Scheduled Overall Bid</Card.Title>
-            <Row>
-              <Col md={6}>
-                <p><strong>Current Bid Value:</strong> { currentBidData.currentBidValue ?? ' —' }</p>
-                <p><strong>Current Start Date:</strong> { currentBidData.currentStartDate != null ? datetimeStringToDateString(currentBidData.currentStartDate) : ' —' }</p>
-              </Col>
-              <Col md={6}>
-                <p><strong>Scheduled Bid Value:</strong> { currentBidData.scheduledBidValue ?? ' —' }</p>
-                <p><strong>Scheduled Start Date:</strong> { currentBidData.scheduledStartDate != null ? datetimeStringToDateString(currentBidData.scheduledStartDate) : ' —' }</p>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+        <Row className="mb-4">
+          <Col md={12}>
+            <Card className="mb-4">
+              <Card.Body>
+                <Card.Title>Current and Scheduled Overall Bid</Card.Title>
+                <Row>
+                  <Col md={6}>
+                    <p><strong>Current Bid Value:</strong> { currentBidData.currentBidValue ?? ' —' }</p>
+                    <p><strong>Current Start Date:</strong> { currentBidData.currentStartDate != null ? datetimeStringToDateString(currentBidData.currentStartDate) : ' —' }</p>
+                  </Col>
+                  <Col md={6}>
+                    <p><strong>Scheduled Bid Value:</strong> { currentBidData.scheduledBidValue ?? ' —' }</p>
+                    <p><strong>Scheduled Start Date:</strong> { currentBidData.scheduledStartDate != null ? datetimeStringToDateString(currentBidData.scheduledStartDate) : ' —' }</p>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       )}
 
       {!loading &&  (
-        <Card>
-          <Card.Body>
-            <Card.Title>Overall Bid History</Card.Title>
-            <Table striped bordered hover responsive className="mt-3">
-              <thead>
-                <tr>
-                  {/* <th>ID</th> */}
-                  <th>Bid Value</th>
-                  <th>Status</th>
-                  <th>Start Date</th>
-                  <th>Created On</th>
-                  {/* <th>Modified On</th> */}
-                  <th>Created By</th>
-                  {/* <th>Modified By</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {bidHistory.length === 0 ? (
-                  <tr>
-                    <td colSpan="8" className="text-center">No data</td>
-                  </tr>
-                ) : (
-                  bidHistory.map((bid) => (
-                    <tr key={bid.id}>
-                      {/* <td>{bid.id}</td> */}
-                      <td>{bid.bidValue ?? '—'}</td>
-                      <td>{bid.status}</td>
-                      <td>{datetimeStringToDateString(bid.startDate)}</td>
-                      <td>{datetimeStringRemoveT(bid.createdOn)}</td>
-                      {/* <td>{new Date(bid.modifiedOn).toLocaleString()}</td> */}
-                      <td>{bid.createdByUserName ?? '—'}</td>
-                      {/* <td>{bid.modifiedByUserName ?? '—'}</td> */}
+        <Row>
+          <Col md={12}>
+            <Card>
+              <Card.Body>
+                <Card.Title>Overall Bid History</Card.Title>
+                <Table striped bordered hover responsive className="mt-3">
+                  <thead>
+                    <tr>
+                      {/* <th>ID</th> */}
+                      <th>Bid Value</th>
+                      <th>Status</th>
+                      <th>Start Date</th>
+                      <th>Created On</th>
+                      {/* <th>Modified On</th> */}
+                      <th>Created By</th>
+                      {/* <th>Modified By</th> */}
                     </tr>
-                  ))  
-                )}
-              </tbody>
-            </Table>
-          </Card.Body>
-        </Card>
+                  </thead>
+                  <tbody>
+                    {bidHistory.length === 0 ? (
+                      <tr>
+                        <td colSpan="8" className="text-center">No data</td>
+                      </tr>
+                    ) : (
+                      bidHistory.map((bid) => (
+                        <tr key={bid.id}>
+                          {/* <td>{bid.id}</td> */}
+                          <td>{bid.bidValue ?? '—'}</td>
+                          <td>{bid.status}</td>
+                          <td>{datetimeStringToDateString(bid.startDate)}</td>
+                          <td>{datetimeStringRemoveT(bid.createdOn)}</td>
+                          {/* <td>{new Date(bid.modifiedOn).toLocaleString()}</td> */}
+                          <td>{bid.createdByUserName ?? '—'}</td>
+                          {/* <td>{bid.modifiedByUserName ?? '—'}</td> */}
+                        </tr>
+                      ))  
+                    )}
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       )}
+      </Col>
+      </Row>
     </Container>
   );
   // return (
