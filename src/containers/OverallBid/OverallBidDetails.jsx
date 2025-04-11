@@ -4,7 +4,7 @@ import axios from '../../axios-private';
 import { Card, Table, Row, Col, Container, Alert, Button } from 'react-bootstrap';
 import { format } from 'date-fns';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import { datetimeStringToDateString, datetimeStringRemoveT } from '../../shared/datetime-helpers'
+import { datetimeStringToDateString, datetimeStringRemoveT } from '../../shared/datetime-helpers';
 
 const OverallBidDetails = () => {
   const [currentBidData, setCurrentBidData] = useState(null);
@@ -81,11 +81,11 @@ const OverallBidDetails = () => {
                 <Card.Title>Current and Scheduled Overall Bid</Card.Title>
                 <Row>
                   <Col md={6}>
-                    <p><strong>Current Bid:</strong> { currentBidData.currentBidValue ?? ' —' } Glog</p>
+                    <p><strong>Current Bid (Glog):</strong> { currentBidData.currentBidValue ?? ' —' } </p>
                     <p><strong>Current Start Date:</strong> { currentBidData.currentStartDate != null ? datetimeStringToDateString(currentBidData.currentStartDate) : ' —' }</p>
                   </Col>
                   <Col md={6}>
-                    <p><strong>Scheduled Bid:</strong> { currentBidData.scheduledBidValue ?? ' —' } Glog</p>
+                    <p><strong>Scheduled Bid (Glog):</strong> { currentBidData.scheduledBidValue ?? ' —' } </p>
                     <p><strong>Scheduled Start Date:</strong> { currentBidData.scheduledStartDate != null ? datetimeStringToDateString(currentBidData.scheduledStartDate) : ' —' }</p>
                   </Col>
                 </Row>

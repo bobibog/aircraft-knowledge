@@ -1,0 +1,20 @@
+.form-input-wide {
+    max-width: 400px;
+    height: 50px;
+    padding: 6px 12px;
+}
+
+.form-button-group {
+    display: flex;
+    gap: 10px;
+    height: 50px;
+    margin-top: 30px;
+}
+
+/* Specific fix for date inputs */
+/* input[type="date"].form-input-wide {
+    line-height: 1.5;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    height: 40px;
+} */

@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import axios from '../../axios-private';
 import { Spinner as BootstrapSpinner, Button, Card, Alert, Container } from 'react-bootstrap';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import { datetimeStringToDateString, datetimeStringRemoveT } from '../../shared/datetime-helpers';
+import './UpdateOverallBid.css';
 
 const UpdateOverallBid = () => {
   const [initialValues, setInitialValues] = useState(null);
@@ -21,9 +23,9 @@ const UpdateOverallBid = () => {
         const res = await axios.get('/OverallBid/GetCurrentWithScheduledOverallBid');
         setInitialValues({
           currentBid: res.data.currentBidValue ?? '',
-          currentStartDate: res.data.currentStartDate ?? '',
+          currentStartDate: res.data.currentStartDate != null ? datetimeStringToDateString(res.data.currentStartDate) : '',
           scheduledBid: res.data.scheduledBidValue ?? '',
-          scheduledStartDate: res.data.scheduledStartDate ?? '',
+          scheduledStartDate: res.data.scheduledStartDate != null ? datetimeStringToDateString(res.data.scheduledStartDate) : '',
           newBid: '',
           newBidStartDate: '',
         });
@@ -82,8 +84,7 @@ const UpdateOverallBid = () => {
   return (
     <Container className="py-4">
       <h2 className="mb-4">Update Overall Bid</h2>
-
-      <Card>
+      <Card className="mx-auto" style={{ maxWidth: '400px' }}>      
         <Card.Body>
           <Formik
             initialValues={initialValues}
@@ -94,35 +95,35 @@ const UpdateOverallBid = () => {
             {() => (
               <Form>
                 <div className="mb-3">
-                  <label>Current Bid</label>
-                  <Field name="currentBid" className="form-control" disabled />
+                  <label>Current Bid (Glog)</label>
+                  <Field name="currentBid" className="form-control form-input-wide" disabled />
                 </div>
                 <div className="mb-3">
                   <label>Current Start Date</label>
-                  <Field name="currentStartDate" className="form-control" disabled />
+                  <Field name="currentStartDate" className="form-control form-input-wide" disabled />
                 </div>
                 <div className="mb-3">
-                  <label>Scheduled Bid</label>
-                  <Field name="scheduledBid" className="form-control" disabled />
+                  <label>Scheduled Bid (Glog)</label>
+                  <Field name="scheduledBid" className="form-control form-input-wide" disabled />
                 </div>
                 <div className="mb-3">
                   <label>Scheduled Start Date</label>
-                  <Field name="scheduledStartDate" className="form-control" disabled />
+                  <Field name="scheduledStartDate" className="form-control form-input-wide" disabled />
                 </div>
                 <div className="mb-3">
-                  <label>New Bid</label>
-                  <Field name="newBid" type="number" className="form-control" />
+                  <label>New Bid (Glog)</label>
+                  <Field name="newBid" type="number" className="form-control form-input-wide" />
                   <div className="text-danger"><ErrorMessage name="newBid" /></div>
                 </div>
                 <div className="mb-3">
                   <label>New Bid Start Date</label>
-                  <Field name="newBidStartDate" type="date" className="form-control" />
+                  <Field name="newBidStartDate" type="date" className="form-control form-input-wide" />
                   <div className="text-danger"><ErrorMessage name="newBidStartDate" /></div>
                 </div>
 
                 {submitError && <Alert variant="danger">{submitError}</Alert>}
 
-                <div className="d-flex gap-2">
+                <div className="form-button-group">
                   <Button type="submit" variant="primary" disabled={submitting}>
                     {submitting ? <BootstrapSpinner animation="border" size="sm" /> : 'Submit'}
                   </Button>
@@ -133,7 +134,7 @@ const UpdateOverallBid = () => {
               </Form>
             )}
           </Formik>
-        </Card.Body>
+        </Card.Body>      
       </Card>
     </Container>
   );
