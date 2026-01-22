@@ -5,6 +5,7 @@ import { Alert, Badge, Button, Card, Col, Form, Row, Spinner, Table } from "reac
 import { receiversAdminApi } from "../../api/receiversAdmin.api";
 import { ReceiverRequestStatus } from "../../shared/receiverStatuses";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import ReceiverStatusBadge from '../../components/UI/ReceiverStatusBadge/ReceiverStatusBadge'
 
 function fmt(dtIso) {
   if (!dtIso) return "—";
@@ -249,7 +250,7 @@ export default function ReceiverRequestDetailsPage() {
           <h3 className="mb-1">Request Details</h3>
           <div className="text-muted">
             <span className="me-2">ID: {dto.requestId}</span>
-            <Badge bg="dark">{dto.statusName}</Badge>
+            <ReceiverStatusBadge badgeText={dto.statusName} statusForColor={dto.statusName} />
             {dto.statusReason ? <span className="ms-2 text-danger">({dto.statusReason})</span> : null}
           </div>
         </div>
@@ -287,8 +288,13 @@ export default function ReceiverRequestDetailsPage() {
                 <b>Updated</b> {fmt(dto.updatedOn)}
               </div>
               <div className="text-muted">
-                <small>UpdatedByUserId: {dto.updatedByUserId || "—"}</small>
-              </div>
+                <small>
+                    Updated by:{" "}
+                    {dto.updatedByUserName
+                    ? `${dto.updatedByUserName} (${dto.updatedByUserId})`
+                    : dto.updatedByUserId || "—"}
+                </small>
+                </div>
             </Card.Body>
           </Card>
 

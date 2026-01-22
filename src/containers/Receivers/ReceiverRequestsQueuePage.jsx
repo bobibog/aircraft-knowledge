@@ -5,6 +5,8 @@ import { Table, Form, Row, Col, Button, Badge, Spinner, Alert } from "react-boot
 import { receiversAdminApi } from "../../api/receiversAdmin.api";
 import { statusOptions } from "../../shared/receiverStatuses";
 import { ReceiverRequestStatus } from "../../shared/receiverStatuses";
+//import { receiverStatusBadgeVariant } from "../../shared/receiverStatusBadge";
+import ReceiverStatusBadge from "../../components/UI/ReceiverStatusBadge/ReceiverStatusBadge";
 
 function fmt(dtIso) {
   if (!dtIso) return "";
@@ -111,8 +113,8 @@ const history = useHistory();
               Next
             </Button>
 
-            <div className="pt-2">
-              <Badge bg="info">Filter: {statusLabel}</Badge>
+            <div className="pt-2">              
+              <ReceiverStatusBadge badgeText={`Filter: ${statusLabel}`} statusForColor={statusLabel} />
               <Badge bg="secondary" className="ms-2">
                 Page: {page}
               </Badge>
@@ -164,7 +166,7 @@ const history = useHistory();
                       <small className="text-muted">{x.userId}</small>
                     </td>
                     <td>
-                      <Badge bg="dark">{x.statusName}</Badge>
+                      <ReceiverStatusBadge badgeText={x.statusName} statusForColor={x.statusName} />
                       {x.statusReason ? (
                         <div className="text-muted">
                           <small>{x.statusReason}</small>
