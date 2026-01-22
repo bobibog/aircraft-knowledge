@@ -211,7 +211,7 @@ function App() {
         <Route path="/stationDetails/:id" component={StationDetails} />        
         {/* <Route path="/updateStation/:id" component={UpdateStation} /> */}
         <Route path="/updateStation/:id" component={UpdateStationFormik} />
-        <Route path="/receivers/requests" component={ReceiverRequestsQueuePage} />
+        <Route exact path="/receivers/requests" component={ReceiverRequestsQueuePage} />
         <Route path="/receivers/requests/:requestId" component={ReceiverRequestDetailsPage} />
         <Route path="/overall-bid-details" component={OverallBidDetails} />
         <Route path="/update-overall-bid" component={UpdateOverallBid} />

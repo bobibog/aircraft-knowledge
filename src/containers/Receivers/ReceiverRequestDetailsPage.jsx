@@ -1,18 +1,26 @@
 // src/pages/receivers-admin/ReceiverRequestDetailsPage.jsx
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { Alert, Badge, Button, Card, Col, Form, Row, Spinner, Table } from "react-bootstrap";
 import { receiversAdminApi } from "../../api/receiversAdmin.api";
 import { ReceiverRequestStatus } from "../../shared/receiverStatuses";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 function fmt(dtIso) {
   if (!dtIso) return "—";
   return new Date(dtIso).toLocaleString();
 }
 
+function toNum(v) {
+  if (v === null || v === undefined || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
 export default function ReceiverRequestDetailsPage() {
   const { requestId } = useParams();
-  const nav = useNavigate();
+  //const nav = useNavigate();
+  const history = useHistory();
 
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -55,6 +63,10 @@ export default function ReceiverRequestDetailsPage() {
 
     const status = dto?.status ?? null;
     const fulfillment = dto?.activeFulfillment ?? null;
+
+    const installLat = toNum(dto?.installationAddress?.latitude);
+    const installLng = toNum(dto?.installationAddress?.longitude);
+    const hasInstallCoords = installLat != null && installLng != null;
 
     // Controller/Service rules:
     // Approve: Submitted -> Approved
@@ -223,7 +235,7 @@ export default function ReceiverRequestDetailsPage() {
     return (
       <div className="p-3">
         {error ? <Alert variant="danger">{error}</Alert> : <Alert variant="warning">Not found</Alert>}
-        <Button variant="secondary" onClick={() => nav("/receivers/requests")}>
+        <Button variant="secondary" onClick={() => history.push("/receivers/requests")}>
           Back
         </Button>
       </div>
@@ -242,7 +254,7 @@ export default function ReceiverRequestDetailsPage() {
           </div>
         </div>
 
-        <Button variant="outline-secondary" onClick={() => nav("/receivers/requests")}>
+        <Button variant="outline-secondary" onClick={() => history.push("/receivers/requests")}>
           Back to queue
         </Button>
       </div>
@@ -287,15 +299,56 @@ export default function ReceiverRequestDetailsPage() {
               <div className="mb-2">
                 <b>Installation</b>
                 <div>{dto.installationAddress?.fullText}</div>
-                {dto.installationAddress?.latitude != null &&
-                dto.installationAddress?.longitude != null ? (
-                  <div className="text-muted">
-                    <small>
-                      Lat/Lng: {dto.installationAddress.latitude}, {dto.installationAddress.longitude}
-                    </small>
-                  </div>
+
+                {hasInstallCoords ? (
+                    <>
+                    <div className="text-muted">
+                        <small>
+                        Lat/Lng: {installLat}, {installLng}
+                        </small>
+                    </div>
+
+                    <div className="mt-2" style={{ height: 320, width: "100%" }}>
+                        <MapContainer
+                        center={[installLat, installLng]}
+                        zoom={13}
+                        style={{ height: "100%", width: "100%" }}
+                        scrollWheelZoom={false}
+                        >
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution="&copy; OpenStreetMap contributors"
+                        />
+
+                        <Marker position={[installLat, installLng]}>
+                            <Popup>
+                            <div>
+                                <b>Installation</b>
+                                <div className="mt-1">{dto.installationAddress?.fullText}</div>
+                                <div className="text-muted mt-1">
+                                <small>
+                                    {installLat.toFixed(6)}, {installLng.toFixed(6)}
+                                </small>
+                                </div>
+                            </div>
+                            </Popup>
+                        </Marker>
+                        </MapContainer>
+                    </div>
+
+                    <div className="mt-2">
+                        <a
+                        href={`https://www.google.com/maps?q=${installLat},${installLng}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        >
+                        Open in Google Maps
+                        </a>
+                    </div>
+                    </>
                 ) : null}
               </div>
+
 
               <div className="mb-2">
                 <b>Shipping</b>

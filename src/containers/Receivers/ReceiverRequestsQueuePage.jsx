@@ -1,6 +1,6 @@
 // src/pages/receivers-admin/ReceiverRequestsQueuePage.jsx
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Table, Form, Row, Col, Button, Badge, Spinner, Alert } from "react-bootstrap";
 import { receiversAdminApi } from "../../api/receiversAdmin.api";
 import { statusOptions } from "../../shared/receiverStatuses";
@@ -12,7 +12,8 @@ function fmt(dtIso) {
 }
 
 export default function ReceiverRequestsQueuePage() {
-  const nav = useNavigate();
+//   const nav = useNavigate();
+const history = useHistory();
 
   //   const [status, setStatus] = useState(statusOptions[1].value); // default: Submitted
   const [status, setStatus] = useState(ReceiverRequestStatus.Submitted); // default: Submitted
@@ -152,7 +153,7 @@ export default function ReceiverRequestsQueuePage() {
                   <tr
                     key={x.requestId}
                     style={{ cursor: "pointer" }}
-                    onClick={() => nav(`/receivers/requests/${x.requestId}`)}
+                    onClick={() => history.push(`/receivers/requests/${x.requestId}`)}
                   >
                     <td>
                       <div>{fmt(x.requestedOn)}</div>
