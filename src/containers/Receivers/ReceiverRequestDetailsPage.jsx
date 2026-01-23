@@ -62,6 +62,10 @@ export default function ReceiverRequestDetailsPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestId]);
 
+  useEffect(() => {
+    console.log("assignResult changed:", assignResult);
+    }, [assignResult]);
+
     const status = dto?.status ?? null;
     const fulfillment = dto?.activeFulfillment ?? null;
 
@@ -161,8 +165,8 @@ export default function ReceiverRequestDetailsPage() {
 
     try {
       const result = await receiversAdminApi.assign(requestId, Number(selectedStationDbId));
-      setAssignResult(result); // PIN shown once
       await refresh();
+      setAssignResult(result); // PIN shown once
     } catch (e) {
       setError(e?.message || "Assign failed.");
     } finally {
@@ -422,77 +426,92 @@ export default function ReceiverRequestDetailsPage() {
             </Card.Body>
           </Card>
 
-          {canAssign ? (
+          {(canAssign || assignResult) ? (
             <Card className="mt-3">
-              <Card.Body>
+                <Card.Body>
                 <Card.Title>Assign device</Card.Title>
 
-                {devicesLoading ? (
-                  <div>
-                    <Spinner animation="border" size="sm" />{" "}
-                    <span className="ms-2">Loading devices…</span>
-                  </div>
-                ) : (
-                  <>
-                    <Form.Label>Available devices</Form.Label>
-                    <Form.Select
-                      value={selectedStationDbId ?? ""}
-                      onChange={(e) => setSelectedStationDbId(e.target.value || null)}
-                    >
-                      <option value="">Select device…</option>
-                      {devices.map((d) => (
-                        <option key={d.stationDbId} value={d.stationDbId}>
-                          #{d.stationDbId} / {d.stationId} ({d.city || "?"}, {d.country || "?"})
-                        </option>
-                      ))}
-                    </Form.Select>
-
-                    {selectedDevice ? (
-                      <div className="mt-2 text-muted">
-                        <small>
-                          Current feeder: {selectedDevice.currentFeederUserName || "—"}{" "}
-                          {selectedDevice.currentFeederEmail
-                            ? `(${selectedDevice.currentFeederEmail})`
-                            : ""}
-                        </small>
-                      </div>
-                    ) : null}
-
-                    <div className="mt-3">
-                      <Button
-                        variant="primary"
-                        disabled={busy || !selectedStationDbId}
-                        onClick={doAssign}
-                      >
-                        Assign + Generate PIN
-                      </Button>
+                {/* ✅ PIN box should be visible even after status changes */}
+                {assignResult ? (
+                    <Alert variant="warning" className="mt-2">
+                    <div>
+                        <b>PIN (shown once):</b>{" "}
+                        <span style={{ letterSpacing: 2 }}>{assignResult.pin}</span>
                     </div>
+                    <div className="mt-2 d-flex gap-2">
+                        <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => navigator.clipboard.writeText(assignResult.pin)}
+                        >
+                        Copy PIN
+                        </Button>
+                        <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() => setAssignResult(null)}
+                        >
+                        Dismiss
+                        </Button>
+                    </div>
+                    <div className="text-muted mt-2">
+                        <small>FulfillmentId: {assignResult.fulfillmentId}</small>
+                    </div>
+                    </Alert>
+                ) : null}
 
-                    {assignResult ? (
-                      <Alert variant="warning" className="mt-3 mb-0">
-                        <div>
-                          <b>PIN (shown once):</b>{" "}
-                          <span style={{ letterSpacing: 2 }}>{assignResult.pin}</span>
+                {/* ✅ Only show the device selector/actions while canAssign */}
+                {canAssign ? (
+                    devicesLoading ? (
+                    <div>
+                        <Spinner animation="border" size="sm" />{" "}
+                        <span className="ms-2">Loading devices…</span>
+                    </div>
+                    ) : (
+                    <>
+                        <Form.Label>Available devices</Form.Label>
+                        <Form.Select
+                        value={selectedStationDbId ?? ""}
+                        onChange={(e) => setSelectedStationDbId(e.target.value || null)}
+                        >
+                        <option value="">Select device…</option>
+                        {devices.map((d) => (
+                            <option key={d.stationDbId} value={d.stationDbId}>
+                            #{d.stationDbId} / {d.stationId} ({d.city || "?"}, {d.country || "?"})
+                            </option>
+                        ))}
+                        </Form.Select>
+
+                        {selectedDevice ? (
+                        <div className="mt-2 text-muted">
+                            <small>
+                            Current feeder: {selectedDevice.currentFeederUserName || "—"}{" "}
+                            {selectedDevice.currentFeederEmail ? `(${selectedDevice.currentFeederEmail})` : ""}
+                            </small>
                         </div>
-                        <div className="mt-2">
-                          <Button
-                            variant="outline-dark"
-                            size="sm"
-                            onClick={() => navigator.clipboard.writeText(assignResult.pin)}
-                          >
-                            Copy PIN
-                          </Button>
+                        ) : null}
+
+                        <div className="mt-3">
+                        <Button
+                            variant="primary"
+                            disabled={busy || !selectedStationDbId}
+                            onClick={doAssign}
+                        >
+                            Assign + Generate PIN
+                        </Button>
                         </div>
-                        <div className="text-muted mt-2">
-                          <small>FulfillmentId: {assignResult.fulfillmentId}</small>
-                        </div>
-                      </Alert>
-                    ) : null}
-                  </>
+                    </>
+                    )
+                ) : (
+                    // optional: show explanation when not assignable but pin still shown
+                    <div className="text-muted mt-2">
+                    <small>Assignment is no longer available because the request is not in Approved status.</small>
+                    </div>
                 )}
-              </Card.Body>
+                </Card.Body>
             </Card>
-          ) : null}
+            ) : null}
+
 
           <Card className="mt-3">
             <Card.Body>
