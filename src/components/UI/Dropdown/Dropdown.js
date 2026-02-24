@@ -1,6 +1,4 @@
-import { getByDisplayValue } from '@testing-library/dom';
 import React, {useState, useRef, useEffect} from 'react';
-import { fetchAirlineNameList } from '../../../store/actions';
 import './Dropdown.css';
 //import classes from './Dropdown.module.css'
 

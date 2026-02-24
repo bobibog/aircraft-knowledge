@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as actions from "../../../store/actions/index";
-import classes from "./StationDetails.module.css";
 import axios from '../../../axios-private';
 
 import {Container, Row, Col, Form, Button, Table} from 'react-bootstrap';

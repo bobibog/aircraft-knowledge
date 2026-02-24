@@ -1,6 +1,5 @@
-import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import * as actions from '../../../store/actions/index';
+import React, {useState, useEffect, useRef} from 'react';
+import {useDispatch} from 'react-redux';
 import Input from '../../UI/Input/Input';
 import ButtonBordered from '../../UI/ButtonBordered/ButtonBordered';
 import classes from './SearchStationStatus.module.css';
@@ -9,7 +8,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from '../../UI/Dropdown/Dropdown';
 
 
 

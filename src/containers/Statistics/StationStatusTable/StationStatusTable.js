@@ -7,11 +7,9 @@ import {FiSkipForward} from 'react-icons/fi';
 import {FiSkipBack} from 'react-icons/fi';
 import {CheckBox} from '../../../components/UI/CheckBox/CheckBox';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import styled from 'styled-components';
-import { wrap } from 'lodash';
 
 
 // +RESIZE style for resizable columns by dragging functionality
