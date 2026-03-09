@@ -9,12 +9,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import {Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, LabelList, Dot, Text, XAxis} from 'recharts';
-// import StackedBarChart from "../../../components/Graphs/StackedBarChart";
-import HSBar from "react-horizontal-stacked-bar-chart";
-// import { StackedBarChart, IChartDataPoint, IChartProps } from '@fluentui/react-charting';
-// import { DefaultPalette } from '@fluentui/react/lib/Styling';
-import Chart from 'react-apexcharts';
-import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootstrap from 'react-bootstrap';
 import StationStatusTable from '../StationStatusTable/StationStatusTable';
