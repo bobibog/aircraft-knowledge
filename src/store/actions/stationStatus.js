@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
-import axios from '../../axios-azure';
+//import axios from '../../axios-azure';
+import axios from '../../axios-private';
 
 export const setStationStatusOffsetLimit = (offset, limit) => {
     return {
