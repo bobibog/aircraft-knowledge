@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import * as actions from "../../../store/actions/index";
 import axios from '../../../axios-private';
 
-import {Container, Row, Col, Form, Button, Table} from 'react-bootstrap';
+import {Container, Row, Col, Form, Button, Table, Alert} from 'react-bootstrap';
 import Spinner from '../../../components/UI/Spinner/Spinner'
 
 const StationDetails = () => {
@@ -22,6 +22,12 @@ const StationDetails = () => {
     country: "",
     locationAddress: "",
     lastActiveTime: "",
+
+    userId: "",
+    currentUsersStationId: null,
+    ownershipEvent: "",
+    ownershipEventOn: "",
+
     feederUsername: "",
     feederEmail: "",
     feederName: "",    
@@ -41,6 +47,18 @@ const StationDetails = () => {
   const [stationLocationData, setStationLocationData] = useState([]);
   const [stationLocationDataLoading, setStationLocationDataLoading] = useState(true);
 
+    const [releaseDate, setReleaseDate] = useState(() => {
+        return new Date().toISOString().slice(0, 10);
+    });
+
+    const [releaseNote, setReleaseNote] = useState(
+    "Released to inventory from legacy/manual assignment"
+    );
+
+    const [releaseBusy, setReleaseBusy] = useState(false);
+    const [releaseSuccess, setReleaseSuccess] = useState(null);
+    const [releaseError, setReleaseError] = useState(null);
+
   useEffect(() => {
     //if (id) {
     dispatch(actions.fetchStation(id))
@@ -57,6 +75,12 @@ const StationDetails = () => {
                 country: station.country || '',
                 locationAddress: station.locationAddress || '',
                 lastActiveTime: station.lastActiveTime || '',
+
+                userId: station.userId || "",
+                currentUsersStationId: station.currentUsersStationId || null,
+                ownershipEvent: station.ownershipEvent || "",
+                ownershipEventOn: station.ownershipEventOn || "",
+
                 feederUsername: station.feederUsername || '',
                 feederEmail: station.feederEmail || '',
                 feederName: station.feederName || '',
@@ -97,6 +121,66 @@ const StationDetails = () => {
             console.error("Error while fetching station's location history data:", error);
         })
     }, []);
+
+    const releasedOnUtcFromDate = (dateString) => {
+        return `${dateString}T00:00:00Z`;
+    };
+
+    const canReleaseToInventory =
+        stationData.id > 0 &&
+        stationData.currentUsersStationId != null &&
+        stationData.feederUsername &&
+        stationData.ownershipEvent !== "Returned";
+
+    const handleReleaseToInventory = async () => {
+        if (!releaseDate) {
+            setReleaseError("Release date is required.");
+            return;
+        }
+
+        if (!stationData.currentUsersStationId) {
+            setReleaseError(
+                "CurrentUsersStationId is missing. Backend Station/GetStation response must include currentUsersStationId."
+            );
+            return;
+        }
+
+        const ok = window.confirm(
+            `Release station ${stationData.stationId} to inventory?\n\n` +
+            `Current feeder: ${stationData.feederUsername || "—"}\n` +
+            `Release date: ${releaseDate}\n\n` +
+            "This will close the current UsersStation relationship, insert a Returned ownership event, rotate the PIN, and make the receiver available for new receiver requests."
+        );
+
+        if (!ok) return;
+
+        setReleaseBusy(true);
+        setReleaseError(null);
+        setReleaseSuccess(null);
+
+        try {
+            await dispatch(actions.releaseStationToInventory({
+                stationDbId: stationData.id,
+                releasedOnUtc: releasedOnUtcFromDate(releaseDate),
+                note: releaseNote?.trim() || "Released to inventory from legacy/manual assignment",
+                expectedCurrentUsersStationId: stationData.currentUsersStationId
+            }));
+
+            setReleaseSuccess("Station released to inventory successfully.");
+
+            // Reload to refresh station snapshot, feeder history, and location history.
+            window.location.reload();
+        } catch (error) {
+            setReleaseError(
+                error?.response?.data?.message ||
+                error?.response?.data ||
+                error.message ||
+                "Release to inventory failed."
+            );
+        } finally {
+            setReleaseBusy(false);
+        }
+    };
 
     
 //   }, [dispatch, id]);
@@ -312,6 +396,18 @@ if (stationData.id != 0 && !stationDataLoading) {
                 />
             </Form.Group>
             <Form.Group className="mb-1">
+                <Form.Label>Ownership event</Form.Label>
+                <Form.Control
+                    value={
+                    stationData.ownershipEvent
+                        ? `${stationData.ownershipEvent} (${stationData.ownershipEventOn ? new Date(stationData.ownershipEventOn).toLocaleString() : "—"})`
+                        : "—"
+                    }
+                    disabled
+                    type="text"
+                />
+            </Form.Group>
+            <Form.Group className="mb-1">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                 // className={classes.input}
@@ -433,15 +529,98 @@ return (
             </Col>
             <Col md={9}>
                 <Row className="mb-4">
-                    {/* Buttons Row */}
                     <Col>
-                        {/* <div className={classes.btnContainer}> */}
-                            <Button variant="primary" className="mt-3 me-3 mb-3" onClick={() => history.push(`/updateStation/${id}`)} >
-                                Update Station
-                            </Button>
-                        {/* </div> */}
+                        <Button
+                        variant="primary"
+                        className="mt-3 me-3 mb-3"
+                        onClick={() => history.push(`/updateStation/${id}`)}
+                        >
+                        Update Station
+                        </Button>
                     </Col>
-                </Row>
+                    </Row>
+
+                    <Row className="mb-4">
+                    <Col>
+                        <div className="border rounded p-3">
+                        <h5>Release to inventory</h5>
+
+                        <div className="text-muted mb-2">
+                            Use this only for legacy/manual receivers that do not have a ReceiverRequest.
+                            This closes the current feeder relationship and makes the receiver available
+                            for the new receiver request workflow.
+                        </div>
+
+                        {releaseError && <Alert variant="danger">{releaseError}</Alert>}
+                        {releaseSuccess && <Alert variant="success">{releaseSuccess}</Alert>}
+
+                        <Row className="g-2">
+                            <Col md={4}>
+                            <Form.Group>
+                                <Form.Label>Current feeder</Form.Label>
+                                <Form.Control
+                                value={
+                                    stationData.feederUsername
+                                    ? `${stationData.feederUsername}${stationData.feederEmail ? ` (${stationData.feederEmail})` : ""}`
+                                    : "—"
+                                }
+                                disabled
+                                />
+                            </Form.Group>
+                            </Col>
+
+                            <Col md={3}>
+                            <Form.Group>
+                                <Form.Label>Release date</Form.Label>
+                                <Form.Control
+                                type="date"
+                                value={releaseDate}
+                                onChange={(e) => setReleaseDate(e.target.value)}
+                                disabled={releaseBusy}
+                                />
+                            </Form.Group>
+                            </Col>
+
+                            <Col md={5}>
+                            <Form.Group>
+                                <Form.Label>Note</Form.Label>
+                                <Form.Control
+                                value={releaseNote}
+                                onChange={(e) => setReleaseNote(e.target.value)}
+                                maxLength={500}
+                                disabled={releaseBusy}
+                                />
+                            </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <div className="mt-3">
+                            <Button
+                            variant="warning"
+                            disabled={!canReleaseToInventory || releaseBusy}
+                            onClick={handleReleaseToInventory}
+                            >
+                            {releaseBusy ? "Releasing…" : "Release to inventory"}
+                            </Button>
+                        </div>
+
+                        {!canReleaseToInventory && (
+                            <div className="text-muted mt-2">
+                            <small>
+                                Release is available only when the station currently has an active feeder relationship
+                                and has not already been returned.
+                            </small>
+                            </div>
+                        )}
+
+                        <div className="text-muted mt-2">
+                            <small>
+                            CurrentUsersStationId: {stationData.currentUsersStationId || "—"}
+                            </small>
+                        </div>
+                        </div>
+                    </Col>
+                    </Row>
                 <Row className="mb-4">                    
                     <Col>
                         <h5>Feeder history</h5>
