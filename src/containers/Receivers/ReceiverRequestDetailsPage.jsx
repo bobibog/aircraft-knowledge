@@ -42,6 +42,9 @@ export default function ReceiverRequestDetailsPage() {
   const [carrier, setCarrier] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
   const [returnNote, setReturnNote] = useState("");
+  const [returnedOnUtc, setReturnedOnUtc] = useState(() => {
+    return new Date().toISOString().slice(0, 10);
+  });
 
   async function refresh() {
     if (!requestId) return;
@@ -216,10 +219,27 @@ export default function ReceiverRequestDetailsPage() {
   async function doReturn() {
     if (!fulfillment) return;
 
+    if (!returnedOnUtc) {
+      setError("Return date is required.");
+      return;
+    }
+
+    const ok = window.confirm(
+      "Unassign / return this receiver? This will end the active fulfillment and rotate the PIN."
+    );
+
+    if (!ok) return;
+
     setBusy(true);
     setError(null);
+
     try {
-      await receiversAdminApi.unassignReturn(fulfillment.fulfillmentId, returnNote.trim() || null);
+      await receiversAdminApi.unassignReturn(
+        fulfillment.fulfillmentId,
+        `${returnedOnUtc}T00:00:00Z`,
+        returnNote.trim() || null
+      );
+
       await refresh();
     } catch (e) {
       setError(e?.message || "Return/unassign failed.");
@@ -578,29 +598,7 @@ export default function ReceiverRequestDetailsPage() {
                           <b>Returned</b>
                         </td>
                         <td>{fmt(fulfillment.unassignedOn)}</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <b>VC</b>
-                        </td>
-                        <td>
-                          {fulfillment.feederVcIssued ? (
-                            <Badge bg="success">Issued</Badge>
-                          ) : (
-                            <Badge bg="secondary">No</Badge>
-                          )}
-                          {fulfillment.didCredentialId ? (
-                            <div className="text-muted">
-                              <small>{fulfillment.didCredentialId}</small>
-                            </div>
-                          ) : null}
-                          {fulfillment.didError ? (
-                            <div className="text-danger">
-                              <small>{fulfillment.didError}</small>
-                            </div>
-                          ) : null}
-                        </td>
-                      </tr>
+                      </tr>                      
                     </tbody>
                   </Table>
 
@@ -634,12 +632,27 @@ export default function ReceiverRequestDetailsPage() {
 
                   <hr />
 
-                  <Form.Label>Return note</Form.Label>
-                  <Form.Control
-                    value={returnNote}
-                    onChange={(e) => setReturnNote(e.target.value)}
-                    maxLength={500}
-                  />
+                  <Row className="g-2">
+                    <Col md={6}>
+                      <Form.Label>Return date</Form.Label>
+                      <Form.Control
+                        type="date"
+                        value={returnedOnUtc}
+                        onChange={(e) => setReturnedOnUtc(e.target.value)}
+                        disabled={!canReturn || busy}
+                      />
+                    </Col>
+
+                    <Col md={6}>
+                      <Form.Label>Return note</Form.Label>
+                      <Form.Control
+                        value={returnNote}
+                        onChange={(e) => setReturnNote(e.target.value)}
+                        maxLength={500}
+                        disabled={!canReturn || busy}
+                      />
+                    </Col>
+                  </Row>
 
                   <div className="mt-2">
                     <Button variant="warning" disabled={!canReturn || busy} onClick={doReturn}>
