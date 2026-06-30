@@ -478,6 +478,11 @@ if (!usersStationDataLoading) {
             <td>{index + 1}</td>
             <td>{item.userName || 'N/A'}</td>
             <td>{new Date(item.startDate).toLocaleString()}</td>
+            <td>
+            {item.endDate
+                ? new Date(item.endDate).toLocaleString()
+                : "Current"}
+            </td>
             <td>{item.note || 'N/A'}</td>
             <td>
                 {item.createdOn
@@ -630,6 +635,7 @@ return (
                                 <th>#</th>
                                 <th>Username</th>
                                 <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Note</th>
                                 <th>Created On</th>
                                 <th>Created By</th>
