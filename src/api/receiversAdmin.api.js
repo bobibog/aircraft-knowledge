@@ -47,8 +47,9 @@ export const receiversAdminApi = {
     await axiosPrivate.post(`/receivers-admin/fulfillments/${fulfillmentId}/delivered`);
   },
 
-  async unassignReturn(fulfillmentId, note) {
+  async unassignReturn(fulfillmentId, returnedOnUtc, note) {
     await axiosPrivate.post(`/receivers-admin/fulfillments/${fulfillmentId}/return`, {
+      returnedOnUtc,
       note: note ?? null,
     });
   },
