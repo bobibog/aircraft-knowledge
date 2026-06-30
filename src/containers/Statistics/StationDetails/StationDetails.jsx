@@ -481,7 +481,9 @@ if (!usersStationDataLoading) {
             <td>
             {item.endDate
                 ? new Date(item.endDate).toLocaleString()
-                : "Current"}
+                : item.ownershipEvent === "Returned" && item.ownershipEventOn
+                    ? new Date(item.ownershipEventOn).toLocaleString()
+                    : "Current"}
             </td>
             <td>{item.note || 'N/A'}</td>
             <td>
