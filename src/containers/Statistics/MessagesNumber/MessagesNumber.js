@@ -369,6 +369,61 @@ const MessagesNumber = (props) =>{
         history.push(`/stationDetails/${id}`);
     };
     
+    const formatDateOnly = (dt) => {
+        if (!dt) return null;
+
+        try {
+            return dt.slice(0, 10);
+        } catch {
+            return null;
+        }
+    };
+
+    const getReceiverStateBadge = (object) => {
+        const ownershipEvent = (object.ownershipEvent || "").toLowerCase();
+
+        const hasFeeder =
+            !!object.feederName ||
+            !!object.feederEmail ||
+            !!object.feederPhone;
+
+        if (ownershipEvent === "returned") {
+            return (
+                <div>
+                    <ReactBootstrap.Badge bg="warning" text="dark">
+                        Inventory / Returned
+                    </ReactBootstrap.Badge>
+                    {object.ownershipEventOn ? (
+                        <div className="text-muted" style={{ fontSize: 12 }}>
+                            {formatDateOnly(object.ownershipEventOn)}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        }
+
+        if (hasFeeder) {
+            return (
+                <div>
+                    <ReactBootstrap.Badge bg="success">
+                        Hosted
+                    </ReactBootstrap.Badge>
+                    {ownershipEvent ? (
+                        <div className="text-muted" style={{ fontSize: 12 }}>
+                            {object.ownershipEvent}
+                        </div>
+                    ) : null}
+                </div>
+            );
+        }
+
+        return (
+            <ReactBootstrap.Badge bg="secondary">
+                No feeder
+            </ReactBootstrap.Badge>
+        );
+    };
+
     const stationDataParsed = (object, index) => {
         return (
             <tr 
@@ -390,6 +445,7 @@ const MessagesNumber = (props) =>{
                         'Inactive'
                     }
                 </td>
+                <td>{getReceiverStateBadge(object)}</td>
                 <td>{object.feederName}</td>
                 <td>{object.feederEmail}</td>
                 <td>{object.feederPhone || ''}</td>
@@ -1015,6 +1071,7 @@ const MessagesNumber = (props) =>{
                 <th>Country</th>
                 <th>Location Address</th>
                 <th>Last Time Seen</th>
+                <th>Receiver State</th>
                 <th>Feeder Name</th>
                 <th>Feeder Email</th>
                 <th>Feeder Phone</th>
