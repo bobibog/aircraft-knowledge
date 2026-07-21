@@ -10,6 +10,9 @@ import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 
+import "leaflet/dist/leaflet.css";
+import { applyLeafletMarkerFix } from "./leafletMarkerFix";
+
 //import reducer from './store/reducers/airline';
 import airlineReducer from './store/reducers/airline';
 import aircraftReducer from './store/reducers/aircraft';
@@ -83,6 +86,8 @@ const queries = {
   lg: '(max-width: 1919px)',
   or: '(orientation: portrait)', // we can check orientation also
 }
+
+applyLeafletMarkerFix();
 
 ReactDOM.render(
   <React.StrictMode>

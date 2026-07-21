@@ -229,3 +229,20 @@ export function fetchStation(id, isAuthenticated) {
       });
   };
 }
+
+export function releaseStationToInventory({
+  stationDbId,
+  releasedOnUtc,
+  note,
+  expectedCurrentUsersStationId
+}) {
+  return function () {
+    const url = `/receivers-admin/stations/${stationDbId}/release-to-inventory`;
+
+    return axiosPrivate.post(url, {
+      releasedOnUtc,
+      note,
+      expectedCurrentUsersStationId
+    });
+  };
+}
