@@ -241,17 +241,17 @@ const AuthContextProvider = props => {
                 //in authContext state and localStorage, to be able to 
                 //embedd token in the next api request fetchMe to retreive
                 //all other user data that we need (username, role, ...)
-                localStorage.setItem('token',response.data.token);
+                localStorage.setItem('token', response.data.token);
                 setAuthUser({token: response.data.token, ...authUser});
-                fetchMe(
+                return fetchMe(
                     response.data.token
                     //,response.data.refreshToken
                     //,response.data.expires
                     //,response.data.username
                 )
-                .then(res=>{        
-                    alert('Nice to see you again ' + response.data.user.userName)
-                })
+                // .then(res=>{        
+                //     alert('Nice to see you again ' + response.data.user.userName)
+                // })
                 
                 /*
                 const token = response.data.token;
